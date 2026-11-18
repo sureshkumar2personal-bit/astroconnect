@@ -27,10 +27,11 @@ old `astro-textbased` or `astro-platform-admin` projects.
 | # | Application    | Audience                          | Code folder       | Documentation          |
 |---|----------------|-----------------------------------|-------------------|------------------------|
 | 1 | User App       | People seeking astrology services | `user/`           | `docs/01-user-app/`    |
-| 2 | Astrologer App | Astrologers providing services    | `astrologer/`     | Not started            |
+| 2 | Astrologer App | Astrologers providing services    | `astrologer/`     | [`docs/02-astrologer-app/`](docs/02-astrologer-app/00_ASTROLOGER_APP_REVIEW_LIST.md) — **Draft** (see §7) |
 | 3 | Platform Admin | Platform operators                | `platform-admin/` | Not started            |
 
-Only the User App documentation is currently in progress.
+User App and Astrologer App documentation are in progress. Platform Admin
+documentation has not started.
 
 ## 3. Documentation map — User App
 
@@ -124,3 +125,27 @@ detailed rules are in the owning file.
 Cross-cutting questions (languages, platforms, privacy, accessibility, offline
 behaviour) are tracked as `P-GL-xx` in
 [`00_USER_APP_REVIEW_LIST.md` §4](docs/01-user-app/00_USER_APP_REVIEW_LIST.md#4-pending-discussion-register).
+
+## 7. Documentation map — Astrologer App
+
+**Documentation status: Draft.** Status values, confirmed decisions, open
+questions, and cross-app conflicts are tracked in
+[`docs/02-astrologer-app/00_ASTROLOGER_APP_REVIEW_LIST.md`](docs/02-astrologer-app/00_ASTROLOGER_APP_REVIEW_LIST.md).
+
+| No. | File | Topic |
+|-----|------|-------|
+| 00 | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](docs/02-astrologer-app/00_ASTROLOGER_APP_REVIEW_LIST.md) | Review list: decision register (AD-xx), open questions (AP-xx-yy), cross-app conflicts with the User App (X-xx), rejected proposals, review log |
+| 01 | [`01_HOME_SCREEN.md`](docs/02-astrologer-app/01_HOME_SCREEN.md) | Home Screen specification |
+| 02 | [`02_TEXT_BASED_QUESTIONS.md`](docs/02-astrologer-app/02_TEXT_BASED_QUESTIONS.md) | Text-Based Questions specification |
+
+**Current progress**
+- Home Screen specification: drafted.
+- Text-Based Questions specification: drafted.
+- Both specifications passed documentation validation.
+- Both are **awaiting Product Owner approval**; neither is approved or
+  implementation-ready.
+- Astrologer App UI implementation: **not started**.
+
+Open questions and cross-app conflicts (including X-12) remain open and are
+tracked only in the Astrologer App review list. They do not change any User
+App decision.
