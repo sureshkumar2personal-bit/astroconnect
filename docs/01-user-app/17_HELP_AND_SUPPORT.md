@@ -38,6 +38,8 @@ This module owns no confirmed decisions.
 |----|-------|-------------|
 | D-08 | Text Question dispute | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-09 | Services without a dispute option | [07](07_APPOINTMENT_SERVICE.md), [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md) |
+| D-19 | One dispute; 3-day dispute answer; Admin Review | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-27 | Platform Complaint after a dispute answer | [06](06_TEXT_QUESTION_SERVICE.md) |
 
 ## 5. User flows
 
@@ -54,7 +56,9 @@ No confirmed rules are owned by this module.
 - Disputes exist only for Text Questions (D-08 → [06](06_TEXT_QUESTION_SERVICE.md));
   Appointment, Instant Call, and Instant Chat have no dispute option
   (D-09 → [07](07_APPOINTMENT_SERVICE.md), [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md)).
-- How support relates to Text Question disputes: `PENDING DISCUSSION` (P-17-04).
+- Unanswered disputes move to Admin Review after 3 days (D-19 → [06](06_TEXT_QUESTION_SERVICE.md)).
+- A Platform Complaint about an inappropriate or improper Text Question answer can be raised within 7 days after the dispute answer and is handled separately from disputes (D-27 → [06](06_TEXT_QUESTION_SERVICE.md)).
+- How support relates to Text Question disputes and Platform Complaints: `PENDING DISCUSSION` (P-17-04).
 
 ## 8. States and edge cases
 
@@ -99,3 +103,4 @@ No confirmed criteria owned by this module yet.
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created. |
+| 2026-11-19 | Referenced D-19 (Admin Review) and D-27 (Platform Complaint). |

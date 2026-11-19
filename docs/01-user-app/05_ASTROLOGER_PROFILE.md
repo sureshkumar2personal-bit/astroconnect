@@ -42,6 +42,8 @@ This module owns no confirmed decisions.
 | D-04 | Subscription prerequisite for Text Questions | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-05 | Purchasing question slots from campaigns | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-10 | Reviews after consultations | [07](07_APPOINTMENT_SERVICE.md), [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md) |
+| D-17 | Text Question rating and review | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-20 | Campaigns and pricing shown to users (including optional special label) | [06](06_TEXT_QUESTION_SERVICE.md) |
 
 ## 5. User flows
 
@@ -55,7 +57,7 @@ Where a flow begins on this page, its rules come from the owning file:
 
 `PENDING DISCUSSION`:
 - Profile fields (P-05-01).
-- Display of active campaigns (P-05-02); what a campaign specifies (P-06-13).
+- Display of active campaigns (P-05-02). Confirmed campaign content: General/Personal options, original price, discount percentage, final payable price, optional special title/label (D-20 → [06](06_TEXT_QUESTION_SERVICE.md)); per-user purchase limit (P-06-13).
 - Display and sorting of reviews (P-05-03).
 - Availability display (P-05-04).
 - Share or report options (P-05-05).
@@ -116,3 +118,4 @@ verified in their owning files.
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created. |
+| 2026-11-19 | Referenced D-17 (Text Question reviews) and D-20 (campaign content and pricing display). |

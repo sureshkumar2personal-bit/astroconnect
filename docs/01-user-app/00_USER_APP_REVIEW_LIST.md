@@ -14,9 +14,17 @@ specification, every confirmed decision, and every `PENDING DISCUSSION` item.
 2. A decision is added to §3 only when the product owner confirms it.
 3. Every open question is listed in §4 with an ID. Specification files refer
    to these IDs instead of guessing.
-4. When a pending item is answered, **remove it from §4**, add or amend the
-   decision in §3, record the resolution in §7 with the date, and update the
-   owning specification. **Retired IDs are never reused.**
+4. When a product-owner question is answered and finalized (per [`CLAUDE.md`](../../CLAUDE.md) §5):
+   keep its **original ID**; change its status to **Resolved**; record the
+   finalized decision in the decision register (§3); keep the question and
+   its resolution history in §4 — do not remove it; record the resolution
+   date in the review log (§7); and do **not** mark it **Retired**.
+   **Retired** is used only for questions that are genuinely withdrawn,
+   obsolete, duplicate, or invalid, following the existing retirement process
+   (remove from the open list, record the reason and date in the review log,
+   add the ID to the retired-IDs list). Resolved and Retired IDs are never
+   reused. Keep Open, Resolved, and Retired counts accurate.
+   Update the owning specification.
 5. Before a specification is marked **Approved**, run the checklists in §5
    and §6 and record the approval in §7.
 
@@ -37,7 +45,7 @@ items use `P-GL-<nn>`.
 | 03 | `03_HOME.md` | Home | Draft | 3 | |
 | 04 | `04_EXPLORE_AND_ASTROLOGER_DISCOVERY.md` | Explore and astrologer discovery | Draft | 4 | |
 | 05 | `05_ASTROLOGER_PROFILE.md` | Astrologer profile | Draft | 6 | |
-| 06 | `06_TEXT_QUESTION_SERVICE.md` | Text-based Question service | Draft | 16 | |
+| 06 | `06_TEXT_QUESTION_SERVICE.md` | Text-based Question service | Draft | 8 | |
 | 07 | `07_APPOINTMENT_SERVICE.md` | Appointment service | Draft | 10 | |
 | 08 | `08_INSTANT_CALL.md` | Instant Call | Draft | 8 | |
 | 09 | `09_INSTANT_CHAT.md` | Instant Chat | Draft | 8 | |
@@ -45,11 +53,11 @@ items use `P-GL-<nn>`.
 | 11 | `11_ACTIVITY_AND_SERVICE_HISTORY.md` | Activity and service history | Draft | 5 | |
 | 12 | `12_USER_PROFILE_AND_SETTINGS.md` | User profile and settings | Draft | 4 | |
 | 13 | `13_BIRTH_PROFILES_AND_KUNDLI.md` | Birth profiles and Kundli | Draft | 9 | |
-| 14 | `14_FOLLOWING_AND_SUBSCRIPTIONS.md` | Following and subscriptions | Draft | 5 | |
+| 14 | `14_FOLLOWING_AND_SUBSCRIPTIONS.md` | Following and subscriptions | Draft | 6 | |
 | 15 | `15_NOTIFICATIONS.md` | Notifications | Draft | 8 | |
-| 16 | `16_REMEDY_TRACKER.md` | Remedy tracker | Draft | 6 | |
+| 16 | `16_REMEDY_TRACKER.md` | Remedy tracker | Draft | 5 | |
 | 17 | `17_HELP_AND_SUPPORT.md` | Help and support | Draft | 5 | |
-| 18 | [`18_PENDING_DECISIONS_REPORT.md`](18_PENDING_DECISIONS_REPORT.md) | Pending decisions report (131 pending questions in 27 decision groups) | Draft / Reference | — | |
+| 18 | [`18_PENDING_DECISIONS_REPORT.md`](18_PENDING_DECISIONS_REPORT.md) | Pending decisions report (snapshot as of 2026-11-17: 131 pending questions in 27 decision groups) | Draft / Reference | — | |
 | GL | — | Cross-cutting | — | 5 | |
 
 ---
@@ -70,16 +78,31 @@ instead of repeating the full rule.
 | D-04 | A user must **subscribe** to an astrologer before asking that astrologer a question. | 06 | 05, 14 | ✅ |
 | D-05 | Users can purchase **multiple question slots** from an astrologer's **active campaigns**. | 06 | 05, 10 | ✅ |
 | D-06 | A purchased slot can be **used immediately or held** for later. There is **no waiting period**: the user can submit a question immediately after purchase. **Holding a slot does not pause or extend** its expiry period. | 06 | 11 | ✅ |
-| D-07 | A purchased question slot must be used **within 7 days from its purchase date**. An unused slot **expires automatically after 7 days**. **No refund** is given for an expired unused slot. | 06 | 10, 11, 15 | ✅ |
+| D-07 | A purchased question slot must be used by the **earlier of (1) 7 days from its purchase date and (2) the campaign expiry date**. An unused slot **expires automatically** at that point. **No refund** is given for an expired unused slot, even if expiry reminders were sent. *(Amended 2026-11-19.)* | 06 | 10, 11, 15 | ✅ |
 | D-08 | Text Questions have a **dispute** option. A dispute can be raised **within 7 days after receiving the astrologer's answer**; its purpose is to **request an additional answer**. | 06 | 11, 15 | ✅ |
 | D-09 | Appointments, Instant Calls, and Instant Chats **do not** have a dispute option. | 07, 08, 09 | 11 | ✅ |
 | D-10 | Users can **submit a review after** an Appointment, Instant Call, or Instant Chat consultation. | 07, 08, 09 | 05, 11 | ✅ |
-| D-11 | If an astrologer prescribes or attaches a **remedy in any service**, it must also appear in the user's **Remedy Tracker**. | 16 | 06–09 | ✅ |
+| D-11 | If an astrologer prescribes or attaches a **remedy in any service** — including a Text Question answer and a Dispute Answer — it must also appear in the user's **Remedy Tracker**. *(Amended 2026-11-19.)* | 16 | 06–09 | ✅ |
 | D-12 | Users can initially save **unlimited birth profiles**. Future free/paid limits are **not finalized** (see P-13-07). | 13 | 02, 12 | ✅ |
 | D-13 | Users can upload birth-chart files/images in **JPG, PNG, or PDF** format. | 13 | — | ✅ |
 | D-14 | If **DOB, birth time, or birth place** is changed, the generated **Kundli updates automatically**. Uploaded JPG/PNG/PDF files **remain unchanged**. | 13 | — | ✅ |
 | D-15 | **Critical notifications are always ON** and cannot be disabled. These include **appointment, question, payment/wallet, subscription, security, and account** alerts. | 15 | 12 | ✅ |
 | D-16 | Confirmed notification channels: **push** and **in-app**. **Email, WhatsApp, and SMS are not confirmed** (see P-15-01). | 15 | — | ✅ |
+| D-17 | Users can **rate (1–5 stars) and review** a Text Question answer immediately after it is delivered. Rating and review do not block or prevent a dispute. | 06 | 05, 11 | ✅ |
+| D-18 | The astrologer must answer a submitted Text Question within **30 days** (IST calendar days, D-28). If it is not answered within the deadline, the system automatically cancels the question and the user is refunded. | 06 | 10, 11 | ✅ |
+| D-19 | **Disputes:** one dispute per question, raised within 7 days after the answer (D-08). The astrologer answers the dispute once, within **3 days**; if it is not answered within 3 days, the dispute moves to **Admin Review**. No further dispute can be raised after the dispute answer. | 06 | 11, 17 | ✅ |
+| D-20 | **Campaigns and pricing (user view):** a campaign offers General only, Personal only, or both. General Questions are answered without the user's Horoscope/Birth Chart; Personal Questions are answered based on it. General and Personal have separate prices and optional, separate discounts (maximum 99%). The user sees the **original price, discount percentage, and final payable price**. A special or occasion-based campaign is shown as a normal campaign with an optional special title/label, not as a separate workflow. Open Questions (asked without a campaign) also offer General and Personal. | 06 | 05, 10 | ✅ |
+| D-21 | **Campaign changes protect purchases:** cancellation, deletion, or slot reduction of a campaign by the astrologer does not cancel or invalidate already purchased/submitted questions; the astrologer must still answer them. No refund is issued merely because a campaign was cancelled or deleted. If the astrologer extends a campaign, the extension also applies to unused purchased slots; reactivating a campaign does not restore already expired slots. After a campaign is cancelled or deleted, a purchased, unused slot remains usable until its original deadline (D-07: the earlier of purchase + 7 days and the campaign's original expiry date); cancellation or deletion neither expires it immediately nor extends or resets that deadline. *(Amended 2026-11-19.)* | 06 | 11 | ✅ |
+| D-22 | **User question:** question text has a maximum of **1,000** characters. General Questions allow no attachments. Personal Questions allow up to **2** attachments (Horoscope/Birth Chart files or images). | 06 | — | ✅ |
+| D-23 | **Answers:** the astrologer's answer is text (typed, or converted from voice), with a maximum of **1,500** characters, up to 3 attachments (JPEG, PDF, TXT), and links. Audio-only answers are not provided. An answer cannot be edited after it is delivered. | 06 | — | ✅ |
+| D-24 | Users **cannot manually cancel** a paid, submitted Text Question. | 06 | 11 | ✅ |
+| D-25 | **Text Question statuses shown to users:** New / Received (question submitted), Pending (the astrologer has opened the question), Completed (answer delivered). The astrologer-side "Settled" status and settlement details are internal and are not shown in the User App. | 06 | 11 | ✅ |
+| D-26 | **Expiry warning and reminders:** if a campaign is within 3 days of expiry, the user is warned before purchase. Expiry reminders are sent **3 days, 2 days, and 1 day** before expiry. Reminders do not change the expiry or refund rules. | 06 | 15 | ✅ |
+| D-27 | **Platform Complaint:** after a dispute answer, the user may raise a separate Platform Complaint within 7 days about an inappropriate or improper answer. The platform handles complaints separately from disputes. | 06 | 17 | ✅ |
+| D-28 | **IST calendar days:** slot expiry, answer deadlines, dispute windows, dispute answer deadlines, and reminder timing use IST calendar-day counting. | 06 | 07, 10, 15 | ✅ |
+| D-29 | **Remedy completion:** only the user can mark a remedy Completed. The user may upload a supporting photo or document, which the prescribing astrologer can view. | 16 | 06 | ✅ |
+| D-30 | **Astrologer DND / Planned Unavailability:** during this period the astrologer is unavailable for all services. Already-booked appointments falling within the period are cancelled and the user receives a **full refund**; new appointment bookings are blocked for the unavailable dates. | 07 | 06, 10, 15 | ✅ |
+| D-31 | **Subscription benefit questions:** a Silver subscription includes **1** benefit question, Gold includes **3**, and Platinum includes **4**. Benefit questions are shown separately from additional normal paid questions purchased by subscribers. | 14 | 06 | ✅ |
 
 ### Documentation process decisions
 
@@ -95,9 +118,13 @@ instead of repeating the full rule.
 
 ## 4. PENDING DISCUSSION register
 
-All items below are **Open**. None of them may be treated as a decision
-until confirmed by the product owner. Resolved items are removed from this
-list and recorded in §7; their IDs are retired and never reused.
+**Open** items may not be treated as decisions until confirmed by the
+product owner. When a question is answered, it stays in this list with its
+original ID and status **Resolved**, and the decision is recorded in §3 and
+the review log §7 (§1, step 4). **Retired** applies only to withdrawn,
+obsolete, duplicate, or invalid questions. Resolved and Retired IDs are never
+reused. Questions retired under the previous process are listed in §7 and
+are not restored.
 
 ### GL — Cross-cutting
 
@@ -171,22 +198,14 @@ list and recorded in §7; their IDs are retired and never reused.
 
 | ID | Question | Status |
 |----|----------|--------|
-| P-06-01 | How do subscription and slot purchase relate? After subscribing, must the user still buy a slot, or does a subscription include slots? | Open |
 | P-06-03 | What happens to held slots and already-asked questions if the subscription ends or is cancelled? | Open |
-| P-06-04 | What happens to purchased slots if the campaign ends or changes? | Open |
-| P-06-05 | Can users submit a review for a Text Question? | Open |
 | P-06-06 | Question length, format, and allowed attachments. | Open |
 | P-06-07 | Which birth profile is attached to a question, and how is it chosen? | Open |
-| P-06-08 | Astrologer answer deadline, and what happens (including refund) if no answer is given. | Open |
-| P-06-09 | How many disputes can be raised per question? | Open |
-| P-06-10 | Who handles a dispute, and what is the deadline for the additional answer? | Open |
-| P-06-11 | Allowed answer formats (text, voice, file, other). | Open |
 | P-06-12 | Confirm that one slot equals one question. | Open |
 | P-06-13 | Define a campaign from the user's point of view: what does it specify (e.g. price per slot, number of slots offered, start and end dates), and is there a limit on how many slots a user can buy from one campaign? | Open |
 | P-06-14 | Can a user edit or cancel a question after submitting it? If cancelled, is the slot returned? | Open |
 | P-06-15 | Confirm that a slot purchased from an astrologer's campaign can be used only for questions to that same astrologer. | Open |
 | P-06-16 | What must the user provide when raising a dispute (e.g. reason, details)? | Open |
-| P-06-17 | How are the 7-day periods measured (e.g. exactly 7 × 24 hours from the purchase or answer time, or until the end of the 7th calendar day), and in which time zone? Applies to slot expiry (D-07) and the dispute window (D-08). | Open |
 
 ### 07 — Appointment service
 
@@ -285,6 +304,7 @@ list and recorded in §7; their IDs are retired and never reused.
 | P-14-03 | Subscription price and duration. | Open |
 | P-14-04 | Renewal and auto-renewal rules. | Open |
 | P-14-05 | Cancellation and refund rules. | Open |
+| P-14-06 | What validity or expiry applies to subscription benefit questions, and do the question-slot rules (for example, D-07 expiry) apply to them? | Open |
 
 ### 15 — Notifications
 
@@ -304,7 +324,6 @@ list and recorded in §7; their IDs are retired and never reused.
 | ID | Question | Status |
 |----|----------|--------|
 | P-16-01 | Remedy fields shown. | Open |
-| P-16-02 | Can the user mark progress or completion? | Open |
 | P-16-03 | Are remedy reminders supported? | Open |
 | P-16-04 | Can users add their own remedies? | Open |
 | P-16-05 | Does each remedy link back to its original consultation? | Open |
@@ -373,8 +392,10 @@ Run this across the whole document set.
 | 2026-11-17 | `00` | Gaps found while drafting 02–17 added as open questions: P-02-07, P-05-06, P-06-14, P-06-15, P-06-16, P-06-17, P-07-10, P-08-08, P-09-08, P-10-09, P-13-09, P-15-07, P-15-08. Module statuses for 02–17 set to Draft. | — | Awaiting review |
 | 2026-11-17 | `00` | The 13 open questions added while drafting 02–17 approved as `PENDING DISCUSSION`. | Product owner | Approved |
 | 2026-11-17 | `01`, `06`, `12`, `15` | Approved interpretations applied (no decision wording changed, no question resolved): dispute window wording linked to P-06-17; email/WhatsApp/SMS recorded as unconfirmed (P-15-01); security/account → modules 02/12 is a cross-reference only, not a new category; critical notifications cannot be disabled in app settings, phone-level push permission behaviour pending (P-15-06). `01` "planned" labels replaced with links. | Product owner | Approved |
-
-**Retired IDs (never reuse):** P-06-02
+| 2026-11-19 | `00`, `05`, `06`, `07`, `10`, `11`, `14`, `15`, `16`, `17` | Cross-app alignment with Astrologer App decisions. **Amended:** D-07 (earlier of 7 days from purchase or campaign expiry; no refund even after reminders), D-11 (remedies in Dispute Answers included). **Added:** D-17 – D-30. **Resolved and retired:** P-06-04 → D-21; P-06-05 → D-17; P-06-08 → D-18; P-06-09, P-06-10 → D-19; P-06-11 → D-23; P-06-17 → D-28; P-16-02 → D-29. | Product owner | Approved |
+| 2026-11-19 | `00` | Partially answered but kept **Open**: P-06-06 (length and attachment count confirmed in D-22; user attachment file types and size not confirmed — no 10 MB limit assumed), P-06-13 (campaign contents confirmed in D-20; per-user purchase limit not confirmed), P-06-14 (manual cancellation not allowed, D-24; editing a submitted question not confirmed), P-07-05 (full refund for DND cancellations, D-30; other appointment refunds not confirmed), P-11-03 (Text Question statuses in D-25; other services not confirmed), P-15-03 (expiry reminders in D-26; full event list not confirmed), P-17-04, P-17-05 (Platform Complaint in D-27; support relationship not confirmed). | — | Recorded |
+| 2026-11-19 | `00`, `06`, `14` | **Fourth pass:** D-21 amended (purchased unused slots stay usable until their original deadline after cancellation/deletion). D-31 added (subscription benefit questions: Silver 1, Gold 3, Platinum 4; shown separately). **P-06-01 resolved and retired** → D-31. **P-14-06 added** (validity of benefit questions). Text Question statuses (D-25) unchanged: Settled remains internal. | Product owner | Approved |
+**Retired IDs (never reuse):** P-06-02, P-06-04, P-06-05, P-06-08, P-06-09, P-06-10, P-06-11, P-06-17, P-16-02, P-06-01
 
 ---
 

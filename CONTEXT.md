@@ -58,7 +58,7 @@ Status values are tracked in
 | 15 | [`15_NOTIFICATIONS.md`](docs/01-user-app/15_NOTIFICATIONS.md) | Notifications |
 | 16 | [`16_REMEDY_TRACKER.md`](docs/01-user-app/16_REMEDY_TRACKER.md) | Remedy tracker |
 | 17 | [`17_HELP_AND_SUPPORT.md`](docs/01-user-app/17_HELP_AND_SUPPORT.md) | Help and support |
-| 18 | [`18_PENDING_DECISIONS_REPORT.md`](docs/01-user-app/18_PENDING_DECISIONS_REPORT.md) | Pending decisions report — consolidated report covering all 131 pending questions in 27 decision groups (reference, not a module specification) |
+| 18 | [`18_PENDING_DECISIONS_REPORT.md`](docs/01-user-app/18_PENDING_DECISIONS_REPORT.md) | Pending decisions report — consolidated report covering the 131 pending questions as of 2026-11-17, in 27 decision groups (snapshot reference, not a module specification) |
 
 All module files are currently in **Draft** status.
 
@@ -76,17 +76,17 @@ and the owning file. Open items are listed in the
 | **Services** (tab) | Bottom-navigation tab for new services. | D-02 → 01 |
 | **Activity** (tab) | Bottom-navigation tab for services already purchased or used. | D-03 → 01; details → 11 |
 | **Profile** (tab) | One of the five bottom-navigation tabs. Contents: `PENDING DISCUSSION` (P-12-04). | D-01 → 01; details → 12 |
-| **Text Question** | A service in which the user asks an astrologer a written question and receives an answer. | D-04 – D-08 → 06 |
+| **Text Question** | A service in which the user asks an astrologer a written question and receives an answer. | D-04 – D-08, D-17 – D-28 → 06 |
 | **Appointment** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-07-09). | D-09, D-10 → 07 |
 | **Instant Call** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-08-07). | D-09, D-10 → 08 |
 | **Instant Chat** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-09-07). | D-09, D-10 → 09 |
-| **Subscribe / Subscription** | A user's subscription to an astrologer. Nature (free/paid, duration, renewal): `PENDING DISCUSSION` (P-14-02 – P-14-05). | D-04 → 06; details → 14 |
+| **Subscribe / Subscription** | A user's subscription to an astrologer. Benefit questions: Silver 1, Gold 3, Platinum 4 (D-31). Nature (free/paid, duration, renewal): `PENDING DISCUSSION` (P-14-02 – P-14-06). | D-04 → 06; D-31 → 14 |
 | **Follow** | Whether "Follow" is a separate action from "Subscribe": `PENDING DISCUSSION` (P-14-01). | → 14 |
-| **Campaign** | An astrologer's active offering from which users purchase question slots. Definition: `PENDING DISCUSSION` (P-06-13; owning file [`06_TEXT_QUESTION_SERVICE.md`](docs/01-user-app/06_TEXT_QUESTION_SERVICE.md)). | D-05 → 06 |
+| **Campaign** | An astrologer's active offering from which users purchase question slots. User-facing content: D-20; per-user purchase limit: `PENDING DISCUSSION` (P-06-13; owning file [`06_TEXT_QUESTION_SERVICE.md`](docs/01-user-app/06_TEXT_QUESTION_SERVICE.md)). | D-05 → 06 |
 | **Question slot** | A purchased entitlement used to ask an astrologer a Text Question. | D-05, D-06, D-07 → 06 |
-| **Dispute** | A Text Question request for an additional answer from the astrologer. | D-08 → 06; D-09 → 07, 08, 09 |
-| **Review** | Feedback a user submits after a consultation. For Text Questions: `PENDING DISCUSSION` (P-06-05). | D-10 → 07, 08, 09 |
-| **Remedy** | A remedy prescribed or attached by an astrologer in a service. | D-11 → 16 |
+| **Dispute** | A Text Question request for an additional answer from the astrologer. | D-08, D-19 → 06; D-09 → 07, 08, 09 |
+| **Review** | Feedback a user submits after a consultation or a Text Question answer. | D-10 → 07, 08, 09; D-17 → 06 |
+| **Remedy** | A remedy prescribed or attached by an astrologer in a service. | D-11, D-29 → 16 |
 | **Remedy Tracker** | The User App area where the user's remedies appear. | D-11 → 16 |
 | **Birth profile** | A saved set of birth details. Fields: `PENDING DISCUSSION` (P-13-01). | D-12 → 13 |
 | **Kundli** | A birth chart generated from a birth profile's birth details. | D-14 → 13 |
@@ -119,6 +119,21 @@ detailed rules are in the owning file.
 | D-14 | Kundli update when birth details change | 13 |
 | D-15 | Critical notifications | 15 |
 | D-16 | Notification channels | 15 |
+| D-17 | Text Question rating and review | 06 |
+| D-18 | Text Question 30-day answer deadline | 06 |
+| D-19 | Dispute limits, 3-day dispute answer, Admin Review | 06 |
+| D-20 | Campaigns and pricing shown to users | 06 |
+| D-21 | Campaign changes protect purchases | 06 |
+| D-22 | User question length and attachments | 06 |
+| D-23 | Answer format and length | 06 |
+| D-24 | No manual cancellation of a submitted question | 06 |
+| D-25 | Text Question statuses shown to users | 06 |
+| D-26 | Expiry warning and reminders | 06 |
+| D-27 | Platform Complaint | 06 |
+| D-28 | IST calendar-day counting | 06 |
+| D-29 | Remedy completion by the user | 16 |
+| D-30 | Astrologer DND / Planned Unavailability and appointments | 07 |
+| D-31 | Subscription benefit questions | 14 |
 
 ## 6. Pending global questions
 
@@ -146,6 +161,6 @@ questions, and cross-app conflicts are tracked in
   implementation-ready.
 - Astrologer App UI implementation: **not started**.
 
-Open questions and cross-app conflicts (including X-12) remain open and are
+Remaining open questions and cross-app conflicts (including X-12, on hold) are
 tracked only in the Astrologer App review list. They do not change any User
 App decision.

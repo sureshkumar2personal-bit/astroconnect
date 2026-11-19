@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-09, D-10 (shared with 08, 09) |
+| Owned decisions | D-09, D-10 (shared with 08, 09), D-30 |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -41,6 +41,7 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 |----|----------|
 | D-09 | Appointments, Instant Calls, and Instant Chats **do not** have a dispute option. |
 | D-10 | Users can **submit a review after** an Appointment, Instant Call, or Instant Chat consultation. |
+| D-30 | **Astrologer DND / Planned Unavailability:** during this period the astrologer is unavailable for all services. Already-booked appointments falling within the period are cancelled and the user receives a **full refund**; new appointment bookings are blocked for the unavailable dates. |
 
 **Referenced decisions**
 
@@ -50,6 +51,7 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 | D-03 | Purpose of the Activity tab | [01](01_NAVIGATION_AND_STRUCTURE.md) |
 | D-11 | Remedies in the Remedy Tracker | [16](16_REMEDY_TRACKER.md) |
 | D-15 | Critical notifications (includes appointment alerts) | [15](15_NOTIFICATIONS.md) |
+| D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
 
 ## 5. User flows
 
@@ -61,6 +63,7 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 5. After the consultation, the user can submit a review (D-10). Review
    content: `PENDING DISCUSSION` (P-07-10).
 6. Reschedule or cancel: `PENDING DISCUSSION` (P-07-04, P-07-05).
+7. If the astrologer sets DND / Planned Unavailability covering a booked appointment, the appointment is cancelled, the user receives a full refund, and new bookings are blocked for those dates (D-30).
 
 ## 6. Screens and content
 
@@ -73,6 +76,7 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 | R-07-01 | An appointment has no dispute option. | D-09 |
 | R-07-02 | The user can submit a review after the appointment consultation. | D-10 |
 | R-07-03 | A remedy prescribed or attached during an appointment must also appear in the user's Remedy Tracker. | D-11 → [16](16_REMEDY_TRACKER.md) |
+| R-07-04 | An appointment falling within the astrologer's DND / Planned Unavailability is cancelled with a full refund to the user, and those dates are blocked for new bookings. | D-30 |
 
 **Pending rules:** booking window (P-07-01), durations (P-07-02),
 rescheduling and cancellation (P-07-04), refunds (P-07-05), no-shows
@@ -86,7 +90,8 @@ rescheduling and cancellation (P-07-04), refunds (P-07-05), no-shows
 | Consultation completed | Review can be submitted (D-10) |
 | Rescheduling or cancellation | `PENDING DISCUSSION` (P-07-04) |
 | User or astrologer no-show | `PENDING DISCUSSION` (P-07-06) |
-| Refund | `PENDING DISCUSSION` (P-07-05) |
+| Refund | Full refund when cancelled because of the astrologer's DND / Planned Unavailability (D-30); other cases `PENDING DISCUSSION` (P-07-05) |
+| Booked appointment falls within the astrologer's DND / Planned Unavailability | Cancelled; full refund; dates blocked for new bookings (D-30) |
 | Payment fails | `PENDING DISCUSSION` (→ [10](10_WALLET_AND_PAYMENTS.md)) |
 
 Appointment statuses: `PENDING DISCUSSION` (P-11-03).
@@ -117,7 +122,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | P-07-02 | Durations |
 | P-07-03 | Consultation mode |
 | P-07-04 | Rescheduling and cancellation |
-| P-07-05 | Refunds |
+| P-07-05 | Refunds (DND / Planned Unavailability cancellations confirmed in D-30) |
 | P-07-06 | No-shows |
 | P-07-07 | Reminder timing |
 | P-07-08 | Subscription requirement |
@@ -145,3 +150,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-09, D-10. |
+| 2026-11-19 | D-30 added (astrologer DND / Planned Unavailability: booked appointments cancelled with full refund; dates blocked). D-28 referenced. R-07-04 added. |

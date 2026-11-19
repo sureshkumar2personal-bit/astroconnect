@@ -58,13 +58,22 @@ AstroConnect is being built from scratch.
 - Every unresolved question must be marked **`PENDING DISCUSSION`** and given
   an ID in the application's review list (e.g. `P-06-03`).
 - Never silently turn a `PENDING DISCUSSION` item into a decision. A pending
-  item is closed only when the user confirms the answer. When it is resolved:
-  1. **Remove** the question from the Open Questions (`PENDING DISCUSSION`)
-     list in the review list.
-  2. **Never reuse** its retired ID.
-  3. **Record** the confirmed decision in the decision register (new or
-     amended `D-xx` entry).
-  4. **Record** the resolution, with the date, in the review log.
+  item is closed only when the user confirms the answer. When it is answered:
+  1. **Keep** the question in the review list with its **original ID** and set
+     its status to **Resolved**, recording the finalized answer.
+  2. **Record** the confirmed decision in the decision register (new or
+     amended `D-xx` / `AD-xx` entry) and reference it from the resolved
+     question.
+  3. **Record** the resolution, with the date, in the review log.
+  4. Do **not** mark a question **Retired** merely because it has been
+     answered.
+- **Retired** is reserved for questions that are genuinely withdrawn,
+  obsolete, duplicated, or invalid. Retire such a question following the
+  existing retirement process: remove it from the open list, record the reason
+  and date in the review log, and add its ID to the retired-IDs list.
+- **Never reuse** a resolved or retired ID.
+- Keep status counts and summaries (open, resolved, retired) in the review list
+  accurate whenever a question's status changes.
 - **Single owner per rule.**
   - The decision register in each application's `00_…_REVIEW_LIST.md` is the
     official decision log. It records each confirmed decision **verbatim**,

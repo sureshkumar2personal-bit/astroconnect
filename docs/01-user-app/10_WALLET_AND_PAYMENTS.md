@@ -42,6 +42,10 @@ This module owns no confirmed decisions.
 | D-05 | Purchasing question slots from campaigns | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-07 | Question slot expiry (includes the no-refund rule for expired slots) | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-15 | Critical notifications (includes payment/wallet alerts) | [15](15_NOTIFICATIONS.md) |
+| D-18 | Refund when a Text Question is not answered within 30 days | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-20 | Price display: original price, discount percentage, final payable price | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-30 | Full refund for appointments cancelled by astrologer DND / Planned Unavailability | [07](07_APPOINTMENT_SERVICE.md) |
 
 ## 5. User flows
 
@@ -61,6 +65,10 @@ This module owns no confirmed decisions.
 No confirmed rules are owned by this module.
 
 Referenced rules that affect payments:
+- Refund for an unanswered Text Question: D-18 → [06](06_TEXT_QUESTION_SERVICE.md).
+- Full refund for appointments cancelled by astrologer DND / Planned Unavailability: D-30 → [07](07_APPOINTMENT_SERVICE.md).
+- Price display (original price, discount percentage, final payable price): D-20 → [06](06_TEXT_QUESTION_SERVICE.md).
+- Where refunds go: `PENDING DISCUSSION` (P-10-05).
 - Question slot purchase: D-05 → [06](06_TEXT_QUESTION_SERVICE.md).
 - No refund for expired unused question slots: D-07 → [06](06_TEXT_QUESTION_SERVICE.md).
 
@@ -106,7 +114,6 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | ID | Topic |
 |----|-------|
 | P-01-01 | Wallet entry point |
-| P-06-08 | Refund if a question is not answered |
 | P-07-05 | Appointment refunds |
 | P-08-02 | Minimum balance for Instant Call |
 | P-08-04 | Instant Call refunds |
@@ -123,3 +130,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created. |
+| 2026-11-19 | Referenced D-18, D-20, D-28, D-30 (refund cases and price display). |

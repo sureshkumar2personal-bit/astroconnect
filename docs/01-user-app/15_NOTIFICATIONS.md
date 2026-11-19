@@ -40,6 +40,15 @@ delivery channels, and what the user can control.
 | D-15 | **Critical notifications are always ON** and cannot be disabled. These include **appointment, question, payment/wallet, subscription, security, and account** alerts. |
 | D-16 | Confirmed notification channels: **push** and **in-app**. **Email, WhatsApp, and SMS are not confirmed** (see P-15-01). |
 
+**Referenced decisions**
+
+| ID | Topic | Owning file |
+|----|-------|-------------|
+| D-07 | Question slot expiry | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-26 | Pre-purchase expiry warning; reminders 3, 2, and 1 day before expiry | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-30 | Appointments cancelled because of astrologer DND / Planned Unavailability | [07](07_APPOINTMENT_SERVICE.md) |
+
 ## 5. User flows
 
 - Receiving a notification: `PENDING DISCUSSION` (P-15-03, P-15-07).
@@ -78,6 +87,8 @@ any notification category beyond those listed in D-15.
 
 Notifications from Instant Call, Instant Chat, and Remedy Tracker are not
 named in D-15; their category is `PENDING DISCUSSION` (P-15-08).
+
+**Known question events** (owned elsewhere): slot expiry reminders 3, 2, and 1 day before expiry, using IST calendar days (D-26, D-28 → [06](06_TEXT_QUESTION_SERVICE.md)). Whether a cancellation caused by astrologer DND / Planned Unavailability (D-30) produces a notification is part of P-15-03.
 
 **Pending rules**
 - Exact events per critical category (P-15-03).
@@ -138,4 +149,5 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-15, D-16. |
+| 2026-11-19 | Referenced D-07, D-26, D-28, D-30 (expiry reminders, IST, DND cancellations). |
 | 2026-11-17 | Aligned with approved interpretations: app-settings vs phone push permission (P-15-06), unconfirmed channels (P-15-01), category–module table marked as cross-reference only. |

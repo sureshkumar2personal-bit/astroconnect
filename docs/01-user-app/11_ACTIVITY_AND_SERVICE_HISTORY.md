@@ -44,6 +44,12 @@ This module owns no confirmed decisions.
 | D-08 | Text Question dispute | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-09 | Services without a dispute option | [07](07_APPOINTMENT_SERVICE.md), [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md) |
 | D-10 | Reviews after consultations | [07](07_APPOINTMENT_SERVICE.md), [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md) |
+| D-17 | Text Question rating and review | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-18 | 30-day answer deadline; automatic cancellation and refund | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-19 | One dispute; 3-day dispute answer; Admin Review | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-21 | Campaign changes do not cancel purchased questions | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-24 | No manual cancellation of a submitted question | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-25 | Text Question statuses shown to users | [06](06_TEXT_QUESTION_SERVICE.md) |
 
 ## 5. User flows
 
@@ -57,7 +63,7 @@ This module owns no confirmed decisions.
 `PENDING DISCUSSION`:
 - Tabs or categories (P-11-01).
 - Filters (P-11-02).
-- Statuses per service type (P-11-03).
+- Statuses per service type (P-11-03). Text Question statuses are confirmed as New / Received, Pending, Completed (D-25 → [06](06_TEXT_QUESTION_SERVICE.md)); settlement status is not shown.
 
 ## 7. Business rules and validations
 
@@ -95,7 +101,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 |----|-------|
 | P-11-01 | Tabs or categories |
 | P-11-02 | Filters |
-| P-11-03 | Statuses per service type |
+| P-11-03 | Statuses per service type (Text Questions confirmed in D-25) |
 | P-11-04 | History retention |
 | P-11-05 | Reaching disputes and reviews |
 
@@ -111,9 +117,11 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 
 - [ ] Services already purchased or used are managed from the Activity tab (D-03 → [01](01_NAVIGATION_AND_STRUCTURE.md)).
 - [ ] No dispute option is shown for Appointment, Instant Call, or Instant Chat items (D-09).
+- [ ] Text Question items show only the statuses New / Received, Pending, Completed, and offer no manual cancel option (D-24, D-25).
 
 ## 13. Change log
 
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created. |
+| 2026-11-19 | Referenced D-17, D-18, D-19, D-21, D-24, D-25 (Text Question alignment). |

@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-11 |
+| Owned decisions | D-11, D-29 |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -35,15 +35,16 @@ attached by astrologers.
 
 | ID | Decision |
 |----|----------|
-| D-11 | If an astrologer prescribes or attaches a **remedy in any service**, it must also appear in the user's **Remedy Tracker**. |
+| D-11 | If an astrologer prescribes or attaches a **remedy in any service** — including a Text Question answer and a Dispute Answer — it must also appear in the user's **Remedy Tracker**. *(Amended 2026-11-19.)* |
+| D-29 | **Remedy completion:** only the user can mark a remedy Completed. The user may upload a supporting photo or document, which the prescribing astrologer can view. |
 
 ## 5. User flows
 
 1. An astrologer prescribes or attaches a remedy in any service
    (Text Question, Appointment, Instant Call, Instant Chat).
 2. The remedy also appears in the user's Remedy Tracker (D-11).
-3. Interacting with the remedy (progress, completion, reminders):
-   `PENDING DISCUSSION` (P-16-02, P-16-03).
+3. Only the user can mark the remedy Completed, and may upload a supporting photo or document, which the prescribing astrologer can view (D-29).
+4. Remedy reminders: `PENDING DISCUSSION` (P-16-03).
 
 ## 6. Screens and content
 
@@ -58,8 +59,10 @@ attached by astrologers.
 |---|------|--------|
 | R-16-01 | Every remedy prescribed or attached by an astrologer in any service must appear in the user's Remedy Tracker. | D-11 |
 | R-16-02 | This applies to every service, currently: Text Question ([06](06_TEXT_QUESTION_SERVICE.md)), Appointment ([07](07_APPOINTMENT_SERVICE.md)), Instant Call ([08](08_INSTANT_CALL.md)), Instant Chat ([09](09_INSTANT_CHAT.md)). | D-11 |
+| R-16-03 | Remedies from Dispute Answers also appear in the Remedy Tracker. | D-11 |
+| R-16-04 | Only the user can mark a remedy Completed; the user may upload a supporting photo or document, visible to the prescribing astrologer. | D-29 |
 
-**Pending rules:** progress/completion (P-16-02), reminders (P-16-03),
+**Pending rules:** reminders (P-16-03),
 user-added remedies (P-16-04), astrologer edits or removal (P-16-06).
 
 ## 8. States and edge cases
@@ -89,7 +92,6 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | ID | Topic |
 |----|-------|
 | P-16-01 | Remedy fields |
-| P-16-02 | Progress or completion |
 | P-16-03 | Reminders |
 | P-16-04 | User-added remedies |
 | P-16-05 | Link to original consultation |
@@ -108,9 +110,12 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 - [ ] A remedy prescribed or attached in an Appointment appears in the Remedy Tracker (D-11).
 - [ ] A remedy prescribed or attached in an Instant Call appears in the Remedy Tracker (D-11).
 - [ ] A remedy prescribed or attached in an Instant Chat appears in the Remedy Tracker (D-11).
+- [ ] A remedy prescribed in a Text Question Dispute Answer appears in the Remedy Tracker (D-11).
+- [ ] Only the user can mark a remedy Completed and may upload a supporting photo or document (D-29).
 
 ## 13. Change log
 
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-11. |
+| 2026-11-19 | D-11 amended (Dispute Answers included); D-29 added (user-only completion with optional upload). P-16-02 retired. R-16-03, R-16-04 added. |
