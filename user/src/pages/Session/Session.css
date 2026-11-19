@@ -1,0 +1,56 @@
+:root .session-page .session-1 {
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+:root .session-page .session-2 {
+  padding:48px 24px;
+  text-align:center;
+  font:600 26px 'Cormorant Garamond',serif;
+}
+
+:root .session-page .session-3 {
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  align-items:center;
+}
+
+:root .session-page .session-4 {
+  background:rgba(var(--gn),.15);
+  color:var(--green);
+}
+
+:root .session-page .session-5 {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-height:160px;
+}
+
+:root .session-page .session-6 {
+  width:100%;
+  display:flex;
+  gap:8px;
+}
+
+:root .session-page .session-7 {
+  border-color:var(--redb);
+  color:var(--red);
+}
+
+:root .session-page .session-8 {
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+:root .session-page .session-9 {
+  margin:0;
+  font:600 26px 'Cormorant Garamond',serif;
+}

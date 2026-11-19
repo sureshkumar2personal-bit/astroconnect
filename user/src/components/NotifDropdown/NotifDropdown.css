@@ -1,0 +1,37 @@
+:root .sky .notif-dropdown {
+  position:fixed;
+  z-index:20;
+  top:68px;
+  right:24px;
+  width:360px;
+  background:var(--surf);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:0 10px 30px rgba(8,4,30,.6);
+}
+
+:root .notif-dropdown .notif-dropdown-1 {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+:root .notif-dropdown .notif-dropdown-2 {
+  font:600 22px 'Cormorant Garamond',serif;
+}
+
+:root .notif-dropdown .notif-dropdown-3 {
+  background:none;
+  border:0;
+  text-align:left;
+  font-size:16px;
+  line-height:1.35;
+  padding:6px 0;
+  min-height:44px;
+}
+
+:root .notif-dropdown .notif-dropdown-4 {
+  padding:6px 16px;
+}

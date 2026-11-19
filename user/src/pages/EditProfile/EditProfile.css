@@ -1,0 +1,26 @@
+:root .edit-profile-page .edit-profile-1 {
+  max-width:640px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+:root .edit-profile-page .edit-profile-2 {
+  opacity:.6;
+}
+
+:root .edit-profile-page .edit-profile-3 {
+  border-top:1px solid rgba(var(--ln),.2);
+  padding-top:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:flex-start;
+}
+
+:root .edit-profile-page .edit-profile-4 {
+  opacity:.5;
+  cursor:not-allowed;
+  border-color:var(--redb);
+}

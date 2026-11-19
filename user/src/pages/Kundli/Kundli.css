@@ -1,0 +1,34 @@
+:root .kundli-page .kundli-1 {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+:root .kundli-page .kundli-2 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+
+:root .kundli-page .kundli-3 {
+  margin:0;
+  align-self:flex-start;
+  font:600 22px 'Cormorant Garamond',serif;
+}
+
+:root .kundli-page .kundli-4 {
+  display:inline-flex;
+  align-items:center;
+  align-self:flex-start;
+  cursor:pointer;
+  box-sizing:border-box;
+}
+
+:root .kundli-page .kundli-5 {
+  padding:10px 14px;
+  border:1px solid rgba(var(--ln),.22);
+  border-radius:12px;
+}

@@ -1,0 +1,30 @@
+:root .explore-page .explore-1 {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+:root .explore-page .explore-2 {
+  flex:1 1 260px;
+}
+
+:root .explore-page .explore-3 {
+  text-align:left;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+:root .explore-page .explore-4 {
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+:root .explore-page .explore-5 {
+  background:rgba(var(--gn),.15);
+  color:var(--green);
+  align-self:flex-start;
+}

@@ -1,0 +1,16 @@
+:root .sky .toast {
+  position:fixed;
+  z-index:40;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:32px;
+  background:var(--toastbg);
+  color:var(--toastfg);
+  padding:12px 22px;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:600;
+  max-width:90%;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(8,4,30,.5);
+}
