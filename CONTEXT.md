@@ -80,8 +80,8 @@ and the owning file. Open items are listed in the
 | **Appointment** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-07-09). | D-09, D-10 → 07 |
 | **Instant Call** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-08-07). | D-09, D-10 → 08 |
 | **Instant Chat** | A User App consultation service. Definition: `PENDING DISCUSSION` (P-09-07). | D-09, D-10 → 09 |
-| **Subscribe / Subscription** | A user's subscription to an astrologer. Benefit questions: Silver 1, Gold 3, Platinum 4 (D-31). Nature (free/paid, duration, renewal): `PENDING DISCUSSION` (P-14-02 – P-14-06). | D-04 → 06; D-31 → 14 |
-| **Follow** | Whether "Follow" is a separate action from "Subscribe": `PENDING DISCUSSION` (P-14-01). | → 14 |
+| **Subscribe / Subscription** | A paid subscription to an astrologer; subscribing automatically follows. Benefit questions: Silver 1, Gold 3, Platinum 4 (D-31). Price, duration, renewal, and cancellation: on hold (P-14-02 – P-14-05). | D-04 → 06; D-31, D-36 → 14 |
+| **Follow** | Free action to follow an astrologer; never subscribes automatically. | D-36 → 14 |
 | **Campaign** | An astrologer's active offering from which users purchase question slots. User-facing content: D-20; per-user purchase limit: `PENDING DISCUSSION` (P-06-13; owning file [`06_TEXT_QUESTION_SERVICE.md`](docs/01-user-app/06_TEXT_QUESTION_SERVICE.md)). | D-05 → 06 |
 | **Question slot** | A purchased entitlement used to ask an astrologer a Text Question. | D-05, D-06, D-07 → 06 |
 | **Dispute** | A Text Question request for an additional answer from the astrologer. | D-08, D-19 → 06; D-09 → 07, 08, 09 |
@@ -91,7 +91,7 @@ and the owning file. Open items are listed in the
 | **Birth profile** | A saved set of birth details. Fields: `PENDING DISCUSSION` (P-13-01). | D-12 → 13 |
 | **Kundli** | A birth chart generated from a birth profile's birth details. | D-14 → 13 |
 | **Uploaded birth chart** | A birth-chart file uploaded by the user. | D-13, D-14 → 13 |
-| **Wallet** | The User App wallet used for payments. Details: `PENDING DISCUSSION` (P-10-01 – P-10-08). | → 10 |
+| **Wallet** | The User App wallet. All refunds go to the Wallet; withdrawals keep a ₹500 minimum balance. Other details: `PENDING DISCUSSION`. | D-32, D-33 → 10 |
 | **Critical notification** | A notification in a category designated as critical. | D-15 → 15 |
 | **Notification channel** | A delivery route for notifications. | D-16 → 15 |
 
@@ -134,6 +134,14 @@ detailed rules are in the owning file.
 | D-29 | Remedy completion by the user | 16 |
 | D-30 | Astrologer DND / Planned Unavailability and appointments | 07 |
 | D-31 | Subscription benefit questions | 14 |
+| D-32 | Refunds to Wallet; withdrawals | 10 |
+| D-33 | Payment methods | 10 |
+| D-34 | Question Preview; no editing after submission | 06 |
+| D-35 | Question attachments | 06 |
+| D-36 | Follow and Subscribe | 14 |
+| D-37 | Consent for sharing birth data | 13 |
+| D-38 | Astrologer DND (user view) | 05 |
+| D-39 | Text-Based Questions service suspension (user view) | 06 |
 
 ## 6. Pending global questions
 

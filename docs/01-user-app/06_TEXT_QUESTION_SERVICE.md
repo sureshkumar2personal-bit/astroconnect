@@ -66,6 +66,9 @@ and raising a Platform Complaint.
 | D-26 | **Expiry warning and reminders:** if a campaign is within 3 days of expiry, the user is warned before purchase. Expiry reminders are sent **3 days, 2 days, and 1 day** before expiry. Reminders do not change the expiry or refund rules. |
 | D-27 | **Platform Complaint:** after a dispute answer, the user may raise a separate Platform Complaint within 7 days about an inappropriate or improper answer. The platform handles complaints separately from disputes. |
 | D-28 | **IST calendar days:** slot expiry, answer deadlines, dispute windows, dispute answer deadlines, and reminder timing use IST calendar-day counting. |
+| D-34 | **Question submission:** a **Preview** step is shown before final submission, following the same preview-before-final-submission principle as the astrologer answer workflow. After final submission, a question **cannot be edited**. General-to-Personal question conversion or upgrade is **not offered** in the User App. |
+| D-35 | **Question attachments:** for Personal Questions (D-22), users may attach horoscope files in **PDF or JPEG** format — at most **2 files** per question and at most **10 MB** per file. Alternatively, users may use the birth details already saved in their User Profile. These rules are separate from astrologer answer attachment rules. |
+| D-39 | **Astrologer Text-Based Questions service suspension (user view):** while an astrologer's Text-Based Questions service is suspended, users cannot buy new question slots from that astrologer or submit questions using newly purchased capacity. Previously purchased valid slots remain usable under the existing validity rules (D-07), and already submitted questions continue under their normal answer deadline and resolution rules (D-18, D-19). The astrologer's other services remain available unless independently unavailable; the astrologer account is not suspended. |
 
 **Referenced decisions**
 
@@ -78,6 +81,10 @@ and raising a Platform Complaint.
 | D-29 | Remedy completion by the user | [16](16_REMEDY_TRACKER.md) |
 | D-30 | Astrologer DND / Planned Unavailability | [07](07_APPOINTMENT_SERVICE.md) |
 | D-31 | Subscription benefit questions | [14](14_FOLLOWING_AND_SUBSCRIPTIONS.md) |
+| D-32 | Refunds go to the Wallet | [10](10_WALLET_AND_PAYMENTS.md) |
+| D-33 | Wallet or direct payment | [10](10_WALLET_AND_PAYMENTS.md) |
+| D-37 | Consent for sharing birth data | [13](13_BIRTH_PROFILES_AND_KUNDLI.md) |
+| D-38 | Astrologer DND: profile hidden | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
@@ -100,9 +107,10 @@ and raising a Platform Complaint.
 ### 5.3 Ask a question and receive an answer
 1. The user writes the question (maximum 1,000 characters) and submits it using a slot (D-22). Status: **New / Received** (D-25).
    - General Questions: no attachments. Personal Questions: up to 2 Horoscope/Birth Chart files or images (D-22).
-   - User attachment file types and size: `PENDING DISCUSSION` (P-06-06).
+   - Personal Questions: horoscope files in PDF or JPEG, at most 2 files of 10 MB each, or the birth details saved in the User Profile (D-35). Birth details and horoscope information are shared only with the user's consent (D-37).
+   - A Preview step is shown before final submission (D-34).
    - Birth profile attached: `PENDING DISCUSSION` (P-06-07).
-   - The user cannot cancel the submitted question (D-24). Editing a submitted question: `PENDING DISCUSSION` (P-06-14).
+   - The user cannot cancel or edit the question after final submission (D-24, D-34).
 2. When the astrologer opens the question, its status becomes **Pending** (D-25).
 3. The astrologer answers within 30 days (D-18). The answer is text (maximum 1,500 characters), with up to 3 attachments (JPEG, PDF, TXT) and links; it cannot be edited after delivery (D-23). Status: **Completed** (D-25).
 4. If the astrologer does not answer within 30 days, the question is automatically cancelled and the user is refunded (D-18).
@@ -128,7 +136,19 @@ After a dispute answer, the user may raise a separate Platform Complaint within 
 4. After cancellation or deletion, a purchased unused slot stays usable until its original deadline — the earlier of purchase + 7 days and the campaign's original expiry date; it is not expired immediately, extended, or reset (D-21).
 
 ### 5.8 Astrologer unavailable (DND / Planned Unavailability)
-During the astrologer's DND / Planned Unavailability, the astrologer is unavailable for all services (D-30 → [07](07_APPOINTMENT_SERVICE.md)). Treatment of the user's purchased question slots during that period: `PENDING DISCUSSION` (Astrologer App X-12).
+During the astrologer's DND / Planned Unavailability, the astrologer is unavailable for all services (D-30 → [07](07_APPOINTMENT_SERVICE.md)). The astrologer's profile is hidden and users cannot purchase or submit new questions, including Campaign, Open, and Subscription Questions; existing purchased slots keep their validity (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
+
+### 5.9 Astrologer Text-Based Questions service suspended
+Users cannot buy new question slots from that astrologer. Previously purchased valid slots remain usable under D-07, and submitted questions continue under their normal deadline and resolution rules; other services of the astrologer remain available (D-39).
+
+### 5.10 Payment
+Users pay with their Wallet balance or by direct UPI/bank payment (D-33). Refunds go to the Wallet (D-32).
+
+### 5.11 Correction requested by the astrologer
+If a Personal Question is submitted using a General slot, the astrologer can Request Correction (AD-35 → Astrologer App [`02_TEXT_BASED_QUESTIONS.md`](../02-astrologer-app/02_TEXT_BASED_QUESTIONS.md); X-05).
+1. The user can replace it with another General Question, without extra payment, using the same slot. No General-to-Personal upgrade or conversion is available (AD-35, D-34).
+2. The original 30-day deadline continues and does not restart, regardless of the number of correction cycles (AD-35).
+3. If the user does not respond before the original deadline, the question is automatically cancelled and refunded (AD-35); refunds go to the Wallet (D-32).
 
 ## 6. Screens and content
 
@@ -174,11 +194,15 @@ P-11-01. Content confirmed for those screens:
 | R-06-27 | A Platform Complaint can be raised within 7 days after the dispute answer and is handled separately from disputes. | D-27 |
 | R-06-28 | Slot expiry, answer deadlines, dispute windows, dispute answer deadlines, and reminders use IST calendar days. | D-28 |
 | R-06-29 | After a campaign is cancelled or deleted, a purchased unused slot stays usable until its original deadline; the deadline is not shortened, extended, or reset. | D-21 |
+| R-06-30 | A Preview step is shown before final submission; after final submission a question cannot be edited; no General-to-Personal conversion or upgrade is offered. | D-34 |
+| R-06-31 | Personal Question attachments: PDF or JPEG horoscope files, at most 2 per question, at most 10 MB each; or use the birth details saved in the User Profile. | D-35 |
+| R-06-32 | While an astrologer's Text-Based Questions service is suspended, no new slots can be bought; previously purchased valid slots stay usable; submitted questions continue normally. | D-39 |
+| R-06-33 | During an astrologer's DND, no new questions can be purchased or submitted; existing slots keep their validity. | D-38 |
+| R-06-34 | When the astrologer requests a correction, the user can only replace the question with another General Question using the same slot, without extra payment; no General-to-Personal upgrade or conversion is available, and the original deadline continues. | AD-35 (Astrologer App), D-34 |
 
 **Pending rules**
 - Whether a slot can be used only with the astrologer it was purchased from: `PENDING DISCUSSION` (P-06-15).
 - One slot = one question: `PENDING DISCUSSION` (P-06-12).
-- User attachment file types and size (no size limit is assumed): `PENDING DISCUSSION` (P-06-06).
 
 ## 8. States and edge cases
 
@@ -211,7 +235,11 @@ P-11-01. Content confirmed for those screens:
 | Attachment added to a General Question | Not allowed (D-22) |
 | Third attachment on a Personal Question | Not allowed (D-22) |
 | Subscription ends or is cancelled while slots are held | `PENDING DISCUSSION` (P-06-03) |
-| Astrologer DND / Planned Unavailability while the user holds a slot | `PENDING DISCUSSION` (Astrologer App X-12) |
+| Astrologer DND / Planned Unavailability while the user holds a slot | Profile hidden; no new submissions; the slot keeps its validity (D-38) |
+| Astrologer's Text-Based Questions service suspended | No new slots can be bought; valid purchased slots stay usable (D-39) |
+| Attachment not PDF/JPEG, larger than 10 MB, or a third file | Not allowed (D-35) |
+| User tries to edit a submitted question | Not allowed; Preview is offered before submission (D-34) |
+| Astrologer requests correction of a Personal Question sent with a General slot | User can replace it with another General Question, same slot, no extra payment; no upgrade to Personal; original deadline continues (AD-35, D-34) |
 | Payment fails during slot purchase | `PENDING DISCUSSION` (→ [10](10_WALLET_AND_PAYMENTS.md)) |
 
 ## 9. Notifications triggered
@@ -248,11 +276,11 @@ Retired: P-06-01 (→ D-31); P-06-02 (→ D-06, D-07); P-06-04 (→ D-21); P-06-
 | ID | Topic |
 |----|-------|
 | P-06-03 | Held slots and questions when a subscription ends |
-| P-06-06 | User attachment file types and size (length and count confirmed in D-22) |
+| P-06-06 | Question length, format, attachments — **Resolved** (D-22, D-35) |
 | P-06-07 | Birth profile attached to a question |
 | P-06-12 | One slot = one question |
 | P-06-13 | Per-user purchase limit (campaign contents confirmed in D-20) |
-| P-06-14 | Editing a submitted question (cancellation not allowed, D-24) |
+| P-06-14 | Editing or cancelling a submitted question — **Resolved** (D-24, D-34) |
 | P-06-15 | Slot usable only with the same astrologer |
 | P-06-16 | Information required to raise a dispute |
 
@@ -288,6 +316,11 @@ Retired: P-06-01 (→ D-31); P-06-02 (→ D-06, D-07); P-06-04 (→ D-21); P-06-
 - [ ] Calendar-day rules use IST (D-28).
 - [ ] A remedy in an answer or dispute answer appears in the Remedy Tracker (D-11).
 
+- [ ] A Preview step is shown before final submission; submitted questions cannot be edited; no General-to-Personal conversion is offered (D-34).
+- [ ] Personal Question attachments accept PDF or JPEG only, up to 2 files of 10 MB each, or saved birth details (D-35).
+- [ ] During astrologer DND or a Text-Based Questions service suspension, no new slots can be bought; existing valid slots stay usable (D-38, D-39).
+- [ ] On a correction request, the user can only replace the question with another General Question (same slot, no extra payment); no upgrade to Personal is offered; the original deadline continues (AD-35, D-34).
+
 ## 13. Change log
 
 | Date | Change |
@@ -296,3 +329,5 @@ Retired: P-06-01 (→ D-31); P-06-02 (→ D-06, D-07); P-06-04 (→ D-21); P-06-
 | 2026-11-17 | Dispute-window wording aligned with approved interpretation; 7-day calculation linked to P-06-17. |
 | 2026-11-19 | Aligned with Astrologer App decisions: D-07 amended; D-17 – D-28 added (reviews, 30-day deadline, disputes and Admin Review, pricing and special label, campaign changes, 1,000-character questions and attachments, 1,500-character answers, no manual cancel, statuses, reminders, Platform Complaint, IST). P-06-04, P-06-05, P-06-08 – P-06-11, P-06-17 retired. R-06-01 – R-06-13 preserved; R-06-14 – R-06-28 added. |
 | 2026-11-19 | D-21 amended (unused slots after cancellation/deletion); D-31 referenced; P-06-01 retired; R-06-29 added. |
+| 2026-11-19 | D-34, D-35, D-39 added; D-32, D-33, D-37, D-38 referenced. P-06-06 and P-06-14 Resolved. X-12 and AD-73 user-side alignment added (§5.8, §5.9). New §5.10; R-06-30 – R-06-33 added. |
+| 2026-11-19 | X-05 resolved: §5.11 (correction requested by the astrologer, user side), R-06-34, an edge case, and an acceptance criterion added, referencing Astrologer AD-35 (amended: no General-to-Personal upgrade). |

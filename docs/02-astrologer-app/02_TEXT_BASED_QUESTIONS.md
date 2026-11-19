@@ -90,7 +90,7 @@ IST calendar days (AD-71).
 | AD-32 | **Priority 2:** 1–19 pending days. **Priority 1:** 20–30 pending days. Day 20 belongs only to Priority 1. At the end of day 30, the deadline expires and auto-cancellation/refund applies. There is no third/normal priority list. Pending days are IST calendar days (AD-71). *(Amended 2026-11-19.)* |
 | AD-33 | Priority 1 and Priority 2 are **priority classifications (views)**, not question statuses; a question in a Priority classification keeps its own status. A question stays **New / Received** until the astrologer opens it (AD-51). *(Amended 2026-11-19.)* |
 | AD-34 | The question workspace displays: Question ID and User ID; User name, profile photo, and relevant user details; amount paid and number of slots purchased; previous questions asked; campaign name; General/Personal question type; question received date/time; horoscope attachment and other attachments, if supplied; full question text; Request Correction action when a Personal Question is submitted using a General slot. |
-| AD-35 | **General/Personal correction:** if a Personal Question is submitted using a General slot, the astrologer can Request Correction. User choices: (1) replace it with another General Question, without extra payment, using the same slot; (2) upgrade to Personal by paying only the price difference and resubmitting. The corrected question returns to the astrologer. The original 30-day deadline does not restart. If the User does not respond before the original deadline, the question is auto-cancelled and refunded. If the User resubmits an incorrect question again, the astrologer may Request Correction again. The original deadline continues regardless of the number of correction cycles. |
+| AD-35 | **General/Personal correction:** if a Personal Question is submitted using a General slot, the astrologer can Request Correction. The User can replace it with another General Question, without extra payment, using the same slot. No General-to-Personal upgrade or conversion is available. The corrected question returns to the astrologer. The original 30-day deadline does not restart. If the User does not respond before the original deadline, the question is auto-cancelled and refunded. If the User resubmits an incorrect question again, the astrologer may Request Correction again. The original deadline continues regardless of the number of correction cycles. *(Amended 2026-11-19.)* |
 | AD-36 | **Answer Editor:** the astrologer answers using a text-based answer editor with a maximum of **1,500** characters; Save Draft; Auto Save; astrologer-created Answer Templates; Preview Answer, so the astrologer can review and correct the answer before final submission; Voice to Text, where the astrologer speaks and the speech is converted into text in the answer editor; answers are text typed manually or produced by voice-to-text, and **no audio-only answer** can be submitted; Attachments (see AD-45) and Add Link to support the answer or recommendations; Remedy prescription action. The astrologer can preview and edit the answer before final submission. "Remember This Question" is removed completely (R-03). *(Amended 2026-11-19.)* |
 | AD-37 | **No post-submission editing.** The astrologer should use Preview before submitting. Once submitted, the User can immediately view the answer. (Replaces rejected proposal R-01.) |
 | AD-38 | **Answer Templates:** the astrologer creates and manages their own templates — Save, Edit, Delete, and reuse. Platform-provided common templates are not currently required. |
@@ -210,7 +210,7 @@ IST calendar days (AD-71).
 
 ### 5.9 Request Correction (General slot used for a Personal Question)
 1. In the workspace, the astrologer selects Request Correction (AD-34, AD-35).
-2. The User chooses: (1) replace with another General Question, no extra payment, same slot; or (2) upgrade to Personal, paying only the price difference, and resubmit (AD-35).
+2. The User replaces it with another General Question, without extra payment, using the same slot. No General-to-Personal upgrade or conversion is available (AD-35).
 3. The corrected question returns to the astrologer (AD-35).
 4. The original 30-day deadline continues and does not restart (AD-35).
 5. If the User does not respond before the original deadline, the question is auto-cancelled and refunded (AD-35).
@@ -336,7 +336,7 @@ No Cancel Question action (AD-62).
 - Request Correction action (when a Personal Question is submitted using a General slot)
 - No Cancel Question action (AD-62)
 
-Visibility of User details depends on X-11 (User App P-GL-03).
+Visibility of User details: X-11 resolved (User App D-37, consent); data retention remains open (User App P-GL-03).
 
 ### 6.6 Answer editor (AD-36 – AD-39, AD-45)
 - Text-based answer field, maximum **1,500** characters
@@ -464,7 +464,7 @@ Drafts and Expired are secondary tabs or filters; Priority 1 and Priority 2 are 
 | # | Rule | Source |
 |---|------|--------|
 | BR-02-17 | Request Correction is available when a Personal Question is submitted using a General slot. | AD-34, AD-35 |
-| BR-02-18 | User options: replace with a General Question (no payment, same slot) or upgrade to Personal (pay difference, resubmit). | AD-35 |
+| BR-02-18 | The User can replace the question with another General Question (no payment, same slot); no General-to-Personal upgrade or conversion is available. | AD-35 |
 | BR-02-19 | The original 30-day deadline continues through all correction cycles; no response before it → auto-cancel and refund. | AD-35 |
 | BR-02-20 | Correction can be requested again if the resubmitted question is still incorrect. | AD-35 |
 
@@ -576,7 +576,7 @@ User App alignment: User App D-26 (06), event list in User App P-15-03.
 | Admin Review (escalated disputes) | AD-41 |
 | User App — Text-based Question service | User App 06 (D-07, D-17 – D-28) |
 | User App — Remedy Tracker | User App 16 (D-11, D-29) |
-| User App — open dependencies | X-02, X-05, X-09, X-11, X-12, X-13, X-14 (review list §5) |
+| User App — open dependencies | X-14 (review list §5) |
 
 ## 11. PENDING DISCUSSION
 
@@ -593,11 +593,11 @@ Retired: AP-02-01 – AP-02-23 (resolved into AD decisions; see review list §9)
 
 | ID | Topic | Status |
 |----|-------|--------|
-| X-02 | Refund destination | Open |
-| X-05 | General/Personal correction and upgrade (user side) | Open |
-| X-11 | Visibility of User details | Open |
-| X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved (final; User App alignment pending) |
-| X-13 | User attachment file types and size | Open |
+| X-02 | Refund destination | Resolved |
+| X-05 | General/Personal correction; no General-to-Personal upgrade (AD-35) | Resolved |
+| X-11 | Visibility of User details | Resolved (data retention open, User App P-GL-03) |
+| X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved |
+| X-13 | User attachment file types and size | Resolved |
 
 ## 12. Acceptance criteria
 
@@ -616,7 +616,7 @@ Confirmed rules only.
 - [ ] Priority 2 is 1–19 pending days; Priority 1 is 20–30; day 20 is only Priority 1; no third list (AD-32).
 - [ ] Priority 1/2 are classifications, not statuses; a question stays New / Received until opened (AD-33).
 - [ ] The question workspace shows every field listed in AD-34.
-- [ ] Request Correction offers both User options, keeps the original deadline, auto-cancels and refunds on no response, and can be repeated (AD-35).
+- [ ] Request Correction lets the User replace the question with another General Question (no upgrade to Personal), keeps the original deadline, auto-cancels and refunds on no response, and can be repeated (AD-35).
 - [ ] The answer editor enforces 1,500 characters, supports typed text and Voice to Text, does not allow audio-only answers, allows preview and editing before submission, and has no Remember This Question (AD-36).
 - [ ] Submitted answers cannot be edited, and the User can view them immediately (AD-37).
 - [ ] The astrologer can save, edit, delete, and reuse their own templates (AD-38).
@@ -664,3 +664,4 @@ Confirmed rules only.
 | 2026-11-19 | Fourth pass: AD-31 (unused slots usable until their original deadline after cancellation/deletion), AD-46 (secondary tabs/filters), AD-51 (tab name vs status), AD-70 (no automatic third reduction or suspension) amended; AD-72 added (benefit questions per tier). AP-02-18, AP-02-20 retired; AP-02-21 added (on hold). New §5.16. BR-02-59 – BR-02-63 added. |
 | 2026-11-19 | Final Astrologer pass: AD-10, AD-11, AD-24, AD-26, AD-42, AD-52, AD-54, AD-56, AD-70 amended; AD-73 (service suspension) and AD-74 (DND activation and visibility) added. AP-02-16, AP-02-19, AP-02-21 retired; AP-02-22, AP-02-23 added. X-12 final. New §5.17, §5.18. BR-02-62 updated; BR-02-64 – BR-02-69 added. |
 | 2026-11-19 | Product-owner corrections: AD-70, AD-72, AD-73 amended (two question categories; suspension blocks new purchases/submissions while previously purchased questions and slots stay valid; reopening only after outstanding questions are resolved; normal 1,000/800 after reopening). §5.16 and §5.17 rewritten. AP-02-22, AP-02-23 retired. BR-02-63, BR-02-65 updated; BR-02-70 – BR-02-72 added. |
+| 2026-11-19 | AD-35 re-quoted (General-to-Personal upgrade removed; X-05 resolved); §5.9 step 2, BR-02-18 and acceptance criterion updated. Cross-app statuses synchronized with the review list: X-02, X-05, X-11, X-12, X-13 Resolved; §10 open dependencies reduced to X-14. |

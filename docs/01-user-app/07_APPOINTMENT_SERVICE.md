@@ -52,6 +52,8 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 | D-11 | Remedies in the Remedy Tracker | [16](16_REMEDY_TRACKER.md) |
 | D-15 | Critical notifications (includes appointment alerts) | [15](15_NOTIFICATIONS.md) |
 | D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-32 | Refunds go to the Wallet | [10](10_WALLET_AND_PAYMENTS.md) |
+| D-38 | Astrologer DND: profile hidden; no bookings | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
@@ -81,6 +83,8 @@ Appointment is `PENDING DISCUSSION` (P-07-09).
 **Pending rules:** booking window (P-07-01), durations (P-07-02),
 rescheduling and cancellation (P-07-04), refunds (P-07-05), no-shows
 (P-07-06), subscription requirement (P-07-08).
+
+- During an astrologer's DND, the profile is hidden and no Appointment can be booked (D-38 → [05](05_ASTROLOGER_PROFILE.md)). Refunds go to the Wallet (D-32 → [10](10_WALLET_AND_PAYMENTS.md)).
 
 ## 8. States and edge cases
 
@@ -151,3 +155,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 |------|--------|
 | 2026-11-17 | Initial draft created from D-09, D-10. |
 | 2026-11-19 | D-30 added (astrologer DND / Planned Unavailability: booked appointments cancelled with full refund; dates blocked). D-28 referenced. R-07-04 added. |
+| 2026-11-19 | Referenced D-32 (refunds to Wallet) and D-38 (no bookings during astrologer DND). |

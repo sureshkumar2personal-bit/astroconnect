@@ -38,6 +38,7 @@ This module owns no confirmed decisions.
 | ID | Topic | Owning file |
 |----|-------|-------------|
 | D-01 | Bottom navigation tabs | [01](01_NAVIGATION_AND_STRUCTURE.md) |
+| D-38 | Astrologer DND / Planned Unavailability: profile hidden | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
@@ -59,6 +60,8 @@ This module owns no confirmed decisions.
 No confirmed rules are owned by this module.
 
 - Default ranking of results: `PENDING DISCUSSION` (P-04-04).
+
+- Astrologers whose DND / Planned Unavailability is active are hidden from discovery for that period (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
 
 ## 8. States and edge cases
 
@@ -99,10 +102,11 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 
 - [ ] Astrologer discovery is reachable from the Explore tab (D-01 → [01](01_NAVIGATION_AND_STRUCTURE.md)).
 
-No other confirmed criteria yet.
+- [ ] Astrologers in DND / Planned Unavailability do not appear in discovery results (D-38).
 
 ## 13. Change log
 
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created. |
+| 2026-11-19 | Referenced D-38 (astrologer hidden during DND). |

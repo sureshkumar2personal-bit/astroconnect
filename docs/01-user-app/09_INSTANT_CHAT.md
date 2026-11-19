@@ -49,6 +49,7 @@ Instant Chat is `PENDING DISCUSSION` (P-09-07).
 | D-03 | Purpose of the Activity tab | [01](01_NAVIGATION_AND_STRUCTURE.md) |
 | D-11 | Remedies in the Remedy Tracker | [16](16_REMEDY_TRACKER.md) |
 | D-15 | Critical notifications | [15](15_NOTIFICATIONS.md) |
+| D-38 | Astrologer DND: profile hidden; no Instant Chat | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
@@ -74,6 +75,8 @@ Instant Chat is `PENDING DISCUSSION` (P-09-07).
 **Pending rules:** pricing (P-09-01), minimum balance (P-09-02), session
 limits (P-09-03), attachments (P-09-04), history retention (P-09-05),
 subscription requirement (P-09-06).
+
+- During an astrologer's DND, the profile is hidden and an Instant Chat cannot be started (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
 
 ## 8. States and edge cases
 
@@ -137,3 +140,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-09, D-10. |
+| 2026-11-19 | Referenced D-38 (no Instant Chat during astrologer DND). |

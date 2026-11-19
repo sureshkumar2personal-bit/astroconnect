@@ -18,7 +18,9 @@ when a decision is made, it is recorded there following the process in
 
 > **Snapshot:** this report reflects the open questions as of 2026-11-17. On
 > 2026-11-19, P-06-04, P-06-05, P-06-08, P-06-09, P-06-10, P-06-11, P-06-17,
-> P-16-02, and P-06-01 were resolved (see the review list §7). The review list is the
+> P-16-02, and P-06-01 were resolved; later on 2026-11-19, P-06-06, P-06-14,
+> P-10-04, P-10-05, P-10-06, P-14-01, and P-14-06 were resolved and
+> P-14-02 – P-14-05 were put on hold (see the review list §7). The review list is the
 > current source for open questions.
 
 Options listed below are possibilities to help discussion. They are **not**

@@ -45,15 +45,15 @@ items use `P-GL-<nn>`.
 | 03 | `03_HOME.md` | Home | Draft | 3 | |
 | 04 | `04_EXPLORE_AND_ASTROLOGER_DISCOVERY.md` | Explore and astrologer discovery | Draft | 4 | |
 | 05 | `05_ASTROLOGER_PROFILE.md` | Astrologer profile | Draft | 6 | |
-| 06 | `06_TEXT_QUESTION_SERVICE.md` | Text-based Question service | Draft | 8 | |
+| 06 | `06_TEXT_QUESTION_SERVICE.md` | Text-based Question service | Draft | 6 | |
 | 07 | `07_APPOINTMENT_SERVICE.md` | Appointment service | Draft | 10 | |
 | 08 | `08_INSTANT_CALL.md` | Instant Call | Draft | 8 | |
 | 09 | `09_INSTANT_CHAT.md` | Instant Chat | Draft | 8 | |
-| 10 | `10_WALLET_AND_PAYMENTS.md` | Wallet and payments | Draft | 9 | |
+| 10 | `10_WALLET_AND_PAYMENTS.md` | Wallet and payments | Draft | 6 | |
 | 11 | `11_ACTIVITY_AND_SERVICE_HISTORY.md` | Activity and service history | Draft | 5 | |
 | 12 | `12_USER_PROFILE_AND_SETTINGS.md` | User profile and settings | Draft | 4 | |
 | 13 | `13_BIRTH_PROFILES_AND_KUNDLI.md` | Birth profiles and Kundli | Draft | 9 | |
-| 14 | `14_FOLLOWING_AND_SUBSCRIPTIONS.md` | Following and subscriptions | Draft | 6 | |
+| 14 | `14_FOLLOWING_AND_SUBSCRIPTIONS.md` | Following and subscriptions | Draft | 4 | |
 | 15 | `15_NOTIFICATIONS.md` | Notifications | Draft | 8 | |
 | 16 | `16_REMEDY_TRACKER.md` | Remedy tracker | Draft | 5 | |
 | 17 | `17_HELP_AND_SUPPORT.md` | Help and support | Draft | 5 | |
@@ -79,11 +79,11 @@ instead of repeating the full rule.
 | D-05 | Users can purchase **multiple question slots** from an astrologer's **active campaigns**. | 06 | 05, 10 | ✅ |
 | D-06 | A purchased slot can be **used immediately or held** for later. There is **no waiting period**: the user can submit a question immediately after purchase. **Holding a slot does not pause or extend** its expiry period. | 06 | 11 | ✅ |
 | D-07 | A purchased question slot must be used by the **earlier of (1) 7 days from its purchase date and (2) the campaign expiry date**. An unused slot **expires automatically** at that point. **No refund** is given for an expired unused slot, even if expiry reminders were sent. *(Amended 2026-11-19.)* | 06 | 10, 11, 15 | ✅ |
-| D-08 | Text Questions have a **dispute** option. A dispute can be raised **within 7 days after receiving the astrologer's answer**; its purpose is to **request an additional answer**. | 06 | 11, 15 | ✅ |
+| D-08 | Text Questions have a **dispute** option. A dispute can be raised **within 7 days after receiving the astrologer's answer**; its purpose is to **request an additional answer**. | 06 | 11, 17 | ✅ |
 | D-09 | Appointments, Instant Calls, and Instant Chats **do not** have a dispute option. | 07, 08, 09 | 11 | ✅ |
 | D-10 | Users can **submit a review after** an Appointment, Instant Call, or Instant Chat consultation. | 07, 08, 09 | 05, 11 | ✅ |
 | D-11 | If an astrologer prescribes or attaches a **remedy in any service** — including a Text Question answer and a Dispute Answer — it must also appear in the user's **Remedy Tracker**. *(Amended 2026-11-19.)* | 16 | 06–09 | ✅ |
-| D-12 | Users can initially save **unlimited birth profiles**. Future free/paid limits are **not finalized** (see P-13-07). | 13 | 02, 12 | ✅ |
+| D-12 | Users can initially save **unlimited birth profiles**. Future free/paid limits are **not finalized** (see P-13-07). | 13 | 02 | ✅ |
 | D-13 | Users can upload birth-chart files/images in **JPG, PNG, or PDF** format. | 13 | — | ✅ |
 | D-14 | If **DOB, birth time, or birth place** is changed, the generated **Kundli updates automatically**. Uploaded JPG/PNG/PDF files **remain unchanged**. | 13 | — | ✅ |
 | D-15 | **Critical notifications are always ON** and cannot be disabled. These include **appointment, question, payment/wallet, subscription, security, and account** alerts. | 15 | 12 | ✅ |
@@ -102,7 +102,15 @@ instead of repeating the full rule.
 | D-28 | **IST calendar days:** slot expiry, answer deadlines, dispute windows, dispute answer deadlines, and reminder timing use IST calendar-day counting. | 06 | 07, 10, 15 | ✅ |
 | D-29 | **Remedy completion:** only the user can mark a remedy Completed. The user may upload a supporting photo or document, which the prescribing astrologer can view. | 16 | 06 | ✅ |
 | D-30 | **Astrologer DND / Planned Unavailability:** during this period the astrologer is unavailable for all services. Already-booked appointments falling within the period are cancelled and the user receives a **full refund**; new appointment bookings are blocked for the unavailable dates. | 07 | 06, 10, 15 | ✅ |
-| D-31 | **Subscription benefit questions:** a Silver subscription includes **1** benefit question, Gold includes **3**, and Platinum includes **4**. Benefit questions are shown separately from additional normal paid questions purchased by subscribers. | 14 | 06 | ✅ |
+| D-31 | **Subscription benefit questions:** a Silver subscription includes **1** benefit question, Gold includes **3**, and Platinum includes **4**. Benefit questions are shown separately from additional normal paid questions purchased by subscribers. Subscription benefit questions follow the existing **7-day purchased-slot validity** rule (D-07). *(Amended 2026-11-19.)* | 14 | 06 | ✅ |
+| D-32 | **Refunds and withdrawals:** all user refunds go to the user's in-app **Wallet**. Users may withdraw wallet funds to their bank account, but the wallet must keep a minimum balance of **₹500** after withdrawal: only the amount above ₹500 can be withdrawn, and a withdrawal that would leave less than ₹500 is not allowed. | 10 | 06, 07 | ✅ |
+| D-33 | **Payment methods:** users can pay with their existing **Wallet** balance or by **direct payment** using UPI or bank/payment methods. Using the Wallet is not mandatory for every payment. | 10 | 06 | ✅ |
+| D-34 | **Question submission:** a **Preview** step is shown before final submission, following the same preview-before-final-submission principle as the astrologer answer workflow. After final submission, a question **cannot be edited**. General-to-Personal question conversion or upgrade is **not offered** in the User App. | 06 | — | ✅ |
+| D-35 | **Question attachments:** for Personal Questions (D-22), users may attach horoscope files in **PDF or JPEG** format — at most **2 files** per question and at most **10 MB** per file. Alternatively, users may use the birth details already saved in their User Profile. These rules are separate from astrologer answer attachment rules. | 06 | 13 | ✅ |
+| D-36 | **Follow and Subscribe:** Follow is **free**, and following an astrologer never subscribes automatically. Subscribe is **paid**, and a successful subscription automatically follows that astrologer. Auto-renewal is optional and is **not enabled by default**. Subscription price, duration/term options, detailed renewal rules, and cancellation/refund rules are on hold (P-14-02 – P-14-05). | 14 | 05 | ✅ |
+| D-37 | **Consent for sharing birth data:** birth details and horoscope information are shared with an astrologer only with the user's **consent** for the relevant paid service. The User App follows normal privacy and consent practices commonly used in astrology applications; no additional privacy rules, retention periods, or legal claims are defined. | 13 | 06 | ✅ |
+| D-38 | **Astrologer DND / Planned Unavailability (user view):** while an astrologer's DND is active, the astrologer's profile is **hidden** — users cannot discover or view it, cannot purchase or submit new Text-Based Questions (including Campaign Questions, Open Questions, and Subscription Questions), cannot book Appointments, and cannot start Instant Calls or Instant Chats. Existing purchased question slots keep their established validity and expiry rules (D-07). | 05 | 04, 06, 07, 08, 09 | ✅ |
+| D-39 | **Astrologer Text-Based Questions service suspension (user view):** while an astrologer's Text-Based Questions service is suspended, users cannot buy new question slots from that astrologer or submit questions using newly purchased capacity. Previously purchased valid slots remain usable under the existing validity rules (D-07), and already submitted questions continue under their normal answer deadline and resolution rules (D-18, D-19). The astrologer's other services remain available unless independently unavailable; the astrologer account is not suspended. | 06 | 05 | ✅ |
 
 ### Documentation process decisions
 
@@ -132,7 +140,7 @@ are not restored.
 |----|----------|--------|
 | P-GL-01 | Which languages does the User App support? Is localisation required at launch? | Open |
 | P-GL-02 | Target platforms: Android, iOS, web, or a combination? | Open |
-| P-GL-03 | Privacy, consent, and data-retention rules for birth data and uploaded files. | Open |
+| P-GL-03 | Privacy, consent, and data-retention rules for birth data and uploaded files. | Open — consent for sharing birth data is confirmed (D-37); retention and other rules are not confirmed |
 | P-GL-04 | Accessibility targets. | Open |
 | P-GL-05 | Expected behaviour when the device is offline. | Open |
 
@@ -199,11 +207,11 @@ are not restored.
 | ID | Question | Status |
 |----|----------|--------|
 | P-06-03 | What happens to held slots and already-asked questions if the subscription ends or is cancelled? | Open |
-| P-06-06 | Question length, format, and allowed attachments. | Open |
+| P-06-06 | Question length, format, and allowed attachments. | Resolved — question text up to 1,000 characters; horoscope attachments in PDF or JPEG, up to 2 files of 10 MB each, or saved birth details (D-22, D-35) |
 | P-06-07 | Which birth profile is attached to a question, and how is it chosen? | Open |
 | P-06-12 | Confirm that one slot equals one question. | Open |
 | P-06-13 | Define a campaign from the user's point of view: what does it specify (e.g. price per slot, number of slots offered, start and end dates), and is there a limit on how many slots a user can buy from one campaign? | Open |
-| P-06-14 | Can a user edit or cancel a question after submitting it? If cancelled, is the slot returned? | Open |
+| P-06-14 | Can a user edit or cancel a question after submitting it? If cancelled, is the slot returned? | Resolved — no editing after final submission; Preview before submission; no manual cancellation (D-24, D-34) |
 | P-06-15 | Confirm that a slot purchased from an astrologer's campaign can be used only for questions to that same astrologer. | Open |
 | P-06-16 | What must the user provide when raising a dispute (e.g. reason, details)? | Open |
 
@@ -255,9 +263,9 @@ are not restored.
 | P-10-01 | Currency (or currencies). | Open |
 | P-10-02 | Top-up methods and payment gateway. | Open |
 | P-10-03 | Minimum and maximum top-up amounts. | Open |
-| P-10-04 | Can users pay directly without using the wallet? | Open |
-| P-10-05 | Where do refunds go (wallet or original payment method)? | Open |
-| P-10-06 | Can users withdraw wallet balance? | Open |
+| P-10-04 | Can users pay directly without using the wallet? | Resolved — Wallet balance or direct UPI/bank payment; the Wallet is not mandatory (D-33) |
+| P-10-05 | Where do refunds go (wallet or original payment method)? | Resolved — all refunds go to the in-app Wallet (D-32) |
+| P-10-06 | Can users withdraw wallet balance? | Resolved — withdrawal to a bank account is allowed for the amount above a ₹500 minimum balance (D-32) |
 | P-10-07 | Invoices and receipts. | Open |
 | P-10-08 | Tax (e.g. GST) handling and display. | Open |
 | P-10-09 | What does the wallet transaction history show, and how does it relate to Activity? | Open |
@@ -299,12 +307,12 @@ are not restored.
 
 | ID | Question | Status |
 |----|----------|--------|
-| P-14-01 | Is "Follow" a separate action from "Subscribe"? What does each do? | Open |
-| P-14-02 | Is a subscription free, paid, or time-limited? | Open |
-| P-14-03 | Subscription price and duration. | Open |
-| P-14-04 | Renewal and auto-renewal rules. | Open |
-| P-14-05 | Cancellation and refund rules. | Open |
-| P-14-06 | What validity or expiry applies to subscription benefit questions, and do the question-slot rules (for example, D-07 expiry) apply to them? | Open |
+| P-14-01 | Is "Follow" a separate action from "Subscribe"? What does each do? | Resolved — Follow is free and never subscribes; Subscribe is paid and automatically follows (D-36) |
+| P-14-02 | Is a subscription free, paid, or time-limited? | Open — On Hold (X-14). Confirmed so far: a subscription is paid (D-36) |
+| P-14-03 | Subscription price and duration. | Open — On Hold (X-14) |
+| P-14-04 | Renewal and auto-renewal rules. | Open — On Hold (X-14). Confirmed so far: auto-renewal is optional and not enabled by default (D-36) |
+| P-14-05 | Cancellation and refund rules. | Open — On Hold (X-14) |
+| P-14-06 | What validity or expiry applies to subscription benefit questions, and do the question-slot rules (for example, D-07 expiry) apply to them? | Resolved — benefit questions follow the 7-day purchased-slot validity rule (D-31) |
 
 ### 15 — Notifications
 
@@ -395,6 +403,9 @@ Run this across the whole document set.
 | 2026-11-19 | `00`, `05`, `06`, `07`, `10`, `11`, `14`, `15`, `16`, `17` | Cross-app alignment with Astrologer App decisions. **Amended:** D-07 (earlier of 7 days from purchase or campaign expiry; no refund even after reminders), D-11 (remedies in Dispute Answers included). **Added:** D-17 – D-30. **Resolved and retired:** P-06-04 → D-21; P-06-05 → D-17; P-06-08 → D-18; P-06-09, P-06-10 → D-19; P-06-11 → D-23; P-06-17 → D-28; P-16-02 → D-29. | Product owner | Approved |
 | 2026-11-19 | `00` | Partially answered but kept **Open**: P-06-06 (length and attachment count confirmed in D-22; user attachment file types and size not confirmed — no 10 MB limit assumed), P-06-13 (campaign contents confirmed in D-20; per-user purchase limit not confirmed), P-06-14 (manual cancellation not allowed, D-24; editing a submitted question not confirmed), P-07-05 (full refund for DND cancellations, D-30; other appointment refunds not confirmed), P-11-03 (Text Question statuses in D-25; other services not confirmed), P-15-03 (expiry reminders in D-26; full event list not confirmed), P-17-04, P-17-05 (Platform Complaint in D-27; support relationship not confirmed). | — | Recorded |
 | 2026-11-19 | `00`, `06`, `14` | **Fourth pass:** D-21 amended (purchased unused slots stay usable until their original deadline after cancellation/deletion). D-31 added (subscription benefit questions: Silver 1, Gold 3, Platinum 4; shown separately). **P-06-01 resolved and retired** → D-31. **P-14-06 added** (validity of benefit questions). Text Question statuses (D-25) unchanged: Settled remains internal. | Product owner | Approved |
+| 2026-11-19 | `00`, `04` – `07`, `08` – `10`, `13`, `14`, `18`, `CONTEXT.md` | **User App decisions finalized:** D-31 amended (benefit questions follow the 7-day slot validity). **Added:** D-32 (refunds to Wallet; withdrawal above ₹500 minimum balance), D-33 (Wallet or direct UPI/bank payment), D-34 (Preview; no editing after submission; no General-to-Personal conversion), D-35 (PDF/JPEG horoscope attachments, 2 × 10 MB, or saved birth details), D-36 (Follow free; Subscribe paid and auto-follows; auto-renewal optional, off by default), D-37 (consent for sharing birth data), D-38 (DND: astrologer profile hidden; no purchases, submissions, bookings, or calls/chats), D-39 (Text-Based Questions service suspension, user view). **Resolved (IDs kept):** P-06-06, P-06-14, P-10-04, P-10-05, P-10-06, P-14-01, P-14-06. **On hold:** P-14-02 – P-14-05 (X-14). P-GL-03 stays Open for retention. Reference corrections: D-08 → 11, 17 (was 11, 15); D-12 → 02 (was 02, 12), verified against citing files. | Product owner | Approved |
+| 2026-11-19 | `00`, `06` | **X-05 resolved** (Astrologer review list §5): product owner confirmed that General-to-Personal conversion or upgrade is not supported, consistent with D-34. Astrologer AD-35 amended (option (2) removed). User-side correction flow documented in `06` §5.11 and R-06-34, referencing AD-35; no new User App decision, correction workflow, or payment flow added. X-14 (P-14-02 – P-14-05), P-GL-03 retention, and P-10-01 remain Open. | Product owner | Approved |
+
 **Retired IDs (never reuse):** P-06-02, P-06-04, P-06-05, P-06-08, P-06-09, P-06-10, P-06-11, P-06-17, P-16-02, P-06-01
 
 ---

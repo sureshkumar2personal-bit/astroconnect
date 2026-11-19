@@ -49,6 +49,7 @@ Instant Call is `PENDING DISCUSSION` (P-08-07).
 | D-03 | Purpose of the Activity tab | [01](01_NAVIGATION_AND_STRUCTURE.md) |
 | D-11 | Remedies in the Remedy Tracker | [16](16_REMEDY_TRACKER.md) |
 | D-15 | Critical notifications | [15](15_NOTIFICATIONS.md) |
+| D-38 | Astrologer DND: profile hidden; no Instant Call | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
@@ -73,6 +74,8 @@ Instant Call is `PENDING DISCUSSION` (P-08-07).
 
 **Pending rules:** pricing (P-08-01), minimum balance (P-08-02), billing on
 disconnect (P-08-03), refunds (P-08-04), subscription requirement (P-08-06).
+
+- During an astrologer's DND, the profile is hidden and an Instant Call cannot be started (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
 
 ## 8. States and edge cases
 
@@ -137,3 +140,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-09, D-10. |
+| 2026-11-19 | Referenced D-38 (no Instant Call during astrologer DND). |

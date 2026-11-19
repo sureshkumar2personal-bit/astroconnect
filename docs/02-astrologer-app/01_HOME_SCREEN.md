@@ -358,8 +358,8 @@ The notification bell opens the Notifications section (AD-66).
 | Earnings/Wallet (gross, commission, net, refunds, settlement) | AD-14 |
 | User App — appointment cancellation and full refund during DND | User App D-30 (07) |
 | User App — Remedy Tracker | X-08 (User App D-11, D-29) |
-| User App — Follow vs Subscribe | X-09 (User App P-14-01) |
-| User App — DND and purchased-slot validity | X-12 (resolved; User App alignment pending) |
+| User App — Follow vs Subscribe | X-09 (resolved; User App D-36) |
+| User App — DND and purchased-slot validity | X-12 (resolved; User App D-38) |
 | User App — subscription model | X-14 (User App D-31; P-14-01 – P-14-06) |
 
 ## 11. PENDING DISCUSSION
@@ -381,8 +381,8 @@ Retired: AP-01-01, AP-01-02, AP-01-04, AP-01-06 – AP-01-13, AP-GL-01 (resolved
 | ID | Topic | Status |
 |----|-------|--------|
 | X-08 | Remedy completion and upload by the User | Resolved |
-| X-09 | "New Follower" depends on Follow vs Subscribe | Open |
-| X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved (User App alignment pending) |
+| X-09 | "New Follower" depends on Follow vs Subscribe | Resolved |
+| X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved |
 | X-14 | Remaining subscription-model details (benefit questions aligned) | Open |
 
 ## 12. Acceptance criteria
@@ -428,3 +428,4 @@ Confirmed rules only.
 | 2026-11-19 | Fourth pass: AD-19 (default goal 10), AD-21, AD-67, AD-68 amended; AD-72 referenced. AP-01-13 retired. |
 | 2026-11-19 | Final Home sync with the Review List: owned decisions re-quoted (AD-14 expected net earnings, no refunds on Home; AD-16 last 7 days); AD-72, AD-73, AD-74 referenced; DND activation restriction and profile invisibility; two question categories; Peak Demand IST ranges; dedicated Recent Activity tab; Received Campaign Questions destination. Invalid active-consultation DND item removed. AP-01-01, AP-01-04 shown as retired; AP-01-03, AP-01-05 shown as resolved pending a Review List update. |
 | 2026-11-19 | Re-quoted AD-16 and AD-20 from the Review List; removed outdated notes stating that AP-01-03 / AP-01-05 were still Open and that AD-16 / AD-20 awaited Review List updates. |
+| 2026-11-19 | Cross-app statuses synchronized with the review list: X-09 Resolved (User App D-36); X-12 User App alignment completed (User App D-38). X-14 stays Open. No decision changed. |
