@@ -1,0 +1,49 @@
+:root .answer-detail-page .answer-detail-1 {
+  font-size:20px;
+  line-height:1.4;
+}
+
+:root .answer-detail-page .answer-detail-2 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+:root .answer-detail-page .answer-detail-3 {
+  margin:0;
+  line-height:1.5;
+  font-size:18px;
+}
+
+:root .answer-detail-page .answer-detail-4 {
+  text-align:left;
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  background:rgba(var(--gd),.08);
+}
+
+:root .answer-detail-page .answer-detail-5 {
+  font-size:13px;
+  letter-spacing:.1em;
+  color:var(--gold);
+}
+
+:root .answer-detail-page .answer-detail-6 {
+  font-size:17px;
+}
+
+:root .answer-detail-page .answer-detail-7 {
+  height:8px;
+  border-radius:99px;
+  background:rgba(var(--ln),.2);
+  overflow:hidden;
+}
+
+:root .answer-detail-page .answer-detail-8 {
+  background:rgba(195,169,255,.2);
+  color:var(--em);
+  align-self:flex-start;
+}

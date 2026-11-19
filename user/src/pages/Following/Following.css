@@ -1,0 +1,43 @@
+:root .following-page .following-1 {
+  margin:0;
+  font:600 24px 'Cormorant Garamond',serif;
+}
+
+:root .following-page .following-2 {
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+:root .following-page .following-3 {
+  background:none;
+  border:0;
+  text-align:left;
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding:0;
+}
+
+:root .following-page .following-4 {
+  font:600 21px 'Cormorant Garamond',serif;
+}
+
+:root .following-page .following-5 {
+  padding:24px;
+  text-align:center;
+  color:var(--muted);
+}
+
+:root .following-page .following-6 {
+  margin:8px 0 0;
+  font:600 24px 'Cormorant Garamond',serif;
+}
+
+:root .following-page .following-7 {
+  padding:18px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+}

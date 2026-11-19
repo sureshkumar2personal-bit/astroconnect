@@ -1,0 +1,327 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=Jost:wght@500&display=swap");
+
+/* ===== Global styles copied unchanged from reference/web-view.html ===== */
+body{margin:0;background:var(--page)}
+button{font-family:inherit;color:inherit;cursor:pointer}
+:root{--ink:#f4efff;--muted:#cfc3ee;--subtle:#a99bd6;--em:#e8dcff;--acc:#c3a9ff;--acc2:#9a7cff;--gold:#f6c244;--green:#7ee8ab;--ctaink:#26175c;--cta1:#c3a9ff;--cta2:#e8dcff;--surf:#241a55;--sky:#1b1442;--page:#120c2e;--wrap:#0b0721;--gl:176,150,255;--ln:200,178,255;--ln2:214,196,255;--bg0:18,12,46;--gd:246,194,68;--gn:76,213,133;--tboff:#3a2d78;--toastbg:#e8dcff;--toastfg:#26175c;--red:#ffd0d0;--redb:#f6a0a0;color-scheme:dark}
+:root[data-theme="light"]{--ink:#1d1440;--muted:#4a3f78;--subtle:#62578f;--em:#4a2fa8;--acc:#5a3cc0;--acc2:#7a54e6;--gold:#7a4f00;--green:#136a3a;--ctaink:#fff;--cta1:#5a3cc0;--cta2:#7a54e6;--surf:#fff;--sky:#f5f1ff;--page:#f5f1ff;--wrap:#e7e0fa;--gl:90,60,192;--ln:90,60,192;--ln2:90,60,192;--bg0:255,255,255;--gd:160,100,0;--gn:20,130,70;--tboff:#c9bdee;--toastbg:#26175c;--toastfg:#fff;--red:#a02a2a;--redb:#d46a6a;color-scheme:light}
+:root[data-theme="light"] .sky{background-image:radial-gradient(900px 600px at 78% 0%,rgba(154,124,255,.2),transparent 70%),radial-gradient(800px 700px at 0% 60%,rgba(195,169,255,.25),transparent 70%);background-size:100% 100%}
+:root[data-theme="light"] .card{background-color:#fff;border-color:rgba(90,60,192,.18);box-shadow:0 2px 12px rgba(60,40,140,.08)}
+:root[data-theme="light"] .mphone{box-shadow:0 30px 80px rgba(60,40,140,.25),0 0 0 8px rgba(90,60,192,.08)}
+.sky,.card,.btn-g,.chip,.ico,.inp{transition:background-color .25s,border-color .25s,color .25s}
+.sky{background-color:var(--sky);background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,.7) 50%,transparent 51%),radial-gradient(1.5px 1.5px at 37% 7%,rgba(255,255,255,.8) 50%,transparent 51%),radial-gradient(1px 1px at 66% 14%,rgba(255,255,255,.65) 50%,transparent 51%),radial-gradient(1px 1px at 14% 61%,rgba(255,255,255,.45) 50%,transparent 51%),radial-gradient(1.5px 1.5px at 71% 58%,rgba(255,255,255,.5) 50%,transparent 51%),radial-gradient(1px 1px at 29% 89%,rgba(255,255,255,.45) 50%,transparent 51%),radial-gradient(900px 600px at 78% 0%,rgba(122,84,230,.35),transparent 70%),radial-gradient(800px 700px at 0% 60%,rgba(90,60,192,.25),transparent 70%);background-size:380px 380px,380px 380px,380px 380px,380px 380px,380px 380px,380px 380px,100% 100%,100% 100%}
+.card{background:rgba(var(--gl),.08);border:1px solid rgba(var(--ln),.22);border-radius:20px;color:var(--ink)}
+.hov{transition:background-color .2s,border-color .2s,transform .15s}
+.hov:hover{background-color:rgba(var(--gl),.15);border-color:rgba(var(--ln2),.5)}
+.hov:active{transform:scale(.985)}
+.btn-p{background-image:linear-gradient(90deg,var(--cta1),var(--cta2));color:var(--ctaink);border:0;border-radius:999px;padding:11px 24px;min-height:44px;font-size:17px;font-weight:600;transition:filter .2s,transform .15s}
+.btn-p:hover{filter:brightness(1.07)}.btn-p:active{transform:scale(.97)}
+.btn-g{background:transparent;border:1px solid rgba(var(--ln2),.45);color:var(--ink);border-radius:999px;padding:10px 22px;min-height:44px;font-size:17px;transition:background-color .2s}
+.btn-g:hover{background-color:rgba(var(--gl),.15)}
+.nv{background:transparent;border:0;color:var(--muted);padding:9px 18px;border-radius:999px;font-size:17px;min-height:44px}
+.nv:hover{color:#fff;background:rgba(var(--gl),.12)}
+.nv.on{background:#5a3cc0;color:#fff}
+.chip{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.3);color:var(--em);border-radius:999px;padding:7px 16px;min-height:40px;font-size:16px;white-space:nowrap}
+.chip:hover{background:rgba(var(--gl),.2)}
+.chip.on{background:#5a3cc0;border-color:var(--acc2);color:#fff}
+.ico{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.25);border-radius:999px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 12px;gap:8px;color:var(--ink)}
+.ico:hover{background:rgba(var(--gl),.2)}
+.tag{display:inline-block;font-size:12px;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid rgba(var(--gd),.6);color:var(--gold)}
+.pill{display:inline-block;font-size:14px;padding:3px 11px;border-radius:999px;font-weight:500}
+.inp{width:100%;box-sizing:border-box;background:rgba(var(--bg0),.6);border:1px solid rgba(var(--ln),.35);border-radius:14px;color:var(--ink);padding:12px 16px;font-family:inherit;font-size:17px;min-height:44px}
+.inp::placeholder{color:var(--subtle)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.tb{background:#5a3cc0;border:0;border-radius:999px;width:48px;height:28px;padding:3px;display:flex;align-items:center}
+.tb[aria-checked="false"]{background:var(--tboff)}
+.kn{width:22px;height:22px;border-radius:999px;background:#fff}
+.mt{background:transparent;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;color:var(--subtle);min-height:56px;flex:1;padding:6px 0}
+.mt.on{color:var(--em)}
+.mt.on svg{stroke:var(--acc)}
+.mwrap{width:100%;min-height:100vh;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:24px;background-color:var(--wrap);background-image:radial-gradient(700px 500px at 50% 0%,rgba(90,60,192,.22),transparent 70%),radial-gradient(600px 500px at 50% 100%,rgba(49,36,107,.35),transparent 70%)}
+.mphone{position:relative;width:100%;max-width:390px;height:844px;max-height:calc(100vh - 48px);min-height:560px;border-radius:36px;overflow:hidden;border:1px solid rgba(var(--ln),.28);box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 8px rgba(var(--gl),.06)}
+@media (max-width:430px){.mwrap{padding:0;display:block}.mphone{max-width:none;height:100vh;height:100dvh;max-height:none;min-height:0;border-radius:0;border:0;box-shadow:none}}
+.scr::-webkit-scrollbar{width:0}
+
+html,body{margin:0;background:var(--page)}
+
+/* ===== App shell (was inline styles on the root, <main> and content wrapper) ===== */
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.app-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+/* Every page is a flex column with 32px gaps, as in the original content wrapper */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ===== Style rules shared by two or more pages/components ===== */
+:root .sky .u-1 {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+:root .sky .u-2 {
+  margin:0 0 16px;
+  font:600 28px/1.2 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-3 {
+  font:600 22px/1.2 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-4 {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+
+:root .sky .u-5 {
+  flex:1;
+  min-width:0;
+}
+
+:root .sky .u-6 {
+  font:600 21px/1.2 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-7 {
+  color:var(--muted);
+  font-size:15px;
+}
+
+:root .sky .u-8 {
+  width:10px;
+  height:10px;
+  border-radius:99px;
+  background:#4cd585;
+}
+
+:root .sky .u-9 {
+  background:rgba(154,124,255,.25);
+  color:var(--em);
+}
+
+:root .sky .u-10 {
+  margin:0;
+  font:600 44px/1.1 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-11 {
+  position:absolute;
+  left:-9999px;
+}
+
+:root .sky .u-12 {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+:root .sky .u-13 {
+  color:var(--subtle);
+  font-size:15px;
+}
+
+:root .sky .u-14 {
+  padding:28px;
+  text-align:center;
+  color:var(--muted);
+}
+
+:root .sky .u-15 {
+  margin:0;
+  color:var(--subtle);
+  font-size:14px;
+}
+
+:root .sky .u-16 {
+  padding:6px 18px;
+}
+
+:root .sky .u-17 {
+  color:var(--subtle);
+}
+
+:root .sky .u-18 {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+:root .sky .u-19 {
+  flex:1;
+}
+
+:root .sky .u-20 {
+  padding:8px 20px;
+}
+
+:root .sky .u-21 {
+  color:var(--subtle);
+  font-size:14px;
+}
+
+:root .sky .u-22 {
+  margin:0 0 6px;
+  font:600 44px/1.1 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-23 {
+  margin:0;
+  color:var(--muted);
+}
+
+:root .sky .u-24 {
+  align-self:flex-start;
+}
+
+:root .sky .u-25 {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:20px;
+  align-items:start;
+}
+
+:root .sky .u-26 {
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+:root .sky .u-27 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+:root .sky .u-28 {
+  margin:0;
+  font:600 22px/1.2 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-29 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+:root .sky .u-30 {
+  margin:0;
+  color:var(--muted);
+  line-height:1.4;
+}
+
+:root .sky .u-31 {
+  padding:8px 18px;
+}
+
+:root .sky .u-32 {
+  color:var(--muted);
+}
+
+:root .sky .u-33 {
+  margin:0;
+  color:var(--subtle);
+  font-size:14px;
+  line-height:1.4;
+}
+
+:root .sky .u-34 {
+  background:rgba(var(--gd),.18);
+  color:var(--gold);
+}
+
+:root .sky .u-35 {
+  font-size:19px;
+  line-height:1.35;
+}
+
+:root .sky .u-36 {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+:root .sky .u-37 {
+  padding:6px 20px;
+}
+
+:root .sky .u-38 {
+  font-size:18px;
+}
+
+:root .sky .u-39 {
+  padding:32px 24px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+}
+
+:root .sky .u-40 {
+  font:600 24px 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-41 {
+  margin:0;
+  font:600 22px 'Cormorant Garamond',serif;
+}
+
+:root .sky .u-42 {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+:root .sky .u-43 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+:root .sky .u-44 {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+:root .sky .u-45 {
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+:root .sky .u-46 {
+  min-height:40px;
+  min-width:40px;
+  padding:0;
+}
+
+:root .sky .u-47 {
+  margin:0;
+  font:600 28px 'Cormorant Garamond',serif;
+}

@@ -1,0 +1,15 @@
+:root .login-page .login-1 {
+  max-width:460px;
+  width:100%;
+  box-sizing:border-box;
+  margin:24px auto;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+:root .login-page .login-2 {
+  margin:0;
+  font:600 34px 'Cormorant Garamond',serif;
+}

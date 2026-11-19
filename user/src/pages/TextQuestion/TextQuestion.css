@@ -1,0 +1,39 @@
+:root .text-question-page .text-question-1 {
+  border:1px solid rgba(var(--ln),.22);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+:root .text-question-page .text-question-2 {
+  flex:1 1 160px;
+}
+
+:root .text-question-page .text-question-3 {
+  font-size:19px;
+  font-weight:600;
+}
+
+:root .text-question-page .text-question-4 {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+:root .text-question-page .text-question-5 {
+  padding:0;
+  font-size:22px;
+}
+
+:root .text-question-page .text-question-6 {
+  min-width:24px;
+  text-align:center;
+  font-size:20px;
+}
+
+:root .text-question-page .text-question-7 {
+  resize:vertical;
+}

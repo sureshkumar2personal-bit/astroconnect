@@ -1,0 +1,22 @@
+:root .help-page .help-1 {
+  border-bottom:1px solid rgba(var(--ln),.15);
+}
+
+:root .help-page .help-2 {
+  width:100%;
+  background:none;
+  border:0;
+  padding:16px 0;
+  min-height:52px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:18px;
+  text-align:left;
+}
+
+:root .help-page .help-3 {
+  margin:0 0 16px;
+  color:var(--muted);
+  line-height:1.45;
+}
