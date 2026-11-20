@@ -1,0 +1,21 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--heading); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+button, select { font-family: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ac-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ac-icon { color: var(--icon); }
+.ac-soft { color: var(--text-soft); }
+.ac-heading { color: var(--heading); }
+.ac-up { color: var(--positive); font-weight: 600; }
+.ac-down { color: var(--danger); font-weight: 600; }
+.ac-h1 { margin: 0; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 40px; line-height: 1.15; }
