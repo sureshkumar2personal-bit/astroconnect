@@ -1,0 +1,47 @@
+/* My Work — desktop and tablet rules. Loaded after shared/work.css. */
+
+/* Long work pages: keep the sidebar in view, as in the reference. */
+@media (min-width: 761px) {
+  .ac-app--work .ac-sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+}
+
+/* ---------- Desktop / tablet layout ---------- */
+.tq .top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tq .top h1 { font-size: 36px; line-height: 1.2; }
+.tq .status { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--gold); font-weight: 500; background: var(--glass); }
+.tq .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--mut); }
+.tq .dot-on { background: var(--ok); }
+.tq .dot-dnd { background: var(--bad); }
+.tq .me { display: flex; align-items: center; gap: 10px; }
+.tq .av-me { background: var(--avatar); border: 2px solid var(--gold); color: var(--heading); font-family: 'Playfair Display', serif; font-size: 18px; }
+.tq .stats { display: grid; grid-template-columns: 2fr repeat(4, minmax(0, 1fr)) 1.3fr; gap: 14px; }
+.tq .stat { border: 1.5px solid var(--gold); border-radius: 16px; padding: 14px 16px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.tq .stat b { font-size: 32px; font-weight: 700; color: var(--link); display: block; }
+.tq .stat.q { text-align: left; gap: 8px; }
+.tq .stat .p1 { color: var(--bad); }
+.tq .stat-quota__label { @apply tw:font-medium; }
+.tq .stat .stat-quota__total { @apply tw:text-[26px]; }
+.tq .sbtns { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.tq .sbtns .btn-o { background: var(--card-surface); line-height: 1.25; }
+.tq .split { display: grid; grid-template-columns: minmax(360px, 5fr) 7fr; gap: 18px; align-items: start; }
+.tq .lbox { border: 1.5px solid var(--gold); border-radius: 18px; padding: 14px; }
+.tq .pane { display: flex; flex-direction: column; gap: 14px; border: 1.5px solid var(--gold); border-radius: 18px; padding: 16px 18px; position: sticky; top: 16px; min-width: 0; scroll-margin-top: 16px; }
+.tq .narrow { max-width: 900px; display: flex; flex-direction: column; gap: 14px; }
+
+@media (max-width: 1180px) {
+  .tq .split { grid-template-columns: minmax(0, 1fr); }
+  .tq .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tq .pane { position: static; }
+}
+/* Tablet: narrower main column next to the sidebar. */
+@media (min-width: 761px) and (max-width: 1000px) {
+  .tq .top h1 { font-size: 30px; }
+  .tq .top > .grow { flex-basis: 100%; } /* title on its own row, controls below */
+  .tq .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tq .stat.q, .tq .sbtns { grid-column: 1 / -1; }
+  .tq .sbtns { flex-direction: row; }
+  .tq .sbtns .btn { flex: 1; }
+  .tq .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tq .two { grid-template-columns: minmax(0, 1fr); }
+  .tq .tab { padding: 0 14px; font-size: 14px; }
+}

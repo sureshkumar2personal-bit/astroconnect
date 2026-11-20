@@ -36,7 +36,7 @@ export function TemplateForm({ template, onCancel, onSave }) {
       <div className="form">
         <label>Template name<input value={name} onChange={(e) => setName(e.target.value)} /></label>
         <label>Template text<textarea maxLength={MAX_CHARS} value={text} onChange={(e) => setText(e.target.value)} /></label>
-        <div className="sm" style={{ textAlign: 'right' }}>{text.length} / {MAX_CHARS}</div>
+        <div className="sm char-count">{text.length} / {MAX_CHARS}</div>
         <p className="warn-t sm" role="alert">{err}</p>
       </div>
       <div className="actions">

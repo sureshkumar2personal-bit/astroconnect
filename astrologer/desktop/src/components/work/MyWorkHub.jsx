@@ -19,7 +19,7 @@ export default function MyWorkHub({ questions, onOpen }) {
         <div><span className="sm">Appointments</span><b>{APPOINTMENTS}</b></div>
       </section>
       <button type="button" className="ovc" onClick={() => onOpen('questions')}>
-        <div className="row"><b className="grow" style={{ fontSize: 16 }}>Text Questions Overview</b><span className="go" style={{ fontSize: 20 }}>›</span></div>
+        <div className="row"><b className="grow ovc-title">Text Questions Overview</b><span className="go ovc-arrow">›</span></div>
         <div className="over">
           <div><b className="y">{countTab(questions, 'new')}</b><span className="sm">New</span></div>
           <div><b>{countTab(questions, 'p2')}</b><span className="sm">Priority 2</span><div className="muted sm">1–19 days</div></div>

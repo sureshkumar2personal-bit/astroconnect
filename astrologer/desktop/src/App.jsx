@@ -13,7 +13,6 @@ import useTextQuestions from '@shared/hooks/useTextQuestions.js';
 import useMediaQuery from '@shared/hooks/useMediaQuery.js';
 import { parseRoute, useHashPath } from '@shared/lib/router.js';
 import WorkPage from './pages/WorkPage.jsx';
-import { themeAssets } from '@shared/config/themeAssets.js';
 import { astrologer, notifications, earnings, peakDemand, todaysWork, recentActivity, quickActions } from '@shared/data/mockHome.js';
 
 const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
@@ -30,15 +29,8 @@ export default function App() {
   const route = parseRoute(path);
   const mobile = useMediaQuery('(max-width: 760px)'); // same breakpoint as the CSS mobile layout
 
-  const assets = themeAssets[theme];
-  const appVars = {
-    '--art': `url("${assets.art}")`,
-    '--bg-img': assets.bg ? `url("${assets.bg}")` : 'none',
-    '--bg-img-mobile': `url("${assets.bgMobile}")`,
-  };
-
   return (
-    <div className={`ac-app${route.page === 'work' ? ' ac-app--work' : ''}`} style={appVars}>
+    <div className={`ac-app${route.page === 'work' ? ' ac-app--work' : ''}`}>
       <Sidebar theme={theme} active={route.page} workView={route.page === 'work' ? (route.view === 'hub' ? 'questions' : route.view) : undefined} />
       {route.page === 'work' ? (
         <main className="ac-main tq">

@@ -6,8 +6,8 @@ export default function QuestionStats({ tq, onCreateCampaign, onManageCampaigns 
   return (
     <div className="stats">
       <div className="stat q">
-        <div className="row"><span className="grow" style={{ fontWeight: 500 }}>Monthly Slot Quota</span><b style={{ fontSize: 26 }}>{tq.quota}</b><span>slots</span></div>
-        <div className="bar"><span style={{ width: `${(tq.alloc / tq.quota) * 100}%` }} /></div>
+        <div className="row"><span className="grow stat-quota__label">Monthly Slot Quota</span><b className="stat-quota__total">{tq.quota}</b><span>slots</span></div>
+        <div className="bar"><span style={{ '--pct': `${(tq.alloc / tq.quota) * 100}%` }} /></div>
         <div className="row sm"><span className="grow">{tq.alloc} allocated</span><span className="ok-t">{tq.free} available</span></div>
       </div>
       <div className="stat"><span className="sm">Active Campaigns</span><b>{active}</b></div>

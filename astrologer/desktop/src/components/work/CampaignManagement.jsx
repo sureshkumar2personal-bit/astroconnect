@@ -6,7 +6,7 @@ export function QuotaCard({ quota, alloc, free }) {
   const p = Math.round((alloc / quota) * 100);
   return (
     <section className="card quota">
-      <div className="ring" style={{ background: `conic-gradient(var(--tq-accent) 0 ${p}%, var(--line) ${p}% 100%)` }} role="img" aria-label={`${p}% of quota allocated`}>
+      <div className="ring" style={{ '--pct': `${p}%` }} role="img" aria-label={`${p}% of quota allocated`}>
         <span><b>{p}%</b><small>allocated</small></span>
       </div>
       <div className="grow">
@@ -31,7 +31,7 @@ function CampaignCard({ c, onAction }) {
         <Badge kind={cancelled ? 'bad' : 'ok'}>{c.status}</Badge>
       </div>
       <div className="muted sm">{fmtDate(dt(c.start))} – {fmtDate(dt(c.end))} · Offer: {c.offer}</div>
-      <div className="bar"><span style={{ width: `${p}%` }} /></div>
+      <div className="bar"><span style={{ '--pct': `${p}%` }} /></div>
       <div className="row sm wrap">
         <span className="grow">{c.sold} / {c.slots} sold · {c.slots - c.sold} unused</span>
         <span>General <b>₹{c.pg}</b></span>

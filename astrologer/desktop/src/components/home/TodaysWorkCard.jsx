@@ -53,7 +53,7 @@ export default function TodaysWorkCard({ work, a }) {
           </div>
           <div className="ac-goal__bar">
             <div role="progressbar" aria-label="Daily answer goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow={a.pct} className="ac-progress">
-              <div className="ac-progress__fill" style={{ width: `${a.pct}%` }} />
+              <div className="ac-progress__fill" style={{ '--pct': `${a.pct}%` }} />
             </div>
             <span className="ac-goal__pct">{a.pct}%</span>
           </div>

@@ -61,6 +61,11 @@
   --tq-genS: #efe8da; --tq-genT: #4a3b28;
   --tq-perS: #fbe3ec; --tq-perT: #9d174d;
   --tq-mtop-bg: rgba(251, 244, 230, 0.9);
+  /* Theme images. --art: sidebar artwork. --bg-img: page background on desktop/tablet.
+     --bg-img-mobile: page background on phones and portrait tablets. */
+  --art: url('@assets/images/light/sidebar-mountain-zodiac.png');
+  --bg-img: url('@assets/images/light/bg-zodiac-sunrise.png');
+  --bg-img-mobile: url('@assets/images/light/bg-moonrise-mobile.png');
 }
 
 :root[data-theme='dark'] {
@@ -122,4 +127,8 @@
   --tq-genS: #3a1d86; --tq-genT: #e9e1ff;
   --tq-perS: #5e2140; --tq-perT: #ffc2d8;
   --tq-mtop-bg: rgba(34, 16, 79, 0.9);
+  /* Dark has a single (portrait) artwork, used for all three. */
+  --art: url('@assets/images/dark/bg-nebula.png');
+  --bg-img: url('@assets/images/dark/bg-nebula.png');
+  --bg-img-mobile: url('@assets/images/dark/bg-nebula.png');
 }

@@ -21,7 +21,7 @@ export const PendingTag = ({ id }) => (
 );
 
 export const Avatar = ({ q, large }) => (
-  <span className={`av${large ? ' av-l' : ''}`} style={{ background: q.color }} aria-hidden="true">{q.ini}</span>
+  <span className={`av${large ? ' av-l' : ''}`} style={{ '--av-bg': q.color }} aria-hidden="true">{q.ini}</span>
 );
 
 export function CharCount({ value, max }) {

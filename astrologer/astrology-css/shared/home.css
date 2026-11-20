@@ -1,3 +1,6 @@
+/* Home + app shell — rules shared by every screen size.
+   Desktop/tablet-only rules: desktop/home.css. Phone rules: mobile/home.css. */
+
 /* ---------- App shell ---------- */
 .ac-app {
   min-height: 100vh;
@@ -19,25 +22,6 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 18px;
-}
-/* Two-row, three-card dashboard (reference proportions) on wide screens. */
-@media (min-width: 1200px) {
-  .ac-header + .ac-grid { grid-template-columns: 1fr 1.06fr 1.12fr; }
-  .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
-}
-/* Dark uses a portrait nebula; on landscape screens shift it down so the mountain ridge
-   sits towards the bottom instead of mid-screen. */
-@media (min-width: 761px) and (orientation: landscape) {
-  :root[data-theme='dark'] .ac-app { background-position: center calc(100% + 20vh); }
-}
-/* Portrait tablets: the portrait artwork fits better than the landscape scene (light only). */
-@media (min-width: 761px) and (max-width: 1199px) and (orientation: portrait) {
-  :root[data-theme='light'] .ac-app { background-image: var(--bg-img-mobile); }
-}
-/* Laptop / large tablet: two columns, the third card spans the row. */
-@media (min-width: 900px) and (max-width: 1199px) {
-  .ac-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ac-grid > :nth-child(3) { grid-column: 1 / -1; }
 }
 
 /* ---------- Sidebar ---------- */
@@ -235,7 +219,7 @@
 .ac-select option { color: var(--text); background: var(--card); }
 .ac-goal__bar { display: flex; align-items: center; gap: 14px; }
 .ac-progress { flex-grow: 1; height: 14px; border-radius: 7px; background: var(--track); overflow: hidden; }
-.ac-progress__fill { height: 100%; border-radius: 7px; background: var(--accent); transition: width 0.25s ease; }
+.ac-progress__fill { width: var(--pct); height: 100%; border-radius: 7px; background: var(--accent); transition: width 0.25s ease; }
 .ac-goal__pct { font-size: 20px; font-weight: 700; }
 
 /* Recent activity */
@@ -256,182 +240,7 @@
 }
 .ac-qa__tile:hover { color: var(--text); background: var(--chip); transform: translateY(-1px); }
 
-/* ---------- Light reference layout details (desktop/tablet only) ---------- */
-@media (min-width: 761px) {
-  /* Appointments summary sits in a raised tile, as in the reference. */
-  :root[data-theme='light'] .ac-work-appt {
-    background: var(--tile); border: 1.5px solid var(--tile-border); border-radius: 14px;
-    box-shadow: var(--tile-shadow); padding: 10px 12px;
-  }
-  /* Earnings: big figure + growth on the left, week/month tiles stacked on the right. */
-  :root[data-theme='light'] .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
-  :root[data-theme='light'] .ac-today { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 0 0 4px; }
-  :root[data-theme='light'] .ac-today__main { text-align: left; }
-  :root[data-theme='light'] .ac-today__rule { display: none; }
-  :root[data-theme='light'] .ac-today__change { display: flex; gap: 6px; align-items: baseline; white-space: nowrap; }
-  :root[data-theme='light'] .ac-periods { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  :root[data-theme='light'] .ac-period { padding: 9px 12px; }
-  :root[data-theme='light'] .ac-period__amount { font-size: 22px; }
-  :root[data-theme='light'] .ac-period__vs { display: none; }
-}
-
 .ac-bottomnav { display: none; }
-
-/* ---------- Narrow desktop / tablet ---------- */
-@media (max-width: 1024px) {
-  .ac-app { grid-template-columns: 200px minmax(0, 1fr); }
-  .ac-main { padding: 22px 20px 28px; }
-  .ac-navlink { padding: 11px 16px; font-size: 16px; }
-  .ac-h1 { font-size: 34px; }
-  .ac-header__sub { font-size: 16px; }
-}
-
-/* ---------- Mobile: bottom navigation, compact stacked layout ---------- */
-@media (max-width: 760px) {
-  body { font-size: 13px; }
-  .ac-app {
-    display: block;
-    background: var(--bg) var(--bg-img-mobile) center bottom / cover no-repeat fixed;
-  }
-  .ac-sidebar { display: none; }
-  .ac-main { max-width: 640px; margin: 0 auto; padding: 16px 14px 14px; gap: 12px; }
-  .ac-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .ac-bottomnav {
-    position: sticky; bottom: 14px; z-index: 5;
-    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;
-    max-width: 620px; margin: 0 auto 14px; width: calc(100% - 20px);
-    border: 1.5px solid var(--card-border); border-radius: 22px; background: var(--card-surface); padding: 8px;
-    box-shadow: var(--card-shadow); backdrop-filter: blur(8px);
-  }
-  .ac-bottomnav__item {
-    height: 60px; border-radius: 18px; color: var(--text);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 12px;
-  }
-  .ac-bottomnav__item:hover { color: var(--text); }
-  .ac-bottomnav__item.is-active { background: var(--active-grad); color: var(--on-accent); font-weight: 700; box-shadow: var(--active-shadow); }
-
-  .ac-header { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 12px; }
-  .ac-header__actions { display: none; }
-  .ac-header__brand { display: flex; align-items: center; gap: 8px; }
-  .ac-header__logo { flex-grow: 1; width: auto; max-width: 190px; height: 56px; object-fit: contain; object-position: left center; margin-right: auto; }
-  .ac-header__brand .ac-iconbtn { width: 44px; height: 44px; border-radius: 10px; }
-  .ac-header__welcome { display: flex; align-items: center; gap: 14px; }
-  .ac-header__text { flex: 1 1 auto; }
-  .ac-avatar-ring { width: 92px; height: 92px; }
-  .ac-avatar { font-size: 32px; }
-  .ac-h1 { font-size: 25px; }
-  .ac-header__sub { margin-top: 4px; font-size: 13px; }
-  .ac-header__spark { display: none; }
-  .ac-bell__badge { top: -8px; right: -8px; width: 20px; height: 20px; font-size: 11px; }
-
-  .ac-card { border-radius: 16px; padding: 12px 14px; gap: 8px; }
-  .ac-card__head { gap: 8px; }
-  .ac-card__title { font-size: 19px; }
-  .ac-card__icon { width: 24px; height: 24px; }
-  .ac-info { width: 20px; height: 20px; }
-  .ac-viewall { font-size: 13px; min-height: 32px; }
-
-  .ac-pills { gap: 8px; }
-  .ac-pill { height: 44px; font-size: 16px; gap: 8px; }
-  .ac-pill.is-selected .ac-pill__dot { width: 10px; height: 10px; }
-  .ac-pill__dot { width: 8px; height: 8px; }
-  .ac-row { gap: 12px; padding: 3px 2px; }
-  .ac-row > svg { width: 22px; height: 22px; }
-  .ac-row__label { font-size: 14px; }
-  .ac-row__sub { font-size: 11px; }
-  .ac-switch { width: 46px; height: 26px; border-radius: 13px; }
-  .ac-switch__knob { width: 20px; height: 20px; }
-  .ac-wide-btn { height: 44px; gap: 12px; padding: 0 14px; font-size: 15px; }
-  .ac-wide-btn svg { width: 22px; height: 22px; }
-  .ac-note { font-size: 11px; line-height: 1.4; }
-  .ac-note__icon { display: none; }
-
-  .ac-card__head--earn .ac-info, .ac-peakcard .ac-info { display: none; }
-  .ac-badge { padding: 2px 9px; font-size: 11px; border-color: var(--border); background: var(--chip-alt); }
-  .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; }
-  .ac-today { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 0; padding: 0; }
-  .ac-today__amount { font-size: 38px; line-height: 1.05; }
-  .ac-today__label, .ac-today__rule { display: none; }
-  .ac-today__change { display: flex; gap: 4px; font-size: 13px; align-items: baseline; white-space: nowrap; }
-  .ac-today__pct { font-size: 13px; }
-  .ac-today__vs { font-size: 13px; color: var(--text); }
-  .ac-periods { display: contents; }
-  .ac-period { border-radius: 10px; padding: 7px 9px; flex-direction: column; text-align: center; gap: 0; }
-  .ac-period__icon, .ac-period__vs { display: none; }
-  .ac-period__label { font-size: 11px; }
-  .ac-period__amount { font-family: inherit; font-size: 17px; }
-  .ac-period__change { font-size: 11px; }
-
-  .ac-peakchip--body { display: none; }
-  .ac-peakchip--head { display: flex; gap: 6px; padding: 3px 9px; font-size: 11px; background: transparent; white-space: nowrap; flex-shrink: 0; }
-  .ac-peakchip--head svg { display: none; }
-  .ac-peakcard .ac-card__title { min-width: 0; font-size: 17px; white-space: nowrap; }
-  .ac-bars { gap: 14px; height: 96px; padding: 0 8px; border-bottom-width: 1.5px; }
-  .ac-bar { gap: 4px; }
-  .ac-bar__value { font-size: 17px; }
-  .ac-bar__fill { height: calc(var(--v) * 0.79px); border-radius: 6px 6px 0 0; }
-  .ac-bars-labels { padding: 0 8px; font-size: 12px; }
-  .ac-barlabel__icon { display: none; }
-
-  .ac-work-appt { gap: 10px; padding: 6px 2px; flex-wrap: nowrap; }
-  .ac-work__icon { width: 24px; height: 24px; }
-  .ac-work__label { font-size: 11px; white-space: nowrap; }
-  .ac-work__big { font-size: 16px; }
-  .ac-vrule { display: none; }
-  .ac-work-appt__next { flex-grow: 1; border-left: 1.5px solid var(--divider-strong); padding-left: 10px; }
-  .ac-work__time { font-size: 13px; white-space: nowrap; }
-  .ac-work-appt { gap: 8px; }
-  .ac-work-appt .ac-viewall { font-size: 12px; }
-  .ac-work__clock { display: none; }
-  .ac-work-q { gap: 10px; padding: 4px 2px 8px; }
-  .ac-work-q__title { font-size: 14px; }
-  .ac-counts { min-width: 0; width: 180px; }
-  .ac-counts .ac-work__label { font-size: 11px; }
-  .ac-count { font-size: 19px; }
-  .ac-goal { gap: 10px; padding: 2px; }
-  .ac-goal__body { gap: 6px; }
-  .ac-goal__top { gap: 8px; flex-wrap: nowrap; }
-  .ac-goal__title { font-size: 14px; }
-  .ac-goal__sub { font-size: 12px; }
-  .ac-goal__text { font-size: 11px; }
-  .ac-select { height: 36px; padding: 0; background: var(--chip-alt); }
-  .ac-select select { height: 100%; padding: 0 10px; font-size: 14px; font-weight: 600; }
-  .ac-goal__bar { gap: 10px; }
-  .ac-progress { height: 12px; border-radius: 6px; }
-  .ac-goal__pct { font-size: 17px; }
-
-  .ac-activity { gap: 2px; }
-  .ac-activity .ac-card__head { padding-bottom: 4px; }
-  .ac-activity__item { gap: 12px; padding: 7px 2px; }
-  .ac-activity__item svg { width: 24px; height: 24px; }
-  .ac-activity__text { font-size: 14px; }
-  .ac-activity__time { font-size: 12px; }
-
-  .ac-qa { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; flex-grow: 0; }
-  .ac-qa__tile { min-height: 0; height: 86px; border-radius: 12px; gap: 4px; padding: 6px 2px; font-size: 12px; font-weight: 400; }
-  .ac-qa__icon { width: 28px; height: 28px; }
-}
-
-@media (max-width: 380px) {
-  .ac-counts { width: 165px; }
-  .ac-goal__top { flex-wrap: wrap; }
-  .ac-qa__tile { font-size: 11px; }
-  .ac-work-appt { flex-wrap: wrap; }
-}
-
-/* Three-column desktop: keep labels on one line at the narrower card widths. */
-@media (min-width: 1200px) {
-  .ac-work-appt { flex-wrap: nowrap; }
-  .ac-work-appt__next { min-width: 0; }
-  .ac-work__big { font-size: 18px; }
-  .ac-work__time { font-size: 15px; }
-  .ac-work-q__title { font-size: 16px; white-space: nowrap; }
-  .ac-counts { min-width: 190px; }
-  .ac-activity__item { gap: 10px; padding: 12px 0; }
-  .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-  .ac-activity__time { font-size: 12.5px; }
-  .ac-wide-btn { font-size: 16px; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .ac-progress__fill { transition: none; }
