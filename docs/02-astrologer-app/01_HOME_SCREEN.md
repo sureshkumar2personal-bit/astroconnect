@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-01 – AD-09, AD-12 – AD-23, AD-63 – AD-68 |
+| Owned decisions | AD-01 – AD-09, AD-12 – AD-23, AD-63 – AD-68, AD-164 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -42,12 +42,12 @@ Astrologer App bottom navigation.
 - Astrologer view of the Remedy Tracker (AD-22).
 
 **Out of scope**
-- Live, Earnings, and Profile modules — separate modules to be discussed later (AD-23).
+- Live, Earnings, and Profile modules — separate modules (AD-23), now specified in [07](07_LIVE_SESSIONS.md), [08](08_WALLET_AND_EARNINGS.md), and [04](04_PROFILE_AND_VERIFICATION.md).
 - Wallet details, including refunds and refund accounting (Wallet section; AD-14).
 - Availability Schedule and timings — Appointment Module (AD-13).
 - Text-Based Questions rules, campaigns, Campaign Management, and the Text-Based Questions service suspension → [`02_TEXT_BASED_QUESTIONS.md`](02_TEXT_BASED_QUESTIONS.md) (AD-27, AD-73).
-- Go Live destination — Live module (AD-23).
-- Content of the "Benefits & Content" section opened by Content Creation (AD-21).
+- Go Live destination — Live Sessions ([07](07_LIVE_SESSIONS.md)).
+- Content of the "Benefits & Content" section opened by Content Creation (AD-21) — the Content Management module ([12](12_CONTENT_MANAGEMENT.md), AD-138).
 - User-side screens (User App).
 - Backend, APIs, real-time updates, payments, refund processing.
 
@@ -68,9 +68,9 @@ Astrologer App bottom navigation.
 | AD-04 | **Online:** services can be available, subject to the individual Instant Call and Instant Chat switches. |
 | AD-05 | **Offline:** Text-Based Questions and Appointments can still arrive. Instant Call and Instant Chat cannot arrive. |
 | AD-06 | Only **Instant Call** and **Instant Chat** have individual ON/OFF switches. Text-Based Questions and Appointments have no individual availability switches. |
-| AD-07 | **DND / Planned Unavailability:** DND and Planned Unavailability are the **same feature**. While it is active, the astrologer is unavailable for **all** services — Text-Based Questions, Appointments, Instant Call, Instant Chat, online/offline consultations, and other services — including subscription-based requests. DND takes priority over the individual Instant Call and Instant Chat switches. *(Amended 2026-11-19.)* |
+| AD-07 | **DND / Planned Unavailability:** DND and Planned Unavailability are the **same feature**. While it is active, the astrologer is unavailable for **all new** services: no new Text-Based Questions, Appointments, Instant Calls, Instant Chats, online/offline consultations, or other services — including subscription-based requests — can be purchased, booked, submitted, or started. **Existing confirmed appointments remain valid** obligations (AD-09). DND takes priority over the individual Instant Call and Instant Chat switches. *(Amended 2026-11-19. Amended 2026-11-20 (AP-01-14): new-service availability separated from existing confirmed appointments; supersedes "unavailable for **all** services — Text-Based Questions, Appointments, …".)* |
 | AD-08 | Turning DND **OFF** does not automatically make the astrologer Online. The astrologer must independently select Online or Offline. |
-| AD-09 | **Planned Unavailability:** the astrologer can specify a future unavailable period (for example, 10 days), and can **edit or cancel** it. All services stop during the selected period. If an already-booked appointment falls within the period: the appointment is **cancelled**, the User receives a **full refund**, and that date is **blocked** from new appointment bookings. *(Amended 2026-11-19.)* |
+| AD-09 | **Planned Unavailability:** the astrologer can specify a future unavailable period (for example, 10 days), and can **edit or cancel** it. During the selected period no new services can be purchased, booked, submitted, or started (AD-07, AD-74). **Existing confirmed appointments remain valid** when DND / Planned Unavailability is activated. Closing a date that contains confirmed appointments is a separate appointment workflow (date closure, AD-94). *(Amended 2026-11-19. Amended 2026-11-20: confirmed appointments remain valid; supersedes the earlier rule that booked appointments in the period are cancelled with a full refund and the date blocked.)* |
 | AD-12 | New requests resume when DND is turned OFF or the unavailable period ends, subject to other rules. |
 | AD-13 | Availability Schedule and timings belong to the **Appointment Module**, not to Home or Text-Based Questions. |
 | AD-14 | **Today's Earnings** on Home shows today's **expected Net Earnings after platform commission** — the amount the astrologer can earn by completing today's booked/assigned work — to motivate the astrologer. Home Earnings is kept simple: **no refund deductions, refund adjustments, refund status, or refund calculations** are shown on Home; refund details and refund-related accounting are shown separately in the **Wallet** section only. This Week and This Month keep the completed-service basis. The Earnings/Wallet section can separately display **Gross Revenue, Commission, and Net Earnings**. Settlement timing is handled separately in Earnings/Wallet. *(Amended 2026-11-19.)* |
@@ -89,6 +89,7 @@ Astrologer App bottom navigation.
 | AD-66 | **Notifications:** the notification bell opens the Notifications section. Notifications include bookings, Instant Call, Instant Chat, new subscribers, payments, login activity, password changes, and other relevant account/service notifications. |
 | AD-67 | **Campaign Questions Home visual:** a compact chart/progress visual showing today's received question count (green indicator), the astrologer's **currently selected** Daily Answer Goal (yellow indicator; default 10, AD-19 — not a fixed 10), and critical questions (red indicator). *(Amended 2026-11-19.)* |
 | AD-68 | **Disputes on Home** are shown separately. An **immediate notification** is sent when a dispute is raised, and a **reminder** is sent before the 3-day Dispute Answer deadline expires. No generic repeated "within 3 days" warning is shown for every open dispute. If the astrologer does not respond within 3 days, the dispute is escalated to Admin Review (AD-41). *(Amended 2026-11-19.)* |
+| AD-164 | **Offline vs DND:** Offline means the astrologer is not accepting that instant service; DND means the astrologer is unavailable for new services across the platform. Appointments may still arrive when the astrologer is Offline (AD-05), but not while DND is active (AD-74). |
 
 **Referenced decisions** (owned by [`02_TEXT_BASED_QUESTIONS.md`](02_TEXT_BASED_QUESTIONS.md))
 
@@ -128,7 +129,8 @@ DND and Planned Unavailability are the same feature (AD-07).
 3. While DND is active, the astrologer's **entire profile is invisible to all users** for the selected period. No user can view the profile or book any service — Text-Based Questions, Campaign Questions, Open Questions, Subscription Questions, Appointments, Instant Call, Instant Chat, and all other bookable services (AD-07, AD-74).
    - New Text-Based Question purchases and submissions are blocked (AD-10, AD-74).
    - Already submitted Text-Based Questions keep their normal 30-day answer deadline; DND days count toward it, and it is not paused or extended (AD-11). A missed deadline leads to the normal automatic cancellation and refund (AD-30).
-   - Already-booked appointments within the period are **cancelled**, the User receives a **full refund**, and those dates are **blocked** for new appointment bookings (AD-09).
+   - Existing confirmed appointments **remain valid** (AD-09). Closing a date that has confirmed appointments is a separate appointment workflow (AD-94 → [05](05_APPOINTMENTS.md)). DND blocks all new services; previously confirmed appointments remain obligations (AD-07, AD-09).
+   - Planned Unavailability limits (maximum duration, notice period): `PENDING DISCUSSION` (AP-01-15).
 4. The astrologer can **edit or cancel** a planned unavailability period (AD-09).
 5. When DND is turned OFF or the period ends, the astrologer is not automatically Online; the astrologer selects Online or Offline independently (AD-08). New requests resume, subject to other rules (AD-12).
 
@@ -144,8 +146,8 @@ Vacation is not a Home Quick Action (AD-21).
 | Quick Action | Opens |
 |--------------|-------|
 | Campaign Questions | The Received Campaign Questions screen (Text-Based Questions → [02](02_TEXT_BASED_QUESTIONS.md)) |
-| Go Live | The Live module (AD-23); out of scope |
-| Content Creation | The "Benefits & Content" section, where the astrologer's content creation facilities are available |
+| Go Live | Live Sessions ([07](07_LIVE_SESSIONS.md)) |
+| Content Creation | The "Benefits & Content" section — the Content Management module ([12](12_CONTENT_MANAGEMENT.md), AD-138) |
 | Remedy Tracker | The astrologer's Remedy Tracker (§5.8) |
 
 ### 5.7 Open Notifications, Recent Activity, Appointments
@@ -212,9 +214,9 @@ changes, and important security/account notifications.
 |-----|---------------|
 | Home | This file (default on launch, AD-63) |
 | My Work | [`02_TEXT_BASED_QUESTIONS.md`](02_TEXT_BASED_QUESTIONS.md) (Text Questions part, AD-46); Appointments part out of scope |
-| Live | Separate module (AD-23) |
-| Earnings | Separate module (AD-23) |
-| Profile | Separate module (AD-23) |
+| Live | Live Sessions — [07](07_LIVE_SESSIONS.md) (AD-23) |
+| Earnings | Wallet and Earnings — [08](08_WALLET_AND_EARNINGS.md) (AD-23) |
+| Profile | Profile and Verification — [04](04_PROFILE_AND_VERIFICATION.md) (AD-23) |
 
 ### 6.7 Remedy Tracker (astrologer view) (AD-22)
 
@@ -245,7 +247,7 @@ Mock figures are illustrative only (AD-15).
 |-------|----------------------|--------------|--------------|--------------|--------|
 | Online | Can be available | Can be available | Per switch | Per switch | AD-04, AD-06 |
 | Offline | Can still arrive | Can still arrive | Cannot arrive | Cannot arrive | AD-05 |
-| DND / Planned Unavailability active | Profile hidden; nothing can be booked or submitted | Profile hidden; booked appointments in the period cancelled with full refund; dates blocked | Profile hidden; unavailable | Profile hidden; unavailable | AD-07, AD-09, AD-74 |
+| DND / Planned Unavailability active | Profile hidden; nothing can be booked or submitted | Profile hidden; no new bookings; existing confirmed appointments remain valid | Profile hidden; unavailable | Profile hidden; unavailable | AD-07, AD-09, AD-74 |
 
 - DND and Planned Unavailability are the same feature; it covers all services, including Campaign Questions, Open Questions, Subscription Questions, online/offline consultations, and all other bookable services (AD-07, AD-74).
 - DND cannot be activated during an ongoing Instant Call or Instant Chat (AD-74).
@@ -253,6 +255,8 @@ Mock figures are illustrative only (AD-15).
 - Already submitted Text-Based Questions keep their 30-day deadline; DND days count toward it; it is not paused or extended (AD-11). Missed deadlines follow the normal automatic cancellation and refund (AD-30).
 - Text-Based Questions and Appointments have no individual switches (AD-06).
 - Planned Unavailability can be edited or cancelled (AD-09).
+- Offline means the astrologer is not accepting that instant service; DND means unavailable for new services across the platform. Appointments may still arrive while Offline, but not during DND (AD-164).
+- Only one pending request or active consultation is allowed across Instant Call and Instant Chat (single atomic lock, AD-105 → [06](06_INSTANT_CALL_AND_CHAT.md)).
 - Appointment timings belong to the Appointment Module (AD-13).
 - Turning DND OFF does not make the astrologer Online (AD-08).
 - New requests resume when DND is turned OFF or the unavailable period ends, subject to other rules (AD-12).
@@ -320,7 +324,8 @@ Mock figures are illustrative only (AD-15).
 | DND active | Entire profile invisible to all users; no service can be booked; overrides switches (AD-07, AD-74) |
 | DND turned OFF | Astrologer is not automatically Online; selects Online or Offline (AD-08) |
 | Planned Unavailability edited or cancelled | Allowed (AD-09) |
-| Booked appointment falls within DND / Planned Unavailability | Appointment cancelled; full refund to the User; date blocked for new bookings (AD-09) |
+| Confirmed appointment falls within DND / Planned Unavailability | Appointment remains valid (AD-07, AD-09) |
+| Astrologer closes a date with confirmed appointments | Date-closure workflow: reschedule or full User Wallet refund (AD-94 → [05](05_APPOINTMENTS.md)) |
 | Submitted questions pending when DND starts | 30-day deadline continues; DND days count; missed deadline → automatic cancellation and refund (AD-11, AD-30) |
 | Unavailable period ends | New requests resume, subject to other rules (AD-12) |
 | Earnings lower than previous period | Decrease shown honestly (AD-15) |
@@ -353,10 +358,15 @@ The notification bell opens the Notifications section (AD-66).
 | Dependency | Reference |
 |------------|-----------|
 | Text-Based Questions | AD-10, AD-11, AD-27, AD-30, AD-39, AD-41, AD-46, AD-71, AD-72, AD-73, AD-74 → [02](02_TEXT_BASED_QUESTIONS.md) |
-| Appointment Module | AD-09, AD-13 |
-| Live, Earnings, Profile modules | AD-23 |
+| Appointment Module | AD-09, AD-13 → [05](05_APPOINTMENTS.md) (AD-94 date closure) |
+| Live, Earnings, Profile modules | AD-23 → [07](07_LIVE_SESSIONS.md), [08](08_WALLET_AND_EARNINGS.md), [04](04_PROFILE_AND_VERIFICATION.md) |
+| Instant Call and Instant Chat | AD-105 single active consultation lock → [06](06_INSTANT_CALL_AND_CHAT.md) |
+| Content Management | AD-138 → [12](12_CONTENT_MANAGEMENT.md) |
+| Remedy Tracker (appointment records) | AD-163 → [17](17_REMEDY_TRACKER.md) |
+| Notifications | AD-148 – AD-151 → [14](14_NOTIFICATIONS_AND_REMINDERS.md) |
+| Global navigation | AD-75 – AD-78 → [03](03_GLOBAL_NAVIGATION.md) |
 | Earnings/Wallet (gross, commission, net, refunds, settlement) | AD-14 |
-| User App — appointment cancellation and full refund during DND | User App D-30 (07) |
+| User App — DND and confirmed appointments | X-17 (resolved; User App D-30 amended, D-41) |
 | User App — Remedy Tracker | X-08 (User App D-11, D-29) |
 | User App — Follow vs Subscribe | X-09 (resolved; User App D-36) |
 | User App — DND and purchased-slot validity | X-12 (resolved; User App D-38) |
@@ -367,7 +377,11 @@ The notification bell opens the Notifications section (AD-66).
 Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIEW_LIST.md#4-open-questions-register).
 Retired: AP-01-01, AP-01-02, AP-01-04, AP-01-06 – AP-01-13, AP-GL-01 (resolved; see review list §9).
 
-**Owned by this module:** none open.
+**Owned by this module**
+
+| ID | Topic | Status |
+|----|-------|--------|
+| AP-01-15 | Planned Unavailability limits | Open |
 
 **Resolved** (kept in the Review List with status Resolved):
 
@@ -375,8 +389,9 @@ Retired: AP-01-01, AP-01-02, AP-01-04, AP-01-06 – AP-01-13, AP-GL-01 (resolved
 |----|------------|
 | AP-01-03 | Peak Demand uses the last 7 days and the IST ranges Morning 5:00 AM – 11:00 AM, Afternoon 11:00 AM – 4:00 PM, Evening 4:00 PM – 8:00 PM, Night 8:00 PM – 5:00 AM (§7.3) |
 | AP-01-05 | During DND the entire profile is hidden, so every service — including Subscription Questions — is unavailable (AD-07, AD-74) |
+| AP-01-14 | DND blocks all new services; existing confirmed appointments remain valid (AD-07 amended 2026-11-20, AD-09) |
 
-**Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-15))
+**Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-24))
 
 | ID | Topic | Status |
 |----|-------|--------|
@@ -384,6 +399,7 @@ Retired: AP-01-01, AP-01-02, AP-01-04, AP-01-06 – AP-01-13, AP-GL-01 (resolved
 | X-09 | "New Follower" depends on Follow vs Subscribe | Resolved |
 | X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved |
 | X-14 | Remaining subscription-model details (benefit questions aligned) | Open |
+| X-17 | DND and confirmed appointments; date closure (User App D-30, D-41) | Resolved |
 
 ## 12. Acceptance criteria
 
@@ -398,7 +414,8 @@ Confirmed rules only.
 - [ ] DND and Planned Unavailability are one feature; while active, all services stop and it overrides the Instant Call and Instant Chat switches (AD-07).
 - [ ] DND cannot be activated during an ongoing Instant Call or Instant Chat; while active, the whole profile is hidden from all users and no service can be booked (AD-74).
 - [ ] Turning DND OFF does not make the astrologer Online (AD-08).
-- [ ] Planned Unavailability can be set, edited, and cancelled; booked appointments in the period are cancelled with full refund and the dates are blocked (AD-09).
+- [ ] Planned Unavailability can be set, edited, and cancelled; existing confirmed appointments remain valid (AD-09).
+- [ ] Offline and DND are distinct: Appointments can arrive while Offline but not during DND (AD-164).
 - [ ] New requests resume when DND is turned OFF or the unavailable period ends, subject to other rules (AD-12).
 - [ ] Home contains no Availability Schedule or timings controls (AD-13).
 - [ ] Today's Earnings shows expected Net Earnings after commission from today's booked/assigned work, with no refund figures; refunds appear in Wallet only (AD-14).
@@ -410,7 +427,7 @@ Confirmed rules only.
 - [ ] Recent Activity shows the four latest items and View All → dedicated Recent Activity tab (AD-20).
 - [ ] Exactly four Quick Actions are shown; Campaign Questions opens the Received Campaign Questions screen; Content Creation opens "Benefits & Content" (AD-21).
 - [ ] The Remedy Tracker shows only this astrologer's remedies, shows "Completed" only when the User has completed a remedy, lets the astrologer view User attachments, and has no manual completion action (AD-22).
-- [ ] Live, Earnings, and Profile are not specified in this file (AD-23).
+- [ ] Live, Earnings, and Profile are not specified in this file; they are specified in 07, 08, and 04 (AD-23).
 - [ ] The app opens to the Home Dashboard (AD-63).
 - [ ] Home shows daily service counts only (AD-64).
 - [ ] Text-Based Questions and Subscription Questions are shown as two separate categories with separate counts (AD-65, AD-72).
@@ -429,3 +446,5 @@ Confirmed rules only.
 | 2026-11-19 | Final Home sync with the Review List: owned decisions re-quoted (AD-14 expected net earnings, no refunds on Home; AD-16 last 7 days); AD-72, AD-73, AD-74 referenced; DND activation restriction and profile invisibility; two question categories; Peak Demand IST ranges; dedicated Recent Activity tab; Received Campaign Questions destination. Invalid active-consultation DND item removed. AP-01-01, AP-01-04 shown as retired; AP-01-03, AP-01-05 shown as resolved pending a Review List update. |
 | 2026-11-19 | Re-quoted AD-16 and AD-20 from the Review List; removed outdated notes stating that AP-01-03 / AP-01-05 were still Open and that AD-16 / AD-20 awaited Review List updates. |
 | 2026-11-19 | Cross-app statuses synchronized with the review list: X-09 Resolved (User App D-36); X-12 User App alignment completed (User App D-38). X-14 stays Open. No decision changed. |
+| 2026-11-20 | Master Decision Document applied: AD-09 re-quoted (amended — confirmed appointments remain valid; ruling C2); AD-164 added (Offline vs DND). AD-17, AD-21, AD-74 unchanged (rulings C3, C5, C6). Links to new modules 03 – 17; AP-01-14, AP-01-15, X-17 added. |
+| 2026-11-20 | AD-07 re-quoted (amended — DND blocks all new services; confirmed appointments remain valid); AP-01-14 Resolved; X-17 Resolved (User App aligned). |

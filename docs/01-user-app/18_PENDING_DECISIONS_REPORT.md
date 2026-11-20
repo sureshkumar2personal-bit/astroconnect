@@ -20,8 +20,12 @@ when a decision is made, it is recorded there following the process in
 > 2026-11-19, P-06-04, P-06-05, P-06-08, P-06-09, P-06-10, P-06-11, P-06-17,
 > P-16-02, and P-06-01 were resolved; later on 2026-11-19, P-06-06, P-06-14,
 > P-10-04, P-10-05, P-10-06, P-14-01, and P-14-06 were resolved and
-> P-14-02 – P-14-05 were put on hold (see the review list §7). The review list is the
-> current source for open questions.
+> P-14-02 – P-14-05 were put on hold. On 2026-11-20 (Astrologer App
+> alignment), P-07-01, P-07-02, P-07-03, P-07-07, P-07-09, P-08-01, P-08-02,
+> P-08-07, P-08-08, P-09-01, P-09-02, P-09-03, P-09-05, P-09-07, P-09-08, and
+> P-16-05 were resolved, several others were partially answered, and P-14-07
+> was added (see the review list §7). The review list is the current source
+> for open questions.
 
 Options listed below are possibilities to help discussion. They are **not**
 recommendations and **not** requirements.

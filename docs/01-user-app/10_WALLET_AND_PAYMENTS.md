@@ -50,7 +50,10 @@ refunds.
 | D-18 | Refund when a Text Question is not answered within 30 days | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-20 | Price display: original price, discount percentage, final payable price | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
-| D-30 | Full refund for appointments cancelled by astrologer DND / Planned Unavailability | [07](07_APPOINTMENT_SERVICE.md) |
+| D-21 | Refund of purchased unused slots when a campaign is cancelled | [06](06_TEXT_QUESTION_SERVICE.md) |
+| D-30 | Astrologer DND: confirmed appointments remain valid | [07](07_APPOINTMENT_SERVICE.md) |
+| D-41 | Appointment refunds (astrologer cancellation, date closure, astrologer no-show) | [07](07_APPOINTMENT_SERVICE.md) |
+| D-45 | Prepaid Instant Call/Chat packages; no refund for early termination | [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md) |
 
 ## 5. User flows
 
@@ -72,7 +75,9 @@ Owned rules: D-32 and D-33 (listed below).
 
 Referenced rules that affect payments:
 - Refund for an unanswered Text Question: D-18 → [06](06_TEXT_QUESTION_SERVICE.md).
-- Full refund for appointments cancelled by astrologer DND / Planned Unavailability: D-30 → [07](07_APPOINTMENT_SERVICE.md).
+- Full Wallet refund for appointments cancelled by the astrologer, closed dates, or astrologer no-shows: D-41 → [07](07_APPOINTMENT_SERVICE.md). Confirmed appointments remain valid during astrologer DND: D-30 → [07](07_APPOINTMENT_SERVICE.md).
+- Refund of purchased unused slots when a campaign is cancelled: D-21 → [06](06_TEXT_QUESTION_SERVICE.md).
+- Instant Call/Chat packages are paid in full before the session; no refund for early termination: D-45 → [08](08_INSTANT_CALL.md), [09](09_INSTANT_CHAT.md).
 - Price display (original price, discount percentage, final payable price): D-20 → [06](06_TEXT_QUESTION_SERVICE.md).
 - Where refunds go: the user's Wallet (D-32).
 - Withdrawals: allowed only for the amount above ₹500; a withdrawal that would leave less than ₹500 is not allowed (D-32).
@@ -149,3 +154,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | 2026-11-17 | Initial draft created. |
 | 2026-11-19 | Referenced D-18, D-20, D-28, D-30 (refund cases and price display). |
 | 2026-11-19 | D-32 (refunds to Wallet; withdrawal above ₹500) and D-33 (Wallet or direct payment) added. P-10-04, P-10-05, P-10-06 Resolved. |
+| 2026-11-20 | Referenced D-21 (amended), D-30 (amended), D-41, D-45 (Astrologer App alignment). |

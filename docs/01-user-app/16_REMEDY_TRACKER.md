@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-11, D-29 |
+| Owned decisions | D-11, D-29, D-51 |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -37,20 +37,22 @@ attached by astrologers.
 |----|----------|
 | D-11 | If an astrologer prescribes or attaches a **remedy in any service** — including a Text Question answer and a Dispute Answer — it must also appear in the user's **Remedy Tracker**. *(Amended 2026-11-19.)* |
 | D-29 | **Remedy completion:** only the user can mark a remedy Completed. The user may upload a supporting photo or document, which the prescribing astrologer can view. |
+| D-51 | **Remedy Tracker links:** notes, remedies, recommendations, and reports that an astrologer attaches after an Appointment also appear in the user's Remedy Tracker, and each item links back to its originating Appointment/Consultation. |
 
 ## 5. User flows
 
 1. An astrologer prescribes or attaches a remedy in any service
    (Text Question, Appointment, Instant Call, Instant Chat).
 2. The remedy also appears in the user's Remedy Tracker (D-11).
-3. Only the user can mark the remedy Completed, and may upload a supporting photo or document, which the prescribing astrologer can view (D-29).
-4. Remedy reminders: `PENDING DISCUSSION` (P-16-03).
+3. Notes, remedies, recommendations, and reports attached after an Appointment also appear, each linked to its originating Appointment/Consultation (D-51).
+4. Only the user can mark the remedy Completed, and may upload a supporting photo or document, which the prescribing astrologer can view (D-29).
+5. Remedy reminders: `PENDING DISCUSSION` (P-16-03).
 
 ## 6. Screens and content
 
 `PENDING DISCUSSION`:
 - Remedy fields (P-16-01).
-- Link to the original consultation (P-16-05).
+- Link to the original consultation: confirmed (D-51).
 - User-added remedies (P-16-04).
 
 ## 7. Business rules and validations
@@ -61,6 +63,7 @@ attached by astrologers.
 | R-16-02 | This applies to every service, currently: Text Question ([06](06_TEXT_QUESTION_SERVICE.md)), Appointment ([07](07_APPOINTMENT_SERVICE.md)), Instant Call ([08](08_INSTANT_CALL.md)), Instant Chat ([09](09_INSTANT_CHAT.md)). | D-11 |
 | R-16-03 | Remedies from Dispute Answers also appear in the Remedy Tracker. | D-11 |
 | R-16-04 | Only the user can mark a remedy Completed; the user may upload a supporting photo or document, visible to the prescribing astrologer. | D-29 |
+| R-16-05 | Appointment notes, remedies, recommendations, and reports appear in the Remedy Tracker and link back to the originating Appointment/Consultation. | D-51 |
 
 **Pending rules:** reminders (P-16-03),
 user-added remedies (P-16-04), astrologer edits or removal (P-16-06).
@@ -94,7 +97,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | P-16-01 | Remedy fields |
 | P-16-03 | Reminders |
 | P-16-04 | User-added remedies |
-| P-16-05 | Link to original consultation |
+| P-16-05 | Link to original consultation — **Resolved** (D-51) |
 | P-16-06 | Astrologer edits or removal |
 
 **Related (owned elsewhere)**
@@ -112,6 +115,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 - [ ] A remedy prescribed or attached in an Instant Chat appears in the Remedy Tracker (D-11).
 - [ ] A remedy prescribed in a Text Question Dispute Answer appears in the Remedy Tracker (D-11).
 - [ ] Only the user can mark a remedy Completed and may upload a supporting photo or document (D-29).
+- [ ] Appointment notes, remedies, recommendations, and reports appear with a working link to the originating consultation (D-51).
 
 ## 13. Change log
 
@@ -119,3 +123,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 |------|--------|
 | 2026-11-17 | Initial draft created from D-11. |
 | 2026-11-19 | D-11 amended (Dispute Answers included); D-29 added (user-only completion with optional upload). P-16-02 retired. R-16-03, R-16-04 added. |
+| 2026-11-20 | Aligned with the Astrologer App (X-23): D-51 added; R-16-05 added; P-16-05 Resolved. |

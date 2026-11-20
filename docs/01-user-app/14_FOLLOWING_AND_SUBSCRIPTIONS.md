@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-31, D-36 (the subscription prerequisite D-04 is owned by 06) |
+| Owned decisions | D-31, D-36, D-50 (the subscription prerequisite D-04 is owned by 06) |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -21,6 +21,7 @@ those relationships.
 - Follow and Subscribe actions.
 - Subscription terms: price, duration, renewal, cancellation.
 - The user's list of followed and subscribed astrologers.
+- Live Sessions and posts from followed and subscribed astrologers (user view, D-50).
 
 **Out of scope**
 - Why a subscription is needed to ask a question → D-04 → [06](06_TEXT_QUESTION_SERVICE.md).
@@ -40,6 +41,7 @@ those relationships.
 |----|----------|
 | D-31 | **Subscription benefit questions:** a Silver subscription includes **1** benefit question, Gold includes **3**, and Platinum includes **4**. Benefit questions are shown separately from additional normal paid questions purchased by subscribers. Subscription benefit questions follow the existing **7-day purchased-slot validity** rule (D-07). *(Amended 2026-11-19.)* |
 | D-36 | **Follow and Subscribe:** Follow is **free**, and following an astrologer never subscribes automatically. Subscribe is **paid**, and a successful subscription automatically follows that astrologer. Auto-renewal is optional and is **not enabled by default**. Subscription price, duration/term options, detailed renewal rules, and cancellation/refund rules are on hold (P-14-02 – P-14-05). |
+| D-50 | **Live Sessions and posts (user view):** Live Sessions are free; only the audience selected by the astrologer (Public, Followers, Subscribers, or specific subscription tiers) receives Live notifications and can comment; there is no recording or replay. Users can Like and Comment on astrologers' General Posts. Subscriber-only content is available only to users with an active subscription of the selected tier; users with an expired subscription cannot access it. |
 
 **Referenced decisions**
 
@@ -58,6 +60,8 @@ those relationships.
 
 A subscription is required before the user can ask that astrologer a
 question (D-04 → [06](06_TEXT_QUESTION_SERVICE.md)).
+
+**Live Sessions and posts (D-50):** users in the audience selected by the astrologer receive Live notifications and can comment; Live is free and not recorded. Users can Like and Comment on General Posts. Subscriber-only content is available only with an active subscription of the selected tier. Where users see Live Sessions and posts in the app: `PENDING DISCUSSION` (P-14-07).
 
 ## 6. Screens and content
 
@@ -83,13 +87,15 @@ Confirmed rules owned by this module: R-14-01, R-14-02 (D-31), listed below.
 | R-14-04 | Subscribe is paid; a successful subscription automatically follows the astrologer. | D-36 |
 | R-14-05 | Auto-renewal is optional and not enabled by default. | D-36 |
 | R-14-06 | Subscription benefit questions follow the 7-day purchased-slot validity rule. | D-31 |
+| R-14-07 | Only the audience selected by the astrologer receives Live notifications and can comment; no Live recording or replay. | D-50 |
+| R-14-08 | Users with an expired subscription cannot access subscriber-only content. | D-50 |
 
 ## 8. States and edge cases
 
 | Case | Behaviour |
 |------|-----------|
 | Subscription ends or is cancelled while question slots are held | `PENDING DISCUSSION` (P-06-03) |
-| Subscription expires | `PENDING DISCUSSION` (P-14-02, P-14-04) |
+| Subscription expires | Subscriber-only content no longer accessible (D-50); other effects `PENDING DISCUSSION` (P-14-02, P-14-04) |
 
 ## 9. Notifications triggered
 
@@ -120,6 +126,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | P-14-04 | Renewal and auto-renewal — **On hold** (X-14) |
 | P-14-05 | Cancellation and refund — **On hold** (X-14) |
 | P-14-06 | Validity of subscription benefit questions — **Resolved** (D-31) |
+| P-14-07 | Where users see Live Sessions and posts |
 
 **Related (owned elsewhere)**
 
@@ -142,6 +149,7 @@ prerequisite is verified in [06](06_TEXT_QUESTION_SERVICE.md).
 
 - [ ] Follow is free and never subscribes; Subscribe is paid and automatically follows; auto-renewal is off by default (D-36).
 - [ ] Subscription benefit questions follow the 7-day purchased-slot validity rule (D-31).
+- [ ] Live notifications and comments are limited to the selected audience; users can Like and Comment on posts; expired subscribers cannot access subscriber-only content (D-50).
 
 ## 13. Change log
 
@@ -151,3 +159,4 @@ prerequisite is verified in [06](06_TEXT_QUESTION_SERVICE.md).
 | 2026-11-19 | Noted the subscription benefit questions dependency (P-06-01; Astrologer App AD-65, X-14). No decision changed. |
 | 2026-11-19 | D-31 added (benefit questions per subscription tier). P-06-01 retired; P-14-06 added. R-14-01, R-14-02 added. |
 | 2026-11-19 | D-31 amended (7-day validity); D-36 added (Follow free; Subscribe paid and auto-follows; auto-renewal optional, off by default). P-14-01, P-14-06 Resolved; P-14-02 – P-14-05 on hold. |
+| 2026-11-20 | Aligned with the Astrologer App (X-22): D-50 added (Live Sessions and posts, user view); R-14-07, R-14-08 added; P-14-07 added. |

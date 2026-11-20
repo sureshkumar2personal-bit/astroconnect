@@ -54,11 +54,11 @@ and raising a Platform Complaint.
 | D-06 | A purchased slot can be **used immediately or held** for later. There is **no waiting period**: the user can submit a question immediately after purchase. **Holding a slot does not pause or extend** its expiry period. |
 | D-07 | A purchased question slot must be used by the **earlier of (1) 7 days from its purchase date and (2) the campaign expiry date**. An unused slot **expires automatically** at that point. **No refund** is given for an expired unused slot, even if expiry reminders were sent. *(Amended 2026-11-19.)* |
 | D-08 | Text Questions have a **dispute** option. A dispute can be raised **within 7 days after receiving the astrologer's answer**; its purpose is to **request an additional answer**. |
-| D-17 | Users can **rate (1–5 stars) and review** a Text Question answer immediately after it is delivered. Rating and review do not block or prevent a dispute. |
+| D-17 | Immediately after a Text Question answer is delivered, the user gives a **mandatory** rating (1–5 stars); a written review is **optional**. Rating and review do not block or prevent a dispute. A submitted review cannot be edited or deleted by the user; changes are requested through Platform Support. *(Amended 2026-11-20: rating mandatory — Astrologer AD-40, X-18; supersedes "Users can rate (1–5 stars) and review a Text Question answer immediately after it is delivered".)* |
 | D-18 | The astrologer must answer a submitted Text Question within **30 days** (IST calendar days, D-28). If it is not answered within the deadline, the system automatically cancels the question and the user is refunded. |
 | D-19 | **Disputes:** one dispute per question, raised within 7 days after the answer (D-08). The astrologer answers the dispute once, within **3 days**; if it is not answered within 3 days, the dispute moves to **Admin Review**. No further dispute can be raised after the dispute answer. |
-| D-20 | **Campaigns and pricing (user view):** a campaign offers General only, Personal only, or both. General Questions are answered without the user's Horoscope/Birth Chart; Personal Questions are answered based on it. General and Personal have separate prices and optional, separate discounts (maximum 99%). The user sees the **original price, discount percentage, and final payable price**. A special or occasion-based campaign is shown as a normal campaign with an optional special title/label, not as a separate workflow. Open Questions (asked without a campaign) also offer General and Personal. |
-| D-21 | **Campaign changes protect purchases:** cancellation, deletion, or slot reduction of a campaign by the astrologer does not cancel or invalidate already purchased/submitted questions; the astrologer must still answer them. No refund is issued merely because a campaign was cancelled or deleted. If the astrologer extends a campaign, the extension also applies to unused purchased slots; reactivating a campaign does not restore already expired slots. After a campaign is cancelled or deleted, a purchased, unused slot remains usable until its original deadline (D-07: the earlier of purchase + 7 days and the campaign's original expiry date); cancellation or deletion neither expires it immediately nor extends or resets that deadline. *(Amended 2026-11-19.)* |
+| D-20 | **Campaigns and pricing (user view):** a campaign offers General only, Personal only, or both. General Questions are answered without the user's Horoscope/Birth Chart; Personal Questions are answered based on it. General and Personal have separate prices and optional, separate discounts (maximum 99%). The user sees the **original price, discount percentage, and final payable price**. A special or occasion-based campaign uses the same campaign workflow and always carries a clear **Special Campaign label/type**; the label is **mandatory**. Open Questions (asked without a campaign) also offer General and Personal. *(Amended 2026-11-20: Special Campaign label mandatory — Astrologer AD-26, X-25; supersedes "shown as a normal campaign with an optional special title/label, not as a separate workflow".)* |
+| D-21 | **Campaign changes protect purchases:** cancellation, deletion, or slot reduction of a campaign by the astrologer does not cancel or invalidate already submitted paid questions; the astrologer must still answer them. When a campaign is **cancelled**, the user receives a **refund for purchased unused slots** (to the Wallet, D-32). When a campaign is **deleted**, no refund is issued merely because of the deletion, and a purchased, unused slot remains usable until its original deadline (D-07: the earlier of purchase + 7 days and the campaign's original expiry date); deletion neither expires it immediately nor extends or resets that deadline (whether the cancellation refund also applies to deletion is open — Astrologer AP-02-24). Slot reduction does not cancel purchased slots or submitted questions. If the astrologer extends a campaign, the extension also applies to unused purchased slots; reactivating a campaign does not restore already expired slots. *(Amended 2026-11-19. Amended 2026-11-20: refund of purchased unused slots on cancellation — Astrologer AD-31, X-16; supersedes "No refund is issued merely because a campaign was cancelled" and slot usability after cancellation.)* |
 | D-22 | **User question:** question text has a maximum of **1,000** characters. General Questions allow no attachments. Personal Questions allow up to **2** attachments (Horoscope/Birth Chart files or images). |
 | D-23 | **Answers:** the astrologer's answer is text (typed, or converted from voice), with a maximum of **1,500** characters, up to 3 attachments (JPEG, PDF, TXT), and links. Audio-only answers are not provided. An answer cannot be edited after it is delivered. |
 | D-24 | Users **cannot manually cancel** a paid, submitted Text Question. |
@@ -91,7 +91,7 @@ and raising a Platform Complaint.
 ### 5.1 Subscribe, then purchase slots
 1. The user subscribes to the astrologer (D-04). Subscription mechanics →
    [14](14_FOLLOWING_AND_SUBSCRIPTIONS.md).
-2. The user chooses a campaign (which may carry a special title/label) or Open Questions, and General or Personal (D-20).
+2. The user chooses a campaign (a Special Campaign always carries a clear Special Campaign label/type) or Open Questions, and General or Personal (D-20).
 3. The user sees the original price, discount percentage, and final payable price for the chosen type (D-20).
 4. If the campaign is within 3 days of expiry, the user is warned before purchase (D-26).
 5. The user purchases one or more question slots (D-05). Payment → [10](10_WALLET_AND_PAYMENTS.md).
@@ -117,7 +117,7 @@ and raising a Platform Complaint.
 5. If the astrologer prescribes or attaches a remedy, it also appears in the Remedy Tracker (D-11 → [16](16_REMEDY_TRACKER.md)).
 
 ### 5.4 Rate and review
-The user can rate (1–5 stars) and review the answer immediately; this does not block a dispute (D-17).
+Immediately after the answer is delivered, the user gives a mandatory rating (1–5 stars); a written review is optional; this does not block a dispute. A submitted review cannot be edited or deleted by the user; changes are requested through Platform Support (D-17).
 
 ### 5.5 Raise a dispute
 1. Within 7 days after the answer, the user can raise one dispute to request an additional answer (D-08, D-19).
@@ -130,10 +130,10 @@ The user can rate (1–5 stars) and review the answer immediately; this does not
 After a dispute answer, the user may raise a separate Platform Complaint within 7 days about an inappropriate or improper answer (D-27).
 
 ### 5.7 Campaign changes after purchase
-1. Campaign cancellation, deletion, or slot reduction does not cancel already purchased/submitted questions; the astrologer must still answer them (D-21).
-2. No refund is issued merely because a campaign was cancelled or deleted (D-21).
-3. A campaign extension also extends unused purchased slots; reactivation does not restore expired slots (D-21).
-4. After cancellation or deletion, a purchased unused slot stays usable until its original deadline — the earlier of purchase + 7 days and the campaign's original expiry date; it is not expired immediately, extended, or reset (D-21).
+1. Campaign cancellation, deletion, or slot reduction does not cancel already submitted paid questions; the astrologer must still answer them (D-21).
+2. **Cancellation:** the user receives a refund for purchased unused slots, to the Wallet (D-21, D-32).
+3. **Deletion:** no refund is issued merely because of the deletion; a purchased unused slot stays usable until its original deadline — the earlier of purchase + 7 days and the campaign's original expiry date — and is not expired immediately, extended, or reset (D-21). Whether the cancellation refund also applies to deletion is open (Astrologer AP-02-24).
+4. A campaign extension also extends unused purchased slots; reactivation does not restore expired slots (D-21).
 
 ### 5.8 Astrologer unavailable (DND / Planned Unavailability)
 During the astrologer's DND / Planned Unavailability, the astrologer is unavailable for all services (D-30 → [07](07_APPOINTMENT_SERVICE.md)). The astrologer's profile is hidden and users cannot purchase or submit new questions, including Campaign, Open, and Subscription Questions; existing purchased slots keep their validity (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
@@ -178,12 +178,12 @@ P-11-01. Content confirmed for those screens:
 | R-06-11 | A dispute must be raised within 7 days after the user receives the astrologer's answer (IST calendar days). | D-08, D-28 |
 | R-06-12 | The purpose of a dispute is to request an additional answer. | D-08 |
 | R-06-13 | A remedy prescribed or attached in an answer or dispute answer must also appear in the user's Remedy Tracker. | D-11 → [16](16_REMEDY_TRACKER.md) |
-| R-06-14 | Rating (1–5) and review are available immediately after the answer and do not block a dispute. | D-17 |
+| R-06-14 | A rating (1–5) is mandatory immediately after the answer; a written review is optional; neither blocks a dispute; the user cannot edit or delete a submitted review. | D-17 |
 | R-06-15 | The astrologer must answer within 30 days; otherwise the question is automatically cancelled and refunded. | D-18 |
 | R-06-16 | One dispute per question; the astrologer answers it once within 3 days, otherwise it moves to Admin Review; no further dispute after the dispute answer. | D-19 |
 | R-06-17 | Prices show original price, discount percentage, and final payable price; General and Personal have separate prices and optional discounts (maximum 99%). | D-20 |
-| R-06-18 | A special campaign is shown as a normal campaign with an optional special title/label. | D-20 |
-| R-06-19 | Campaign cancellation, deletion, or slot reduction does not cancel purchased/submitted questions; no refund merely for cancellation or deletion. | D-21 |
+| R-06-18 | A Special Campaign uses the same campaign workflow and always shows a clear Special Campaign label/type (mandatory). *(Rule text updated 2026-11-20 with the D-20 amendment.)* | D-20 |
+| R-06-19 | Campaign cancellation, deletion, or slot reduction does not cancel submitted paid questions; cancellation refunds purchased unused slots; no refund merely because of deletion. *(Rule text updated 2026-11-20 with the D-21 amendment.)* | D-21 |
 | R-06-20 | Extending a campaign extends unused purchased slots; reactivation does not restore expired slots. | D-21 |
 | R-06-21 | Question text: maximum 1,000 characters. | D-22 |
 | R-06-22 | General Questions allow no attachments; Personal Questions allow up to 2. | D-22 |
@@ -193,7 +193,7 @@ P-11-01. Content confirmed for those screens:
 | R-06-26 | Pre-purchase warning within 3 days of campaign expiry; reminders 3, 2, and 1 day before expiry; reminders do not change expiry or refund rules. | D-26 |
 | R-06-27 | A Platform Complaint can be raised within 7 days after the dispute answer and is handled separately from disputes. | D-27 |
 | R-06-28 | Slot expiry, answer deadlines, dispute windows, dispute answer deadlines, and reminders use IST calendar days. | D-28 |
-| R-06-29 | After a campaign is cancelled or deleted, a purchased unused slot stays usable until its original deadline; the deadline is not shortened, extended, or reset. | D-21 |
+| R-06-29 | After a campaign is deleted, a purchased unused slot stays usable until its original deadline; the deadline is not shortened, extended, or reset. After cancellation, purchased unused slots are refunded. *(Rule text updated 2026-11-20 with the D-21 amendment.)* | D-21 |
 | R-06-30 | A Preview step is shown before final submission; after final submission a question cannot be edited; no General-to-Personal conversion or upgrade is offered. | D-34 |
 | R-06-31 | Personal Question attachments: PDF or JPEG horoscope files, at most 2 per question, at most 10 MB each; or use the birth details saved in the User Profile. | D-35 |
 | R-06-32 | While an astrologer's Text-Based Questions service is suspended, no new slots can be bought; previously purchased valid slots stay usable; submitted questions continue normally. | D-39 |
@@ -227,10 +227,11 @@ P-11-01. Content confirmed for those screens:
 | Astrologer does not answer the dispute within 3 days | Dispute moves to Admin Review (D-19) |
 | Astrologer does not answer within 30 days | Question automatically cancelled; user refunded (D-18) |
 | User wants to cancel a submitted question | No manual cancel option (D-24) |
-| Campaign cancelled, deleted, or reduced after purchase | Purchased/submitted questions still answered; no refund merely for cancellation or deletion (D-21) |
+| Campaign cancelled, deleted, or reduced after purchase | Submitted paid questions still answered (D-21) |
 | Campaign extended | Unused purchased slots extended (D-21) |
 | Campaign reactivated | Expired slots not restored (D-21) |
-| Campaign cancelled or deleted while the user holds an unused slot | Slot usable until its original deadline (D-21) |
+| Campaign **cancelled** while the user holds an unused slot | Slot refunded to the Wallet (D-21, D-32) |
+| Campaign **deleted** while the user holds an unused slot | Slot usable until its original deadline (D-21; Astrologer AP-02-24) |
 | Question over 1,000 characters | Not allowed (D-22) |
 | Attachment added to a General Question | Not allowed (D-22) |
 | Third attachment on a Personal Question | Not allowed (D-22) |
@@ -302,11 +303,11 @@ Retired: P-06-01 (→ D-31); P-06-02 (→ D-06, D-07); P-06-04 (→ D-21); P-06-
 - [ ] A user can submit a question immediately after purchasing a slot, or hold it; holding does not pause or extend expiry (D-06).
 - [ ] An unused slot expires at the earlier of 7 days from purchase and campaign expiry, without refund (D-07).
 - [ ] A dispute must be raised within 7 days after the answer and requests an additional answer (D-08).
-- [ ] Rating (1–5) and review are available immediately and do not block a dispute (D-17).
+- [ ] A rating (1–5) is required immediately after the answer, a written review is optional, neither blocks a dispute, and the user cannot edit or delete the review (D-17).
 - [ ] Unanswered questions are automatically cancelled and refunded after 30 days (D-18).
 - [ ] One dispute per question, answered within 3 days or moved to Admin Review (D-19).
-- [ ] Prices show original price, discount percentage, and final payable price; special campaigns appear as normal campaigns with an optional label (D-20).
-- [ ] Campaign cancellation, deletion, or reduction never cancels purchased/submitted questions, and purchased unused slots stay usable until their original deadline (D-21).
+- [ ] Prices show original price, discount percentage, and final payable price; Special Campaigns always show a clear Special Campaign label/type (D-20).
+- [ ] Campaign cancellation, deletion, or reduction never cancels submitted paid questions; cancellation refunds purchased unused slots; after deletion they stay usable until their original deadline (D-21).
 - [ ] Questions are limited to 1,000 characters; General has no attachments; Personal allows up to 2 (D-22).
 - [ ] Answers show up to 1,500 characters, up to 3 attachments, and links, and cannot be edited after delivery (D-23).
 - [ ] There is no manual cancel option for a submitted question (D-24).
@@ -331,3 +332,4 @@ Retired: P-06-01 (→ D-31); P-06-02 (→ D-06, D-07); P-06-04 (→ D-21); P-06-
 | 2026-11-19 | D-21 amended (unused slots after cancellation/deletion); D-31 referenced; P-06-01 retired; R-06-29 added. |
 | 2026-11-19 | D-34, D-35, D-39 added; D-32, D-33, D-37, D-38 referenced. P-06-06 and P-06-14 Resolved. X-12 and AD-73 user-side alignment added (§5.8, §5.9). New §5.10; R-06-30 – R-06-33 added. |
 | 2026-11-19 | X-05 resolved: §5.11 (correction requested by the astrologer, user side), R-06-34, an edge case, and an acceptance criterion added, referencing Astrologer AD-35 (amended: no General-to-Personal upgrade). |
+| 2026-11-20 | Aligned with the Astrologer App (X-16, X-18, X-25): D-17, D-20, D-21 re-quoted (amended — mandatory rating; mandatory Special Campaign label; refund on campaign cancellation). §5.1, §5.4, §5.7, R-06-14, R-06-18, R-06-19, R-06-29, edge cases, and acceptance criteria updated. |

@@ -47,7 +47,8 @@ delivery channels, and what the user can control.
 | D-07 | Question slot expiry | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-26 | Pre-purchase expiry warning; reminders 3, 2, and 1 day before expiry | [06](06_TEXT_QUESTION_SERVICE.md) |
 | D-28 | IST calendar-day counting | [06](06_TEXT_QUESTION_SERVICE.md) |
-| D-30 | Appointments cancelled because of astrologer DND / Planned Unavailability | [07](07_APPOINTMENT_SERVICE.md) |
+| D-30 | Astrologer DND: confirmed appointments remain valid | [07](07_APPOINTMENT_SERVICE.md) |
+| D-43 | Appointment reminders | [07](07_APPOINTMENT_SERVICE.md) |
 
 ## 5. User flows
 
@@ -88,7 +89,7 @@ any notification category beyond those listed in D-15.
 Notifications from Instant Call, Instant Chat, and Remedy Tracker are not
 named in D-15; their category is `PENDING DISCUSSION` (P-15-08).
 
-**Known question events** (owned elsewhere): slot expiry reminders 3, 2, and 1 day before expiry, using IST calendar days (D-26, D-28 → [06](06_TEXT_QUESTION_SERVICE.md)). Whether a cancellation caused by astrologer DND / Planned Unavailability (D-30) produces a notification is part of P-15-03.
+**Known question events** (owned elsewhere): slot expiry reminders 3, 2, and 1 day before expiry, using IST calendar days (D-26, D-28 → [06](06_TEXT_QUESTION_SERVICE.md)). **Known appointment events** (owned elsewhere): booking confirmation; reminders 3, 2, and 1 day before; 1 hour and 15 minutes before on the day; cancellation or rescheduling (D-43 → [07](07_APPOINTMENT_SERVICE.md)). Other exact events remain part of P-15-03.
 
 **Pending rules**
 - Exact events per critical category (P-15-03).
@@ -151,3 +152,4 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | 2026-11-17 | Initial draft created from D-15, D-16. |
 | 2026-11-19 | Referenced D-07, D-26, D-28, D-30 (expiry reminders, IST, DND cancellations). |
 | 2026-11-17 | Aligned with approved interpretations: app-settings vs phone push permission (P-15-06), unconfirmed channels (P-15-01), category–module table marked as cross-reference only. |
+| 2026-11-20 | D-30 topic updated (amended — confirmed appointments remain valid during DND); D-43 referenced (appointment reminders). |

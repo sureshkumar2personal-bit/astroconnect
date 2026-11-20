@@ -81,12 +81,12 @@ IST calendar days (AD-71).
 | AD-11 | While DND or Planned Unavailability is active, the expiry of already purchased slots **does not pause**, and the 30-day answer deadline of already submitted questions **does not pause**. **DND days count toward the 30-day answer deadline**; DND does not pause, extend, or reset it. If the astrologer knows in advance that they will activate DND, they should answer pending questions before activating it wherever possible. A question not answered within its 30-day deadline is automatically cancelled and refunded (AD-30). The separate purchased-slot validity rule (AD-28) is unchanged by DND. *(Amended 2026-11-19.)* |
 | AD-24 | The platform allocates a **monthly question slot quota** to each astrologer. Each astrologer has a total monthly capacity of **1,000** Text-Based Question slots. This is **one shared quota** across all Campaign Questions and Open Questions; Campaign Questions and Open Questions do not receive separate additional quotas. Total slots across all campaigns and Open Questions cannot exceed the allocated quota. **Unused monthly slots do not carry forward.** The quota **resets on the 1st day of every calendar month at 12:00 AM IST**. An astrologer who joins mid-month receives a **pro-rata quota based on the remaining days of that month, using whole-number rounding**; from the next calendar month, the normal quota of 1,000 applies, subject to any performance-based reduction (AD-70). *(Amended 2026-11-19.)* |
 | AD-25 | The astrologer can create multiple campaigns and set their slots/prices, increase/decrease campaign slots, and reallocate unused slots. Purchased/submitted questions must be protected when campaigns are changed or cancelled. |
-| AD-26 | Astrologers can create campaigns on **any theme or occasion** (for example, Marriage, Career, Education, Business). **Special Campaign is not a separate campaign type**: the same Campaign Editor is used for regular and special campaigns, and the astrologer may give a limited-time or occasion-based campaign a special title/label (for example, a 10-day Navaratri campaign). There is no separate Special Campaign editor, configuration, or workflow. "Open Slots" is **not** a campaign type — questions submitted without a campaign are **Open Questions** (AD-54). Every campaign supports the **General** and **Personal** question types; the astrologer chooses **General only, Personal only, or both General and Personal**; neither type is compulsory. Offers/discounts are optional and decided by the astrologer (AD-56); when none is set, **No Offer** is shown. Campaign fields include Start Date, Expiry Date, slot count, and price. *(Amended 2026-11-19.)* |
+| AD-26 | Astrologers can create campaigns on **any theme or occasion** (for example, Marriage, Career, Education, Business). Regular and Special Campaigns use the **same Campaign Editor**; there is no separate Special Campaign editor, configuration, or workflow. A **Special Campaign** (for example, a limited-time or occasion-based campaign such as a 10-day Navaratri campaign) **must carry a clear Special Campaign label/type; the label is mandatory**. "Open Slots" is **not** a campaign type — questions submitted without a campaign are **Open Questions** (AD-54). Every campaign supports the **General** and **Personal** question types; the astrologer chooses **General only, Personal only, or both General and Personal**; neither type is compulsory. Offers/discounts are optional and decided by the astrologer (AD-56); when none is set, **No Offer** is shown. Campaign fields include Start Date, Expiry Date, slot count, and price. *(Amended 2026-11-19. Amended 2026-11-20 (AP-02-25): Special Campaign label/type mandatory; supersedes "Special Campaign is not a separate campaign type … may give … a special title/label".)* |
 | AD-27 | Campaign Management is located at **My Work → Text Questions → Campaign Management** and includes: Create Campaign, Edit Campaign, Increase/Decrease Slots, Reallocate Slots, Cancel Campaign, **Delete Campaign**. *(Amended 2026-11-19.)* |
 | AD-28 | **Question submission deadline:** two deadlines apply — (1) seven days from slot purchase; (2) the campaign expiry date. The **earlier** of these two dates is the final question submission deadline. Example 1: purchased November 1; seven-day deadline November 8; campaign expires November 10 → deadline November 8. Example 2: purchased November 1; seven-day deadline November 8; campaign expires November 5 → deadline November 5. Days are IST calendar days (AD-71). *(Amended 2026-11-19.)* |
 | AD-29 | Campaign expiry does not affect questions already submitted. |
 | AD-30 | The answer deadline starts from **question submission**, not purchase. The astrologer must answer within **30 days** (IST calendar days, AD-71). If unanswered after 30 days, the question is **auto-cancelled** and the User receives a **refund**. *(Amended 2026-11-19.)* |
-| AD-31 | Campaign **cancellation** and campaign **deletion** are allowed. Cancelling, deleting, or expiring a campaign does **not** cancel already purchased/submitted User Questions; the astrologer must still answer them, and the original 30-day deadline continues. No refund is issued merely because a campaign was cancelled or deleted. Unsold allocations can be reused/reallocated according to the quota rules. After a campaign is cancelled or deleted, a purchased, unused slot remains usable until its **original deadline** — the earlier of purchase + 7 days and the campaign's original expiry date; cancellation or deletion neither expires it immediately nor extends or resets that deadline. *(Amended 2026-11-19.)* |
+| AD-31 | Campaign **cancellation** and campaign **deletion** are allowed. Cancelling, deleting, or expiring a campaign does **not** cancel already purchased/submitted User Questions; the astrologer must still answer them, and the original 30-day deadline continues. **When a campaign is cancelled, Users receive a refund for purchased unused slots.** For campaign **deletion**, the earlier rule is unchanged pending AP-02-24: no refund is issued merely because a campaign was deleted, and a purchased, unused slot remains usable until its **original deadline** — the earlier of purchase + 7 days and the campaign's original expiry date; deletion neither expires it immediately nor extends or resets that deadline. Unsold allocations can be reused/reallocated according to the quota rules. *(Amended 2026-11-19. Amended 2026-11-20: refund of purchased unused slots on cancellation; supersedes "no refund merely because a campaign was cancelled" and slot usability after cancellation.)* |
 | AD-32 | **Priority 2:** 1–19 pending days. **Priority 1:** 20–30 pending days. Day 20 belongs only to Priority 1. At the end of day 30, the deadline expires and auto-cancellation/refund applies. There is no third/normal priority list. Pending days are IST calendar days (AD-71). *(Amended 2026-11-19.)* |
 | AD-33 | Priority 1 and Priority 2 are **priority classifications (views)**, not question statuses; a question in a Priority classification keeps its own status. A question stays **New / Received** until the astrologer opens it (AD-51). *(Amended 2026-11-19.)* |
 | AD-34 | The question workspace displays: Question ID and User ID; User name, profile photo, and relevant user details; amount paid and number of slots purchased; previous questions asked; campaign name; General/Personal question type; question received date/time; horoscope attachment and other attachments, if supplied; full question text; Request Correction action when a Personal Question is submitted using a General slot. |
@@ -95,7 +95,7 @@ IST calendar days (AD-71).
 | AD-37 | **No post-submission editing.** The astrologer should use Preview before submitting. Once submitted, the User can immediately view the answer. (Replaces rejected proposal R-01.) |
 | AD-38 | **Answer Templates:** the astrologer creates and manages their own templates — Save, Edit, Delete, and reuse. Platform-provided common templates are not currently required. |
 | AD-39 | The astrologer must be able to prescribe a remedy/atonement while answering, including in a **Dispute Answer**. If prescribed or attached in any service, it must appear in the User's Remedy Tracker. This is a cross-service product requirement. *(Amended 2026-11-19.)* |
-| AD-40 | **Rating & Review:** the User can immediately rate (1–5 stars) and write a review after the answer is delivered. Rating & Review does not block the User from raising a Dispute within 7 days. |
+| AD-40 | **Rating & Review:** immediately after the answer is delivered, the User gives a **mandatory** rating (1–5 stars); a written review is **optional**. Rating & Review does not block the User from raising a Dispute within 7 days. The enforcement mechanism is not confirmed (AP-10-01). *(Amended 2026-11-20: rating mandatory, written review optional; supersedes "the User can immediately rate and write a review".)* |
 | AD-41 | **Dispute:** the User can raise a Dispute within **7 days after answer submission** (IST calendar days, AD-71). Only one Dispute per question. The astrologer answers the Dispute once, within **3 days**; if the astrologer does not answer within 3 days, the Dispute is **escalated to Admin Review**. The User cannot raise another Dispute after the Dispute Answer. *(Amended 2026-11-19.)* |
 | AD-42 | **Platform Complaint:** the User may raise a separate Platform Complaint within seven days after the Dispute Answer. A Platform Complaint is separate from a Dispute and concerns inappropriate/improper answers. A Platform Complaint does **not** hold or block the astrologer's settlement/payment; the platform handles complaints separately. If inappropriate conduct is established, the Platform may separately decide on recovery/refund according to its own process. *(Amended 2026-11-19.)* |
 | AD-43 | **Settlement:** the astrologer receives payment for completed work under the normal settlement rules. If no Dispute is raised within 7 days after the answer, commission is deducted, the net amount becomes eligible to move to the astrologer's side/settlement, and the question status becomes **Settled**. If a Dispute is raised, settlement follows the Dispute Answer, with commission/net credit after seven days. A Platform Complaint does not hold or block settlement (AD-42). *(Amended 2026-11-19.)* |
@@ -147,7 +147,7 @@ IST calendar days (AD-71).
 
 ### 5.1 Create a campaign
 1. The astrologer opens My Work → Text Questions → Campaign Management → Create Campaign (AD-27).
-2. The astrologer creates a subject-based campaign and sets Start Date and Expiry Date (AD-26). The same Campaign Editor is used for a limited-time or occasion-based campaign, which can be given a special title/label (for example, a 10-day Navaratri campaign); there is no separate Special Campaign workflow (AD-26).
+2. The astrologer creates a subject-based campaign and sets Start Date and Expiry Date (AD-26). The same Campaign Editor is used for a Special Campaign (for example, a limited-time or occasion-based campaign such as a 10-day Navaratri campaign), which must carry a clear Special Campaign label/type; there is no separate Special Campaign editor or workflow (AD-26).
 3. The astrologer chooses the question types: **General only, Personal only, or both**; neither is compulsory (AD-26). General and Personal are defined by whether Horoscope/Birth Chart information is used (AD-53).
 4. For each selected type, the astrologer sets an **independent price** (AD-55).
 5. Optionally, for each selected type, the astrologer enables a **discount** and chooses its percentage with an increase/decrease selector (maximum 99%; no default). The original price, discount percentage, and final payable price are shown; the discounted amount is calculated automatically. When no offer/discount is set, "No Offer" is shown (AD-26, AD-56).
@@ -179,9 +179,9 @@ IST calendar days (AD-71).
 ### 5.5 Cancel or delete a campaign
 1. The astrologer selects Cancel Campaign or Delete Campaign (AD-27).
 2. Already purchased/submitted User Questions are **not** cancelled; the astrologer must still answer them, and submitted questions keep their original 30-day deadline (AD-31).
-3. No refund is issued merely because the campaign was cancelled or deleted (AD-31).
-4. Unsold allocations can be reused/reallocated under the quota rules (AD-31).
-5. A purchased, unused slot remains usable until its original deadline — the earlier of purchase + 7 days and the campaign's original expiry date. Cancellation or deletion neither expires the slot immediately nor extends or resets that deadline (AD-31).
+3. **Cancellation:** Users receive a refund for purchased unused slots (AD-31). Refunds go to the User Wallet (User App D-32).
+4. **Deletion:** no refund is issued merely because the campaign was deleted; a purchased, unused slot remains usable until its original deadline — the earlier of purchase + 7 days and the campaign's original expiry date — and deletion neither expires it immediately nor extends or resets that deadline (AD-31). Whether the cancellation refund also applies to deletion: `PENDING DISCUSSION` (AP-02-24).
+5. Unsold allocations can be reused/reallocated under the quota rules (AD-31).
 
 ### 5.6 User purchase and submission (context for the astrologer)
 1. Users purchase General or Personal slots from a campaign or Open Questions at the price set for that type, seeing the original price, discount percentage, and final payable price (AD-55, AD-56).
@@ -217,7 +217,7 @@ IST calendar days (AD-71).
 6. If the resubmitted question is incorrect again, the astrologer may Request Correction again; the original deadline continues (AD-35).
 
 ### 5.10 After the answer: rating, dispute, complaint
-1. The User can immediately rate (1–5 stars) and review; this does not block a Dispute (AD-40).
+1. Immediately after delivery, the User gives a mandatory rating (1–5 stars); a written review is optional; this does not block a Dispute (AD-40). Enforcement: `PENDING DISCUSSION` (AP-10-01). Review management → [10](10_RATINGS_AND_REVIEWS.md).
 2. The User can raise one Dispute within 7 days after answer submission (AD-41).
 3. The astrologer answers the Dispute once, within **3 days**: maximum 1,500 characters, text only, no templates or attachments; a remedy may be included and must appear in the User's Remedy Tracker (AD-39, AD-41, AD-44).
 4. If the astrologer does not answer within 3 days, the Dispute is escalated to **Admin Review** (AD-41).
@@ -359,9 +359,9 @@ Not included: "Remember This Question" (removed, R-03); audio-only answer submis
 
 ### 6.8 Campaign Management (AD-24 – AD-27, AD-55 – AD-58)
 - Monthly quota shared by all campaigns and Open Questions; allocated and remaining capacity; resets on the 1st at 12:00 AM IST (AD-24, AD-57)
-- Campaign list, including any special title/label (AD-26)
+- Campaign list, including the Special Campaign label/type of Special Campaigns (AD-26)
 - Create Campaign; Edit Campaign; Increase/Decrease Slots; Reallocate Slots; Cancel Campaign; Delete Campaign (AD-27)
-- Campaign fields: optional special title/label, question types (General only / Personal only / both), Start Date, Expiry Date (AD-26)
+- Campaign fields: Special Campaign label/type (mandatory for Special Campaigns), question types (General only / Personal only / both), Start Date, Expiry Date (AD-26)
 - Per selected question type: price (AD-55); optional discount on/off, percentage selector (increase/decrease, maximum 99%, no default), original price, discount percentage, final payable price; "No Offer" when none is set (AD-26, AD-56)
 - Total slot allocation and General/Personal split that adds up to the total; reduction allowed below purchased slots without affecting purchased questions (AD-57)
 - Extension of the campaign (AD-58)
@@ -416,7 +416,7 @@ Answered* → Completed/Expired. (*if applicable)
 | BR-02-02 | The astrologer can create multiple campaigns and set slots and prices. | AD-25 |
 | BR-02-03 | Campaign slots can be increased or decreased; unused slots can be reallocated. | AD-25 |
 | BR-02-04 | Purchased/submitted questions must be protected when campaigns are changed or cancelled. | AD-25 |
-| BR-02-05 | Campaigns are subject-based; Special Campaign is not a separate type — the same Campaign Editor is used, with an optional special title/label; "Open Slots" is not a campaign type. Every campaign supports General and Personal; the astrologer chooses General only, Personal only, or both. "No Offer" is shown when no offer/discount is set. | AD-26 |
+| BR-02-05 | Campaigns are subject-based; Regular and Special Campaigns use the same Campaign Editor; a Special Campaign must carry a clear Special Campaign label/type (mandatory) *(rule text updated 2026-11-20 with the AD-26 amendment)*; "Open Slots" is not a campaign type. Every campaign supports General and Personal; the astrologer chooses General only, Personal only, or both. "No Offer" is shown when no offer/discount is set. | AD-26 |
 | BR-02-06 | Campaign fields include Start Date, Expiry Date, slot count, price. | AD-26 |
 | BR-02-07 | Campaign Management actions: Create, Edit, Increase/Decrease Slots, Reallocate Slots, Cancel, Delete. | AD-27 |
 | BR-02-35 | General = answered without the user's Horoscope/Birth Chart; Personal = answered based on it. The distinction is not based on subject. | AD-53 |
@@ -433,8 +433,8 @@ Answered* → Completed/Expired. (*if applicable)
 | BR-02-09 | Campaign expiry does not affect submitted questions. | AD-29 |
 | BR-02-10 | Answer deadline: 30 days from submission; unanswered questions are auto-cancelled and refunded. | AD-30 |
 | BR-02-11 | Campaign cancellation, deletion, or expiry does not cancel already purchased/submitted questions; the original deadline continues. | AD-31 |
-| BR-02-49 | Campaign cancellation and deletion are allowed; the astrologer must still answer purchased/submitted questions; no refund is issued merely because a campaign was cancelled or deleted; unsold allocations can be reused/reallocated. | AD-31 |
-| BR-02-59 | After cancellation or deletion, a purchased unused slot remains usable until its original deadline (earlier of purchase + 7 days and the campaign's original expiry date); the deadline is not shortened, extended, or reset. | AD-31 |
+| BR-02-49 | Campaign cancellation and deletion are allowed; the astrologer must still answer purchased/submitted questions; on cancellation, purchased unused slots are refunded; on deletion, no refund is issued merely because of the deletion (AP-02-24); unsold allocations can be reused/reallocated. | AD-31 |
+| BR-02-59 | After deletion, a purchased unused slot remains usable until its original deadline (earlier of purchase + 7 days and the campaign's original expiry date); the deadline is not shortened, extended, or reset. After cancellation, purchased unused slots are refunded. | AD-31 |
 | BR-02-12 | During DND or Planned Unavailability: no new slot purchases or submissions; slot expiry and the 30-day deadline do not pause. | AD-10, AD-11 |
 | BR-02-67 | DND cannot be activated during an ongoing Instant Call or Instant Chat. | AD-74 |
 | BR-02-68 | While DND is active, the astrologer's entire profile is hidden from all users; no service can be booked and no new Text-Based Questions can be submitted. | AD-10, AD-74 |
@@ -485,7 +485,7 @@ Drafts and Expired are secondary tabs or filters; Priority 1 and Priority 2 are 
 ### 7.7 Rating, dispute, complaint, settlement
 | # | Rule | Source |
 |---|------|--------|
-| BR-02-26 | Rating (1–5) and review are available immediately and do not block a Dispute. | AD-40 |
+| BR-02-26 | A rating (1–5) is mandatory immediately after delivery; a written review is optional; neither blocks a Dispute. | AD-40 |
 | BR-02-27 | One Dispute per question, within 7 days after answer submission; answered once; no further Dispute. | AD-41 |
 | BR-02-58 | The astrologer must answer a Dispute within 3 days; otherwise it is escalated to Admin Review. | AD-41 |
 | BR-02-28 | Dispute Answer: maximum 1,500 characters, text only, no templates or attachments; may include a remedy. | AD-44 |
@@ -499,7 +499,7 @@ Drafts and Expired are secondary tabs or filters; Priority 1 and Priority 2 are 
 | Allocations would exceed the monthly quota across campaigns and Open Questions | Not allowed (AD-24, AD-57) |
 | General + Personal split does not add up to the campaign total | Not allowed (AD-57) |
 | Campaign created with only General or only Personal | Allowed; neither type is compulsory (AD-26) |
-| Occasion-based campaign (e.g. 10-day Navaratri) | Same Campaign Editor; optional special title/label (AD-26) |
+| Occasion-based campaign (e.g. 10-day Navaratri) | Same Campaign Editor; mandatory Special Campaign label/type (AD-26) |
 | Discount set to 100% | Not allowed; maximum 99% (AD-56) |
 | Discount enabled but no percentage chosen | No default percentage is provided (AD-56) |
 | No offer/discount set | "No Offer" shown (AD-26, AD-56) |
@@ -521,9 +521,10 @@ Drafts and Expired are secondary tabs or filters; Priority 1 and Priority 2 are 
 | Campaign extended with purchased unused slots | Extension also applies to those slots (AD-58) |
 | Campaign expires with purchased unused slots | Unused slots expire; no refund, even after reminders (AD-60) |
 | Campaign reactivated after expiry | Expired purchased slots are not restored (AD-58) |
-| Campaign cancelled or deleted with purchased/submitted questions | Questions must still be answered; no refund merely due to cancellation/deletion (AD-31) |
+| Campaign cancelled or deleted with purchased/submitted questions | Submitted questions must still be answered (AD-31) |
 | Campaign cancelled or deleted with unsold allocation | Unsold allocation can be reused/reallocated (AD-31) |
-| Purchased slot not yet used when the campaign is cancelled or deleted | Usable until its original deadline (earlier of purchase + 7 days and the campaign's original expiry date); not shortened, extended, or reset (AD-31) |
+| Purchased slot not yet used when the campaign is **cancelled** | Refunded to the User (AD-31) |
+| Purchased slot not yet used when the campaign is **deleted** | Usable until its original deadline (earlier of purchase + 7 days and the campaign's original expiry date); not shortened, extended, or reset (AD-31; AP-02-24) |
 | Campaign slots reduced below purchased count | Allowed; purchased questions remain valid and must be answered (AD-57) |
 | DND or Planned Unavailability active | No new purchases or submissions; deadlines do not pause (AD-10, AD-11) |
 | User holding a purchased slot during DND or Planned Unavailability | Slot validity unchanged (AD-28); new submissions blocked while DND is active (AD-74); no refund introduced for slots that expire unused (X-12, final) |
@@ -571,25 +572,33 @@ User App alignment: User App D-26 (06), event list in User App P-15-03.
 | Dependency | Reference |
 |------------|-----------|
 | Home Screen | AD-03, AD-05, AD-07, AD-09, AD-12, AD-13, AD-18, AD-21, AD-22, AD-64, AD-65, AD-67, AD-68 → [01](01_HOME_SCREEN.md) |
-| Earnings/Wallet (commission, settlement display) | AD-43 |
-| Appointment Module | AD-13 → [01](01_HOME_SCREEN.md) |
+| Earnings/Wallet (commission, settlement display) | AD-43 → [08](08_WALLET_AND_EARNINGS.md) (AD-124, AD-126); Text Questions commission rate missing (AP-08-02) |
+| Offers and earnings calculations | AD-127, AD-128 → [09](09_OFFERS_AND_EARNINGS_CALCULATIONS.md) |
+| Ratings and reviews | AD-129 – AD-134 → [10](10_RATINGS_AND_REVIEWS.md) |
+| Global navigation (Dispute Details) | AD-76 – AD-78 → [03](03_GLOBAL_NAVIGATION.md) |
+| Notifications (category B) | AD-148 → [14](14_NOTIFICATIONS_AND_REMINDERS.md) |
+| Help & Support (dispute separation) | AD-162 → [16](16_HELP_AND_SUPPORT.md) |
+| Remedy Tracker | AD-163 → [17](17_REMEDY_TRACKER.md) |
+| Appointment Module | AD-13 → [01](01_HOME_SCREEN.md); [05](05_APPOINTMENTS.md) |
 | Admin Review (escalated disputes) | AD-41 |
 | User App — Text-based Question service | User App 06 (D-07, D-17 – D-28) |
 | User App — Remedy Tracker | User App 16 (D-11, D-29) |
-| User App — open dependencies | X-14 (review list §5) |
+| User App — open dependencies | X-14, X-16, X-18 (review list §5) |
+| Platform Admin | PA-01 (disputes), PA-07 (quota and suspension) — review list §5.2 |
 
 ## 11. PENDING DISCUSSION
 
 Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIEW_LIST.md#4-open-questions-register).
 Retired: AP-02-01 – AP-02-23 (resolved into AD decisions; see review list §9).
+Resolved (kept in the review list): AP-02-25 — Special Campaign label/type mandatory (AD-26 amended 2026-11-20).
 
 **Owned by this module**
 
 | ID | Topic | Status |
 |----|-------|--------|
-| — | No open questions for this module. | — |
+| AP-02-24 | Does the cancellation refund also apply to campaign deletion? | Open |
 
-**Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-15))
+**Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-24))
 
 | ID | Topic | Status |
 |----|-------|--------|
@@ -598,6 +607,9 @@ Retired: AP-02-01 – AP-02-23 (resolved into AD decisions; see review list §9)
 | X-11 | Visibility of User details | Resolved (data retention open, User App P-GL-03) |
 | X-12 | DND / Planned Unavailability vs purchased-slot validity | Resolved |
 | X-13 | User attachment file types and size | Resolved |
+| X-16 | Campaign cancellation refund (User App D-21 amended) | Resolved |
+| X-18 | Mandatory rating (User App D-10, D-17 amended) | Resolved |
+| X-25 | Special Campaign label mandatory (User App D-20 amended) | Resolved |
 
 ## 12. Acceptance criteria
 
@@ -607,12 +619,12 @@ Confirmed rules only.
 - [ ] During DND or Planned Unavailability, slot expiry and the 30-day answer deadline continue (AD-11).
 - [ ] The monthly quota is 1,000 slots shared by campaigns and Open Questions; no carry-forward; resets on the 1st at 12:00 AM IST; pro-rata by remaining days with whole-number rounding for mid-month joiners (AD-24).
 - [ ] The astrologer can create multiple campaigns, set slots and prices, increase/decrease slots, and reallocate unused slots, with purchased/submitted questions protected (AD-25).
-- [ ] Campaigns use one Campaign Editor; a special title/label is optional; no "Open Slots" or separate Special Campaign type; General only / Personal only / both; "No Offer" when none is set (AD-26).
+- [ ] Campaigns use one Campaign Editor; every Special Campaign carries a clear, mandatory Special Campaign label/type; no "Open Slots" and no separate Special Campaign editor; General only / Personal only / both; "No Offer" when none is set (AD-26).
 - [ ] Campaign Management offers Create, Edit, Increase/Decrease Slots, Reallocate Slots, Cancel, and Delete (AD-27).
 - [ ] The submission deadline is the earlier of purchase + 7 days and campaign expiry, matching both examples (AD-28).
 - [ ] Campaign expiry does not affect submitted questions (AD-29).
 - [ ] The answer deadline is 30 IST calendar days from submission; unanswered questions are auto-cancelled and refunded (AD-30).
-- [ ] Cancelling or deleting a campaign does not cancel purchased/submitted questions, issues no refund for that reason, frees unsold allocation, and leaves purchased unused slots usable until their original deadline (AD-31).
+- [ ] Cancelling or deleting a campaign does not cancel submitted questions and frees unsold allocation; cancellation refunds purchased unused slots; deletion leaves them usable until their original deadline (AD-31).
 - [ ] Priority 2 is 1–19 pending days; Priority 1 is 20–30; day 20 is only Priority 1; no third list (AD-32).
 - [ ] Priority 1/2 are classifications, not statuses; a question stays New / Received until opened (AD-33).
 - [ ] The question workspace shows every field listed in AD-34.
@@ -621,7 +633,7 @@ Confirmed rules only.
 - [ ] Submitted answers cannot be edited, and the User can view them immediately (AD-37).
 - [ ] The astrologer can save, edit, delete, and reuse their own templates (AD-38).
 - [ ] A remedy prescribed in an answer or Dispute Answer appears in the User's Remedy Tracker (AD-39).
-- [ ] Rating (1–5) and review are available immediately and do not block a Dispute (AD-40).
+- [ ] A rating (1–5) is required immediately after delivery, a written review is optional, and neither blocks a Dispute (AD-40).
 - [ ] One Dispute per question within 7 days after the answer; answered once within 3 days or escalated to Admin Review (AD-41).
 - [ ] A Platform Complaint can be raised within seven days after the Dispute Answer and does not hold or block settlement (AD-42).
 - [ ] Settlement follows AD-43, including the Settled status after 7 days without a Dispute.
@@ -665,3 +677,5 @@ Confirmed rules only.
 | 2026-11-19 | Final Astrologer pass: AD-10, AD-11, AD-24, AD-26, AD-42, AD-52, AD-54, AD-56, AD-70 amended; AD-73 (service suspension) and AD-74 (DND activation and visibility) added. AP-02-16, AP-02-19, AP-02-21 retired; AP-02-22, AP-02-23 added. X-12 final. New §5.17, §5.18. BR-02-62 updated; BR-02-64 – BR-02-69 added. |
 | 2026-11-19 | Product-owner corrections: AD-70, AD-72, AD-73 amended (two question categories; suspension blocks new purchases/submissions while previously purchased questions and slots stay valid; reopening only after outstanding questions are resolved; normal 1,000/800 after reopening). §5.16 and §5.17 rewritten. AP-02-22, AP-02-23 retired. BR-02-63, BR-02-65 updated; BR-02-70 – BR-02-72 added. |
 | 2026-11-19 | AD-35 re-quoted (General-to-Personal upgrade removed; X-05 resolved); §5.9 step 2, BR-02-18 and acceptance criterion updated. Cross-app statuses synchronized with the review list: X-02, X-05, X-11, X-12, X-13 Resolved; §10 open dependencies reduced to X-14. |
+| 2026-11-20 | Master Decision Document applied: AD-31 re-quoted (amended — refund of purchased unused slots on cancellation; ruling C1) and AD-40 re-quoted (amended — mandatory rating, optional written review; ruling C4); §5.5, BR-02-26, BR-02-49, BR-02-59, edge cases, and acceptance criteria updated. AD-26 unchanged (label question AP-02-25). AP-02-24, AP-02-25, X-16, X-18 added; links to modules 03 – 17. |
+| 2026-11-20 | AD-26 re-quoted (amended — mandatory Special Campaign label/type); §5 flow, screens, BR-02-05, edge case, acceptance updated; AP-02-25 Resolved; X-16, X-18 Resolved and X-25 added (User App aligned). |
