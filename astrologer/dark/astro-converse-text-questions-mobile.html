@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astro Converse — Text-Based Questions (Mobile)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#22104F;--sf:#2E1570;--sf2:#241056;--sf3:#3A1D86;--side:#1E0D4A;--ink:#FFFFFF;--mut:#C9B8F5;--line:#6B55B0;--gold:#E8B931;--pri:#FFCF2E;--on-pri:#1E0D4A;--link:#FFCF2E;--ok:#4ADE80;--bad:#FFB4A8;--accent:#FFCF2E;--acc-s:#4A3A12;--warn:#FFDF8A;
+--okS:#1F5E3A;--okT:#BFF5D2;--badS:#7A1F3D;--badT:#FFD5DC;--warnS:#5A4318;--warnT:#FFDF8A;--infoS:#2B3A7A;--infoT:#D6E2FF;--genS:#3A1D86;--genT:#E9E1FF;--perS:#5E2140;--perT:#FFC2D8;--pendC:#FFB4A8}
+[data-theme=light]{--bg:#FBF4E6;--sf:#FFFDF8;--sf2:#F7EEDC;--sf3:#FCEFD2;--side:#FFF9EE;--ink:#2B1E0F;--mut:#6B5B45;--line:#E3D6BF;--gold:#E2C17E;--pri:#F2B33D;--on-pri:#2B1E0F;--link:#8F5A00;--ok:#15803D;--bad:#B42318;--accent:#E2A12A;--acc-s:#FCEFD2;--warn:#8A5A00;
+--okS:#DCF5E4;--okT:#15803D;--badS:#FDE4E4;--badT:#B42318;--warnS:#FCEFD2;--warnT:#8A5A00;--infoS:#DCE6FA;--infoT:#2B4F8F;--genS:#EFE8DA;--genT:#4A3B28;--perS:#FBE3EC;--perT:#9D174D;--pendC:#B42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 'Poppins',system-ui,sans-serif}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0;font-weight:700}h3{font-size:17px}
+p{margin:0}button,input,select,textarea{font:inherit;color:inherit}a{color:var(--link)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.muted{color:var(--mut)}.sm{font-size:12px}.lg{font-size:16px}.xl{font-size:26px}.grow{flex:1;min-width:0}.ok-t{color:var(--ok)}.warn-t,.dl{color:var(--bad)}
+.row{display:flex;align-items:center;gap:10px}.wrap{flex-wrap:wrap}
+.card{background:var(--sf);border:1.5px solid var(--gold);border-radius:18px;padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.btn{min-height:44px;padding:0 18px;border-radius:12px;border:1.5px solid transparent;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:none;text-decoration:none}
+.btn.sm{min-height:36px;padding:0 12px;font-size:13px}
+.btn-p{background:var(--pri);color:var(--on-pri);font-weight:700}.btn-p:hover{filter:brightness(1.06)}.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.btn-o{border-color:var(--gold);color:var(--ink)}.btn-o:hover{background:var(--sf3)}
+.danger{color:var(--bad);border-color:var(--bad)}.danger-f{background:var(--badS);color:var(--badT)}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.b-info{background:var(--infoS);color:var(--infoT)}.b-ok{background:var(--okS);color:var(--okT)}.b-bad{background:var(--badS);color:var(--badT)}.b-warn{background:var(--warnS);color:var(--warnT)}.b-accent{background:var(--warnS);color:var(--warnT)}.b-gen{background:var(--genS);color:var(--genT)}.b-per{background:var(--perS);color:var(--perT)}
+.pend{display:inline-block;padding:2px 8px;border-radius:6px;border:1px dashed var(--pendC);color:var(--pendC);font-size:10.5px;font-weight:600}
+.av{width:44px;height:44px;flex:none;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#1E0D4A}.av-l{width:56px;height:56px;font-size:18px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap}.tab{min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid var(--gold);background:transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.tab .n{font-size:12px;font-weight:700;opacity:.85}.tab .n:before{content:'('}.tab .n:after{content:')'}.tab.on{background:var(--pri);border-color:var(--pri);color:var(--on-pri);font-weight:700}
+.chip{min-height:36px;padding:0 14px;border-radius:999px;border:1.5px solid var(--gold);background:transparent;cursor:pointer}.chip.on{background:var(--pri);color:var(--on-pri);border-color:var(--pri);font-weight:700}
+.toolbar{display:flex;gap:10px}.search{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--sf2);color:var(--mut);flex:1}.search input{border:0;outline:0;background:none;flex:1;min-width:0;color:var(--ink)}
+.qcard{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--sf);cursor:pointer}.qcard:hover{border-color:var(--gold)}.qcard:focus-visible{outline:3px solid var(--pri)}
+.qcard.on{border:2px solid var(--pri);background:var(--sf3)}.qcard .nm{font-weight:600;font-size:16px}.qcard .qt{font-size:14px}
+.meta{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:12px;color:var(--mut)}.meta .dl{color:var(--bad)}
+.ind{font-size:12px;color:var(--warn)}.ind.off{color:var(--mut)}.go{color:var(--link);font-weight:600;font-size:13px}
+.empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:40px 16px;text-align:center;border:1.5px dashed var(--line);border-radius:16px}
+.dhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.dhead h2{font-family:'Poppins',sans-serif;font-size:22px}
+.user{flex-direction:row;align-items:center;flex-wrap:wrap;gap:18px;border-color:var(--line)}.user>div{display:flex;flex-direction:column}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.facts.three{grid-template-columns:repeat(3,minmax(0,1fr))}.fact{background:var(--sf2);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.qfull{font-size:15px;line-height:1.6}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.two .card,.pane>.card{border-color:var(--line)}
+.files{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.file{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;background:var(--sf3);font-size:12px}.file.horo{border:1px solid var(--gold);color:var(--warn);font-weight:600}.file.link{color:var(--link)}
+.x{border:0;background:none;cursor:pointer;font-size:16px;line-height:1;padding:0 2px;color:var(--mut)}
+.pane>.corr,.corr{flex-direction:row;align-items:center;border:1.5px dashed var(--gold)}
+.pane>.disp,.disp{border-color:var(--bad)}.pane>.note,.note{border-color:var(--gold);background:var(--sf2)}
+.remedy{padding:10px 12px;border-radius:12px;border:1.5px solid var(--gold);display:flex;flex-direction:column;gap:2px;font-size:13px}.remedy b{color:var(--link)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}.actions .btn{flex:1;min-height:50px}.actions .btn-p{flex:2}
+textarea{width:100%;min-height:220px;resize:vertical;padding:12px;border-radius:14px;border:1.5px solid var(--gold);background:var(--sf2);line-height:1.55}textarea.short{min-height:90px}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--pri);outline-offset:1px}
+.ehead{display:flex;align-items:center;gap:10px}.etools{display:flex;flex-wrap:wrap;gap:6px}.etools select{height:36px;border-radius:12px;border:1.5px solid var(--gold);background:var(--sf);padding:0 10px;color:var(--link);font-weight:600}
+.check{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.check input{width:18px;height:18px;accent-color:var(--pri)}
+details summary{cursor:pointer}details[open] summary{margin-bottom:6px}
+.form{display:flex;flex-direction:column;gap:12px}.form label{display:flex;flex-direction:column;gap:5px;font-weight:500;font-size:13px}.form input:not([type=checkbox]):not([type=radio]),.form select{height:44px;padding:0 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--sf2)}
+.form label.radio,.form label.check{flex-direction:row;align-items:center;gap:8px;height:44px;padding:0 12px;border:1.5px solid var(--gold);border-radius:12px}.form input[type=radio]{accent-color:var(--pri)}
+fieldset{border:0;padding:0;margin:0}legend{font-weight:500;font-size:13px;margin-bottom:6px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}.opts li{display:flex;flex-direction:column}.cons{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+.tl{list-style:none;margin:8px 0 0;padding:0}.tl li{position:relative;padding:0 0 18px 32px;display:flex;flex-direction:column}.tl li:before{content:'';position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;background:var(--line);border:3px solid var(--sf);box-sizing:border-box}.tl li:after{content:'';position:absolute;left:8px;top:22px;bottom:2px;width:2px;background:var(--line)}.tl li:last-child:after{display:none}
+.tl li.done:before{background:var(--ok)}.tl li.bad:before{background:var(--bad)}.tl li.accent:before,.tl li.now:before{background:var(--pri)}.tl li.now{background:var(--sf3);border:1.5px solid var(--gold);border-radius:12px;padding:8px 10px 8px 34px;margin-bottom:12px}.tl li.now:before{left:8px;top:10px}.tl li.now:after{display:none}
+.quota{flex-direction:row;align-items:center;gap:16px}.ring{width:96px;height:96px;border-radius:50%;flex:none;display:grid;place-items:center}.ring span{width:70px;height:70px;border-radius:50%;background:var(--sf);display:flex;flex-direction:column;align-items:center;justify-content:center}.ring small{font-size:10px;color:var(--mut)}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}.bar span{display:block;height:100%;background:var(--pri);border-radius:5px}.camp.dim{opacity:.65}.clip{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+dialog{border:1.5px solid var(--gold);padding:0;background:var(--sf);color:var(--ink)}dialog::backdrop{background:rgba(10,4,30,.6)}.mhead{display:flex;align-items:center;gap:8px;padding:16px 18px;border-bottom:1px solid var(--line)}.mbody{padding:16px 18px;display:flex;flex-direction:column;gap:12px;overflow:auto}.mbody .card{border-color:var(--line)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--pri);color:var(--on-pri);padding:12px 18px;border-radius:12px;font-weight:600;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.logo{display:flex;align-items:center;gap:10px}.logo b{font-family:'Cinzel',serif;font-size:18px;color:var(--link);font-weight:700}.logo small{display:block;font-size:10px;letter-spacing:1.2px;color:var(--ink)}
+select[data-in=month]{height:40px;padding:0 10px;border:1.5px solid var(--gold);border-radius:10px;background:var(--sf);margin-left:6px}
+.theme{min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--gold);background:transparent;cursor:pointer;font-weight:600;font-size:13px}
+.ibtn{position:relative;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--gold);background:transparent;color:var(--link);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.ibtn i{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--pri);color:var(--on-pri);font:700 11px/20px 'Poppins';text-align:center;font-style:normal}
+
+body{display:flex;justify-content:center;background:#140838}[data-theme=light] body{background:#EFE6D3}.phone{width:100%;max-width:430px;min-height:100vh;background:var(--bg);display:flex;flex-direction:column}
+.mtop{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;flex-direction:column;gap:6px;padding:12px 14px 8px;border-bottom:1px solid var(--line)}.mtop h1{font-size:24px}.mlogo{color:var(--gold);display:flex}.mlogo svg{width:34px;height:34px}.logo b{font-size:15px}.logo small{font-size:9px}
+.mtop .ibtn{width:44px;height:44px;border-radius:12px}.mtop .theme{min-height:36px;padding:0 10px}
+.back{width:44px;height:44px;border:0;background:none;font-size:30px;cursor:pointer;color:var(--link);flex:none;margin-left:-8px}.back[hidden]{display:none}
+.screen{flex:1;padding:14px 14px 100px;display:flex;flex-direction:column;gap:12px}
+.bnav{position:fixed;bottom:0;width:calc(100% - 20px);max-width:410px;margin:0 10px 12px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:var(--sf);border:1.5px solid var(--gold);border-radius:22px;padding:8px}.bnav a{min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:16px;color:var(--ink);text-decoration:none;font-size:12px}.bnav a.on{background:var(--pri);color:var(--on-pri);font-weight:700}
+.tabs{gap:6px}.tab{min-height:40px;padding:0 12px;font-size:13px}
+.facts{grid-template-columns:1fr 1fr}.facts.three{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.corr{flex-direction:column;align-items:stretch}.user{gap:12px;border-color:var(--gold)}.dhead h2{font-size:18px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.seg span{min-height:48px;border-radius:14px;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:500;font-size:15px}.seg .on{background:var(--pri);color:var(--on-pri);font-weight:700;border-color:var(--pri)}
+.over{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}.over b{font-size:30px;font-weight:700;display:block}.over>div+div{border-left:1px solid var(--line)}.over .y{color:var(--link)}
+.lnk{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--sf);border:1.5px solid var(--gold);border-radius:16px;cursor:pointer;font-weight:500;font-size:15px}.lnk:after{content:'›';margin-left:auto;color:var(--link);font-size:22px}
+.ovc{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:10px;background:var(--sf);border:1.5px solid var(--gold);border-radius:16px;padding:14px 16px}
+.sheet{width:100%;max-width:430px;margin:auto auto 0;border-radius:22px 22px 0 0;max-height:90vh}
+.qcard .row.wrap{row-gap:6px}
+
+</style>
+</head>
+<body>
+<div class="phone">
+<header class="mtop"><div class="row"><span class="mlogo"><svg width="56" height="56" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="24" cy="24" r="21"/><circle cx="24" cy="24" r="14" stroke-dasharray="2 3"/><path d="M24 10l3 11 11 3-11 3-3 11-3-11-11-3 11-3z" fill="currentColor"/></svg></span><div class="logo grow"><div><b>ASTRO CONVERSE</b><small>YOUR STARS, YOUR STORY</small></div></div><button class="theme" data-act="theme" id="thb">Light</button><button class="ibtn" aria-label="Notifications, 3 unread"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg><i>3</i></button></div>
+<div class="row"><button class="back" data-act="back" aria-label="Back" id="backb">‹</button><h1 id="mtitle"></h1></div></header>
+<div id="screen" class="screen"></div>
+<nav class="bnav" aria-label="Main"><a href="#">Home</a><a href="#" class="on" aria-current="page" data-act="home">My Work</a><a href="#">Live</a><a href="#">Earnings</a><a href="#">Profile</a></nav>
+</div>
+<dialog id="dlg" class="sheet" aria-labelledby="dlgt"><div class="mhead"><h2 id="dlgt" class="grow"></h2><button class="btn btn-o sm" data-act="close" aria-label="Close">✕</button></div><div class="mbody" id="dlgb"></div></dialog>
+
+<script>
+// ===== Shared data, rules and view builders (AD-24 – AD-51) =====
+const TODAY=new Date('2026-11-20T12:00:00'),DAY=864e5;
+const dt=s=>new Date(s);
+const fD=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const fT=d=>fD(d)+', '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MAXC=1500,MAXF=2;
+const S={quota:300,tab:'p1',sel:null,month:'2026-11',hist:'all',hq:'',f:{q:'',camp:'',type:'',status:'',prio:''},
+campaigns:[
+ {id:'c1',name:'Career Guidance',type:'Specific',special:false,start:'2026-11-01',end:'2026-11-30',slots:80,sold:50,pg:499,pp:799,offer:'No Offer',status:'Active'},
+ {id:'c2',name:'Relationship Insights',type:'Open Slots',special:false,start:'2026-11-05',end:'2026-11-30',slots:60,sold:35,pg:299,pp:499,offer:'No Offer',status:'Active'},
+ {id:'c3',name:'Career & Finance',type:'Specific',special:true,start:'2026-11-01',end:'2026-11-30',slots:40,sold:20,pg:799,pp:1199,offer:'No Offer',status:'Active'}],
+templates:[{id:'t1',name:'Career – General',text:'Based on your chart, your 10th house shows '},{id:'t2',name:'Marriage – General',text:'Looking at your 7th house and Venus, '},{id:'t3',name:'Business – General',text:'For business, the key periods in your chart are '}],
+questions:[
+ Q('TQ-98241','U-44821','Divya S.','#F4C7D9','General','General','c1','2026-10-26T10:20','Pending',true,['Photo.jpg'],'Will I be able to start my own business in the next year? If yes, what is the right time and what should I be careful about?',28,'Female','Chennai, TN',499,1,[['TQ-96410','Career','Completed']]),
+ Q('TQ-98240','U-39017','Rahul K.','#C9E6EE','Personal','Personal','c2','2026-10-28T16:15','Pending',true,[],'My marriage prospects and the best timeline for marriage.',31,'Male','Coimbatore, TN',499,1,[]),
+ Q('TQ-98237','U-40562','Meera P.','#F3DEC0','General','General','c1','2026-10-30T09:48','Pending',false,['Resume.pdf','Offer.pdf'],'Will there be a job change or promotion in the coming months?',26,'Female','Madurai, TN',499,2,[['TQ-97002','Health','Completed']]),
+ Q('TQ-98250','U-41233','Arjun V.','#D9E4FB','General','General','c3','2026-11-05T11:05','Pending',true,[],'Is 2027 a good year to invest in property?',35,'Male','Bengaluru, KA',799,1,[],'Your 4th house lord is '),
+ Q('TQ-98262','U-42118','Lakshmi N.','#E3D9F7','Personal','General','c2','2026-11-10T18:30','Correction Requested',true,[],'Based on my chart, will my husband get a transfer to Chennai?',33,'Female','Trichy, TN',299,1,[]),
+ Q('TQ-98270','U-43007','Karthik M.','#C9E6EE','General','General','c1','2026-11-18T08:10','New',true,[],'Should I accept the offer from my current company or move abroad next year? My birth details are attached.',29,'Male','Salem, TN',499,1,[]),
+ Q('TQ-98275','U-43350','Priya S.','#F4C7D9','Personal','Personal','c2','2026-11-19T20:40','New',false,[],'When is a good time for my sister’s engagement?',27,'Female','Chennai, TN',499,1,[]),
+ Q('TQ-98278','U-43402','Sanjay R.','#F3DEC0','General','General','c3','2026-11-20T09:15','New',true,['Chart.png'],'Which months in 2027 are best to start a new venture?',38,'Male','Erode, TN',799,1,[]),
+ Q('TQ-97821','U-38877','Arun R.','#D9E4FB','General','General','c1','2026-10-20T10:00','Completed',true,[],'Will I clear my government exam this year?',24,'Male','Vellore, TN',499,1,[],'',{answer:'Jupiter supports your studies from February. Focus on revision in March.',answeredAt:'2026-11-04T12:00'}),
+ Q('TQ-97790','U-39017','Rahul K.','#C9E6EE','Personal','Personal','c2','2026-10-18T09:30','Disputed',true,[],'When will I get married? Please give dates for 2026.',31,'Male','Coimbatore, TN',499,1,[],'',{answer:'Venus moves into your 7th house from mid-2027. June to September 2027 looks favourable for a proposal.',answeredAt:'2026-11-01T15:00',dispute:'The answer does not mention the dates I asked about for 2026. Please clarify.',disputeAt:'2026-11-03T10:00'}),
+ Q('TQ-97654','U-38120','Sneha V.','#F3DEC0','General','General','c1','2026-10-03T14:00','Expired',false,[],'Which gemstone suits me for health?',30,'Female','Chennai, TN',499,1,[]),
+]};
+function Q(id,uid,name,color,type,slot,camp,recv,status,horo,files,text,age,gender,loc,paid,slots,prev,draft='',x={}){
+ return Object.assign({id,uid,name,ini:name.split(' ').map(w=>w[0]).join('').slice(0,2),color,type,slot,camp,recv,status,horo,files,text,age,gender,loc,paid,slots,prev,draft,att:[],links:[],remedy:'',remember:false,events:[],purchased:new Date(dt(recv)-DAY*1.1).toISOString()},x)}
+const camp=id=>S.campaigns.find(c=>c.id===id)||{name:'—'};
+const byId=id=>S.questions.find(q=>q.id===id);
+const OPEN=['New','Pending','Correction Requested'];
+const isOpen=q=>OPEN.includes(q.status);
+const pday=q=>Math.floor((TODAY-dt(q.recv))/DAY)+1;
+const due=q=>new Date(+dt(q.recv)+30*DAY);
+const prio=q=>isOpen(q)?(pday(q)>=20?1:2):0;
+const TABS=[['p1','Priority 1',q=>isOpen(q)&&pday(q)>=20],['p2','Priority 2',q=>isOpen(q)&&pday(q)<20],['new','New Questions',q=>q.status==='New'],['answered','Answered',q=>['Answered','Completed'].includes(q.status)],['disputed','Disputed',q=>['Disputed','Dispute Answered'].includes(q.status)],['drafts','Drafts',q=>isOpen(q)&&!!q.draft],['expired','Expired',q=>q.status==='Expired']];
+const STC={'New':'info','Pending':'warn','Correction Requested':'accent','Answered':'ok','Disputed':'bad','Dispute Answered':'info','Completed':'ok','Expired':'bad'};
+const badge=(t,k)=>`<span class="badge b-${k}">${esc(t)}</span>`;
+const stat=s=>badge(s,STC[s]||'info');
+const typeB=t=>badge(t,t==='General'?'gen':'per');
+const prioB=q=>prio(q)?`<span class="badge ${prio(q)===1?'b-bad':'b-warn'}">Priority ${prio(q)} · Day ${pday(q)}</span>`:'';
+const pend=id=>`<span class="pend" title="Not decided yet in the spec">Pending decision · ${id}</span>`;
+const av=(q,big)=>`<span class="av${big?' av-l':''}" style="background:${q.color}" aria-hidden="true">${esc(q.ini)}</span>`;
+function filtered(){const f=S.f,t=TABS.find(t=>t[0]===S.tab);return S.questions.filter(t[2]).filter(q=>(!f.q||(q.id+q.uid).toLowerCase().includes(f.q.toLowerCase()))&&(!f.camp||q.camp===f.camp)&&(!f.type||q.type===f.type)&&(!f.status||q.status===f.status)&&(!f.prio||String(prio(q))===f.prio)).sort((a,b)=>pday(b)-pday(a))}
+const count=k=>S.questions.filter(TABS.find(t=>t[0]===k)[2]).length;
+const nf=()=>Object.values(S.f).filter(Boolean).length;
+function tabsHTML(){return `<div class="tabs" role="tablist" aria-label="Question views">${TABS.map(([k,l])=>`<button role="tab" aria-selected="${S.tab===k}" class="tab${S.tab===k?' on':''}" data-act="tab" data-id="${k}">${l}<span class="n">${count(k)}</span></button>`).join('')}</div>`}
+function toolbarHTML(){return `<div class="toolbar"><label class="search"><span class="sr">Search by User ID or Question ID</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="qsearch" type="search" placeholder="Search User ID / Question ID" value="${esc(S.f.q)}" data-in="search"></label><button class="btn btn-o" data-act="filters">Filters${nf()?` (${nf()})`:''}</button></div>`}
+function cardHTML(q,on){const c=camp(q.camp);return `<button class="qcard${on?' on':''}" data-act="sel" data-id="${q.id}">
+<div class="row">${av(q)}<div class="grow"><div class="nm">${esc(q.name)}</div><div class="muted sm">${q.uid} · ${q.id}</div></div>${typeB(q.type)}</div>
+<div class="qt">${esc(q.text)}</div>
+<div class="meta"><span>${esc(c.name)}</span><span>Received ${fT(dt(q.recv))}</span>${isOpen(q)?`<span>Pending ${pday(q)} days</span><span class="dl">Due ${fD(due(q))}</span>`:''}</div>
+<div class="row wrap">${prioB(q)}${stat(q.status)}<span class="ind${q.horo?'':' off'}">${q.horo?'Horoscope':'No horoscope'}</span><span class="ind${q.files.length?'':' off'}">${q.files.length?q.files.length+' file'+(q.files.length>1?'s':''):'No files'}</span><span class="grow"></span><span class="go">${isOpen(q)?'Answer Now':'View Question'} ›</span></div></button>`}
+function listHTML(){const l=filtered();return l.length?l.map(q=>cardHTML(q,q.id===S.sel)).join(''):`<div class="empty"><b>No questions here</b><span class="muted">Try another tab or clear filters.</span>${nf()?'<button class="btn btn-o" data-act="resetF">Clear filters</button>':''}</div>`}
+function factsHTML(q){const c=camp(q.camp);return `<div class="facts">${[['Campaign',c.name],['Amount paid · Slots','₹'+q.paid+' · '+q.slots+' slot'+(q.slots>1?'s':'')],['Received',fT(dt(q.recv))],['Answer deadline',isOpen(q)?fD(due(q))+' · '+(30-pday(q))+' days left':fD(due(q))]].map(([k,v],i)=>`<div class="fact"><span class="muted sm">${k}</span><b class="${i===3&&isOpen(q)?'dl':''}">${esc(v)}</b></div>`).join('')}</div>`}
+function detailHTML(q){if(!q)return `<div class="empty"><b>Select a question</b><span class="muted">Its details and actions appear here.</span></div>`;
+const corr=isOpen(q)&&q.slot==='General'&&q.status!=='Correction Requested';
+let act='';
+if(isOpen(q))act=`<div class="actions"><button class="btn btn-p" data-act="answer" data-id="${q.id}">${q.draft?'Continue Answer':'Answer Now'}</button><button class="btn btn-o" data-act="timeline" data-id="${q.id}">View Timeline</button></div>`;
+else act=`<div class="actions"><button class="btn btn-o" data-act="timeline" data-id="${q.id}">View Timeline</button></div>`;
+let after='';
+if(q.answer)after+=`<section class="card"><h3>Your answer <span class="muted sm">· ${fT(dt(q.answeredAt))}</span></h3><p>${esc(q.answer)}</p>${q.remedy?`<div class="remedy"><b>Remedy prescribed</b>${esc(q.remedy)}</div>`:''}<p class="muted sm">Submitted answers can't be edited.</p></section>`;
+if(q.dispute)after+=`<section class="card disp"><h3>Dispute <span class="muted sm">· raised ${fT(dt(q.disputeAt))}</span></h3><p>${esc(q.dispute)}</p></section>`;
+if(q.status==='Disputed')after+=`<section class="card"><h3>Your Dispute Answer</h3><label class="sr" for="dans">Dispute answer</label><textarea id="dans" maxlength="${MAXC}" data-in="count" data-cnt="dcnt" placeholder="Reply to the user's dispute…"></textarea><div class="row sm"><span class="muted grow">Text only. No templates or attachments. You can answer once.</span><span id="dcnt">0 / ${MAXC}</span></div><div class="row wrap">${pend('AP-02-11 deadline')}${pend('AP-02-12 remedy')}</div><button class="btn btn-p" data-act="dispSubmit" data-id="${q.id}">Submit Dispute Answer</button></section>`;
+if(q.disputeAnswer)after+=`<section class="card"><h3>Your Dispute Answer</h3><p>${esc(q.disputeAnswer)}</p><p class="muted sm">No further dispute is allowed. The user may raise a separate Platform Complaint within 7 days.</p></section>`;
+if(q.status==='Expired')after+=`<section class="card disp"><h3>Expired</h3><p>Not answered within 30 days. The question was auto-cancelled on ${fD(due(q))} and the user was refunded.</p></section>`;
+if(q.status==='Correction Requested')after+=`<section class="card note"><h3>Correction requested</h3><p>Waiting for the user to replace the question or upgrade to Personal. The original deadline (${fD(due(q))}) still applies.</p></section>`;
+return `<div class="dhead"><h2>${q.id}</h2>${prioB(q)}${stat(q.status)}<span class="grow"></span><span class="muted sm">Type</span>${typeB(q.type)}<span class="muted sm">Slot</span>${typeB(q.slot)}</div>
+<section class="card user">${av(q,1)}<div><b class="lg">${esc(q.name)}</b><div class="muted sm">User ID: ${q.uid}</div></div><div><span class="muted sm">Age</span><b>${q.age}</b></div><div><span class="muted sm">Gender</span><b>${q.gender}</b></div><div><span class="muted sm">Location</span><b>${esc(q.loc)}</b></div></section>
+${factsHTML(q)}
+<section class="card"><h3>Question</h3><p class="qfull">${esc(q.text)}</p></section>
+<div class="two"><section class="card"><h3>Attachments</h3><div class="files">${q.horo?'<span class="file horo">Horoscope chart</span>':''}${q.files.map(f=>`<span class="file">${esc(f)}</span>`).join('')}${!q.horo&&!q.files.length?'<span class="muted sm">None supplied</span>':''}</div></section>
+<section class="card"><h3>Previous questions (${q.prev.length})</h3>${q.prev.length?q.prev.map(p=>`<div class="row sm"><span class="grow">${p[0]} · ${p[1]}</span>${stat(p[2])}</div>`).join(''):'<span class="muted sm">First question from this user</span>'}</section></div>
+${corr?`<section class="card corr"><div class="grow"><b>Personal question on a General slot?</b><div class="muted sm">Ask the user to correct it. The 30-day deadline does not restart.</div></div><button class="btn btn-o" data-act="corr" data-id="${q.id}">Request Correction</button></section>`:''}
+${after}${act}`}
+function editorHTML(q){return `<div class="ehead">${av(q)}<div class="grow"><b>${esc(q.name)}</b><div class="muted sm">${q.id} · Due ${fD(due(q))} · ${30-pday(q)} days left</div></div>${typeB(q.type)}</div>
+<div class="etools"><label><span class="sr">Use template</span><select data-in="tpl"><option value="">Use Template…</option>${S.templates.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></label><button class="btn btn-o sm" data-act="voice">Voice to Text</button><button class="btn btn-o sm" data-act="addLink">Add Link</button><button class="btn btn-o sm" data-act="addFile">Attach File</button></div>
+<label class="sr" for="ans">Your answer</label><textarea id="ans" maxlength="${MAXC}" data-in="answer" data-id="${q.id}" placeholder="Write your answer…">${esc(q.draft)}</textarea>
+<div class="row sm"><span id="autosave" class="ok-t grow">${q.draft?'Draft saved':''}</span><span id="cnt">${q.draft.length} / ${MAXC}</span></div>
+<div id="attl" class="files">${attHTML(q)}</div>
+<label class="check"><input type="checkbox" data-in="remember" ${q.remember?'checked':''}> Remember This Question ${pend('AP-02-05 purpose')}</label>
+<details class="card" ${q.remedy?'open':''}><summary><b>Prescribe remedy / atonement</b> <span class="muted sm">(optional)</span></summary><label class="sr" for="rem">Remedy</label><textarea id="rem" class="short" data-in="remedy" placeholder="Describe the remedy…">${esc(q.remedy)}</textarea><p class="muted sm">Appears in the user's Remedy Tracker. Only the user can mark it Completed. ${pend('X-08 fields')}</p></details>
+<p class="muted sm">Answers can't be edited after you submit. Use Preview first.</p>
+<div class="actions"><button class="btn btn-o" data-act="saveDraft" data-id="${q.id}">Save Draft</button><button class="btn btn-o" data-act="preview" data-id="${q.id}">Preview</button><button class="btn btn-p" data-act="preview" data-id="${q.id}">Submit…</button></div>`}
+function attHTML(q){return q.att.map((f,i)=>`<span class="file">${esc(f)}<button class="x" aria-label="Remove ${esc(f)}" data-act="rmFile" data-id="${q.id}" data-i="${i}">×</button></span>`).join('')+q.links.map(l=>`<span class="file link">${esc(l)}</span>`).join('')+`<span class="muted sm">${q.att.length} / ${MAXF} attachments ${pend('AP-02-06 file types')}</span>`}
+function previewHTML(q){const t=document.getElementById('ans').value.trim();return `<p class="muted sm">This is how ${esc(q.name)} will see your answer.</p><div class="card"><p>${t?esc(t):'<i class="muted">Your answer is empty.</i>'}</p>${q.att.length||q.links.length?`<div class="files">${q.att.concat(q.links).map(f=>`<span class="file">${esc(f)}</span>`).join('')}</div>`:''}${q.remedy?`<div class="remedy"><b>Remedy prescribed</b>${esc(q.remedy)}</div>`:''}</div><p class="warn-t sm">Once submitted, the user sees it immediately and it can't be edited.</p><div class="actions"><button class="btn btn-o" data-act="close">Back to Edit</button><button class="btn btn-p" data-act="submit" data-id="${q.id}" ${t?'':'disabled'}>Submit Answer</button></div>`}
+function corrHTML(q){const c=camp(q.camp);return `<div class="card"><span class="muted sm">${q.id} · sent with a General slot</span><p>${esc(q.text)}</p></div><h3>The user will choose</h3><ol class="opts"><li><b>Replace with a General question</b><span class="muted sm">Same slot, no extra payment</span></li><li><b>Upgrade to Personal</b><span class="muted sm">Pays only the difference (₹${c.pp-c.pg}) and resubmits</span></li></ol><p class="sm">Original deadline stays <b class="dl">${fD(due(q))}</b>. If the user doesn't respond by then, the question is auto-cancelled and refunded. You can request correction again if the resubmitted question is still wrong.</p><div class="actions"><button class="btn btn-o" data-act="close">Cancel</button><button class="btn btn-p" data-act="sendCorr" data-id="${q.id}">Send Request</button></div>`}
+function timelineHTML(q){const ev=[['Question Purchased',fT(dt(q.purchased)),'done'],['Question Submitted',fT(dt(q.recv)),'done'],...q.events];
+if(q.answeredAt)ev.push(['Answer Submitted',fT(dt(q.answeredAt)),'done']);
+if(q.disputeAt)ev.push(['Dispute Raised',fT(dt(q.disputeAt)),'bad']);
+if(q.disputeAnswer)ev.push(['Dispute Answered',fT(TODAY),'done']);
+if(q.status==='Completed')ev.push(['Completed','Settled after 7 days','done']);
+if(q.status==='Expired')ev.push(['Expired',fD(due(q))+' · auto-cancelled and refunded','bad']);
+if(isOpen(q)){ev.push([`Answer pending · Day ${pday(q)} of 30`,'Answer by '+fD(due(q)),'now']);ev.push(['Auto-cancel and refund if unanswered','After '+fD(due(q)),'todo'])}
+return `<div class="row">${av(q)}<div class="grow"><b>${q.id}</b><div class="muted sm">${esc(q.name)} · ${esc(camp(q.camp).name)}</div></div>${stat(q.status)}</div><ol class="tl">${ev.map(e=>`<li class="${e[2]}"><b>${e[0]}</b><span class="muted sm">${e[1]}</span></li>`).join('')}</ol>`}
+function filtersHTML(){const f=S.f,sel=(n,o,v)=>`<select data-f="${n}">${o.map(([a,b])=>`<option value="${a}" ${v===a?'selected':''}>${b}</option>`).join('')}</select>`;
+return `<div class="form"><div class="grid2"><label>From<input type="date" value="2026-10-01"></label><label>To<input type="date" value="2026-11-20"></label></div><label>Month<select><option>November 2026</option><option>October 2026</option></select></label>
+<label>Campaign${sel('camp',[['','All campaigns'],...S.campaigns.map(c=>[c.id,c.name])],f.camp)}</label>
+<div class="grid2"><label>Question type${sel('type',[['','General & Personal'],['General','General'],['Personal','Personal']],f.type)}</label><label>Priority${sel('prio',[['','Priority 1 & 2'],['1','Priority 1'],['2','Priority 2']],f.prio)}</label></div>
+<label>Question status${sel('status',[['','Any status'],...Object.keys(STC).map(s=>[s,s])],f.status)}</label>
+<label>Search<input data-f="q" type="search" value="${esc(f.q)}" placeholder="User ID / Question ID"></label></div>
+<div class="actions"><button class="btn btn-o" data-act="resetF">Reset</button><button class="btn btn-p" data-act="applyF">Apply Filters</button></div>`}
+// campaigns
+const alloc=()=>S.campaigns.reduce((s,c)=>s+(c.status==='Cancelled'?c.sold:c.slots),0);
+const free=()=>S.quota-alloc();
+function quotaHTML(){const a=alloc(),p=Math.round(a/S.quota*100);return `<section class="card quota"><div class="ring" style="background:conic-gradient(var(--accent) 0 ${p}%,var(--line) ${p}% 100%)" role="img" aria-label="${p}% of quota allocated"><span><b>${p}%</b><small>allocated</small></span></div><div class="grow"><h3>Monthly Slot Quota</h3><div><b class="xl">${S.quota}</b> slots this month</div><div class="row sm"><span>${a} in campaigns</span><span class="ok-t">${free()} available</span></div><div class="row wrap">${pend('AP-02-01 reset / carry-forward')}</div></div></section>`}
+function campCard(c){const p=Math.round(c.sold/c.slots*100),x=c.status==='Cancelled';return `<section class="card camp${x?' dim':''}"><div class="row"><h3 class="grow">${esc(c.name)}</h3>${badge(c.type,'info')}${c.special?badge('Special','accent'):''}${badge(c.status,x?'bad':'ok')}</div>
+<div class="muted sm">${fD(dt(c.start))} – ${fD(dt(c.end))} · Offer: ${esc(c.offer)}</div>
+<div class="bar"><span style="width:${p}%"></span></div><div class="row sm"><span class="grow">${c.sold} / ${c.slots} sold · ${c.slots-c.sold} unused</span><span>General <b>₹${c.pg}</b></span><span>Personal <b>₹${c.pp}</b></span></div>
+${x?'<p class="muted sm">Cancelled. Submitted questions keep their original deadlines.</p>':`<div class="row wrap"><button class="btn btn-o sm" data-act="editCamp" data-id="${c.id}">Edit</button><button class="btn btn-o sm" data-act="slots" data-id="${c.id}">Increase / Decrease</button><button class="btn btn-o sm" data-act="realloc" data-id="${c.id}">Reallocate</button><button class="btn btn-o sm danger" data-act="cancelCamp" data-id="${c.id}">Cancel</button></div>`}</section>`}
+function campsHTML(){return quotaHTML()+`<div class="row"><h3 class="grow">Your Campaigns (${S.campaigns.length})</h3><button class="btn btn-p" data-act="newCamp">+ Create Campaign</button></div>`+S.campaigns.map(campCard).join('')+`<p class="muted sm">Delete isn't offered: ${pend('AP-02-13')}</p>`}
+function campForm(c){c=c||{name:'',type:'Specific',special:false,start:'2026-12-01',end:'2026-12-31',slots:'',pg:'',pp:'',offer:'No Offer'};const mx=free()+(c.id?c.slots:0);return `<div class="form"><label>Campaign name *<input id="cf-name" value="${esc(c.name)}" placeholder="e.g. Career Guidance"></label>
+<fieldset><legend>Campaign type *</legend><div class="grid2"><label class="radio"><input type="radio" name="cf-type" value="Specific" ${c.type==='Specific'?'checked':''}> Specific</label><label class="radio"><input type="radio" name="cf-type" value="Open Slots" ${c.type==='Open Slots'?'checked':''}> Open Slots</label></div></fieldset>
+<div class="grid2"><label>Start date *<input id="cf-start" type="date" value="${c.start}"></label><label>Expiry date *<input id="cf-end" type="date" value="${c.end}"></label></div>
+<label>Total slots * <span class="muted sm">(max ${mx} with your quota)</span><input id="cf-slots" type="number" min="1" max="${mx}" value="${c.slots}"></label>
+<p class="sm"><b>Price per question *</b> <span class="muted">Every campaign offers General and Personal.</span></p>
+<div class="grid2"><label>General (₹)<input id="cf-pg" type="number" value="${c.pg}"></label><label>Personal (₹)<input id="cf-pp" type="number" value="${c.pp}"></label></div>
+<label>Offer<select id="cf-offer"><option>No Offer</option></select></label>
+<label class="check"><input id="cf-special" type="checkbox" ${c.special?'checked':''}> Mark as Special Campaign</label>
+<div class="row wrap">${pend('AP-02-02 editor, offer & special settings')}</div><p id="cf-err" class="warn-t sm" role="alert"></p></div>
+<div class="actions"><button class="btn btn-o" data-act="close">Cancel</button><button class="btn btn-p" data-act="saveCamp" data-id="${c.id||''}">${c.id?'Save Changes':'Create Campaign'}</button></div>`}
+function slotsHTML(c){return `<p><b>${esc(c.name)}</b></p><div class="facts"><div class="fact"><span class="muted sm">Total</span><b>${c.slots}</b></div><div class="fact"><span class="muted sm">Sold (protected)</span><b>${c.sold}</b></div><div class="fact"><span class="muted sm">Unused</span><b>${c.slots-c.sold}</b></div><div class="fact"><span class="muted sm">Free in quota</span><b>${free()}</b></div></div>
+<div class="form"><label>New total slots<input id="sl-n" type="number" value="${c.slots}" min="${c.sold}" max="${c.slots+free()}"></label><p class="muted sm">Range ${c.sold} – ${c.slots+free()}. ${pend('AP-02-14 below sold')}</p><p id="sl-err" class="warn-t sm" role="alert"></p></div>
+<div class="actions"><button class="btn btn-o" data-act="close">Cancel</button><button class="btn btn-p" data-act="saveSlots" data-id="${c.id}">Save</button></div>`}
+function reallocHTML(c){const o=S.campaigns.filter(x=>x.id!==c.id&&x.status!=='Cancelled');return `<p>Move unused slots from <b>${esc(c.name)}</b> (${c.slots-c.sold} unused).</p><div class="form"><label>Move to<select id="ra-to">${o.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></label><label>Number of slots<input id="ra-n" type="number" min="1" max="${c.slots-c.sold}" value="${Math.min(10,c.slots-c.sold)}"></label><p id="ra-err" class="warn-t sm" role="alert"></p></div><div class="actions"><button class="btn btn-o" data-act="close">Cancel</button><button class="btn btn-p" data-act="doRealloc" data-id="${c.id}">Move Slots</button></div>`}
+function cancelHTML(c){const sub=S.questions.filter(q=>q.camp===c.id&&isOpen(q)).length;return `<p><b>${esc(c.name)}</b> · ${c.sold} / ${c.slots} sold</p><ul class="cons"><li><b>${sub}</b> open submitted questions stay in My Work with their original 30-day deadlines.</li><li>Purchased slots not used yet: refund ${pend('AP-02-07')}</li><li><b>${c.slots-c.sold}</b> unsold slots go back to your quota.</li></ul><div class="actions"><button class="btn btn-o" data-act="close">Keep Campaign</button><button class="btn btn-p danger-f" data-act="doCancel" data-id="${c.id}">Cancel Campaign</button></div>`}
+// templates
+function tplsHTML(){return `<div class="row"><p class="muted sm grow">Only you can see these. Platform templates aren't provided.</p><button class="btn btn-p" data-act="newTpl">+ Create Template</button></div>`+(S.templates.length?S.templates.map(t=>`<section class="card row"><div class="grow"><b>${esc(t.name)}</b><div class="muted sm clip">${esc(t.text)}</div></div><button class="btn btn-o sm" data-act="editTpl" data-id="${t.id}">Edit</button><button class="btn btn-o sm danger" data-act="delTpl" data-id="${t.id}">Delete</button></section>`).join(''):'<div class="empty"><b>No templates yet</b></div>')}
+function tplForm(t){t=t||{id:'',name:'',text:''};return `<div class="form"><label>Template name<input id="tf-name" value="${esc(t.name)}"></label><label>Template text<textarea id="tf-text" maxlength="${MAXC}" data-in="count" data-cnt="tcnt">${esc(t.text)}</textarea></label><div class="sm" id="tcnt" style="text-align:right">${t.text.length} / ${MAXC}</div><p id="tf-err" class="warn-t sm" role="alert"></p></div><div class="actions"><button class="btn btn-o" data-act="close">Cancel</button><button class="btn btn-p" data-act="saveTpl" data-id="${t.id}">Save Template</button></div>`}
+// history
+function histHTML(){const m=S.month,inM=q=>q.recv.slice(0,7)===m;const rec=S.questions.filter(q=>inM(q)).length,ans=S.questions.filter(q=>q.answeredAt&&q.answeredAt.slice(0,7)===m).length,exp=S.questions.filter(q=>q.status==='Expired'&&due(q).toISOString().slice(0,7)===m).length;
+const hs={all:q=>['Answered','Completed','Disputed','Dispute Answered','Expired'].includes(q.status),answered:q=>['Answered','Completed'].includes(q.status),disputed:q=>['Disputed','Dispute Answered'].includes(q.status),expired:q=>q.status==='Expired'};
+const l=S.questions.filter(hs[S.hist]).filter(q=>!S.hq||(q.id+q.uid).toLowerCase().includes(S.hq.toLowerCase()));
+return `<div class="row wrap"><label class="grow">Month <select data-in="month"><option value="2026-11" ${m==='2026-11'?'selected':''}>November 2026</option><option value="2026-10" ${m==='2026-10'?'selected':''}>October 2026</option></select></label></div>
+<div class="facts three"><div class="fact"><span class="muted sm">Received</span><b class="xl">${rec}</b></div><div class="fact"><span class="muted sm">Answered</span><b class="xl ok-t">${ans}</b></div><div class="fact"><span class="muted sm">Expired</span><b class="xl warn-t">${exp}</b></div></div>
+<div class="row wrap">${['all','answered','disputed','expired'].map(k=>`<button class="chip${S.hist===k?' on':''}" aria-pressed="${S.hist===k}" data-act="hist" data-id="${k}">${k[0].toUpperCase()+k.slice(1)}</button>`).join('')}<label class="search grow"><span class="sr">Search history</span><input type="search" placeholder="User ID / Question ID" value="${esc(S.hq)}" data-in="hsearch"></label></div>
+${l.map(q=>`<button class="qcard" data-act="timeline" data-id="${q.id}"><div class="row">${av(q)}<div class="grow"><b>${q.id}</b><div class="muted sm">${esc(q.name)} · ${q.status==='Expired'?'Auto-cancelled '+fD(due(q)):q.answeredAt?'Answered '+fD(dt(q.answeredAt)):''}</div></div>${stat(q.status)}</div></button>`).join('')||'<div class="empty"><b>No records</b></div>'}`}
+// ===== actions (layout supplies UI.render, UI.modal, UI.close, UI.go, UI.toast) =====
+function sel1(){const l=filtered();if(!l.find(q=>q.id===S.sel))S.sel=l[0]?l[0].id:null}
+const A={
+ tab:d=>{S.tab=d.id;sel1();UI.render()},
+ sel:d=>{S.sel=d.id;UI.go('detail',d.id)},
+ answer:d=>UI.go('editor',d.id),
+ timeline:d=>UI.modal('Question Timeline',timelineHTML(byId(d.id))),
+ corr:d=>UI.modal('Request Correction',corrHTML(byId(d.id))),
+ sendCorr:d=>{const q=byId(d.id);q.status='Correction Requested';q.events.push(['Correction Requested',fT(TODAY),'accent']);UI.close();UI.toast('Correction request sent to '+q.name);UI.render()},
+ saveDraft:d=>{const q=byId(d.id);q.draft=document.getElementById('ans').value;UI.toast('Draft saved');UI.render()},
+ voice:()=>UI.toast('Voice to Text would start listening here (prototype).'),
+ addFile:()=>{const q=byId(S.sel);if(q.att.length>=MAXF)return UI.toast('Maximum two attachments per question.');q.att.push(['Remedy-guide.pdf','Muhurtham-chart.png'][q.att.length]);document.getElementById('attl').innerHTML=attHTML(q)},
+ rmFile:d=>{const q=byId(d.id);q.att.splice(+d.i,1);document.getElementById('attl').innerHTML=attHTML(q)},
+ addLink:()=>{const q=byId(S.sel);const u=prompt('Paste a link','https://');if(u&&u!=='https://'){q.links.push(u);document.getElementById('attl').innerHTML=attHTML(q)}},
+ preview:d=>UI.modal('Preview Answer',previewHTML(byId(d.id))),
+ submit:d=>{const q=byId(d.id);q.answer=document.getElementById('ans').value.trim();q.answeredAt=TODAY.toISOString();q.status='Answered';q.draft='';UI.close();UI.toast('Answer submitted. The user can see it now.');sel1();UI.go('list')},
+ dispSubmit:d=>{const q=byId(d.id),t=document.getElementById('dans').value.trim();if(!t)return UI.toast('Write your dispute answer first.');q.disputeAnswer=t;q.status='Dispute Answered';UI.toast('Dispute answer sent.');UI.render()},
+ filters:()=>UI.modal('Filters',filtersHTML()),
+ applyF:()=>{document.querySelectorAll('[data-f]').forEach(e=>S.f[e.dataset.f]=e.value);UI.close();sel1();UI.go('list')},
+ resetF:()=>{S.f={q:'',camp:'',type:'',status:'',prio:''};UI.close();sel1();UI.go('list')},
+ newCamp:()=>UI.modal('Create Campaign',campForm()),
+ editCamp:d=>UI.modal('Edit Campaign',campForm(S.campaigns.find(c=>c.id===d.id))),
+ saveCamp:d=>{const g=i=>document.getElementById(i),err=g('cf-err'),old=S.campaigns.find(c=>c.id===d.id),n=+g('cf-slots').value,mx=free()+(old?old.slots:0);
+  if(!g('cf-name').value.trim())return err.textContent='Enter a campaign name.';
+  if(!(n>0))return err.textContent='Enter the number of slots.';
+  if(n>mx)return err.textContent=`Only ${mx} slots are available in your monthly quota.`;
+  if(old&&n<old.sold)return err.textContent=`${old.sold} slots are already sold.`;
+  if(g('cf-end').value<g('cf-start').value)return err.textContent='Expiry date must be after the start date.';
+  if(!(+g('cf-pg').value>0&&+g('cf-pp').value>0))return err.textContent='Enter General and Personal prices.';
+  const v={name:g('cf-name').value.trim(),type:document.querySelector('[name=cf-type]:checked').value,start:g('cf-start').value,end:g('cf-end').value,slots:n,pg:+g('cf-pg').value,pp:+g('cf-pp').value,special:g('cf-special').checked,offer:'No Offer'};
+  if(old)Object.assign(old,v);else S.campaigns.push(Object.assign({id:'c'+Date.now(),sold:0,status:'Active'},v));UI.close();UI.toast(old?'Campaign updated':'Campaign created');UI.render()},
+ slots:d=>UI.modal('Increase / Decrease Slots',slotsHTML(S.campaigns.find(c=>c.id===d.id))),
+ saveSlots:d=>{const c=S.campaigns.find(c=>c.id===d.id),n=+document.getElementById('sl-n').value,e=document.getElementById('sl-err');if(n<c.sold)return e.textContent=`Can't go below ${c.sold} sold slots.`;if(n>c.slots+free())return e.textContent='Not enough slots left in your quota.';c.slots=n;UI.close();UI.toast('Slots updated');UI.render()},
+ realloc:d=>UI.modal('Reallocate Slots',reallocHTML(S.campaigns.find(c=>c.id===d.id))),
+ doRealloc:d=>{const c=S.campaigns.find(c=>c.id===d.id),t=S.campaigns.find(x=>x.id===document.getElementById('ra-to').value),n=+document.getElementById('ra-n').value;if(!t||!(n>0)||n>c.slots-c.sold)return document.getElementById('ra-err').textContent=`Choose 1 – ${c.slots-c.sold} slots.`;c.slots-=n;t.slots+=n;UI.close();UI.toast(`${n} slots moved to ${t.name}`);UI.render()},
+ cancelCamp:d=>UI.modal('Cancel Campaign',cancelHTML(S.campaigns.find(c=>c.id===d.id))),
+ doCancel:d=>{S.campaigns.find(c=>c.id===d.id).status='Cancelled';UI.close();UI.toast('Campaign cancelled');UI.render()},
+ newTpl:()=>UI.modal('Create Template',tplForm()),
+ editTpl:d=>UI.modal('Edit Template',tplForm(S.templates.find(t=>t.id===d.id))),
+ saveTpl:d=>{const n=document.getElementById('tf-name').value.trim(),x=document.getElementById('tf-text').value;if(!n||!x.trim())return document.getElementById('tf-err').textContent='Add a name and text.';const t=S.templates.find(t=>t.id===d.id);if(t)Object.assign(t,{name:n,text:x});else S.templates.push({id:'t'+Date.now(),name:n,text:x});UI.close();UI.toast('Template saved');UI.render()},
+ delTpl:d=>{if(confirm('Delete this template?')){S.templates=S.templates.filter(t=>t.id!==d.id);UI.toast('Template deleted');UI.render()}},
+ hist:d=>{S.hist=d.id;UI.render()},
+ close:()=>UI.close(),
+};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b&&!b.disabled){e.preventDefault();(A[b.dataset.act]||UI[b.dataset.act]||(()=>{}))(b.dataset)}});
+document.addEventListener('input',e=>{const t=e.target,k=t.dataset.in;if(!k)return;
+ if(k==='answer'){const q=byId(t.dataset.id);q.draft=t.value;document.getElementById('cnt').textContent=t.value.length+' / '+MAXC;document.getElementById('autosave').textContent='Auto-saved just now'}
+ if(k==='count')document.getElementById(t.dataset.cnt).textContent=t.value.length+' / '+MAXC;
+ if(k==='remedy')byId(S.sel).remedy=t.value;
+ if(k==='search'){S.f.q=t.value;sel1();UI.renderList()}
+ if(k==='hsearch'){S.hq=t.value;clearTimeout(window._h);window._h=setTimeout(()=>{UI.render();const i=document.querySelector('[data-in=hsearch]');i.focus();i.setSelectionRange(i.value.length,i.value.length)},300)}});
+document.addEventListener('change',e=>{const t=e.target,k=t.dataset.in;
+ if(k==='tpl'&&t.value){const a=document.getElementById('ans'),tp=S.templates.find(x=>x.id===t.value);a.value=(a.value+(a.value?'\n':'')+tp.text).slice(0,MAXC);a.dispatchEvent(new Event('input',{bubbles:true}));t.value=''}
+ if(k==='remember')byId(S.sel).remember=t.checked;
+ if(k==='month'){S.month=t.value;UI.render()}});
+sel1();
+
+let ST=['home'];
+const MT={home:'My Work',list:'Text Questions',detail:'Question Details',editor:'Write Answer',campaigns:'Campaign Management',templates:'Answer Templates',history:'History'};
+const UI={
+ render(){const s=ST[ST.length-1],v=document.getElementById('screen');document.getElementById('mtitle').textContent=MT[s];document.getElementById('backb').hidden=ST.length<2;
+  if(s==='home'){const open=S.questions.filter(isOpen).length;v.innerHTML=`<p class="muted">Manage your questions, responses and consultations</p>
+   <div class="seg" role="group" aria-label="Work type"><span class="on">Text Questions</span><span>Appointments</span></div>
+   <section class="card over"><div><span class="sm">Total Work</span><b class="y">${open+3}</b></div><div><span class="sm">Text Questions</span><b>${open}</b></div><div><span class="sm">Appointments</span><b>3</b></div></section>
+   <button class="ovc" data-act="push" data-id="list"><div class="row"><b class="grow" style="font-size:16px">Text Questions Overview</b><span class="go" style="font-size:20px">›</span></div><div class="over"><div><b class="y">${count('new')}</b><span class="sm">New</span></div><div><b>${count('p2')}</b><span class="sm">Priority 2</span><div class="muted sm">1–19 days</div></div><div><b class="dl">${count('p1')}</b><span class="sm">Priority 1</span><div class="muted sm">20–30 days</div></div></div></button>
+   <button class="lnk" data-act="push" data-id="campaigns">Campaign Management</button><button class="lnk" data-act="push" data-id="templates">Answer Templates</button><button class="lnk" data-act="push" data-id="history">History</button>`}
+  else if(s==='list')v.innerHTML=tabsHTML()+toolbarHTML()+`<div id="qlist" style="display:flex;flex-direction:column;gap:10px">${listHTML()}</div>`;
+  else if(s==='detail')v.innerHTML=detailHTML(byId(S.sel));
+  else if(s==='editor')v.innerHTML=editorHTML(byId(S.sel));
+  else if(s==='campaigns')v.innerHTML=campsHTML();
+  else if(s==='templates')v.innerHTML=tplsHTML();
+  else if(s==='history')v.innerHTML=histHTML();
+  window.scrollTo(0,0)},
+ renderList(){document.getElementById('qlist').innerHTML=listHTML()},
+ push(d){ST.push(d.id);UI.render()},
+ go(view,id){if(view==='detail')ST=['home','list','detail'];else if(view==='editor'){S.sel=id;ST=['home','list','detail','editor']}else ST=['home','list'];UI.render()},
+ back(){if(ST.length>1)ST.pop();UI.render()},
+ home(){ST=['home'];UI.render()},
+ theme(){const l=document.documentElement.dataset.theme==='light';document.documentElement.dataset.theme=l?'':'light';document.getElementById('thb').textContent=l?'Light':'Dark'},
+ modal(t,h){document.getElementById('dlgt').textContent=t;document.getElementById('dlgb').innerHTML=h;const d=document.getElementById('dlg');if(!d.open)d.showModal()},
+ close(){document.getElementById('dlg').close()},
+ toast(m){document.querySelectorAll('.toast').forEach(x=>x.remove());const t=document.createElement('div');t.className='toast';t.style.bottom='96px';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}};
+UI.render();
+
+</script>
+</body>
+</html>

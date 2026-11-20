@@ -9,6 +9,10 @@ import RecentActivityCard from './components/RecentActivityCard.jsx';
 import QuickActionsCard from './components/QuickActionsCard.jsx';
 import useTheme from './hooks/useTheme.js';
 import useAvailability from './hooks/useAvailability.js';
+import useTextQuestions from './hooks/useTextQuestions.js';
+import useMediaQuery from './hooks/useMediaQuery.js';
+import { parseRoute, useHashPath } from './lib/router.js';
+import WorkPage from './pages/WorkPage.jsx';
 import { themeAssets } from './data/assets.js';
 import { astrologer, notifications, earnings, peakDemand, todaysWork, recentActivity, quickActions } from './data/mockHome.js';
 
@@ -16,10 +20,15 @@ const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'num
   .format(new Date())
   .replace(',', '');
 
-// Astrologer Home: the seven sections in the order of AD-02.
+// Astrologer app shell. Home: the seven sections in the order of AD-02.
+// My Work → Text Questions and its sub-pages render in WorkPage.
 export default function App() {
   const { theme, toggle } = useTheme();
   const availability = useAvailability(todaysWork.answeredToday);
+  const textQuestions = useTextQuestions();
+  const path = useHashPath();
+  const route = parseRoute(path);
+  const mobile = useMediaQuery('(max-width: 760px)'); // same breakpoint as the CSS mobile layout
 
   const assets = themeAssets[theme];
   const appVars = {
@@ -29,22 +38,28 @@ export default function App() {
   };
 
   return (
-    <div className="ac-app" style={appVars}>
-      <Sidebar theme={theme} />
-      <main className="ac-main">
-        <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={notifications.unread} dateLabel={dateLabel} />
-        <div className="ac-grid">
-          <AvailabilityCard a={availability} />
-          <EarningsCard data={earnings} />
-          <PeakDemandCard data={peakDemand} />
-        </div>
-        <div className="ac-grid">
-          <TodaysWorkCard work={todaysWork} a={availability} />
-          <RecentActivityCard items={recentActivity} />
-          <QuickActionsCard actions={quickActions} />
-        </div>
-      </main>
-      <BottomNav />
+    <div className={`ac-app${route.page === 'work' ? ' ac-app--work' : ''}`} style={appVars}>
+      <Sidebar theme={theme} active={route.page} workView={route.page === 'work' ? (route.view === 'hub' ? 'questions' : route.view) : undefined} />
+      {route.page === 'work' ? (
+        <main className="ac-main tq">
+          <WorkPage route={route} path={path} mobile={mobile} tq={textQuestions} theme={theme} onToggleTheme={toggle} unread={notifications.unread} availability={availability} />
+        </main>
+      ) : (
+        <main className="ac-main">
+          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={notifications.unread} dateLabel={dateLabel} />
+          <div className="ac-grid">
+            <AvailabilityCard a={availability} />
+            <EarningsCard data={earnings} />
+            <PeakDemandCard data={peakDemand} />
+          </div>
+          <div className="ac-grid">
+            <TodaysWorkCard work={todaysWork} a={availability} />
+            <RecentActivityCard items={recentActivity} />
+            <QuickActionsCard actions={quickActions} />
+          </div>
+        </main>
+      )}
+      <BottomNav active={route.page} />
     </div>
   );
 }

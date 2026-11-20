@@ -50,6 +50,17 @@
   --avatar-glow: 0 0 0 6px rgba(242, 179, 61, 0.14), 0 8px 24px rgba(201, 138, 14, 0.25);
   --art-size: 520px auto;
   --art-mask: linear-gradient(to bottom, transparent 38%, #000 70%);
+  /* Text Questions (reference: astro-converse-text-questions-*-light.html). */
+  --tq-sf3: #fcefd2;
+  --tq-warn: #8a5a00;
+  --tq-accent: #e2a12a;
+  --tq-okS: #dcf5e4; --tq-okT: #15803d;
+  --tq-badS: #fde4e4; --tq-badT: #b42318;
+  --tq-warnS: #fcefd2; --tq-warnT: #8a5a00;
+  --tq-infoS: #dce6fa; --tq-infoT: #2b4f8f;
+  --tq-genS: #efe8da; --tq-genT: #4a3b28;
+  --tq-perS: #fbe3ec; --tq-perT: #9d174d;
+  --tq-mtop-bg: rgba(251, 244, 230, 0.9);
 }
 
 :root[data-theme='dark'] {
@@ -100,4 +111,15 @@
   --avatar-glow: none;
   --art-size: cover;
   --art-mask: linear-gradient(to bottom, transparent 35%, #000 100%);
+  /* Text Questions (reference: astro-converse-text-questions-*.html, dark). */
+  --tq-sf3: #3a1d86;
+  --tq-warn: #ffdf8a;
+  --tq-accent: #ffcf2e;
+  --tq-okS: #1f5e3a; --tq-okT: #bff5d2;
+  --tq-badS: #7a1f3d; --tq-badT: #ffd5dc;
+  --tq-warnS: #5a4318; --tq-warnT: #ffdf8a;
+  --tq-infoS: #2b3a7a; --tq-infoT: #d6e2ff;
+  --tq-genS: #3a1d86; --tq-genT: #e9e1ff;
+  --tq-perS: #5e2140; --tq-perT: #ffc2d8;
+  --tq-mtop-bg: rgba(34, 16, 79, 0.9);
 }

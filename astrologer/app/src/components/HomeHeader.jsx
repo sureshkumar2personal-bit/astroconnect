@@ -1,15 +1,7 @@
 import Icon from './Icon.jsx';
+import Bell from './Bell.jsx';
 import Logo from './Logo.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
-
-function Bell({ unread }) {
-  return (
-    <button type="button" aria-label={`Notifications, ${unread} unread`} className="ac-iconbtn ac-bell">
-      <Icon name="bell" size={24} />
-      <span className="ac-bell__badge">{unread}</span>
-    </button>
-  );
-}
 
 // Welcome & Profile (AD-02): name, profile photo, notification access.
 // Desktop: avatar + greeting + date/bell/account. Mobile: brand row + bell, then avatar + greeting.

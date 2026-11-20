@@ -50,6 +50,17 @@ export const mainNav = [
   { key: 'earnings', label: 'Earnings', icon: 'coins' },
   { key: 'profile', label: 'Profile', icon: 'user' },
 ];
+// Destinations that exist so far (hash routes, see lib/router.js).
+export const navHref = { home: '#/', work: '#/work' };
+// My Work sub-pages (Text Questions reference). Appointments is a separate module.
+export const workNav = [
+  { key: 'questions', label: 'Text Questions', href: '#/work/questions' },
+  { key: 'appointments', label: 'Appointments' },
+  { key: 'rule1', rule: true },
+  { key: 'campaigns', label: 'Campaign Management', href: '#/work/campaigns' },
+  { key: 'templates', label: 'Answer Templates', href: '#/work/templates' },
+  { key: 'history', label: 'History', href: '#/work/history' },
+];
 export const secondaryNav = [
   { key: 'support', label: 'Support', icon: 'headset' },
   { key: 'settings', label: 'Settings', icon: 'settings' },
