@@ -1,0 +1,18 @@
+/* Stylesheet entry for the app (imported once, by src/main.jsx).
+   The import order is the cascade order — keep it. */
+
+@import './tailwind.css';
+
+@import './tokens.css' layer(base);
+@import './base.css' layer(base);
+
+@import './common/home.css' layer(components);
+@import './common/sections.css' layer(components);
+
+@import './desktop/home.css' layer(components);
+@import './desktop/sections.css' layer(components);
+
+/* Phone-width rules. The app still renders phone layouts until the separate
+   mobile app takes over phones (Phase 3); these two imports are removed then. */
+@import './mobile/home.css' layer(components);
+@import './mobile/sections.css' layer(components);

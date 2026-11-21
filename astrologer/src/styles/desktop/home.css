@@ -1,0 +1,60 @@
+/* Home + app shell — desktop and tablet rules (screens wider than 760px).
+   Loaded after common/home.css. */
+
+/* Two-row, three-card dashboard (reference proportions) on wide screens. */
+@media (min-width: 1200px) {
+  .ac-header + .ac-grid { grid-template-columns: 1fr 1.06fr 1.12fr; }
+  .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
+  .ac-grid--two { grid-template-columns: 1.4fr 1fr; }
+}
+/* Dark uses a portrait nebula; on landscape screens shift it down so the mountain ridge
+   sits towards the bottom instead of mid-screen. */
+@media (min-width: 761px) and (orientation: landscape) {
+  :root[data-theme='dark'] .ac-app { background-position: center calc(100% + 20vh); }
+}
+/* Portrait tablets: the portrait artwork fits better than the landscape scene (light only). */
+@media (min-width: 761px) and (max-width: 1199px) and (orientation: portrait) {
+  :root[data-theme='light'] .ac-app { background-image: var(--bg-img-mobile); }
+}
+/* Laptop / large tablet: two columns, the third card spans the row. */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .ac-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ac-grid > :nth-child(3) { grid-column: 1 / -1; }
+}
+
+/* ---------- Light reference layout details (desktop/tablet only) ---------- */
+@media (min-width: 761px) {
+  /* Earnings: big figure + growth on the left, week/month tiles stacked on the right. */
+  :root[data-theme='light'] .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+  :root[data-theme='light'] .ac-today { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 0 0 4px; }
+  :root[data-theme='light'] .ac-today__main { text-align: left; }
+  :root[data-theme='light'] .ac-today__rule { display: none; }
+  :root[data-theme='light'] .ac-today__change { display: flex; gap: 6px; align-items: baseline; white-space: nowrap; }
+  :root[data-theme='light'] .ac-periods { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  :root[data-theme='light'] .ac-period { padding: 9px 12px; }
+  :root[data-theme='light'] .ac-period__amount { font-size: 22px; }
+  :root[data-theme='light'] .ac-period__vs { display: none; }
+}
+
+/* ---------- Narrow desktop / tablet ---------- */
+@media (max-width: 1024px) {
+  .ac-app { grid-template-columns: 200px minmax(0, 1fr); }
+  .ac-main { padding: 22px 20px 28px; }
+  .ac-navlink { padding: 11px 16px; font-size: 16px; }
+  .ac-h1 { font-size: 34px; }
+  .ac-header__sub { font-size: 16px; }
+}
+
+/* Three-column desktop: keep labels on one line at the narrower card widths. */
+@media (min-width: 1200px) {
+  .ac-counts { min-width: 190px; }
+  .ac-activity__item { gap: 10px; padding: 12px 0; }
+  .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .ac-activity__time { font-size: 12.5px; }
+  .ac-wide-btn { font-size: 16px; }
+}
+
+/* Recent Activity + Quick Actions row (after the full-width Today's Work). */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .ac-grid--two > :nth-child(3) { grid-column: auto; }
+}
