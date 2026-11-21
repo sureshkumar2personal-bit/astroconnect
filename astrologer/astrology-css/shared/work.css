@@ -118,7 +118,6 @@
 .tq textarea.short { min-height: 90px; }
 .tq textarea:focus, .tq input:focus, .tq select:focus { outline: 2px solid var(--pri); outline-offset: 1px; }
 .tq .search input:focus { outline: 0; }
-.tq .ehead { display: flex; align-items: center; gap: 10px; }
 .tq .etools { display: flex; flex-wrap: wrap; gap: 6px; }
 .tq .etools select { height: 36px; border-radius: 12px; border: 1.5px solid var(--gold); background: var(--sf); padding: 0 10px; color: var(--link); font-weight: 600; }
 .tq .check { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -133,8 +132,6 @@
 .tq fieldset { border: 0; padding: 0; margin: 0; }
 .tq legend { font-weight: 500; font-size: 13px; margin-bottom: 6px; }
 .tq .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
-.tq .opts { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
-.tq .opts li { display: flex; flex-direction: column; }
 .tq .cons { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
 .tq .warn-t:empty { display: none; }
 .tq .char-count { @apply tw:text-right; }
@@ -170,3 +167,340 @@
 .tq .mhead h2 { font-size: 22px; }
 .tq .mbody { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; overflow: auto; }
 .tq .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--pri); color: var(--on-pri); padding: 12px 18px; border-radius: 12px; font-weight: 600; z-index: 50; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); max-width: calc(100vw - 32px); }
+
+/* ---------- My Work overview, Text-Based / Subscription Questions, Campaign Management ----------
+   Screens rendered by WorkPage inside .pg.pg--work (reference "02 Text-Based Questions + Subscription Questions"). */
+.tq .pg--work .ph-act { justify-content: flex-end; }
+.tq .pg--work .ph-act:empty { display: none; }
+.tq .pg--work .prog { flex: none; height: 10px; margin: 4px 0 2px; }
+.tq .pg--work .kpi .prog { width: 100%; }
+.tq .pg--work .tq-more { row-gap: 8px; }
+.tq .pg--work .tq-urg { margin-left: 8px; }
+.tq .pg--work .chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.tq .pg--work .lbox { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.tq .pg--work .pane .card, .tq .pg--work .lbox .card { background: var(--sf); box-shadow: none; backdrop-filter: none; border-color: var(--line); }
+.tq .pg--work .pane .card.disp { border-color: var(--bad); }
+.tq .pg--work .pane .card.note { background: var(--sf2); border-color: var(--gold); }
+.tq .pg--work .pane .card.corr { border: 1.5px dashed var(--gold); }
+.tq .pg--work a.qcard { color: var(--ink); text-decoration: none; }
+.tq .pg--work .prev { color: var(--ink); text-decoration: none; padding: 4px 0; }
+.tq .pg--work .prev:hover { color: var(--link); }
+.tq .pg--work .user .go { margin-left: auto; text-decoration: underline; }
+.tq .pg--work .stack-label { display: flex; flex-direction: column; gap: 6px; }
+.tq .pg--work .pv-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.tq .pg--work .apt-time { width: 48px; height: 48px; font-size: 13px; line-height: 1.25; text-align: center; color: var(--link); }
+.tq .pg--work .li .badge { flex: none; }
+.tq .pg--work .quota { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.tq .pg--work .quota-text { flex: 1 1 220px; gap: 4px; }
+.tq .pg--work .ring span { background: var(--card-surface); }
+.tq .pg--work .camp-h { text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45); }
+.tq .pg--work .camp.dim { opacity: 0.65; }
+.tq .pg--work .camp-nums { column-gap: 14px; }
+.tq .pg--work .price { white-space: nowrap; }
+.tq .pg--work .type-price { gap: 10px; }
+.tq .pg--work .disc { display: flex; flex-direction: column; gap: 8px; }
+.tq .pg--work .disc-pct { min-width: 56px; text-align: center; }
+.tq .pg--work .tpl .clip { max-width: 100%; }
+.tq .pg--work .tl-open { align-self: flex-start; }
+.tq .pg--work .form .check { height: 44px; padding: 0 12px; border: 1.5px solid var(--gold); border-radius: 12px; }
+.tq .pg--work textarea { min-width: 0; }
+/* Dialogs (outside .pg) */
+.tq .tq-dialog .note { padding: 10px 12px; border-radius: 12px; background: var(--sf2); font-size: 12.5px; line-height: 1.5; overflow-wrap: anywhere; }
+.tq .tq-dialog .req::after { content: ' *'; color: var(--bad); }
+.tq .tq-dialog .form input, .tq .tq-dialog .form select { width: 100%; }
+.tq .tq-dialog .pv-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* ---------- Appointments (My Work → Appointments; reference "05 Appointments") ---------- */
+.tq .apt { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.tq .apt > * { min-width: 0; max-width: 100%; }
+/* Cards, KPIs and calendar cells sit on the page artwork: use the Home card surface. */
+.tq .apt .card, .tq .apt .kpi {
+  background: var(--card-surface); box-shadow: var(--card-shadow); backdrop-filter: blur(8px);
+}
+.tq .apt .h { font-size: 21px; }
+.tq .apt-ph { min-height: 0; }
+.tq .apt .search { flex: 1 1 240px; }
+.tq .apt-id { font-family: 'Poppins', sans-serif; font-size: 20px; }
+.tq .apt .tab { min-height: 40px; padding: 0 16px; font-size: 14px; }
+.tq .apt .tab[aria-pressed='true'] { font-weight: 700; }
+.tq .kpis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
+.tq .kpi { border: 1.5px solid var(--gold); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tq .kpi b { font-size: 26px; color: var(--link); font-weight: 700; overflow-wrap: anywhere; }
+.tq .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--card-surface); font-size: 13px; }
+.tq .apt .note { padding: 10px 12px; border-radius: 12px; background: var(--sf2); font-size: 12.5px; line-height: 1.5; }
+.tq .apt .note--bad { border: 1.5px solid var(--bad); }
+.tq .apt .go[aria-disabled='true'] { cursor: default; }
+.tq .apt .stack { display: flex; flex-direction: column; gap: 10px; }
+.tq .apt .stack-sm { display: flex; flex-direction: column; gap: 8px; }
+.tq .apt .split2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.tq .apt .grid-lg { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); align-items: start; }
+.tq .apt .fact b { overflow-wrap: anywhere; }
+.tq .apt-day { width: 44px; }
+.tq .apt input[type='time'], .tq .apt input[type='date'] { height: 40px; padding: 0 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--sf2); min-width: 0; }
+.tq .apt input[type='file'] { font-size: 12px; }
+.tq .apt textarea.short { min-height: 90px; }
+
+/* Table: rows open the appointment. */
+.tq .tw { overflow-x: auto; padding: 6px 12px; }
+.tq .tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tq .tbl th { text-align: left; font-weight: 600; color: var(--mut); padding: 10px 8px; border-bottom: 1.5px solid var(--line); white-space: nowrap; }
+.tq .tbl td { padding: 11px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tq .tbl tbody tr:last-child td { border-bottom: 0; }
+.tq .tbl tbody tr[tabindex] { cursor: pointer; }
+.tq .tbl tbody tr[tabindex]:hover td { background: var(--sf3); }
+.tq .tbl tbody tr[tabindex]:focus-visible { outline: 3px solid var(--pri); outline-offset: -3px; }
+
+/* Rows in the Daily view. */
+.tq .apt .li { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.tq .apt .li:last-child { border-bottom: 0; }
+.tq .apt .li:hover { background: var(--sf3); }
+.tq .apt .ic { width: 56px; min-height: 40px; border-radius: 12px; background: var(--sf3); color: var(--link); display: inline-flex; align-items: center; justify-content: center; flex: none; font-weight: 700; font-size: 11.5px; text-align: center; white-space: pre-line; line-height: 1.2; }
+
+/* Weekly / monthly calendar. */
+.tq .wcal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.tq .wcal > div { background: var(--card-surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px; min-height: 90px; font-size: 11px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tq .wcal > .mday { min-height: 56px; }
+.tq .wcal .slot { background: var(--sf3); border-radius: 6px; padding: 3px 5px; }
+.tq .wcal .bk { background: var(--pri); color: var(--on-pri); border-radius: 6px; padding: 3px 5px; text-decoration: none; overflow-wrap: anywhere; }
+.tq .wcal .cl { opacity: 0.5; text-decoration: line-through; }
+
+/* ======================================================================
+   Section pages (Live, Earnings, Profile and the "More" pages).
+   Rendered by desktop/src/pages/SectionPage.jsx inside .tq; each page sits in .pg.pg--<key>.
+   Generic blocks mirror the reference's shared components; page-specific blocks follow.
+   ====================================================================== */
+
+/* Sidebar "More" group and the mobile All sections menu (outside .pg). */
+.ac-sidebar__grp { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); padding: 0 22px 4px; }
+.ac-sidebar__pend { padding: 8px 18px 0; }
+.ac-sidebar .ac-navlink--small { padding: 8px 8px 8px 18px; font-size: 14px; gap: 10px; }
+.ac-sidebar .ac-navlink--small svg { flex: none; }
+.ac-sidebar__pend .pend { display: inline-block; padding: 2px 8px; border-radius: 6px; border: 1px dashed var(--danger); color: var(--danger); font-size: 10.5px; font-weight: 600; }
+.ac-more { display: contents; }
+.tq .tq-dialog .stack { display: flex; flex-direction: column; gap: 10px; }
+
+/* Page container */
+.tq .pg { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.tq .pg > * { min-width: 0; max-width: 100%; }
+.tq .pg-back { align-self: flex-start; }
+.tq .pg .card, .tq .pg .kpi, .tq .pg .empty {
+  background: var(--card-surface); box-shadow: var(--card-shadow); backdrop-filter: blur(8px);
+}
+.tq .pg .card { gap: 12px; padding: 16px 18px; }
+.tq .pg .h { font-size: 21px; }
+.tq .pg h3 { font-size: 17px; }
+.tq .pg .stack { display: flex; flex-direction: column; gap: 10px; }
+.tq .pg .note { padding: 10px 12px; border-radius: 12px; background: var(--sf2); font-size: 12.5px; line-height: 1.5; }
+.tq .pg .note--bad { border: 1.5px solid var(--bad); }
+.tq .pg .note--ok { border: 1.5px solid var(--ok); }
+.tq .pg .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.tq .pg .req::after { content: ' *'; color: var(--bad); }
+.tq .pg .up { color: var(--ok); font-weight: 600; font-size: 12.5px; }
+.tq .pg .down { color: var(--bad); font-weight: 600; font-size: 12.5px; }
+.tq .pg .lg { font-size: 16px; }
+.tq .pg .stars { color: #F5B301; letter-spacing: 1px; }
+
+/* Grids */
+.tq .pgrid { display: grid; gap: 14px; align-items: start; }
+.tq .pgrid--sm { grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
+.tq .pgrid--md { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.tq .pgrid--lg { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.tq .pg .split2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.tq .kpi--link { all: unset; box-sizing: border-box; border: 1.5px solid var(--gold); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; cursor: pointer; min-width: 0; }
+.tq .kpi--link:hover { border-color: var(--pri); }
+.tq .kpi--link:focus-visible { outline: 3px solid var(--pri); }
+.tq .kpi--link b { font-size: 26px; color: var(--link); font-weight: 700; }
+
+/* Lists */
+.tq .pg .li { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; min-width: 0; }
+.tq .pg .li:last-child { border-bottom: 0; }
+.tq .pg a.li:hover, .tq .pg .li--btn:hover { background: var(--sf3); }
+.tq .pg .li--btn { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--line); cursor: pointer; width: 100%; }
+.tq .pg .li--btn:focus-visible { outline: 3px solid var(--pri); }
+.tq .pg .li-title { font-weight: 600; }
+.tq .pg .ic { width: 40px; height: 40px; border-radius: 12px; background: var(--sf3); color: var(--link); display: inline-flex; align-items: center; justify-content: center; flex: none; font-weight: 700; }
+
+/* Tables (stacked on tablet/phone — see desktop/ and mobile/ work.css) */
+.tq .pg .tbl tbody tr[tabindex] { cursor: pointer; }
+
+/* Charts */
+.tq .hbars { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; align-items: end; gap: 10px; height: 150px; border-bottom: 2px solid var(--line); padding: 0 4px; }
+.tq .hbars > div { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%; }
+.tq .hbars i { display: block; width: 100%; height: var(--h); background: var(--peak-bar, #6FD3B2); border-radius: 8px 8px 0 0; }
+.tq .hbars i.pk { background: var(--pri); }
+[data-theme='dark'] .tq .hbars i:not(.pk) { background: #8B6CF0; }
+.tq .hlab { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; text-align: center; font-size: 12px; padding: 4px; }
+.tq .prog { height: 12px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.tq .prog span { display: block; width: var(--pct); height: 100%; background: var(--bar, var(--pri)); border-radius: 6px; }
+
+/* Inputs outside .form */
+.tq .pg select { min-height: 40px; border-radius: 10px; border: 1.5px solid var(--gold); background: var(--sf2); color: var(--ink); padding: 0 10px; }
+.tq .pg input[type='date'], .tq .pg input[type='time'], .tq .pg input[type='datetime-local'], .tq .pg input[type='number'],
+.tq .pg input[type='text'], .tq .pg input[type='password'], .tq .pg input[type='email'], .tq .pg input[type='tel'], .tq .pg input[type='url'], .tq .pg input:not([type]) {
+  min-height: 40px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--sf2); color: var(--ink); padding: 0 10px; min-width: 0;
+}
+.tq .pg .search input { border: 0; background: none; min-height: 0; padding: 0; }
+.tq .pg .form input, .tq .pg .form select, .tq .pg .form textarea { width: 100%; }
+.tq .pg .form .check input, .tq .pg .form .radio input { width: 18px; }
+.tq .pg input[type='file'] { font-size: 12px; }
+[data-theme='light'] .tq .pg input { color-scheme: light; }
+[data-theme='dark'] .tq .pg input { color-scheme: dark; }
+
+/* Misc reference components */
+.tq .pg .preview, .tq .tq-dialog .preview { background: var(--sf2); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; border: 1.5px dashed var(--gold); }
+.tq .ring2 { width: 84px; height: 84px; margin: 0 auto; border-radius: 50%; border: 4px solid var(--pri); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: var(--link); }
+.tq .chat { display: flex; flex-direction: column; gap: 6px; }
+.tq .msg { max-width: 78%; padding: 8px 12px; border-radius: 14px; background: var(--sf3); font-size: 13px; }
+.tq .msg.me { align-self: flex-end; background: var(--pri); color: var(--on-pri); }
+.tq .overlay { position: fixed; inset: 0; background: rgba(10, 4, 30, 0.55); display: flex; align-items: center; justify-content: center; z-index: 60; padding: 16px; }
+.tq .callpop { background: var(--sf); border: 2px solid var(--pri); border-radius: 22px; padding: 22px; width: min(380px, 100%); display: flex; flex-direction: column; gap: 12px; text-align: center; }
+
+/* ---------- Live Sessions ---------- */
+.tq .pg--live .live-tiers { margin-top: 8px; }
+.tq .pg--live .live-stage { min-height: 240px; align-items: center; justify-content: center; text-align: center; }
+.tq .pg--live .live-stage.is-paused { border-color: var(--bad); }
+.tq .pg--live .live-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 6px color-mix(in srgb, var(--bad) 25%, transparent); }
+.tq .pg--live .live-count { font-size: 28px; font-weight: 700; color: var(--bad); font-variant-numeric: tabular-nums; }
+.tq .pg--live .live-back { align-self: flex-start; }
+.tq .ring2--lg { width: 120px; height: 120px; }
+.tq .pg--live .li .btn { flex: none; }
+
+
+/* ---------- Earnings & Wallet (shared) ---------- */
+/* ---------- Earnings & Wallet (reference "08 Wallet & Earnings + 09 Offers") ---------- */
+.tq .pg--earnings .ern-head { min-height: 0; }
+.tq .pg--earnings .ern-filters label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; }
+.tq .pg--earnings .ern-filters select { min-width: 0; max-width: 100%; }
+.tq .pg--earnings .ern-open { align-self: flex-start; text-decoration: none; }
+.tq .pg--earnings .fact b { overflow-wrap: anywhere; }
+.tq .pg--earnings .tbl td .pend { white-space: nowrap; }
+.tq .pg--earnings .form label.radio { height: auto; min-height: 44px; padding: 8px 12px; }
+.tq .pg--earnings .form label.radio .grow { font-weight: 500; }
+
+
+/* ---------- Profile (shared) ---------- */
+/* ---------- Profile & Verification (spec 04, AD-79 – AD-87) ---------- */
+.tq .pg--profile .pf-top { justify-content: flex-end; }
+.tq .pg--profile .pf-av { background: var(--avatar); border: 2px solid var(--gold); color: var(--heading); font-family: 'Playfair Display', serif; }
+.tq .pg--profile .pf-id { gap: 14px; }
+.tq .pg--profile .pf-comp { min-width: 220px; display: flex; flex-direction: column; gap: 6px; }
+.tq .pg--profile .pf-comp .prog { flex: none; }
+.tq .pg--profile .pf-kv b { text-align: right; overflow-wrap: anywhere; }
+.tq .pg--profile .pf-link { color: var(--link); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; align-self: flex-start; }
+.tq .pg--profile .pf-link:hover { color: var(--ink); }
+.tq .pg--profile .pf-upload { cursor: pointer; width: 100%; }
+.tq .pg--profile .pf-upload:focus-within { outline: 3px solid var(--pri); outline-offset: 2px; }
+.tq .pg--profile .pf-file { flex-wrap: wrap; align-items: center; }
+.tq .pg--profile .pf-file input[type='file'] { flex: 1 1 200px; min-width: 0; padding-top: 10px; }
+.tq .pg--profile .form input:disabled { opacity: 0.6; cursor: not-allowed; }
+.tq .pg--profile .pf-preview { max-width: 420px; width: 100%; }
+
+
+/* ---------- Audience (shared) ---------- */
+/* ---------- Audience ---------- */
+.tq .pg--audience .au-filters { gap: 12px; }
+.tq .pg--audience .au-filters .search { flex: 1 1 240px; }
+.tq .pg--audience .au-ctl { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.tq .pg--audience .au-badges { gap: 6px; }
+.tq .pg--audience .au-card .btn { justify-content: center; text-align: center; }
+.tq .pg--audience .li a { color: var(--link); }
+.tq .pg--audience .facts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+
+/* ---------- Ratings & Reviews (shared) ---------- */
+/* ---------- Ratings & Reviews ---------- */
+.tq .pg--reviews .rv-filters { gap: 12px; }
+.tq .pg--reviews .rv-filter { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.tq .pg--reviews .rv-filter select { min-width: 120px; }
+.tq .pg--reviews .rv-reply { display: block; }
+.tq .pg--reviews .rv-err { color: var(--bad); font-weight: 600; }
+.tq .pg--reviews .tbl .stars { white-space: nowrap; }
+
+
+/* ---------- Benefits & Content (shared) ---------- */
+/* ---------- Benefits & Content (spec 12, AD-138 – AD-144) ---------- */
+.tq .pg--content .cm-top { justify-content: flex-end; }
+.tq .pg--content .cm-kind { align-self: flex-start; }
+.tq .pg--content .cm-tpl b { font-size: 16px; }
+/* 12-Rasi template: Rasi names on the left, one prediction field each on the right (AD-141) */
+.tq .pg--content .rasi { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px; align-items: start; }
+.tq .pg--content .rasi b { padding-top: 10px; }
+.tq .pg--content .rasi textarea { min-height: 52px; }
+/* Live User App preview (AD-144) */
+.tq .pg--content .cm-pv-title, .tq .pg--content .cm-pv-text { overflow-wrap: anywhere; white-space: pre-wrap; }
+.tq .pg--content .cm-pv-img { height: 120px; justify-content: center; }
+.tq .pg--content .preview .av { background: var(--avatar); color: var(--heading); }
+
+
+/* ---------- Analytics (shared) ---------- */
+/* ---------- Analytics (spec 13) ---------- */
+.tq .pg--analytics .an-filters { gap: 10px 12px; }
+.tq .pg--analytics .an-range { gap: 8px; flex-wrap: wrap; }
+.tq .pg--analytics .hbars + .hlab { margin-top: -4px; }
+.tq .pg--analytics .pgrid { align-items: stretch; }
+
+
+/* ---------- Remedy Tracker (shared) ---------- */
+/* ---------- Remedy Tracker (spec 17) ---------- */
+.tq .pg--remedies .pgrid { align-items: stretch; }
+.tq .pg--remedies .rm-card p { margin: 0; overflow-wrap: anywhere; }
+.tq .pg--remedies .rm-file { border: 1.5px solid var(--gold); font: inherit; font-size: 12px; color: var(--ink); cursor: pointer; align-self: stretch; text-align: left; }
+.tq .pg--remedies .rm-file:hover { border-color: var(--pri); }
+.tq .pg--remedies .rm-file:focus-visible { outline: 3px solid var(--pri); }
+.tq .pg--remedies .rm-card .go { align-self: flex-start; }
+
+
+/* ---------- Notifications (shared) ---------- */
+/* ---------- Notifications (Activity & Notification Centre) ---------- */
+.tq .pg--notifications .nt-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.tq .pg--notifications .nt-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tq .pg--notifications .nt-chips .chip { color: var(--ink); font-size: 13px; }
+.tq .pg--notifications .nt-chips .chip.on { color: var(--on-pri); }
+.tq .pg--notifications .nt-item { align-items: flex-start; padding: 12px 8px; border-radius: 12px; }
+.tq .pg--notifications .nt-item.is-unread { background: var(--sf3); }
+.tq .pg--notifications .nt-item .grow { display: flex; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+.tq .pg--notifications .nt-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.tq .pg--notifications .nt-item .go { align-self: center; flex: none; font-size: 22px; line-height: 1; }
+
+
+/* ---------- Recent Activity (shared) ---------- */
+/* ---------- Recent Activity ---------- */
+.tq .pg--activity .act-item .grow { overflow-wrap: anywhere; }
+.tq .pg--activity .act-time { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
+
+
+/* ---------- Settings (shared) ---------- */
+/* ---------- Settings (spec 15) ---------- */
+.tq .pg--settings .pgrid { align-items: stretch; }
+.tq .pg--settings .st-sw { min-height: 32px; }
+.tq .pg--settings .st-plain { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.tq .pg--settings .st-appearance { gap: 8px 12px; }
+.tq .pg--settings .st-appearance .tabs { margin: 0; }
+.tq .pg--settings .st-link { all: unset; box-sizing: border-box; align-self: flex-start; color: var(--link); text-decoration: underline; cursor: pointer; font-size: 15px; }
+.tq .pg--settings .st-link:hover { color: var(--pri); }
+.tq .pg--settings .st-link:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; border-radius: 4px; }
+.tq .pg--settings .card > .btn { align-self: stretch; }
+.tq .pg--settings .fact b { overflow-wrap: anywhere; }
+.tq .pg--settings .ac-switch:disabled { opacity: 0.5; cursor: not-allowed; }
+
+
+/* ---------- Help & Support (shared) ---------- */
+/* ---------- Help & Support (spec 16) ---------- */
+.tq .pg--support .sp-top { justify-content: flex-end; }
+.tq .pg--support .sp-cats .kpi--link { min-height: 56px; justify-content: flex-start; }
+.tq .pg--support .sp-cats .kpi--link b { font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.tq .pg--support .tbl td a { color: var(--link); }
+.tq .pg--support .form textarea:not(.short) { min-height: 200px; }
+.tq .pg--support .fact b, .tq .pg--support .tbl td { overflow-wrap: anywhere; }
+.tq .pg--support .tbl td a { text-decoration: underline; }
+.tq .pg--support .tbl td > * { min-width: 0; }
+
+
+/* ---------- Instant Call & Chat (shared) ---------- */
+/* ---------- Instant Call & Chat (spec 06) ---------- */
+.tq .pg--calls .cc-add input { min-width: 0; }
+.tq .pg--calls .cc-add .cc-min { width: 140px; }
+.tq .pg--calls .cc-add .cc-price { width: 110px; }
+.tq .pg--calls .cc-timer { font-size: 18px; font-variant-numeric: tabular-nums; }
+.tq .pg--calls .callpop .actions { justify-content: center; }
+.tq .pg--calls .callpop:focus { outline: none; }

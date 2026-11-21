@@ -1,6 +1,7 @@
 import Bell from '@shared/components/Bell.jsx';
 import Logo from '@shared/components/Logo.jsx';
 import ThemeToggle from '@shared/components/ThemeToggle.jsx';
+import MoreMenu from './MoreMenu.jsx';
 
 function statusOf(a) {
   if (a.dnd) return { label: 'Do Not Disturb', kind: 'dnd' };
@@ -9,8 +10,9 @@ function statusOf(a) {
 }
 
 // My Work header. Desktop/tablet: breadcrumb, title, theme, status, bell, account.
-// Mobile: the same brand row as Home, then a back button and the screen title.
-export default function WorkHeader({ mobile, title, subtitle, onBack, theme, onToggleTheme, unread, availability, profile }) {
+// Mobile: the same brand row as Home (plus the All sections menu), then a back button and the screen title.
+// Section pages outside My Work pass their own `crumb` (or none).
+export default function WorkHeader({ mobile, title, subtitle, crumb = 'My Work', onBack, theme, onToggleTheme, unread, availability, profile }) {
   if (mobile) {
     return (
       <header className="mtop">
@@ -18,6 +20,7 @@ export default function WorkHeader({ mobile, title, subtitle, onBack, theme, onT
           <Logo theme={theme} className="ac-header__logo" />
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <Bell unread={unread} />
+          <MoreMenu />
         </div>
         <div className="row">
           {onBack && <button type="button" className="back" onClick={onBack} aria-label="Back">‹</button>}
@@ -30,7 +33,7 @@ export default function WorkHeader({ mobile, title, subtitle, onBack, theme, onT
   return (
     <header className="top">
       <div className="grow">
-        <div className="muted">My Work › {title}</div>
+        {crumb && <div className="muted">{crumb} › {title}</div>}
         <h1>{title}</h1>
         {subtitle && <p className="muted">{subtitle}</p>}
       </div>

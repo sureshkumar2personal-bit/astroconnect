@@ -1,37 +1,49 @@
-// Illustrative mock data only, copied from the Text Questions reference prototypes.
-// Nothing here is connected to a backend; replace with API responses later.
+// Illustrative mock data only, ported from the reference prototype
+// ("02 Text-Based Questions + Subscription Questions"). Nothing here is connected to a backend.
+// User IDs/names match Appointments, Audience, Reviews and Remedy Tracker sample data.
 
 export const astrologerProfile = { name: 'Ananya R.', role: 'Astrologer', initial: 'A' };
 
-export const monthlyQuota = 300;
+// Monthly quota 1,000 and minimum answer target 800 (AD-24, AD-52). `answeredMonth` is sample progress.
+export const quotaSeed = { quota: 1000, target: 800, answeredMonth: 512, goal: 10 };
 
+// Open Questions: submitted without choosing a campaign (AD-54). Discounts: { on, pct } (AD-56).
+export const openSeed = { gSlots: 120, pSlots: 80, gSold: 70, pSold: 35, pg: 149, pp: 349, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 } };
+
+// G / P = General / Personal offered (AD-26); special campaigns carry a mandatory label (AD-26).
 export const campaigns = [
-  { id: 'c1', name: 'Career Guidance', type: 'Specific', special: false, start: '2026-11-01', end: '2026-11-30', slots: 80, sold: 50, pg: 499, pp: 799, offer: 'No Offer', status: 'Active' },
-  { id: 'c2', name: 'Relationship Insights', type: 'Open Slots', special: false, start: '2026-11-05', end: '2026-11-30', slots: 60, sold: 35, pg: 299, pp: 499, offer: 'No Offer', status: 'Active' },
-  { id: 'c3', name: 'Career & Finance', type: 'Specific', special: true, start: '2026-11-01', end: '2026-11-30', slots: 40, sold: 20, pg: 799, pp: 1199, offer: 'No Offer', status: 'Active' },
+  { id: 'c1', name: 'Marriage', special: false, label: '', G: true, P: true, start: '2026-11-01', end: '2026-11-30', gSlots: 180, pSlots: 120, gSold: 140, pSold: 90, pg: 199, pp: 399, gDisc: { on: true, pct: 10 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c2', name: 'Career', special: false, label: '', G: true, P: true, start: '2026-11-01', end: '2026-12-15', gSlots: 150, pSlots: 100, gSold: 90, pSold: 60, pg: 249, pp: 449, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c3', name: 'Navaratri Blessings', special: true, label: 'Navaratri Special', G: true, P: true, start: '2026-11-12', end: '2026-11-22', gSlots: 100, pSlots: 50, gSold: 40, pSold: 20, pg: 299, pp: 599, gDisc: { on: false, pct: 0 }, pDisc: { on: true, pct: 20 }, status: 'Active' },
 ];
 
 export const templates = [
-  { id: 't1', name: 'Career – General', text: 'Based on your chart, your 10th house shows ' },
-  { id: 't2', name: 'Marriage – General', text: 'Looking at your 7th house and Venus, ' },
-  { id: 't3', name: 'Business – General', text: 'For business, the key periods in your chart are ' },
+  { id: 't1', name: 'Career – General', text: 'Based on your question, the coming months show ' },
+  { id: 't2', name: 'Marriage – Personal', text: 'Looking at your 7th house and Venus in your chart, ' },
 ];
 
-// type = question type, slot = slot type the user paid for, camp = campaign id,
-// horo = horoscope attached, prev = [questionId, topic, status] of earlier questions.
+// cat: 'text' (Text-Based Questions) or 'sub' (Subscription Questions, AD-72).
+// camp: campaign id, 'open' (Open Questions) or 'tier:<Tier>' (subscription benefit).
+// files: user attachments (Personal only, AD-45/AD-61); prev: [questionId, topic, status].
+const q = (id, cat, uid, name, color, type, slot, camp, recv, status, files, text, x = {}) =>
+  ({ id, cat, uid, name, color, type, slot, camp, recv, status, files, text, ...x });
+
 export const questions = [
-  { id: 'TQ-98241', uid: 'U-44821', name: 'Divya S.', color: '#F4C7D9', type: 'General', slot: 'General', camp: 'c1', recv: '2026-10-26T10:20', status: 'Pending', horo: true, files: ['Photo.jpg'], text: 'Will I be able to start my own business in the next year? If yes, what is the right time and what should I be careful about?', age: 28, gender: 'Female', loc: 'Chennai, TN', paid: 499, slots: 1, prev: [['TQ-96410', 'Career', 'Completed']] },
-  { id: 'TQ-98240', uid: 'U-39017', name: 'Rahul K.', color: '#C9E6EE', type: 'Personal', slot: 'Personal', camp: 'c2', recv: '2026-10-28T16:15', status: 'Pending', horo: true, files: [], text: 'My marriage prospects and the best timeline for marriage.', age: 31, gender: 'Male', loc: 'Coimbatore, TN', paid: 499, slots: 1, prev: [] },
-  { id: 'TQ-98237', uid: 'U-40562', name: 'Meera P.', color: '#F3DEC0', type: 'General', slot: 'General', camp: 'c1', recv: '2026-10-30T09:48', status: 'Pending', horo: false, files: ['Resume.pdf', 'Offer.pdf'], text: 'Will there be a job change or promotion in the coming months?', age: 26, gender: 'Female', loc: 'Madurai, TN', paid: 499, slots: 2, prev: [['TQ-97002', 'Health', 'Completed']] },
-  { id: 'TQ-98250', uid: 'U-41233', name: 'Arjun V.', color: '#D9E4FB', type: 'General', slot: 'General', camp: 'c3', recv: '2026-11-05T11:05', status: 'Pending', horo: true, files: [], text: 'Is 2027 a good year to invest in property?', age: 35, gender: 'Male', loc: 'Bengaluru, KA', paid: 799, slots: 1, prev: [], draft: 'Your 4th house lord is ' },
-  { id: 'TQ-98262', uid: 'U-42118', name: 'Lakshmi N.', color: '#E3D9F7', type: 'Personal', slot: 'General', camp: 'c2', recv: '2026-11-10T18:30', status: 'Correction Requested', horo: true, files: [], text: 'Based on my chart, will my husband get a transfer to Chennai?', age: 33, gender: 'Female', loc: 'Trichy, TN', paid: 299, slots: 1, prev: [] },
-  { id: 'TQ-98270', uid: 'U-43007', name: 'Karthik M.', color: '#C9E6EE', type: 'General', slot: 'General', camp: 'c1', recv: '2026-11-18T08:10', status: 'New', horo: true, files: [], text: 'Should I accept the offer from my current company or move abroad next year? My birth details are attached.', age: 29, gender: 'Male', loc: 'Salem, TN', paid: 499, slots: 1, prev: [] },
-  { id: 'TQ-98275', uid: 'U-43350', name: 'Priya S.', color: '#F4C7D9', type: 'Personal', slot: 'Personal', camp: 'c2', recv: '2026-11-19T20:40', status: 'New', horo: false, files: [], text: 'When is a good time for my sister’s engagement?', age: 27, gender: 'Female', loc: 'Chennai, TN', paid: 499, slots: 1, prev: [] },
-  { id: 'TQ-98278', uid: 'U-43402', name: 'Sanjay R.', color: '#F3DEC0', type: 'General', slot: 'General', camp: 'c3', recv: '2026-11-20T09:15', status: 'New', horo: true, files: ['Chart.png'], text: 'Which months in 2027 are best to start a new venture?', age: 38, gender: 'Male', loc: 'Erode, TN', paid: 799, slots: 1, prev: [] },
-  { id: 'TQ-97821', uid: 'U-38877', name: 'Arun R.', color: '#D9E4FB', type: 'General', slot: 'General', camp: 'c1', recv: '2026-10-20T10:00', status: 'Completed', horo: true, files: [], text: 'Will I clear my government exam this year?', age: 24, gender: 'Male', loc: 'Vellore, TN', paid: 499, slots: 1, prev: [], answer: 'Jupiter supports your studies from February. Focus on revision in March.', answeredAt: '2026-11-04T12:00' },
-  { id: 'TQ-97790', uid: 'U-39017', name: 'Rahul K.', color: '#C9E6EE', type: 'Personal', slot: 'Personal', camp: 'c2', recv: '2026-10-18T09:30', status: 'Disputed', horo: true, files: [], text: 'When will I get married? Please give dates for 2026.', age: 31, gender: 'Male', loc: 'Coimbatore, TN', paid: 499, slots: 1, prev: [], answer: 'Venus moves into your 7th house from mid-2027. June to September 2027 looks favourable for a proposal.', answeredAt: '2026-11-01T15:00', dispute: 'The answer does not mention the dates I asked about for 2026. Please clarify.', disputeAt: '2026-11-03T10:00' },
-  { id: 'TQ-97654', uid: 'U-38120', name: 'Sneha V.', color: '#F3DEC0', type: 'General', slot: 'General', camp: 'c1', recv: '2026-10-03T14:00', status: 'Expired', horo: false, files: [], text: 'Which gemstone suits me for health?', age: 30, gender: 'Female', loc: 'Chennai, TN', paid: 499, slots: 1, prev: [] },
+  q('TQ-98241', 'text', 'U-44821', 'Divya S.', '#F4C7D9', 'General', 'General', 'c2', '2026-10-26T10:20', 'Pending', [], 'Will I be able to start my own business in the next year? If yes, what is the right time and what should I be careful about?', { paid: 249, prev: [['TQ-96410', 'Career', 'Settled']] }),
+  q('TQ-98240', 'text', 'U-39017', 'Rahul K.', '#C9E6EE', 'Personal', 'Personal', 'c1', '2026-10-28T16:15', 'Pending', ['Birth-chart.jpg'], 'My marriage prospects and the best timeline for marriage based on my chart.', { paid: 399, gender: 'Male', loc: 'Coimbatore, TN' }),
+  q('TQ-98237', 'text', 'U-40562', 'Meera P.', '#F3DEC0', 'General', 'General', 'c2', '2026-10-31T09:48', 'New', [], 'Will there be a job change or promotion in the coming months?', { paid: 249 }),
+  q('TQ-98250', 'text', 'U-41233', 'Arjun V.', '#D9E4FB', 'Personal', 'Personal', 'open', '2026-11-06T11:05', 'Pending', ['Horoscope.pdf', 'Palm.jpg'], 'Is 2027 a good year to invest in property, based on my horoscope?', { paid: 349, gender: 'Male', loc: 'Bengaluru, KA', draft: 'Your 4th house lord is ' }),
+  q('TQ-98262', 'text', 'U-42118', 'Lakshmi N.', '#E3D9F7', 'Personal', 'General', 'c1', '2026-11-10T18:30', 'Correction Requested', [], 'Based on my chart, will my husband get a transfer to Chennai?', { paid: 179 }),
+  q('TQ-98270', 'text', 'U-43007', 'Karthik M.', '#C9E6EE', 'Personal', 'General', 'c2', '2026-11-20T09:10', 'New', [], 'Looking at my birth chart, should I accept the offer from my company or move abroad next year?', { paid: 249, gender: 'Male', loc: 'Salem, TN' }),
+  q('TQ-98275', 'text', 'U-43350', 'Priya S.', '#F4C7D9', 'Personal', 'Personal', 'c3', '2026-11-20T11:40', 'New', ['Chart.png'], 'When is a good time for my engagement, based on my horoscope?', { paid: 479 }),
+  q('TQ-98276', 'text', 'U-43402', 'Sanjay R.', '#F3DEC0', 'General', 'General', 'open', '2026-11-20T08:15', 'Completed', [], 'Which months in 2027 are best to start a new venture?', { paid: 149, gender: 'Male', answer: 'March to July 2027 look strongest for new ventures.', answeredAt: '2026-11-20T10:30' }),
+  q('TQ-98271', 'text', 'U-43120', 'Nila V.', '#E3D9F7', 'Personal', 'Personal', 'c1', '2026-11-19T19:00', 'Completed', ['Chart.jpg'], 'Will my marriage happen this year?', { paid: 399, answer: 'Your Venus period begins in 2027; marriage is likely in mid-2027.', answeredAt: '2026-11-20T12:05' }),
+  q('TQ-98266', 'text', 'U-42901', 'Gokul P.', '#D9E4FB', 'General', 'General', 'c2', '2026-11-15T09:00', 'Completed', [], 'Is this a good time to change my job?', { paid: 249, gender: 'Male', answer: 'Yes, January to April 2027 is supportive.', answeredAt: '2026-11-20T09:20' }),
+  q('TQ-97821', 'text', 'U-38877', 'Arun R.', '#D9E4FB', 'General', 'General', 'c2', '2026-10-20T10:00', 'Settled', [], 'Will I clear my government exam this year?', { paid: 249, gender: 'Male', answer: 'Jupiter supports your studies from February. Focus on revision in March.', answeredAt: '2026-11-04T12:00' }),
+  q('TQ-97790', 'text', 'U-39017', 'Rahul K.', '#C9E6EE', 'Personal', 'Personal', 'c1', '2026-10-30T09:30', 'Disputed', ['Birth-chart.jpg'], 'When will I get married? Please give dates for 2026.', { paid: 399, gender: 'Male', answer: 'Venus moves into your 7th house from mid-2027. June to September 2027 looks favourable.', answeredAt: '2026-11-17T15:00', dispute: 'The answer does not mention the 2026 dates I asked about. Please clarify.', disputeAt: '2026-11-19T10:00' }),
+  q('TQ-97702', 'text', 'U-37710', 'Kavya M.', '#F4C7D9', 'General', 'General', 'c2', '2026-10-10T10:00', 'Dispute Answered', [], 'Will I get a promotion this year?', { paid: 249, answer: 'Promotion is indicated after March 2027.', answeredAt: '2026-10-20T10:00', dispute: 'I asked about this year, not next year.', disputeAt: '2026-10-22T10:00', disputeAnswer: 'In 2026 Saturn delays recognition; the promotion is more likely after March 2027.', disputeAnsweredAt: '2026-10-24T09:00' }),
+  q('TQ-97654', 'text', 'U-38120', 'Sneha V.', '#F3DEC0', 'General', 'General', 'c1', '2026-10-03T14:00', 'Expired', [], 'Which gemstone suits me for health?', { paid: 199 }),
+  q('SQ-3011', 'sub', 'U-41870', 'Hari K.', '#C9E6EE', 'Personal', 'Personal', 'tier:Gold', '2026-11-20T10:00', 'New', ['Chart.jpg'], 'As a Gold subscriber, which remedy helps my career this month?', { gender: 'Male' }),
+  q('SQ-3007', 'sub', 'U-40011', 'Maya J.', '#F4C7D9', 'General', 'General', 'tier:Silver', '2026-11-18T12:00', 'Pending', [], 'Is this week good for travel?'),
+  q('SQ-2999', 'sub', 'U-39550', 'Deepa L.', '#E3D9F7', 'Personal', 'Personal', 'tier:Platinum', '2026-11-20T07:30', 'Completed', [], 'What should I focus on for health next month?', { answer: 'Focus on rest and routine; avoid travel after the 15th.', answeredAt: '2026-11-20T11:00' }),
 ];
-
-// Prototype stand-ins for picking a real file (Attach File).
-export const sampleAttachments = ['Remedy-guide.pdf', 'Muhurtham-chart.png'];

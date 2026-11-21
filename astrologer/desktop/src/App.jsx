@@ -4,54 +4,72 @@ import HomeHeader from './layout/HomeHeader.jsx';
 import AvailabilityCard from './components/home/AvailabilityCard.jsx';
 import EarningsCard from './components/home/EarningsCard.jsx';
 import PeakDemandCard from './components/home/PeakDemandCard.jsx';
-import TodaysWorkCard from './components/home/TodaysWorkCard.jsx';
+import TodaysWorkSection from './components/home/TodaysWorkSection.jsx';
+import useHomeUi from './components/home/useHomeUi.jsx';
 import RecentActivityCard from './components/home/RecentActivityCard.jsx';
 import QuickActionsCard from './components/home/QuickActionsCard.jsx';
 import useTheme from '@shared/hooks/useTheme.js';
 import useAvailability from '@shared/hooks/useAvailability.js';
 import useTextQuestions from '@shared/hooks/useTextQuestions.js';
+import { TODAY, answeredToday } from '@shared/lib/textQuestions.js';
+import useAppointments from '@shared/hooks/useAppointments.js';
+import { useStore } from '@shared/lib/store.js';
+import { notificationsStore, unreadCount } from '@shared/hooks/useNotifications.js';
 import useMediaQuery from '@shared/hooks/useMediaQuery.js';
-import { parseRoute, useHashPath } from '@shared/lib/router.js';
+import { SECTION_KEYS, parseRoute, useHashPath } from '@shared/lib/router.js';
 import WorkPage from './pages/WorkPage.jsx';
-import { astrologer, notifications, earnings, peakDemand, todaysWork, recentActivity, quickActions } from '@shared/data/mockHome.js';
+import SectionPage from './pages/SectionPage.jsx';
+import { astrologer, earnings, peakDemand, recentActivity, quickActions } from '@shared/data/mockHome.js';
 
 const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
-  .format(new Date())
+  .format(TODAY) // the prototype's fixed today, as in the reference (fD(TODAY))
   .replace(',', '');
 
-// Astrologer app shell. Home: the seven sections in the order of AD-02.
-// My Work → Text Questions and its sub-pages render in WorkPage.
+// Astrologer app shell. Home: the seven sections in the order of AD-02, laid out as the reference Home.
+// My Work → Text Questions, Appointments and their sub-pages render in WorkPage.
+// Live, Earnings, Profile and the "More" pages render in SectionPage (pages/sections.js).
 export default function App() {
   const { theme, toggle } = useTheme();
-  const availability = useAvailability(todaysWork.answeredToday);
   const textQuestions = useTextQuestions();
+  const availability = useAvailability(answeredToday(textQuestions.questions, 'text'));
+  const appointments = useAppointments();
   const path = useHashPath();
   const route = parseRoute(path);
   const mobile = useMediaQuery('(max-width: 760px)'); // same breakpoint as the CSS mobile layout
+  const unread = unreadCount(useStore(notificationsStore)); // bell badge on every page
+  // Bottom-nav tab for each page (reference tabOf): Notifications and Recent Activity belong to Home.
+  const tab = ['notifications', 'activity'].includes(route.page) ? 'home' : route.page;
+  const home = useHomeUi(mobile); // Home's dialog (Planned Unavailability) and toasts
 
   return (
-    <div className={`ac-app${route.page === 'work' ? ' ac-app--work' : ''}`}>
-      <Sidebar theme={theme} active={route.page} workView={route.page === 'work' ? (route.view === 'hub' ? 'questions' : route.view) : undefined} />
+    <div className={`ac-app${route.page !== 'home' ? ' ac-app--work' : ''}`}>
+      <Sidebar theme={theme} active={route.page} workView={route.page === 'work' && route.view !== 'hub' ? route.view : undefined} />
       {route.page === 'work' ? (
         <main className="ac-main tq">
-          <WorkPage route={route} path={path} mobile={mobile} tq={textQuestions} theme={theme} onToggleTheme={toggle} unread={notifications.unread} availability={availability} />
+          <WorkPage route={route} path={path} mobile={mobile} tq={textQuestions} apt={appointments} theme={theme} onToggleTheme={toggle} unread={unread} availability={availability} />
+        </main>
+      ) : SECTION_KEYS.includes(route.page) ? (
+        <main className="ac-main tq">
+          <SectionPage route={route} path={path} mobile={mobile} theme={theme} onToggleTheme={toggle} unread={unread} availability={availability}
+            ctx={{ theme, onToggleTheme: toggle, availability, tq: textQuestions, apt: appointments, unread }} />
         </main>
       ) : (
         <main className="ac-main">
-          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={notifications.unread} dateLabel={dateLabel} />
+          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel} />
           <div className="ac-grid">
-            <AvailabilityCard a={availability} />
+            <AvailabilityCard a={availability} ui={home.ui} />
             <EarningsCard data={earnings} />
             <PeakDemandCard data={peakDemand} />
           </div>
-          <div className="ac-grid">
-            <TodaysWorkCard work={todaysWork} a={availability} />
+          <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
+          <div className="ac-grid ac-grid--two">
             <RecentActivityCard items={recentActivity} />
             <QuickActionsCard actions={quickActions} />
           </div>
+          {home.node}
         </main>
       )}
-      <BottomNav active={route.page} />
+      <BottomNav active={tab} />
     </div>
   );
 }

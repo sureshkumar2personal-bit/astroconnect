@@ -1,114 +1,117 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { activeFilterCount, filterQuestions, isOpen } from '@shared/lib/textQuestions.js';
 import { navigate, routes } from '@shared/lib/router.js';
-import QuestionStats from '../components/work/QuestionStats.jsx';
-import QuestionTabs from '../components/work/QuestionTabs.jsx';
+import QHeader from '../components/work/QHeader.jsx';
 import QuestionToolbar from '../components/work/QuestionToolbar.jsx';
-import QuestionList from '../components/work/QuestionList.jsx';
-import QuestionDetails from '../components/work/QuestionDetails.jsx';
-import AnswerEditor from '../components/work/AnswerEditor.jsx';
+import QCard from '../components/work/QCard.jsx';
+import QDetail from '../components/work/QDetail.jsx';
+import AnswerPage from '../components/work/AnswerPage.jsx';
+import TimelinePage from '../components/work/TimelinePage.jsx';
+import AddLinkForm from '../components/work/AddLinkForm.jsx';
+import { CorrectionBody, FiltersBody, PreviewBody } from '../components/work/QDialogs.jsx';
 
-// Text Questions (My Work → Text Questions).
-// Desktop/tablet: stats, tabs, then list + detail/editor side by side (stacked below 1180px).
-// Mobile: one screen at a time — list, question details, write answer.
-export default function TextQuestionsPage({ tq, route, mobile, openDialog, toast }) {
+// My Work → Text-Based Questions / Subscription Questions (reference R.tq, TQSUB.q/answer/timeline).
+// Desktop/tablet: header, tabs, then list + detail pane side by side (stacked below 1180px).
+// Phone: one screen at a time — list, question details, write answer, timeline.
+// Routes: #/work/questions | #/work/subscriptions [/:id [/answer | /timeline]] (lib/router.js).
+export default function TextQuestionsPage({ tq, route, mobile, ui }) {
   const paneRef = useRef(null);
-  const items = filterQuestions(tq.questions, tq.tab, tq.filters);
-  const campaignName = (id) => tq.campaign(id).name;
+  const q = route.id ? tq.byId(route.id) : null;
+  const cat = q ? q.cat : route.cat;
 
-  const select = (id) => {
-    navigate(routes.detail(id));
-    // When list and details are stacked, bring the details into view.
-    if (!mobile && window.matchMedia('(max-width: 1180px)').matches) {
-      requestAnimationFrame(() => paneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  // Opening a question moves it from New / Received to Pending (AD-51).
+  const viewing = q && !route.editor && !route.timeline ? q.id : null;
+  useEffect(() => {
+    if (viewing) tq.openQuestion(viewing);
+    if (viewing && !mobile && window.matchMedia('(max-width: 1180px)').matches) {
+      requestAnimationFrame(() => paneRef.current?.scrollIntoView({ block: 'start' }));
     }
-  };
+  }, [viewing]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const detailHandlers = {
-    onAnswer: (id) => navigate(routes.editor(id)),
-    onTimeline: (id) => openDialog('timeline', id),
-    onCorrection: (id) => openDialog('correction', id),
-    onDisputeSubmit: (id, text) => {
-      if (!text) return toast('Write your dispute answer first.');
-      tq.submitDispute(id, text);
-      toast('Dispute answer sent.');
+  if (route.id && !q) return <div className="empty"><b>Question not found</b><a className="go" href={`#${routes.listFor(route.cat)}`}>Back to the list ›</a></div>;
+
+  const openFilters = () => ui.dialog({
+    title: 'Filters',
+    body: (close) => (
+      <FiltersBody filters={tq.filters} campaigns={tq.campaigns}
+        onApply={(f) => { tq.setFilters(f); close(); }}
+        onReset={() => { tq.resetFilters(); close(); }} />
+    ),
+  });
+  const handlers = {
+    onCorrection: (id) => ui.dialog({
+      title: 'Request Correction',
+      body: (close) => (
+        <CorrectionBody q={tq.byId(id)} onCancel={close} onSend={() => { tq.requestCorrection(id); close(); ui.toast(`Correction request sent to ${q.name}`); }} />
+      ),
+    }),
+    onDisputeSubmit: (id, text, remedy) => {
+      if (!text) return ui.toast('Write your dispute answer first.');
+      tq.submitDispute(id, text, remedy);
+      ui.toast('Dispute answer sent.');
     },
   };
 
-  const editor = (q) => (
-    <AnswerEditor
-      key={q.id}
-      q={q}
-      templates={tq.templates}
-      tq={tq}
-      autoFocus={!mobile}
-      toast={toast}
-      onPreview={() => openDialog('preview', q.id)}
-      onAddLink={() => openDialog('link', q.id)}
-    />
-  );
+  if (route.timeline) return <TimelinePage q={q} campaignName={tq.campaignName(q.camp)} />;
 
-  const listColumn = (
-    <>
-      <QuestionToolbar filters={tq.filters} onSearch={tq.setSearch} onOpenFilters={() => openDialog('filters')} />
-      <QuestionList
-        items={items}
-        selectedId={null}
-        campaignName={campaignName}
-        onSelect={select}
-        hasFilters={activeFilterCount(tq.filters) > 0}
-        onClearFilters={tq.resetFilters}
-      />
-    </>
-  );
-
-  if (mobile) {
-    const q = route.id ? tq.byId(route.id) : null;
-    if (q && route.editor && isOpen(q)) return editor(q);
-    if (q) return <QuestionDetails q={q} campaignName={campaignName(q.camp)} {...detailHandlers} />;
-    return (
-      <>
-        <QuestionTabs questions={tq.questions} tab={tq.tab} onChange={tq.setTab} />
-        {listColumn}
-      </>
-    );
+  if (route.editor && isOpen(q) && q.status !== 'Correction Requested') {
+    const preview = () => {
+      const text = q.draft.trim();
+      ui.dialog({
+        title: 'Preview Answer',
+        body: (close) => (
+          <PreviewBody q={q} text={text} onBack={close} onSubmit={() => {
+            tq.submitAnswer(q.id, text); close(); ui.toast('Answer submitted. The user can see it now.'); navigate(routes.detail(q.id));
+          }} />
+        ),
+      });
+    };
+    const addLink = () => ui.dialog({
+      title: 'Add Link',
+      body: (close) => <AddLinkForm onCancel={close} onAdd={(url) => { tq.addLink(q.id, url); close(); }} />,
+    });
+    return <AnswerPage key={q.id} q={q} tq={tq} onPreview={preview} onAddLink={addLink} toast={ui.toast} />;
   }
 
-  // Desktop: keep the routed question if it is in the current list, otherwise show the first one.
-  const routed = route.id && tq.byId(route.id);
-  const editing = routed && route.editor && isOpen(routed);
-  const selected = editing ? routed : items.find((q) => q.id === route.id) || items[0] || null;
+  const detail = q && <QDetail q={q} campaignName={tq.campaignName(q.camp)} {...handlers} />;
+  if (mobile && q) return detail;
+
+  const items = filterQuestions(tq.questions, { cat, tab: tq.tab, prio: tq.prio, f: tq.filters });
+  const list = (
+    <div className="lbox">
+      <QuestionToolbar filters={tq.filters} onSearch={tq.setSearch} onOpenFilters={openFilters} />
+      <div className="list" id="qlist">
+        {items.length
+          ? items.map((x) => <QCard key={x.id} q={x} campaignName={tq.campaignName(x.camp)} selected={x.id === q?.id} />)
+          : (
+            <div className="empty">
+              <b>No questions here</b>
+              <span className="muted">Try another tab or clear filters.</span>
+              {activeFilterCount(tq.filters) > 0 && <button type="button" className="btn btn-o" onClick={tq.resetFilters}>Clear filters</button>}
+            </div>
+          )}
+      </div>
+    </div>
+  );
 
   return (
     <>
-      <QuestionStats tq={tq} onCreateCampaign={() => openDialog('newCamp')} onManageCampaigns={() => navigate(routes.view('campaigns'))} />
-      <QuestionTabs questions={tq.questions} tab={tq.tab} onChange={tq.setTab} />
-      <div className="split">
-        <div className="lbox list">
-          <QuestionToolbar filters={tq.filters} onSearch={tq.setSearch} onOpenFilters={() => openDialog('filters')} />
-          <QuestionList
-            items={items}
-            selectedId={selected?.id}
-            campaignName={campaignName}
-            onSelect={select}
-            hasFilters={activeFilterCount(tq.filters) > 0}
-            onClearFilters={tq.resetFilters}
-          />
+      <QHeader tq={tq} cat={cat} />
+      {mobile ? list : (
+        <div className="split">
+          {list}
+          <div className="pane" ref={paneRef}>
+            {q ? (
+              <>
+                <button type="button" className="btn btn-o sm pg-back" onClick={() => navigate(routes.listFor(cat))}>‹ Back</button>
+                {detail}
+              </>
+            ) : (
+              <div className="empty"><b>Select a question</b><span className="muted">Its details and actions appear here.</span></div>
+            )}
+          </div>
         </div>
-        <div className="pane" ref={paneRef}>
-          {editing ? (
-            <>
-              <div className="row">
-                <h2 className="grow">Write Answer</h2>
-                <button type="button" className="btn btn-o sm" onClick={() => navigate(routes.detail(routed.id))}>‹ Back to question</button>
-              </div>
-              {editor(routed)}
-            </>
-          ) : (
-            <QuestionDetails q={selected} campaignName={selected ? campaignName(selected.camp) : ''} {...detailHandlers} />
-          )}
-        </div>
-      </div>
+      )}
     </>
   );
 }
