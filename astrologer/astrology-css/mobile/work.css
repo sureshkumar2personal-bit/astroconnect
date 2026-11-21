@@ -61,7 +61,8 @@
   .tq .apt .tw { padding: 0; background: none; box-shadow: none; backdrop-filter: none; border: 0; }
   .tq .tbl tr { border: 1.5px solid var(--line); border-radius: 14px; margin-bottom: 10px; padding: 6px 12px; background: var(--card-surface); box-shadow: var(--card-shadow); }
   .tq .tbl td, .tq .tbl tbody tr:last-child td { border: 0; padding: 5px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: right; }
-  .tq .tbl td::before { content: attr(data-label); color: var(--mut); font-size: 12px; text-align: left; }
+  .tq .tbl td::before { content: attr(data-label); color: var(--mut); font-size: 12px; text-align: left; flex: none; max-width: 45%; overflow-wrap: normal; }
+  .tq .tbl td { overflow-wrap: anywhere; }
   .tq .tbl td[colspan]::before { content: none; }
 }
 
@@ -183,4 +184,9 @@
 @media (max-width: 760px) {
   .tq .pg--calls .cc-add .cc-min,
   .tq .pg--calls .cc-add .cc-price { flex: 1 1 120px; width: auto; }
+}
+
+/* Answer Templates on phones: text full width, Edit/Delete together underneath. */
+@media (max-width: 760px) {
+  .tq .pg--work .card.tpl > .grow { flex-basis: 100%; }
 }

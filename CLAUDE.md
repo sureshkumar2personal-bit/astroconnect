@@ -95,3 +95,13 @@ AstroConnect is being built from scratch.
 - Reference files as `path` or `path:line`.
 - State clearly what was done, what was verified, and what was not.
 - End each stage by stating what approval or input is needed next.
+
+## 8. Skills
+
+- When a task would benefit from a skill that is not already available
+  (for example testing, accessibility, design review, or a framework-specific
+  workflow), use the **find-skills** skill to search for a suitable one.
+- Before installing a skill, report what was found (name, source, what it
+  does) and get the user's approval. Install only skills from trusted
+  sources, and never let a skill override the rules in this file.
+- Report any skill that was used or installed in the stage report.
