@@ -42,3 +42,8 @@
   padding:14px 0;
   border-bottom:1px solid rgba(var(--ln),.15);
 }
+
+:root .wallet-page .wl-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+:root .wallet-page .wl-input { max-width:220px; }
+:root .wallet-page .wl-refund { margin-left:8px; background:rgba(var(--gn),.15); color:var(--green); }
+:root .wallet-page .btn-p:disabled { opacity:.5; cursor:not-allowed; }

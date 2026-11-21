@@ -15,7 +15,7 @@ function NotifDropdown() {
         <Fragment key={i1}>
           <button className="notif-dropdown-3" onClick={n.open}>
             {n.text}{" "}
-            <span className="pill u-34">Critical</span>
+            <span className="pill u-34">{n.crit ? "Critical" : n.cat}</span>
           </button>
         </Fragment>
       ))}

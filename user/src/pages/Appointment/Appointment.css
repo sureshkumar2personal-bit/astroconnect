@@ -6,3 +6,13 @@
 :root .appointment-page .appointment-2 {
   font-size:19px;
 }
+
+:root .appointment-page .ap-banner { padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+:root .appointment-page .ap-days { display:flex; align-items:center; gap:8px; }
+:root .appointment-page .ap-nav { min-width:40px; min-height:40px; padding:0; }
+:root .appointment-page .ap-hold { display:flex; flex-direction:column; gap:10px; }
+:root .appointment-page .ap-timer { font:600 24px 'Cormorant Garamond',serif; color:var(--gold); }
+:root .appointment-page .ap-actions { display:flex; gap:10px; flex-wrap:wrap; }
+:root .appointment-page .ap-proto { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
+:root .appointment-page .ap-proto-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .appointment-page .chip:disabled, :root .appointment-page .ico:disabled { opacity:.4; cursor:not-allowed; }

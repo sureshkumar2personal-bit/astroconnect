@@ -37,3 +37,34 @@
 :root .text-question-page .text-question-7 {
   resize:vertical;
 }
+
+:root .text-question-page .tq-camp { display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start; text-align:left; gap:8px; }
+:root .text-question-page .tq-file { display:inline-flex; align-items:center; cursor:pointer; }
+:root .text-question-page .tq-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+:root .text-question-page .tq-row { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+:root .text-question-page .tq-price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+:root .text-question-page .tq-old { text-decoration:line-through; color:var(--subtle); }
+:root .text-question-page .tq-disc { background:rgba(var(--gn),.15); color:var(--green); }
+:root .text-question-page .tq-final { font-weight:600; }
+:root .text-question-page .tq-warn { background:rgba(var(--gd),.16); color:var(--gold); border:1px solid rgba(var(--gd),.6); border-radius:12px; padding:8px 12px; font-size:15px; }
+:root .text-question-page .tq-types { display:flex; gap:8px; flex-wrap:wrap; }
+:root .text-question-page .tq-attach { display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+:root .text-question-page .tq-hidden { position:absolute; left:-9999px; }
+:root .text-question-page .tq-chip { display:inline-flex; align-items:center; gap:6px; }
+:root .text-question-page .tq-x { background:none; border:0; padding:0 4px; }
+:root .text-question-page .tq-check { display:flex; align-items:center; gap:8px; }
+:root .text-question-page .tq-preview { display:flex; flex-direction:column; gap:10px; }
+:root .text-question-page .tq-prev-title { margin:0; font:600 22px 'Cormorant Garamond',serif; }
+:root .text-question-page .tq-prev-text { margin:0; white-space:pre-wrap; line-height:1.45; }
+:root .text-question-page .tq-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+:root .text-question-page .tq-slot { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:8px 0; border-bottom:1px solid rgba(var(--ln),.15); }
+:root .text-question-page .tq-ctl { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
+:root .text-question-page .tq-ctl-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .text-question-page .tq-ctl-row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding-top:8px; border-top:1px solid rgba(var(--ln),.15); }
+:root .text-question-page .tq-ctl-name { display:flex; flex-direction:column; gap:2px; }
+:root .text-question-page .tq-ctl-btns { display:flex; gap:8px; flex-wrap:wrap; }
+
+:root .text-question-page .tq-ben { margin-left:8px; background:rgba(var(--gn),.15); color:var(--green); }
+
+:root .text-question-page .tq-consent { align-items:flex-start; }

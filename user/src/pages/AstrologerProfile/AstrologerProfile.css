@@ -53,3 +53,24 @@
   font-size:18px;
   line-height:1.4;
 }
+
+:root .astrologer-profile-page .ap-rating { color:var(--gold); font-weight:600; margin-top:4px; }
+:root .astrologer-profile-page .ap-stars { color:var(--gold); letter-spacing:2px; }
+:root .astrologer-profile-page .ap-pkgs { padding:18px 20px; display:flex; flex-direction:column; gap:10px; }
+:root .astrologer-profile-page .ap-pkg { display:flex; flex-direction:column; gap:2px; }
+:root .astrologer-profile-page .ap-unavail { padding:24px; display:flex; flex-direction:column; gap:12px; }
+:root .astrologer-profile-page .ap-ctl { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
+:root .astrologer-profile-page .ap-ctl-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .astrologer-profile-page .ap-ctl-row { display:flex; gap:8px; flex-wrap:wrap; }
+:root .astrologer-profile-page .ap-rev-row { display:flex; justify-content:space-between; align-items:center; gap:12px; border-top:1px solid rgba(var(--ln),.15); padding-top:6px; }
+:root .astrologer-profile-page .chip:disabled { opacity:.4; cursor:not-allowed; }
+
+:root .astrologer-profile-page .ap-buttons { display:flex; gap:8px; flex-wrap:wrap; }
+:root .astrologer-profile-page .ap-live { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
+:root .astrologer-profile-page .ap-live-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+:root .astrologer-profile-page .ap-live-pill { background:rgba(var(--gn),.15); color:var(--green); }
+:root .astrologer-profile-page .ap-live-box { display:flex; flex-direction:column; gap:8px; }
+:root .astrologer-profile-page .ap-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+:root .astrologer-profile-page .ap-cm { background:rgba(var(--gl),.12); border-radius:12px; padding:6px 12px; align-self:flex-start; }
+:root .astrologer-profile-page .ap-post { gap:8px; }
+:root .astrologer-profile-page .ap-lock { margin:0; color:var(--gold); }

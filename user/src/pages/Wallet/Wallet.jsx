@@ -21,7 +21,7 @@ function Wallet() {
             <Fragment key={i1}>
               <div className="wallet-7">
                 <div className="u-19">
-                  <div className="u-38">{t.label}</div>
+                  <div className="u-38">{t.label}{t.isRefund ? <span className="pill wl-refund">Refund</span> : null}</div>
                   <div className="u-21">{t.when}</div>
                 </div>
                 <div style={cssToStyle(t.st)}>{t.amt}</div>
@@ -38,23 +38,34 @@ function Wallet() {
         </div>
       ) : null}
       <section className="card u-29">
+        <h2 className="u-41">Withdraw</h2>
+        <p className="u-33">Withdraw to your bank account. Your Wallet must keep at least ₹500, so only the amount above ₹500 can be withdrawn (D-32).</p>
+        <div className="wl-row">
+          <input id="wd" className="inp wl-input" inputMode="numeric" placeholder="Amount in ₹" value={app.wdAmt ?? ""} onChange={app.onWd} />
+          <button className="chip" onClick={app.wdAll}>{"Max ₹"}{app.wdMax}</button>
+          <button className="btn-p" onClick={app.withdraw} disabled={app.wdMax <= 0}>Withdraw</button>
+        </div>
+        {app.wdMax <= 0 ? <span className="u-21">Nothing to withdraw yet: your balance is at or below the ₹500 minimum.</span> : null}
+      </section>
+      <section className="card u-29">
         <h2 className="u-41">{"Payments & refunds"}</h2>
+        <p className="u-33">Pay for services from your Wallet or directly with UPI or a bank payment; the Wallet is optional (D-33). Every refund is credited to your Wallet (D-32).</p>
         <div className="u-12">
-          <button className="btn-g u-42" disabled>Payment methods</button>
-          <button className="btn-g u-42" disabled>Withdraw</button>
-          <button className="btn-g u-42" disabled>Invoices</button>
+          {app.payChips.map((c, i1) => (
+            <Fragment key={i1}>
+              <button className={c.cls} onClick={c.go}>{c.label}</button>
+            </Fragment>
+          ))}
         </div>
+        <span className="u-21">{app.payModeText}</span>
         <div className="u-12">
-          <span className="tag">Currency · P-10-01</span>
-          <span className="tag">Top-up methods · P-10-02</span>
-          <span className="tag">Limits · P-10-03</span>
-          <span className="tag">Direct pay · P-10-04</span>
-          <span className="tag">Refunds · P-10-05</span>
-          <span className="tag">Withdrawal · P-10-06</span>
-          <span className="tag">Invoices · P-10-07</span>
-          <span className="tag">Tax · P-10-08</span>
+          <span className="tag">Currency · PENDING · P-10-01</span>
+          <span className="tag">Top-up methods · PENDING · P-10-02</span>
+          <span className="tag">Top-up limits · PENDING · P-10-03</span>
+          <span className="tag">Invoices · PENDING · P-10-07</span>
+          <span className="tag">Tax · PENDING · P-10-08</span>
+          <span className="tag">History vs Activity · PENDING · P-10-09</span>
         </div>
-        <span className="u-21">All PENDING — not decided yet.</span>
       </section>
     </div>
   );
