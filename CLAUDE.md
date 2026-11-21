@@ -89,6 +89,30 @@ AstroConnect is being built from scratch.
 - Check the current branch and working-tree status before making changes and
   report it.
 - Never commit secrets, credentials, tokens, or real personal data.
+- **Astrologer App branch:** all Astrologer App work (`astrologer/` and
+  `docs/02-astrologer-app/`) is done on the branch **`astrologer-side`**.
+  Before changing anything, confirm the current branch is `astrologer-side`;
+  if it is not, stop and tell the user instead of working on another branch.
+  Do not switch away from `astrologer-side`, and do not commit, push or merge
+  Astrologer work into `feature/user-app`, `main` or any other branch, unless
+  the user explicitly asks for that specific action.
+- **Sync with `main` before every coding task** (standing approval from the
+  user for exactly these steps):
+  1. `git fetch origin`, then compare local `main` with `origin/main`.
+  2. If `origin/main` has moved forward, fast-forward local `main` to it
+     without leaving `astrologer-side` (`git fetch origin main:main`;
+     fast-forward only).
+  3. Merge `main` into `astrologer-side` so it is up to date with `main`.
+     Commit or set aside uncommitted work safely first; never discard it.
+  4. If there are conflicts, resolve them so that **`main` is preserved**:
+     keep `main`'s version of everything `main` changed, and re-apply
+     `astrologer-side`'s own work on top only where it does not contradict
+     `main`. If a conflict cannot be resolved without losing work from either
+     side, stop and ask the user.
+  5. Rebuild and re-test after the sync, then report what came in from
+     `main`, how any conflicts were resolved, and the build/test result.
+  - Never modify, commit to, push to, rebase or force-update `main` itself;
+    `main` only moves by fast-forwarding to `origin/main`.
 
 ## 7. Reporting
 
