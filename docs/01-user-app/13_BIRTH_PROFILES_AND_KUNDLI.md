@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-12, D-13, D-14 |
+| Owned decisions | D-12, D-13, D-14, D-37 |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -40,6 +40,7 @@ up to date, and how users upload birth-chart files.
 | D-12 | Users can initially save **unlimited birth profiles**. Future free/paid limits are **not finalized** (see P-13-07). |
 | D-13 | Users can upload birth-chart files/images in **JPG, PNG, or PDF** format. |
 | D-14 | If **DOB, birth time, or birth place** is changed, the generated **Kundli updates automatically**. Uploaded JPG/PNG/PDF files **remain unchanged**. |
+| D-37 | **Consent for sharing birth data:** birth details and horoscope information are shared with an astrologer only with the user's **consent** for the relevant paid service. The User App follows normal privacy and consent practices commonly used in astrology applications; no additional privacy rules, retention periods, or legal claims are defined. |
 
 ## 5. User flows
 
@@ -79,6 +80,9 @@ up to date, and how users upload birth-chart files.
 | R-13-03 | Birth-chart uploads are accepted in JPG, PNG, or PDF format. | D-13 |
 | R-13-04 | Changing the DOB, birth time, or birth place automatically updates the generated Kundli. | D-14 |
 | R-13-05 | Uploaded JPG/PNG/PDF files are not changed when birth details change. | D-14 |
+
+- Birth details and horoscope information are shared with an astrologer only with the user's consent for the relevant paid service; normal astrology-app privacy and consent practices apply (D-37).
+- Saved birth details can be used instead of uploading a horoscope file for a Personal Question (D-35 → [06](06_TEXT_QUESTION_SERVICE.md)).
 
 ## 8. States and edge cases
 
@@ -125,7 +129,7 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | P-01-06 | Entry point |
 | P-02-03 | Birth profile during onboarding |
 | P-06-07 | Birth profile attached to a question |
-| P-GL-03 | Privacy, consent and data retention |
+| P-GL-03 | Privacy, consent and data retention (consent confirmed in D-37; retention open) |
 
 ## 12. Acceptance criteria
 
@@ -134,8 +138,11 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 - [ ] Changing the DOB, birth time, or birth place automatically updates the generated Kundli (D-14).
 - [ ] Uploaded JPG/PNG/PDF files are unchanged after birth details are edited (D-14).
 
+- [ ] Birth details and horoscope information are shared with an astrologer only with the user's consent for the relevant paid service (D-37).
+
 ## 13. Change log
 
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-12 to D-14. |
+| 2026-11-19 | D-37 added (consent for sharing birth data); D-35 referenced in rules. |

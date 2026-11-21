@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | User App |
 | Status | Draft |
-| Owned decisions | D-09, D-10 (shared with 07, 08) |
+| Owned decisions | D-09, D-10 (shared with 07, 08), D-44 – D-46 (shared with 08), D-47 |
 | Review list | [`00_USER_APP_REVIEW_LIST.md`](00_USER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -12,8 +12,8 @@
 
 ## 1. Purpose
 
-Defines the Instant Chat consultation service. The definition of an
-Instant Chat is `PENDING DISCUSSION` (P-09-07).
+Defines the Instant Chat consultation service: a chat started immediately with an
+available astrologer, without prior booking, paid as a prepaid package (D-44, D-45).
 
 ## 2. Scope / Out of scope
 
@@ -39,7 +39,11 @@ Instant Chat is `PENDING DISCUSSION` (P-09-07).
 | ID | Decision |
 |----|----------|
 | D-09 | Appointments, Instant Calls, and Instant Chats **do not** have a dispute option. |
-| D-10 | Users can **submit a review after** an Appointment, Instant Call, or Instant Chat consultation. |
+| D-10 | **Reviews after consultations:** after an Appointment, Instant Call, or Instant Chat consultation, the user gives a **mandatory** 1–5 star rating; written feedback is **optional**. A submitted review cannot be edited or deleted by the user; changes are requested through Platform Support. *(Amended 2026-11-20: rating mandatory, written feedback optional, no user edit/delete — Astrologer AD-129, X-18; supersedes "Users can submit a review after an Appointment, Instant Call, or Instant Chat consultation". Enforcement mechanism not confirmed — Astrologer AP-10-01.)* |
+| D-44 | **Instant Call and Instant Chat requests:** Instant Call and Instant Chat are separate choices for a consultation started immediately, without prior booking. After choosing one, the user sees the astrologers currently available for that service, selects one, and sends a request; the user is never routed automatically to another astrologer. The astrologer must accept within **30 seconds**; otherwise the request **expires**. A rejected request is **Declined**, and the user is offered **Try Again** or **Try Some Other Astrologer**; the same request is not re-sent automatically to the same astrologer. The user may cancel a request before it is accepted. A request sent while the astrologer already has a pending request or active consultation receives a **Busy** response. |
+| D-45 | **Prepaid packages and sessions:** Instant Call and Instant Chat use **prepaid packages**, not per-minute billing. Packages (minimum **5 minutes**) are shown on the astrologer's profile, and the user pays the whole package before the session starts. Either party may end the session early; there is **no refund for early termination**. The extension option appears **1 minute before** the package ends; paying for the next package before expiry continues the same session, otherwise the session ends automatically. If an astrologer deliberately ends a session early without answering, the user may submit a Platform complaint/review; the Platform investigates; no automatic refund is issued. |
+| D-46 | **Instant Call and Chat technical failure:** for an Instant Call, automatic reconnection is attempted for **5 minutes** and the remaining paid time is preserved. Instant Chat messages are saved and available after reconnection. The session ends automatically when the package time expires. Handling when reconnection permanently fails is not confirmed (Astrologer AP-06-01). |
+| D-47 | **Chat history (24-hour rule):** full chat messages are accessible to the user and the astrologer for **24 hours only**; after 24 hours they are inaccessible to both. Booking details, consultation date/time, astrologer details, and payment records remain visible in history. The same rule applies in the Astrologer App. |
 
 **Referenced decisions**
 
@@ -49,31 +53,40 @@ Instant Chat is `PENDING DISCUSSION` (P-09-07).
 | D-03 | Purpose of the Activity tab | [01](01_NAVIGATION_AND_STRUCTURE.md) |
 | D-11 | Remedies in the Remedy Tracker | [16](16_REMEDY_TRACKER.md) |
 | D-15 | Critical notifications | [15](15_NOTIFICATIONS.md) |
+| D-33 | Payment with Wallet or direct UPI/bank | [10](10_WALLET_AND_PAYMENTS.md) |
+| D-38 | Astrologer DND: profile hidden; no Instant Chat | [05](05_ASTROLOGER_PROFILE.md) |
+| D-48 | Packages shown on the astrologer profile | [05](05_ASTROLOGER_PROFILE.md) |
 
 ## 5. User flows
 
-1. Start a chat: `PENDING DISCUSSION` (P-09-01, P-09-02, P-09-06, P-13-09).
-2. Astrologer does not accept or respond: `PENDING DISCUSSION` (P-09-08).
+1. Start a chat: the user chooses Instant Chat, sees the astrologers currently available for it, selects one, and sends a request; the user is never routed to another astrologer automatically (D-44). Packages are shown on the astrologer's profile (D-48); the whole package is paid before the chat starts (D-45), with the Wallet or by direct payment (D-33). Subscription requirement: `PENDING DISCUSSION` (P-09-06). Birth profile shared: `PENDING DISCUSSION` (P-13-09).
+2. Astrologer does not accept within 30 seconds: the request expires; if declined, the user can Try Again or Try Some Other Astrologer; the user may cancel before acceptance (D-44).
+   - During the chat, the extension option appears 1 minute before the package ends; either party may end early, with no refund (D-45). Messages are saved across reconnection (D-46).
+   - Chat messages stay visible for 24 hours only; records remain afterwards (D-47).
 3. During the chat, if the astrologer prescribes or attaches a remedy, it
    also appears in the Remedy Tracker (D-11 → [16](16_REMEDY_TRACKER.md)).
-4. After the consultation, the user can submit a review (D-10). Review
-   content: `PENDING DISCUSSION` (P-07-10).
+4. After the consultation, the user gives a mandatory 1–5 star rating; written feedback is optional (D-10). Time limit and enforcement: `PENDING DISCUSSION` (P-07-10).
 
 ## 6. Screens and content
 
-`PENDING DISCUSSION` (P-09-01, P-09-03, P-09-04, P-07-10).
+Request screen, packages, extension prompt (D-44, D-45); chat history with 24-hour message visibility (D-47). Attachments and review content: `PENDING DISCUSSION` (P-09-04, P-07-10).
 
 ## 7. Business rules and validations
 
 | # | Rule | Source |
 |---|------|--------|
 | R-09-01 | An Instant Chat has no dispute option. | D-09 |
-| R-09-02 | The user can submit a review after the Instant Chat consultation. | D-10 |
+| R-09-02 | After the Instant Chat consultation, a 1–5 star rating is mandatory; written feedback is optional; the user cannot edit or delete a submitted review. | D-10 |
 | R-09-03 | A remedy prescribed or attached during an Instant Chat must also appear in the user's Remedy Tracker. | D-11 → [16](16_REMEDY_TRACKER.md) |
+| R-09-04 | Requests go only to the astrologer the user selected; no automatic routing; 30-second expiry; a declined request is not re-sent automatically. | D-44 |
+| R-09-05 | Prepaid packages, minimum 5 minutes, paid in full before the chat; the session lasts for the package and can be extended. | D-45 |
+| R-09-06 | No refund for early termination. | D-45 |
+| R-09-07 | Messages are saved across reconnection. | D-46 |
+| R-09-08 | Chat messages are visible to both parties for 24 hours only; booking, date/time, astrologer, and payment records remain. | D-47 |
 
-**Pending rules:** pricing (P-09-01), minimum balance (P-09-02), session
-limits (P-09-03), attachments (P-09-04), history retention (P-09-05),
-subscription requirement (P-09-06).
+**Pending rules:** attachments (P-09-04), subscription requirement (P-09-06).
+
+- During an astrologer's DND, the profile is hidden and an Instant Chat cannot be started (D-38 → [05](05_ASTROLOGER_PROFILE.md)).
 
 ## 8. States and edge cases
 
@@ -81,9 +94,13 @@ subscription requirement (P-09-06).
 |------|-----------|
 | User wants to dispute a chat | No dispute option (D-09) |
 | Chat completed | Review can be submitted (D-10) |
-| Insufficient balance | `PENDING DISCUSSION` (P-09-02) |
-| Astrologer does not accept or respond | `PENDING DISCUSSION` (P-09-08) |
-| Session time limit reached | `PENDING DISCUSSION` (P-09-03) |
+| Package not paid | The chat does not start (D-45) |
+| Astrologer does not accept within 30 seconds | Request expires (D-44) |
+| Astrologer declines | Try Again or Try Some Other Astrologer (D-44) |
+| Astrologer engaged in another request or consultation | Busy response (D-44) |
+| Package time reached without extension | Chat ends automatically (D-45, D-46) |
+| Connection drops | Messages saved and available after reconnection (D-46) |
+| Chat opened more than 24 hours later | Messages unavailable; records remain (D-47) |
 
 Chat statuses: `PENDING DISCUSSION` (P-11-03).
 
@@ -106,14 +123,14 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 
 | ID | Topic |
 |----|-------|
-| P-09-01 | Pricing model |
-| P-09-02 | Minimum wallet balance |
-| P-09-03 | Session time limits |
+| P-09-01 | Pricing model — **Resolved** (D-45) |
+| P-09-02 | Minimum wallet balance — **Resolved** (D-45) |
+| P-09-03 | Session time limits — **Resolved** (D-45) |
 | P-09-04 | Attachments in chat |
-| P-09-05 | Chat history retention |
+| P-09-05 | Chat history retention — **Resolved** (D-47) |
 | P-09-06 | Subscription requirement |
-| P-09-07 | Definition of an Instant Chat |
-| P-09-08 | Astrologer does not accept or respond |
+| P-09-07 | Definition of an Instant Chat — **Resolved** (D-44) |
+| P-09-08 | Astrologer does not accept or respond — **Resolved** (D-44) |
 
 **Related (owned elsewhere)**
 
@@ -129,7 +146,11 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 ## 12. Acceptance criteria
 
 - [ ] No dispute option is offered for an Instant Chat (D-09).
-- [ ] After an Instant Chat consultation, the user can submit a review (D-10).
+- [ ] After an Instant Chat consultation, the user must give a 1–5 rating; written feedback optional (D-10).
+- [ ] The user chooses Instant Chat separately, sees only available astrologers, and is never auto-routed; 30-second expiry; Declined with Try Again / Try Some Other Astrologer; cancel before acceptance; Busy when the astrologer is engaged (D-44).
+- [ ] Prepaid packages (minimum 5 minutes) are paid in full before the session; no refund for early termination; extension offered 1 minute before expiry (D-45).
+- [ ] Reconnection and session end follow D-46.
+- [ ] Chat messages are visible for 24 hours only, while records remain (D-47).
 - [ ] A remedy prescribed or attached during an Instant Chat appears in the Remedy Tracker (D-11).
 
 ## 13. Change log
@@ -137,3 +158,5 @@ Full wording in [`00_USER_APP_REVIEW_LIST.md` §4](00_USER_APP_REVIEW_LIST.md#4-
 | Date | Change |
 |------|--------|
 | 2026-11-17 | Initial draft created from D-09, D-10. |
+| 2026-11-19 | Referenced D-38 (no Instant Chat during astrologer DND). |
+| 2026-11-20 | Aligned with the Astrologer App (X-18, X-20): D-10 re-quoted (amended — mandatory rating); D-44 – D-47 added; R-09-04 – R-09-08 added; P-09-items resolved or partially answered per the review list; D-33, D-48 referenced. |
