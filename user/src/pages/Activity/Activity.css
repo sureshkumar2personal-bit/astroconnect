@@ -60,3 +60,9 @@
   color:var(--muted);
   max-width:360px;
 }
+
+:root .activity-page .activity-clock { padding:16px 20px; display:flex; flex-direction:column; gap:8px; }
+:root .activity-page .activity-clock-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .activity-page .activity-clock-row { display:flex; gap:8px; flex-wrap:wrap; }
+
+:root .activity-page .act-focus { border-color:var(--acc2); box-shadow:0 0 0 2px var(--acc2); }

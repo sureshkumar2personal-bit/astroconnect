@@ -74,6 +74,17 @@ function Kundli() {
           </section>
         </div>
       </div>
+      <section className="card kd-consent">
+        <h2 className="u-41">Sharing your birth details</h2>
+        <p className="u-33">Your birth details and horoscope are shared with an astrologer only with your consent for the paid service you choose (D-37). Which birth profile is shared for other services: <span className="tag">PENDING · P-06-07, P-13-09</span></p>
+        {app.hasConsents ? (
+          app.consents.map((c, i1) => (
+            <Fragment key={i1}>
+              <div className="kd-consent-row"><strong>{c.text}</strong><span className="u-13">{"Consent given · "}{c.when}</span></div>
+            </Fragment>
+          ))
+        ) : <span className="u-21">No consents given yet.</span>}
+      </section>
     </div>
   );
 }

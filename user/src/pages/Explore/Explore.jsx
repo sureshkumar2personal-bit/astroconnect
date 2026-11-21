@@ -42,6 +42,7 @@ function Explore() {
                 ) : null}
               </div>
               <div className="u-13">{a.langs}</div>
+              <div className="u-13">{a.ratingText}</div>
               {a.sub ? (
                 <span className="pill explore-5">Subscribed</span>
               ) : null}

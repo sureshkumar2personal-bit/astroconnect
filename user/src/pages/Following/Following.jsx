@@ -7,29 +7,51 @@ function Following() {
   return (
     <div className="following-page page">
       <h1 className="u-10">{"Following & subscriptions"}</h1>
-      <span className="tag u-24">Follow vs Subscribe · PENDING · P-14-01</span>
+      <p className="u-33">Follow is free and never subscribes you. Subscribe is paid, and a successful subscription also follows the astrologer automatically (D-36).</p>
+
       <h2 className="following-1">Subscribed</h2>
       <div className="u-4">
         {app.subList.map((a, i1) => (
+          <Fragment key={i1}>
+            <div className="card following-2 fl-card">
+              <button className="following-3" onClick={a.open}>
+                <div style={cssToStyle(a.av)}>{a.ini}</div>
+                <div>
+                  <div className="following-4">{a.name}</div>
+                  <div className="u-13">{a.tierText}{" · until "}{a.until}</div>
+                </div>
+              </button>
+              <label className="fl-auto"><input type="checkbox" checked={!!a.autoRenew} onChange={a.toggleAuto} />{" Auto-renew (off by default)"}</label>
+              <span className="tag">Renewal and cancellation rules · PENDING · P-14-04, P-14-05</span>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+      {app.noSubs ? (
+        <div className="card following-5">{"You have no active subscriptions. Price, duration and renewal are "}<span className="tag">PENDING · P-14-02 – P-14-05</span></div>
+      ) : null}
+
+      <h2 className="following-1">Following</h2>
+      <div className="u-4">
+        {app.followList.map((a, i1) => (
           <Fragment key={i1}>
             <div className="card following-2">
               <button className="following-3" onClick={a.open}>
                 <div style={cssToStyle(a.av)}>{a.ini}</div>
                 <div>
                   <div className="following-4">{a.name}</div>
-                  <div className="u-13">{a.spec}</div>
+                  <div className="u-13">{a.tierText ? "Subscribed · " + a.tierText : "Following (free)"}</div>
                 </div>
               </button>
               <div>
-                <button className="btn-g u-16" onClick={a.unsub}>Unsubscribe</button>
+                <button className="btn-g u-16" onClick={a.unfollow}>Unfollow</button>
               </div>
             </div>
           </Fragment>
         ))}
       </div>
-      {app.noSubs ? (
-        <div className="card following-5">You have no subscriptions. Price, duration and renewal — PENDING · P-14-02 – P-14-05</div>
-      ) : null}
+      {app.noFollows ? <div className="card following-5">You are not following anyone yet.</div> : null}
+
       <h2 className="following-6">Discover</h2>
       <div className="u-4">
         {app.otherList.map((a, i1) => (
@@ -39,11 +61,13 @@ function Following() {
               <div className="u-5">
                 <div className="following-4">{a.name}</div>
               </div>
-              <button className="btn-p u-31" onClick={a.sub}>Subscribe</button>
+              <button className="btn-g u-31" onClick={a.follow}>Follow</button>
+              <button className="btn-p u-31" onClick={a.subscribe}>Subscribe</button>
             </div>
           </Fragment>
         ))}
       </div>
+      <span className="tag u-24">Where Live sessions and posts appear · PENDING · P-14-07</span>
     </div>
   );
 }

@@ -12,7 +12,7 @@ function Notifications() {
           {app.notifs.map((n, i1) => (
             <Fragment key={i1}>
               <button className="notifications-1" onClick={n.open}>
-                <span className="pill u-34">{n.cat}</span>
+                <span className="pill u-34">{n.cat}{n.crit ? " · Critical" : ""}</span>
                 <span className="notifications-2">{n.text}</span>
                 <span className="u-17">›</span>
               </button>

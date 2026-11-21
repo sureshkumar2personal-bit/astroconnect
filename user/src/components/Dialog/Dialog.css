@@ -71,3 +71,10 @@
   border-bottom:1px solid rgba(var(--ln),.15);
   padding-bottom:8px;
 }
+
+:root .dialog-overlay .dialog-chat { display:flex; flex-direction:column; gap:8px; max-height:320px; overflow-y:auto; }
+
+:root .dialog-overlay .tq-check { display:flex; align-items:center; gap:8px; }
+
+:root .dialog-overlay .tq-hidden { position:absolute; left:-9999px; }
+:root .dialog-overlay .rd-file { align-self:flex-start; cursor:pointer; }
