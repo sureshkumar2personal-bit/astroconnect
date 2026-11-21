@@ -1,0 +1,60 @@
+/* Tailwind CSS v4 setup for the Astrologer app.
+
+   - Tailwind's reset (preflight) is NOT loaded: the designs rely on browser defaults plus base.css.
+   - Utilities and @apply use the `tw:` prefix (e.g. `@apply tw:flex tw:gap-2`), so Tailwind
+     never collides with existing class names such as .ring, .grow or .bar.
+   - Colour tokens below point at the light/dark variables in tokens.css, so a utility such as
+     `tw:bg-card-surface` follows the active theme automatically.
+   - `tw:dark:` targets the dark theme (data-theme="dark" on <html>).
+   - Breakpoints match the app: `tw:desktop:` = wider than 760px, `tw:wide:` = 1200px and up,
+     `tw:max-desktop:` = phones (760px and narrower). */
+
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme) prefix(tw);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+
+@source '..';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme inline {
+  --breakpoint-desktop: 761px;
+  --breakpoint-wide: 1200px;
+
+  --font-body: 'Poppins', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-brand: 'Cinzel', serif;
+
+  --color-bg: var(--bg);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-card: var(--card);
+  --color-card-surface: var(--card-surface);
+  --color-card-border: var(--card-border);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-muted: var(--muted);
+  --color-heading: var(--heading);
+  --color-link-hover: var(--link-hover);
+  --color-icon: var(--icon);
+  --color-info: var(--info);
+  --color-accent: var(--accent);
+  --color-accent-border: var(--accent-border);
+  --color-on-accent: var(--on-accent);
+  --color-chip: var(--chip);
+  --color-chip-alt: var(--chip-alt);
+  --color-track: var(--track);
+  --color-avatar: var(--avatar);
+  --color-divider: var(--divider);
+  --color-divider-strong: var(--divider-strong);
+  --color-positive: var(--positive);
+  --color-danger: var(--danger);
+  --color-tile: var(--tile);
+  --color-tile-border: var(--tile-border);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+
+  --shadow-card: var(--card-shadow);
+  --shadow-tile: var(--tile-shadow);
+}

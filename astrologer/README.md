@@ -1,25 +1,64 @@
 # Astrologer App — folder map
 
-| Folder | What lives here |
-|---|---|
-| `reference/` | HTML reference designs (view only — never imported by code). `desktop/` and `mobile/` hold `home-*` and `text-questions-*` in `-dark` / `-light`; `mockups/` holds dashboard screenshot images. |
-| `desktop/` | Desktop React app. `index.html`, then `src/`: `main.jsx`, `App.jsx`, `layout/` (sidebar, headers, nav), `pages/`, `components/home/`, `components/work/`. |
-| `mobile/` | Mobile React app — *planned (Phase 3)*. |
-| `shared/` | Code used by more than one screen/app: `components/` (Icon, Logo, Bell, ThemeToggle, Toggle, Card, ui), `hooks/`, `lib/` (router, Text Questions rules), `data/` (mock data), `config/` (theme → image map). |
-| `assets/` | Images, by theme: `images/light/`, `images/dark/`. |
-| `astrology-css/` | All Astrologer styling (Tailwind CSS v4). No CSS files live inside React folders — see below. |
+One React + Vite app. It is responsive: the same code renders the desktop/tablet layout
+(wider than 760px) and the phone layout (760px and narrower).
 
-## Styling (`astrology-css/`)
+```
+astrologer/
+├── index.html            App entry page (loads src/main.jsx)
+├── package.json          Scripts: dev / build / preview
+├── vite.config.js        Vite + React + Tailwind; alias @/ → src/
+├── reference/            Design references — view only, never imported by code
+│   ├── desktop/          Full HTML reference (desktop)
+│   ├── mobile/           Full HTML reference (phone)
+│   └── mockups/          Dashboard screenshots (light/ and dark/)
+└── src/
+    ├── main.jsx          Starts React and loads styles/index.css
+    ├── App.jsx           Picks the page for the current #/ route; builds the Home dashboard
+    ├── layout/           Sidebar, headers, phone bottom nav, "All sections" menu
+    ├── pages/            One file per page (WorkPage, EarningsPage, LivePage, …)
+    │                     SectionPage.jsx = shared page frame; sections.js = page list
+    ├── components/
+    │   ├── ui/           Reusable building blocks used on many pages:
+    │   │                 Icon, Logo, Bell, Card, Toggle, ThemeToggle,
+    │   │                 primitives.jsx (badges, dialog, toast),
+    │   │                 sectionKit.jsx (section, KPI, table, form field, charts)
+    │   └── <page>/       Pieces used by one page only: home/, work/, earnings/, live/, …
+    ├── hooks/            useXxx.js — page state and actions (one hook per area)
+    ├── data/             mockXxx.js — mock data until a backend exists
+    ├── lib/              Router, store, formatting, Text Questions rules
+    ├── config/           Theme → image map
+    ├── assets/images/    light/ and dark/ theme images
+    └── styles/           All CSS (Tailwind CSS v4) — no CSS lives next to components
+```
+
+## Where do I put…?
+
+| I am adding… | Put it in |
+|---|---|
+| A new section page | `src/pages/<Name>Page.jsx`, and register it in `src/pages/sections.js` |
+| A component used by one page | `src/components/<page>/` |
+| A component used by several pages | `src/components/ui/` |
+| Page state / actions | `src/hooks/use<Name>.js` |
+| Mock data | `src/data/mock<Name>.js` |
+| Helper functions | `src/lib/` |
+| An image | `src/assets/images/light/` or `src/assets/images/dark/` |
+| Styles | `src/styles/` (see below) |
+
+## Styling (`src/styles/`)
 
 | File / folder | Contents |
 |---|---|
-| `desktop.css` | Entry stylesheet of the desktop app (imported by `desktop/src/main.jsx`). Its import order is the cascade order. |
+| `index.css` | Entry stylesheet (imported by `src/main.jsx`). Its import order is the cascade order. |
 | `tailwind.css` | Tailwind setup: theme colours, fonts, breakpoints, `dark` variant. |
 | `tokens.css` | Light and dark theme values (colours, shadows, theme background images). |
 | `base.css` | Page-wide defaults (body, links, buttons, focus ring). |
-| `shared/` | Rules used at every screen size (`home.css`, `work.css`). |
+| `common/` | Rules for every screen size. |
 | `desktop/` | Desktop and tablet rules — wider than 760px. |
 | `mobile/` | Phone rules — 760px and narrower. |
+
+Each of `common/`, `desktop/` and `mobile/` has `home.css` (Home dashboard) and
+`sections.css` (My Work and every other section page; each page is scoped `.tq .pg--<key>`).
 
 Rules:
 
@@ -31,13 +70,9 @@ Rules:
 
 ## Imports
 
-Cross-folder imports use aliases (defined in `vite.config.js`):
-
-- `@shared/…` → `shared/`
-- `@assets/…` → `assets/`
-- `@astrology-css/…` → `astrology-css/`
-
-Imports inside the same app folder stay relative.
+- From another folder: `@/…` (→ `src/`), e.g. `import Icon from '@/components/ui/Icon.jsx'`.
+- From the same folder: `./…`.
+- Inside `src/styles/`, CSS imports stay relative.
 
 ## Running
 
@@ -45,9 +80,9 @@ From this folder:
 
 ```sh
 npm install
-npm run dev:desktop      # dev server
-npm run build:desktop    # production build → dist/desktop/
-npm run preview:desktop  # serve the production build
+npm run dev       # dev server
+npm run build     # production build → dist/
+npm run preview   # serve the production build
 ```
 
 Theme (light / dark) is set with the `data-theme` attribute on `<html>` and remembered in `localStorage` (`astro-theme`).
