@@ -201,13 +201,20 @@
 .tq .pg--work .disc { display: flex; flex-direction: column; gap: 8px; }
 .tq .pg--work .disc-pct { min-width: 56px; text-align: center; }
 .tq .pg--work .tpl .clip { max-width: 100%; }
+/* Template card: text left (ellipsis), Edit/Delete right; buttons wrap below only on narrow screens. */
+.tq .pg--work .card.tpl { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.tq .pg--work .card.tpl > .grow { flex: 1 1 180px; min-width: 0; }
 .tq .pg--work .tl-open { align-self: flex-start; }
 .tq .pg--work .form .check { height: 44px; padding: 0 12px; border: 1.5px solid var(--gold); border-radius: 12px; }
 .tq .pg--work textarea { min-width: 0; }
 /* Dialogs (outside .pg) */
 .tq .tq-dialog .note { padding: 10px 12px; border-radius: 12px; background: var(--sf2); font-size: 12.5px; line-height: 1.5; overflow-wrap: anywhere; }
 .tq .tq-dialog .req::after { content: ' *'; color: var(--bad); }
-.tq .tq-dialog .form input, .tq .tq-dialog .form select { width: 100%; }
+.tq .tq-dialog .form input:not([type='radio']):not([type='checkbox']), .tq .tq-dialog .form select { width: 100%; }
+/* Radio/checkbox rows in dialogs: fixed-size control, label text wraps inside the row. */
+.tq .tq-dialog .form label.radio input, .tq .tq-dialog .form label.check input { flex: none; width: 18px; height: 18px; }
+.tq .tq-dialog .form label.radio, .tq .tq-dialog .form label.check { height: auto; min-height: 44px; padding: 8px 12px; }
+.tq .tq-dialog .form label.radio .grow, .tq .tq-dialog .form label.check .grow { min-width: 0; overflow-wrap: anywhere; }
 .tq .tq-dialog .pv-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* ---------- Appointments (My Work → Appointments; reference "05 Appointments") ---------- */
@@ -283,11 +290,15 @@
 .tq .pg { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .tq .pg > * { min-width: 0; max-width: 100%; }
 .tq .pg-back { align-self: flex-start; }
+/* Page titles/subtitles may contain long unspaced terms (e.g. "Wallet/Earnings/Commission/…"): let them wrap. */
+.tq .pg > p.muted, .tq .top h1, .tq .top p, .tq .mtop h1 { overflow-wrap: anywhere; }
 .tq .pg .card, .tq .pg .kpi, .tq .pg .empty {
   background: var(--card-surface); box-shadow: var(--card-shadow); backdrop-filter: blur(8px);
 }
 .tq .pg .card { gap: 12px; padding: 16px 18px; }
 .tq .pg .h { font-size: 21px; }
+/* Section heading never shrinks under its right-side controls; the controls wrap below instead. */
+.tq .pg .sec > .row > .h { min-width: min-content; }
 .tq .pg h3 { font-size: 17px; }
 .tq .pg .stack { display: flex; flex-direction: column; gap: 10px; }
 .tq .pg .note { padding: 10px 12px; border-radius: 12px; background: var(--sf2); font-size: 12.5px; line-height: 1.5; }

@@ -80,7 +80,9 @@
   .ac-peakchip--body { display: none; }
   .ac-peakchip--head { display: flex; gap: 6px; padding: 3px 9px; font-size: 11px; background: transparent; white-space: nowrap; flex-shrink: 0; }
   .ac-peakchip--head svg { display: none; }
-  .ac-peakcard .ac-card__title { min-width: 0; font-size: 17px; white-space: nowrap; }
+  .ac-peakcard .ac-card__title { min-width: max-content; font-size: 17px; white-space: nowrap; }
+  /* Narrow phones: the Peak Time chip moves under the title instead of covering it. */
+  .ac-peakcard .ac-card__head { flex-wrap: wrap; row-gap: 8px; }
   .ac-bars { gap: 14px; height: 96px; padding: 0 8px; border-bottom-width: 1.5px; }
   .ac-bar { gap: 4px; }
   .ac-bar__value { font-size: 17px; }
@@ -125,5 +127,16 @@
   .ac-tw { gap: 10px; }
   .ac-tw__card { padding: 12px; }
   .ac-tw__bar { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto; font-size: 12px; }
+  /* Rows: time tile | text; the status badge / "Dispute Details" goes under the text. */
+  .ac-tw__row { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; row-gap: 4px; align-items: center; }
+  .ac-tw__row > :nth-child(n+3), .ac-tw__row > .ac-tw__badge > * { grid-column: 2; justify-self: start; }
+  .ac-tw__time { grid-row: span 2; }
   .ac-header__brand .ac-more .ac-iconbtn { width: 44px; height: 44px; border-radius: 10px; }
+}
+
+/* Very narrow phones (≤ 359px): Today's Earnings amount gets its own row; week/month tiles side by side below. */
+@media (max-width: 359px) {
+  .ac-earn { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .ac-today { grid-column: 1 / -1; }
+  .ac-today__sub { max-width: none; }
 }
