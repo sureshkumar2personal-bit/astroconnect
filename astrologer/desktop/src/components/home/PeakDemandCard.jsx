@@ -22,9 +22,11 @@ export default function PeakDemandCard({ data }) {
           <div key={p.key} className={`ac-barlabel ${p.key === data.peak ? 'is-peak' : ''}`}>
             <Icon name={p.icon} size={22} stroke={p.key === data.peak ? 1.8 : 1.7} className="ac-barlabel__icon" />
             {p.key}
+            <span className="ac-barlabel__range">{p.range}</span>
           </div>
         ))}
       </div>
+      <p className="ac-card__caption">Last 7 days of Text Question and Appointment bookings · IST</p>
     </Card>
   );
 }

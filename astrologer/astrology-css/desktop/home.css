@@ -5,6 +5,7 @@
 @media (min-width: 1200px) {
   .ac-header + .ac-grid { grid-template-columns: 1fr 1.06fr 1.12fr; }
   .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
+  .ac-grid--two { grid-template-columns: 1.4fr 1fr; }
 }
 /* Dark uses a portrait nebula; on landscape screens shift it down so the mountain ridge
    sits towards the bottom instead of mid-screen. */
@@ -23,11 +24,6 @@
 
 /* ---------- Light reference layout details (desktop/tablet only) ---------- */
 @media (min-width: 761px) {
-  /* Appointments summary sits in a raised tile, as in the reference. */
-  :root[data-theme='light'] .ac-work-appt {
-    background: var(--tile); border: 1.5px solid var(--tile-border); border-radius: 14px;
-    box-shadow: var(--tile-shadow); padding: 10px 12px;
-  }
   /* Earnings: big figure + growth on the left, week/month tiles stacked on the right. */
   :root[data-theme='light'] .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
   :root[data-theme='light'] .ac-today { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 0 0 4px; }
@@ -51,14 +47,14 @@
 
 /* Three-column desktop: keep labels on one line at the narrower card widths. */
 @media (min-width: 1200px) {
-  .ac-work-appt { flex-wrap: nowrap; }
-  .ac-work-appt__next { min-width: 0; }
-  .ac-work__big { font-size: 18px; }
-  .ac-work__time { font-size: 15px; }
-  .ac-work-q__title { font-size: 16px; white-space: nowrap; }
   .ac-counts { min-width: 190px; }
   .ac-activity__item { gap: 10px; padding: 12px 0; }
   .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
   .ac-activity__time { font-size: 12.5px; }
   .ac-wide-btn { font-size: 16px; }
+}
+
+/* Recent Activity + Quick Actions row (after the full-width Today's Work). */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .ac-grid--two > :nth-child(3) { grid-column: auto; }
 }

@@ -35,6 +35,7 @@ export default function EarningsCard({ data }) {
         <div className="ac-today__main">
           <div className="ac-today__amount">{data.today.amount}</div>
           <div className="ac-today__label">Today</div>
+          <div className="ac-today__sub">Expected net today, after commission, from today's booked work</div>
         </div>
         <div className="ac-today__rule" />
         <div className="ac-today__change">
@@ -47,6 +48,7 @@ export default function EarningsCard({ data }) {
         <Period p={data.month} />
       </div>
       </div>
+      <p className="ac-card__caption">This Week and This Month count completed services. Refunds appear only in <a href="#/earnings">Wallet</a>. Sample figures.</p>
     </Card>
   );
 }

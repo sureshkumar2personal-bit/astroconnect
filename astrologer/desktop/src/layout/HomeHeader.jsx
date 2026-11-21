@@ -2,6 +2,7 @@ import Icon from '@shared/components/Icon.jsx';
 import Bell from '@shared/components/Bell.jsx';
 import Logo from '@shared/components/Logo.jsx';
 import ThemeToggle from '@shared/components/ThemeToggle.jsx';
+import MoreMenu from './MoreMenu.jsx';
 
 // Welcome & Profile (AD-02): name, profile photo, notification access.
 // Desktop: avatar + greeting + date/bell/account. Mobile: brand row + bell, then avatar + greeting.
@@ -12,6 +13,7 @@ export default function HomeHeader({ theme, onToggleTheme, name, initial, unread
         <Logo theme={theme} className="ac-header__logo" />
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         <Bell unread={unread} />
+        <MoreMenu />
       </div>
 
       <div className="ac-header__welcome">

@@ -1,9 +1,10 @@
 import Icon from '@shared/components/Icon.jsx';
 import Logo from '@shared/components/Logo.jsx';
 import { mainNav, secondaryNav, navHref, workNav } from '@shared/data/mockHome.js';
+import { PendingTag } from '@shared/components/ui.jsx';
 
-// Desktop/tablet navigation. Home and My Work navigate; the other destinations are
-// separate modules (AD-23). My Work shows its sub-pages while it is active.
+// Desktop/tablet navigation: the five main tabs (AD-03) and the "More" pages.
+// My Work shows its sub-pages while it is active.
 export default function Sidebar({ theme, active = 'home', workView }) {
   const inert = (e) => e.preventDefault();
   return (
@@ -31,12 +32,14 @@ export default function Sidebar({ theme, active = 'home', workView }) {
         </div>
       ))}
       <div className="ac-sidebar__rule" />
+      <span className="ac-sidebar__grp">More</span>
       {secondaryNav.map((n) => (
-        <a key={n.key} href="#" onClick={inert} className="ac-navlink ac-navlink--small">
+        <a key={n.key} href={n.href} aria-current={n.key === active ? 'page' : undefined} className={`ac-navlink ac-navlink--small ${n.key === active ? 'is-active' : ''}`}>
           <Icon name={n.icon} size={22} />
           {n.label}
         </a>
       ))}
+      <span className="ac-sidebar__pend"><PendingTag id="AP-GL-02 placement" /></span>
     </nav>
   );
 }
