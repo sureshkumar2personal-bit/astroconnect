@@ -74,6 +74,12 @@ function Activity() {
                   <button className="btn-g u-16" onClick={x.resched}>Reschedule or cancel</button>
                 </div>
               ) : null}
+              {x.corrActive ? (
+                <div className="u-36">
+                  <span className="u-13">{"The astrologer asked for a correction. Original deadline: "}{x.corrDue}{" (IST)."}</span>
+                  <button className="btn-p u-16" onClick={x.corrReplace}>Replace question</button>
+                </div>
+              ) : null}
               {x.needRate ? (
                 <div className="u-36">
                   <button className="btn-p u-16" onClick={x.rate}>{x.rateLabel}</button>

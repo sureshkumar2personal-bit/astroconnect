@@ -30,6 +30,20 @@ function Dialog() {
             </div>
           </>
         ) : null}
+        {app.dCorrect ? (
+          <>
+            <p className="u-30">The astrologer asked you to correct your question. You can only replace it with another General Question, using the same slot at no extra cost. A General Question allows no attachments, and upgrading to Personal is not available (D-34).</p>
+            <div className="u-13">{"Current question: "}{app.corrQ.title}</div>
+            <label className="u-11" htmlFor="cq">Replacement General Question</label>
+            <textarea className="inp" id="cq" rows="5" maxLength="1000" placeholder="Write your replacement question" value={app.note ?? ""} onChange={app.onNote} />
+            <div className="u-15">{app.corrQ.n}{" / 1,000 characters"}</div>
+            <p className="u-15">{"The original deadline ("}{app.corrQ.due}{" IST) does not restart. If you do not reply before it, the question is cancelled and refunded to your Wallet (AD-35, D-32)."}</p>
+            <div className="u-1">
+              <button className="btn-p" onClick={app.submitCorrection}>Resubmit question</button>
+              <button className="btn-g" onClick={app.closeDlg}>Cancel</button>
+            </div>
+          </>
+        ) : null}
         {app.dRdone ? (
           <>
             <p className="u-30">{app.rdTitle}</p>

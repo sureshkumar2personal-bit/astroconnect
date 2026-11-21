@@ -152,11 +152,22 @@ function advance(st) {
     if (q.type !== "Question" || q.cancelled) return q;
     const online = ASTRO[q.astro] && ASTRO[q.astro].online;
     let n = q;
+    // Astrologer asked for a correction: the question waits for the user, and the original
+    // 30-day deadline keeps running (AD-35). No reply in time: cancelled and refunded to the Wallet.
+    if (!n.answeredAt && n.corr && n.corr.active) {
+      if (now - n.submittedAt >= 30 * DAY) {
+        n = { ...n, cancelled: true };
+        wallet += n.paid || 0;
+        txns = [{ label: "Refund · correction not answered · " + q.who, when: "Just now", amt: n.paid || 0, sign: 1 }].concat(txns);
+        msg = "No reply to the correction request before the original deadline - question cancelled and refunded to your Wallet (AD-35, D-32)";
+      }
+      return n;
+    }
     if (!n.answeredAt) {
       if (online) {
         if (!n.openedAt && real - (n.simStart || 0) >= 10000) n = { ...n, openedAt: now };
         if (n.openedAt && real - (n.simStart || 0) >= 25000) {
-          n = { ...n, answeredAt: now, answer: SAMPLE_ANSWER };
+          n = { ...n, answeredAt: now, answer: SAMPLE_ANSWER, attachments: [{ name: "chart.jpg" }, { name: "guidance.pdf" }, { name: "notes.txt" }], links: [{ label: "Reading about your planetary periods", url: "https://example.com/periods" }] };
           remedies = [{ id: "r-" + q.id + "-a", type: "Remedy", actId: q.id, astro: q.astro, title: "Sample remedy from your answer: light a diya on Thursday evenings.", src: "Text Question · " + q.who }].concat(remedies);
           msg = q.who + " answered your question - please rate the answer";
         }
@@ -261,7 +272,7 @@ const keyOf={home:'Home',explore:'Explore',astro:'Explore',services:'Services',t
 const nav=['Home','Explore','Services','Activity','Profile'].map(l=>{const on=keyOf[st]===l;return{label:l,d:ICON[l],cls:'nv'+(on?' on':''),mcls:'mt'+(on?' on':''),go:go(l.toLowerCase())};});
 const svc=(n,b,go,pend,pid)=>({name:n,blurb:b,go,pend,pid});
 const soon=()=>showToast('This flow is designed in the next pass');
-const services=[svc('Text Question','Ask an astrologer a written question and receive an answer.',go('text'),false,''),svc('Appointment','Book a scheduled consultation.',go('appt'),true,'P-07-09'),svc('Instant Call','Talk to an astrologer now.',go('session',{kind:'Call',phase:'idle'}),true,'P-08-07'),svc('Instant Chat','Chat with an astrologer now.',go('session',{kind:'Chat',phase:'idle'}),true,'P-09-07')];
+const services=[svc('Text Question','Ask an astrologer a written question and receive an answer.',go('text'),false,''),svc('Appointment','Book a scheduled voice consultation.',go('appt'),false,''),svc('Instant Call','Talk to an astrologer now.',go('session',{kind:'Call',phase:'idle'}),false,''),svc('Instant Chat','Chat with an astrologer now.',go('session',{kind:'Chat',phase:'idle'}),false,'')];
 const list=ASTRO.filter(a=>vis(a)&&(s.cat==='All'||a.cats.indexOf(s.cat)>=0)&&(!s.online||a.online)&&(!s.q||(a.name+a.spec+a.langs).toLowerCase().indexOf(s.q.toLowerCase())>=0)).map(card);
 const openDlg=(k,e)=>()=>setState({dlg:{k,...(e||{})},rate:0,note:''});
 const nowT=Date.now()+(s.skew||0);
@@ -274,7 +285,7 @@ const actList=s.acts.filter(x=>s.actTab==='All'||x.type===tabType[s.actTab]).map
 const isA=x.type==='Appointment'&&!!x.start,leftMs=isA?x.start-nowT:0;
 const patchAct=u=>setState({acts:s.acts.map(a=>a.id===x.id?{...a,...u}:a)});
 const startResched=(free)=>()=>{setState({reschedId:x.id,reschedFree:!!free,astro:x.astro,apptSlot:null,apptDay:Math.max(0,Math.floor((x.start-dayStart(nowT))/DAY)),apptWeek:0,dlg:null});navigate('/appt');};
-return{...x,focus:s.focusId===x.id,when:isA?fmtDT(x.start)+' IST · '+x.dur+' min':x.when,apptInfo:isA?'Voice consultation · '+x.dur+' min · booked price ₹'+x.price+' · you can join from 5 minutes before the start, with a 5-minute grace period after it (D-42)':'',
+return{...x,focus:s.focusId===x.id,corrActive:isQ&&!x.answeredAt&&!x.cancelled&&!!(x.corr&&x.corr.active),corrDue:fmtIST((x.submittedAt||nowT)+30*DAY),corrReplace:openDlg('correct',{id:x.id}),when:isA?fmtDT(x.start)+' IST · '+x.dur+' min':x.when,apptInfo:isA?'Voice consultation · '+x.dur+' min · booked price ₹'+x.price+' · you can join from 5 minutes before the start, with a 5-minute grace period after it (D-42)':'',
 canJoin:isA&&x.status==='Upcoming'&&leftMs<=5*60000&&leftMs>-5*60000,join:()=>{patchAct({status:'In progress',joinedAt:nowT});showToast('Joined the consultation');},
 inProg:isA&&x.status==='In progress',discNow:!!x.discAt,disc:()=>patchAct({discAt:Date.now()}),
 astroCx:isA&&x.status==='Astrologer cancelled',cxRefund:()=>{patchAct({status:'Cancelled by astrologer · refunded'});setState({wallet:s.wallet+(x.price||0),txns:[{label:'Refund · astrologer cancelled · '+x.who,when:'Just now',amt:x.price||0,sign:1}].concat(s.txns),acts:s.acts.map(a=>a.id===x.id?{...a,status:'Cancelled by astrologer · refunded'}:a)});showToast('Full refund credited to your Wallet (D-41)');},cxResched:startResched(true),
@@ -282,7 +293,6 @@ canResched:isA&&x.status==='Upcoming',canDispute:isQ&&!!x.answeredAt&&!x.dispute
 
 const DAYS=['Thu 19 Nov','Fri 20 Nov','Sat 21 Nov','Sun 22 Nov','Mon 23 Nov'],TIMES=['10:00 AM','11:30 AM','2:00 PM','4:30 PM','6:00 PM','7:30 PM'];
 const isCall=s.kind==='Call';
-const pids=isCall?['P-08-01','P-08-02','P-08-06']:['P-09-01','P-09-02','P-09-06'];
 const sess=(patch)=>setState(patch);
 const addAct=(type,title,status,when)=>{const id=Date.now();setState({acts:[{id,type,who:cur.name,when,title,status}].concat(ref.current.acts),lastId:id});return id;};
 const bp=s.bps[s.bp];
@@ -511,7 +521,10 @@ toggles:[tgl('push','Push notifications','Channel confirmed (D-16)'),tgl('inapp'
 soon,
 isDark:s.theme==='dark',isLight:s.theme==='light',themeLabel:s.theme==='dark'?'Switch to light mode':'Switch to dark mode',toggleTheme:()=>{const n=s.theme==='dark'?'light':'dark';try{localStorage.setItem('ac-theme',n);}catch(e){}setState({theme:n});},
 sAnswer:st==='answer',sEdit:st==='edit',goEdit:go('edit'),
-ans:{...ansItem,status:ansStatus,st:chipSt(ansStatus)+';',left:ansLeft,bar:'height:100%;width:'+Math.round(ansLeft/7*100)+'%;background:var(--acc)',canDispute:ansDone&&!ansDsp&&ansLeft>0,windowClosed:ansDone&&!ansDsp&&ansLeft<=0,disputed:ansDsp,dispute:openDlg('dispute',{id:ansItem.id}),
+ans:{...ansItem,corrActive:!ansDone&&!ansCancelled&&!!(ansItem.corr&&ansItem.corr.active),corrCycles:(ansItem.corr&&ansItem.corr.cycles)||0,corrReplace:openDlg('correct',{id:ansItem.id}),
+canReqCorr:!ansDone&&!ansCancelled&&!(ansItem.corr&&ansItem.corr.active),
+reqCorr:()=>{setState({acts:s.acts.map(x=>x.id===ansItem.id?{...x,corr:{...(x.corr||{}),active:true,at:nowT}}:x),notifLog:(s.notifLog||[]).concat([{id:nowT+'-corr',cat:'Question',go:'activity',cta:'Open Activity',at:nowT,text:ansItem.who+' asked you to correct your question. Replace it with another General Question: same slot, no extra payment. The original deadline ('+fmtIST((ansItem.submittedAt||nowT)+30*DAY)+' IST) continues.'}])});showToast('Simulated: the astrologer requested a correction');},
+attList:(ansItem.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Sample file - this prototype has no real download')})),linkList:ansItem.links||[],len:(ansItem.answer||'').length,status:ansStatus,st:chipSt(ansStatus)+';',left:ansLeft,bar:'height:100%;width:'+Math.round(ansLeft/7*100)+'%;background:var(--acc)',canDispute:ansDone&&!ansDsp&&ansLeft>0,windowClosed:ansDone&&!ansDsp&&ansLeft<=0,disputed:ansDsp,dispute:openDlg('dispute',{id:ansItem.id}),
 due:fmtIST((ansItem.submittedAt||nowT)+30*DAY),rated:!!ansItem.rating,stars:'★'.repeat(ansItem.rating||0),needRate:ansDone&&!ansItem.rating,rate:openDlg('qrate',{id:ansItem.id}),
 dRaised:dpo?fmtIST(dpo.raisedAt):'',dAnswered:!!(dpo&&dpo.answeredAt),dAnswerText:dpo?dpo.answer:'',dAdmin:!!(dpo&&dpo.admin),
 canComplain:!!(dpo&&dpo.answeredAt)&&!cmpt&&complaintLeft>0,complaint:openDlg('complaint',{id:ansItem.id}),complained:!!cmpt,cLeft:complaintLeft},ansWaiting:!ansDone&&!ansCancelled,ansCancelled,ansDone,
@@ -519,7 +532,7 @@ skewDays:Math.round((s.skew||0)/DAY),addSkew:n=>()=>{setState({skew:(s.skew||0)+
 submitRate:()=>{if(!s.rate){showToast('A rating is required');return;}setState({acts:s.acts.map(x=>x.id===s.dlg.id?{...x,rating:s.rate,review:(s.note||'').trim(),ratedAt:nowT}:x),dlg:null});showToast('Thank you. Your review cannot be edited or deleted; ask Platform Support for changes.');},
 submitComplaint:()=>{const t=(s.note||'').trim();if(!t){showToast('Describe the problem first');return;}setState({acts:s.acts.map(x=>x.id===s.dlg.id?{...x,complaint:{at:nowT,text:t}}:x),dlg:null});showToast('Platform Complaint submitted');},
 pname:s.pname,pini:(s.pname||'G')[0].toUpperCase(),onName:e=>setState({pname:e.target.value}),saveName:()=>showToast('Profile saved'),
-dlgOn:!!s.dlg,dlgTitle:{rdone:'Mark remedy Completed',subscribe:'Subscribe',pay:'Pay directly',qrate:(rateIsQ?'Rate this answer':'Rate this consultation'),scomplaint:'Platform complaint',chatlog:'Chat messages',complaint:'Platform Complaint',review:'Write a review',dispute:'Raise a dispute',notif:'Notification',resched:'Reschedule or cancel',report:'Share or report',terms:'Subscription terms'}[dk]||'',
+dlgOn:!!s.dlg,dlgTitle:{correct:'Replace your question',rdone:'Mark remedy Completed',subscribe:'Subscribe',pay:'Pay directly',qrate:(rateIsQ?'Rate this answer':'Rate this consultation'),scomplaint:'Platform complaint',chatlog:'Chat messages',complaint:'Platform Complaint',review:'Write a review',dispute:'Raise a dispute',notif:'Notification',resched:'Reschedule or cancel',report:'Share or report',terms:'Subscription terms'}[dk]||'',
 rs,rateNote:rateIsQ?'A rating is required after every answer. It does not stop you from raising a dispute (D-17).':'A rating of 1–5 stars is required after every consultation; written feedback is optional (D-10).',dScomplaint:dk==='scomplaint',dChatlog:dk==='chatlog',cl,dPay:dk==='pay',payAmt:s.dlg&&s.dlg.k==='pay'?s.dlg.amt:0,payLabel:s.dlg&&s.dlg.k==='pay'?s.dlg.label:'',upi:s.upi,onUpi:e=>setState({upi:e.target.value}),payMs:['UPI','Bank / card'].map(m=>({label:m,cls:'chip'+(s.payM===m?' on':''),go:()=>setState({payM:m})})),payIsUpi:s.payM==='UPI',confirmDirect,dReview:dk==='review',dQrate:dk==='qrate',dComplaint:dk==='complaint',noClose:dk==='qrate',dDispute:dk==='dispute',dNotif:dk==='notif',dResched:dk==='resched',dReport:dk==='report',dTerms:dk==='terms',closeDlg:()=>setState({dlg:null}),
 stars:[1,2,3,4,5].map(n=>({label:n+' star'+(n>1?'s':''),cls:'chip'+(s.rate>=n?' on':''),go:()=>setState({rate:n})})),note:s.note,onNote:e=>setState({note:e.target.value}),
 submitReview:()=>{if(!s.rate){showToast('Select a rating first');return;}setState({reviewed:{...s.reviewed,[s.dlg.id]:1},dlg:null});showToast('Review submitted. Thank you!');},
@@ -541,7 +554,13 @@ mark:openDlg('rdone',{id:r.id})};}),
 rdTitle:(()=>{const r=s.dlg&&s.dlg.k==='rdone'?s.remedies.find(x=>x.id===s.dlg.id):null;return r?r.title:'';})(),rdFile:s.rdFile,
 onRdFile:e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;if(!/\.(jpe?g|png|pdf|docx?|txt)$/i.test(f.name)){showToast('Attach a photo or document (JPG, PNG, PDF, DOC or TXT)');return;}if(f.size>10*1024*1024){showToast('Files can be up to 10 MB');return;}setState({rdFile:f.name});},
 confirmDone:()=>{const id=s.dlg&&s.dlg.id;setState({remedies:s.remedies.map(r=>r.id===id?{...r,done:true,doneAt:nowT,proof:s.rdFile||null}:r),dlg:null,rdFile:''});showToast('Marked Completed. Only you can do this (D-29)');},
-dRdone:dk==='rdone',
+dRdone:dk==='rdone',dCorrect:dk==='correct',
+corrQ:(()=>{const q=dk==='correct'?s.acts.find(x=>x.id===s.dlg.id):null;return q?{title:q.title,due:fmtIST((q.submittedAt||nowT)+30*DAY),n:(s.note||'').length}:{title:'',due:'',n:0};})(),
+submitCorrection:()=>{const id=s.dlg&&s.dlg.id,t=(s.note||'').trim();const q=s.acts.find(x=>x.id===id);if(!q||!q.corr||!q.corr.active){setState({dlg:null});showToast('There is no correction request to answer');return;}
+if(!t){showToast('Write the replacement General Question first');return;}if(t.length>1000){showToast('Questions are limited to 1,000 characters');return;}
+setState({dlg:null,acts:s.acts.map(x=>x.id===id?{...x,title:t,kind:'General',consentAt:null,openedAt:null,simStart:Date.now(),corr:{active:false,cycles:((x.corr&&x.corr.cycles)||0)+1,lastAt:nowT}}:x),
+notifLog:(s.notifLog||[]).concat([{id:nowT+'-rs',cat:'Question',go:'activity',cta:'Open Activity',at:nowT,text:'Your corrected General Question went back to '+q.who+'. The original deadline continues.'}])});showToast('Replaced with a General Question - it returned to the astrologer (AD-35)');},
+
 consentChk:s.consentChk,toggleConsent:()=>setState({consentChk:!s.consentChk}),consents:s.acts.filter(x=>x.consentAt).map(x=>({text:x.kind+' Question to '+x.who,when:fmtDT(x.consentAt)+' IST'})),hasConsents:s.acts.some(x=>x.consentAt),
 faqs:faqs.map((f,i)=>({q:f[0],a:f[1],open:s.faq===i,sign:s.faq===i?'−':'+',go:()=>setState({faq:s.faq===i?-1:i})})),contact:()=>showToast('Support channels are not decided yet'),
 login1:s.loginStep===1,login2:s.loginStep===2,loginNext:()=>setState({loginStep:2}),
