@@ -47,3 +47,8 @@
   color:var(--em);
   align-self:flex-start;
 }
+
+:root .answer-detail-page .ad-att { display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+:root .answer-detail-page .ad-link { color:var(--acc); text-decoration:underline; }
+
+:root .answer-detail-page .ad-proto { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }

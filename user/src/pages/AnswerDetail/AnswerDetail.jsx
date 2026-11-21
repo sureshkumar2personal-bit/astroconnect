@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useApp, cssToStyle } from "../../context/AppContext";
 import "./AnswerDetail.css";
 
@@ -25,6 +25,17 @@ function AnswerDetail() {
       {app.ansWaiting ? (
         <section className="card u-14">{"Waiting for "}{app.ans.who}{" to answer. Answer due by "}{app.ans.due}{" (30 days, IST). If it is not answered in time, the question is cancelled and refunded to your Wallet (D-18, D-32). We will notify you (critical alert · D-15)."}</section>
       ) : null}
+      {app.ans.corrActive ? (
+        <section className="card u-29">
+          <h2 className="u-41">Correction requested</h2>
+          <p className="u-33">{"The astrologer asked you to correct this question. Replace it with another General Question: same slot, no extra payment, no upgrade to Personal (AD-35, D-34). The original deadline ("}{app.ans.due}{" IST) continues."}</p>
+          <div><button className="btn-p" onClick={app.ans.corrReplace}>Replace question</button></div>
+        </section>
+      ) : null}
+      {app.ans.corrCycles ? <p className="u-15">{"Corrections so far: "}{app.ans.corrCycles}{". The astrologer may ask again; the original deadline continues."}</p> : null}
+      {app.ans.canReqCorr ? (
+        <div className="ad-proto"><span className="u-13">Prototype control (sample):</span> <button className="chip" onClick={app.ans.reqCorr}>Astrologer requests a correction</button></div>
+      ) : null}
       {app.ansCancelled ? (
         <section className="card u-14">{"Not answered within 30 days: this question was cancelled and the amount refunded to your Wallet (D-18, D-32)."}</section>
       ) : null}
@@ -33,6 +44,29 @@ function AnswerDetail() {
           <section className="card answer-detail-2">
             <h2 className="u-41">Astrologer's answer</h2>
             <p className="answer-detail-3">{app.ans.answer}</p>
+            <div className="u-13">{app.ans.len}{" / 1,500 characters · typed or converted from voice · cannot be edited after delivery (D-23)"}</div>
+            {app.ans.attList.length ? (
+              <div className="ad-att">
+                <span className="u-13">{"Attachments ("}{app.ans.attList.length}{" of 3 · JPEG, PDF or TXT)"}</span>
+                <div className="u-12">
+                  {app.ans.attList.map((f, i1) => (
+                    <Fragment key={i1}>
+                      <button className="chip" onClick={f.open}>{f.name}{" · "}{f.kind}</button>
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {app.ans.linkList.length ? (
+              <div className="ad-att">
+                <span className="u-13">Links</span>
+                {app.ans.linkList.map((l, i1) => (
+                  <Fragment key={i1}>
+                    <a className="ad-link" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>
+                  </Fragment>
+                ))}
+              </div>
+            ) : null}
             {app.ans.rated ? <div className="u-13">{"Your rating: "}{app.ans.stars}{" · reviews cannot be edited or deleted"}</div> : <div><button className="btn-p" onClick={app.ans.rate}>Rate this answer (required)</button></div>}
             <button className="card hov answer-detail-4" onClick={app.goRemedy}>
               <span className="answer-detail-5">REMEDY ATTACHED</span>

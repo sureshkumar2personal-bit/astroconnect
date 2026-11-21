@@ -15,7 +15,7 @@ export const CAMPS=[
 {id:'c2',name:'Detailed Reading',note:'In-depth written answer',general:{price:199,disc:10},personal:{price:299,disc:25},daysLeft:2},
 {id:'c3',name:'Festival Special',special:'Special Campaign · Festival',note:'Occasion-based offer',general:{price:149,disc:30},personal:null,daysLeft:20}];
 export const ACTS0=[
-{id:1,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'2 days ago',title:'Will a job change this year work out for me?',submittedAt:Date.now()-3*86400000,openedAt:Date.now()-3*86400000+10000,answeredAt:Date.now()-2*86400000,answer:'Sample answer: your chart shows a supportive period for change between March and June. Prepare early and avoid signing anything in the first week of April.',paid:99},
+{id:1,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'2 days ago',title:'Will a job change this year work out for me?',submittedAt:Date.now()-3*86400000,openedAt:Date.now()-3*86400000+10000,answeredAt:Date.now()-2*86400000,answer:'Sample answer: your chart shows a supportive period for change between March and June. Prepare early and avoid signing anything in the first week of April.',paid:99,attachments:[{name:'job-timing-chart.pdf'},{name:'summary.txt'}],links:[{label:'Understanding dasha periods',url:'https://example.com/dasha'}]},
 {id:2,type:'Appointment',astro:1,who:'Arvind Nair',when:'Sat, 10:30 AM',title:'Career consultation',status:'Upcoming',start:Date.now()+3*86400000+3600000,dur:30,price:349,bookedAt:Date.now()-86400000,sent:[],reschedCount:0},
 {id:3,type:'Call',who:'Karthik Subramanian',when:'Last week',title:'Instant Call · 12 min',status:'Completed'},
 {id:4,type:'Chat',who:'Rahul Menon',when:'Last week',title:'Instant Chat · 9 min',status:'Completed'}];
