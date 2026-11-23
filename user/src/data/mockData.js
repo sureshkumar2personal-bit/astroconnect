@@ -6,7 +6,11 @@ export const ASTRO=[
 {id:2,name:'Lakshmi Varma',spec:'Tarot · Guidance',langs:'Hindi, English',online:false,cats:['Tarot'],bio:'Sample profile text. Intuitive tarot sessions for everyday decisions.'},
 {id:3,name:'Karthik Subramanian',spec:'Numerology',langs:'Tamil, English',online:true,cats:['Numerology'],bio:'Sample profile text. Name and date-based numerology guidance.'},
 {id:4,name:'Sunita Deshmukh',spec:'Vastu · Home & Office',langs:'Marathi, Hindi',online:false,cats:['Vastu'],bio:'Sample profile text. Space and direction advice for homes and workplaces.'},
-{id:5,name:'Rahul Menon',spec:'Palmistry',langs:'Malayalam, English',online:true,cats:['Palmistry'],bio:'Sample profile text. Palm reading with practical interpretation.'}];
+{id:5,name:'Rahul Menon',spec:'Palmistry',langs:'Malayalam, English',online:true,cats:['Palmistry'],bio:'Sample profile text. Palm reading with practical interpretation.'},
+{id:6,name:'Vasanthi Raghavan',spec:'Vedic · Health & Wellbeing',langs:'Tamil, English',online:true,cats:['Vedic'],bio:'Sample profile text. Gentle guidance on health routines and wellbeing using the birth chart.'},
+{id:7,name:'Tarun Verma',spec:'Lal Kitab · Remedies',langs:'Hindi, Punjabi, English',online:true,cats:['Vedic'],bio:'Sample profile text. Simple, practical remedies explained step by step.'},
+{id:8,name:'Anjali Pillai',spec:'Prashna · Quick Answers',langs:'Malayalam, English',online:false,cats:['KP'],bio:'Sample profile text. Short, focused answers to a single pressing question.'},
+{id:9,name:'Mohan Krishnan',spec:'Jaimini · Career',langs:'Tamil, Telugu, English',online:true,cats:['Vedic'],bio:'Sample profile text. Career direction and timing using the Jaimini system.'}];
 export const CATS=['All','Vedic','KP','Tarot','Numerology','Vastu','Palmistry'];
 // Sample campaigns: prices, discounts and expiry are sample values (P-06-13 is still open).
 export const CAMPS=[
@@ -15,7 +19,12 @@ export const CAMPS=[
 {id:'c2',name:'Detailed Reading',note:'In-depth written answer',general:{price:199,disc:10},personal:{price:299,disc:25},daysLeft:2},
 {id:'c3',name:'Festival Special',special:'Special Campaign · Festival',note:'Occasion-based offer',general:{price:149,disc:30},personal:null,daysLeft:20}];
 export const ACTS0=[
-{id:1,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'2 days ago',title:'Will a job change this year work out for me?',submittedAt:Date.now()-3*86400000,openedAt:Date.now()-3*86400000+10000,answeredAt:Date.now()-2*86400000,answer:'Sample answer: your chart shows a supportive period for change between March and June. Prepare early and avoid signing anything in the first week of April.',paid:99,attachments:[{name:'job-timing-chart.pdf'},{name:'summary.txt'}],links:[{label:'Understanding dasha periods',url:'https://example.com/dasha'}]},
+{id:1,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'2 days ago',title:'Will a job change this year work out for me?',submittedAt:Date.now()-3*86400000,openedAt:Date.now()-3*86400000+10000,answeredAt:Date.now()-2*86400000,answer:'Sample answer: your chart shows a supportive period for change between March and June. Prepare early and avoid signing anything in the first week of April.',paid:99,camp:'Quick Answer',attachments:[{name:'job-timing-chart.pdf'},{name:'summary.txt'}],links:[{label:'Understanding dasha periods',url:'https://example.com/dasha'}]},
+{id:6,type:'Question',kind:'Personal',astro:2,who:'Lakshmi Varma',when:'2 days ago',title:'I feel low on energy for a few weeks. Does my chart show a good window for recovery?',submittedAt:Date.now()-2*86400000,openedAt:Date.now()-2*86400000+10000,simStart:0,paid:149,camp:'Detailed Reading',consentAt:Date.now()-2*86400000},
+{id:7,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'4 days ago',title:'When is a good time for marriage discussions to move forward?',submittedAt:Date.now()-6*86400000,openedAt:Date.now()-6*86400000+10000,answeredAt:Date.now()-4*86400000,answer:'Sample answer: the second half of next month looks favourable for family discussions. Keep the first meeting simple and unhurried.',paid:99,camp:'Open Question',rating:4,review:'Clear and kind.',dispute:{raisedAt:Date.now()-2*86400000,simStart:0,answeredAt:Date.now()-86400000,answer:'Sample additional answer: here is more detail on the timing, with a clearer weekly outline.'}},
+{id:8,type:'Question',kind:'General',astro:4,who:'Sunita Deshmukh',when:'Last month',title:'Is this a good direction for my new office entrance?',submittedAt:Date.now()-35*86400000,openedAt:null,simStart:0,paid:99,camp:'Quick Answer',cancelled:true},
+{id:9,type:'Question',kind:'General',astro:1,who:'Arvind Nair',when:'3 weeks ago',title:'Is this the right time to accept the new role I was offered?',submittedAt:Date.now()-22*86400000,openedAt:Date.now()-22*86400000+10000,answeredAt:Date.now()-20*86400000,answer:'Sample answer: the offer looks well timed. Confirm the joining date in the second week of the month.',paid:99,camp:'Career & Education',rating:5,review:'Practical and clear.'},
+{id:10,type:'Question',kind:'Personal',astro:0,who:'Meenakshi Iyer',when:'6 weeks ago',title:'Which period suits expanding my business into a second city?',submittedAt:Date.now()-44*86400000,openedAt:Date.now()-44*86400000+10000,answeredAt:Date.now()-41*86400000,answer:'Sample answer: the quarter after next is the stronger window. Start preparations early and avoid signing in the first week.',paid:250,camp:'Business & Finance',rating:4,consentAt:Date.now()-44*86400000},
 {id:2,type:'Appointment',astro:1,who:'Arvind Nair',when:'Sat, 10:30 AM',title:'Career consultation',status:'Upcoming',start:Date.now()+3*86400000+3600000,dur:30,price:349,bookedAt:Date.now()-86400000,sent:[],reschedCount:0},
 {id:3,type:'Call',who:'Karthik Subramanian',when:'Last week',title:'Instant Call · 12 min',status:'Completed'},
 {id:4,type:'Chat',who:'Rahul Menon',when:'Last week',title:'Instant Chat · 9 min',status:'Completed'}];
@@ -41,7 +50,15 @@ export const REVIEWS=[
 {id:8,astro:3,stars:5,text:'Numerology made simple and accurate.',source:'Instant Call'},
 {id:9,astro:3,stars:3,text:'Helpful, though the call was short.',source:'Instant Call'},
 {id:10,astro:4,stars:5,text:'Great Vastu tips for my office layout.',source:'Appointment'},
-{id:11,astro:5,stars:4,text:'Palm reading with practical interpretation.',source:'Instant Chat'}];
+{id:11,astro:5,stars:4,text:'Palm reading with practical interpretation.',source:'Instant Chat'},
+{id:12,astro:6,stars:5,text:'Calm and caring advice for my daily routine.',source:'Appointment'},
+{id:13,astro:6,stars:4,text:'Clear guidance on what to focus on this month.',source:'Text Question'},
+{id:14,astro:7,stars:5,text:'The remedy steps were easy to follow.',source:'Text Question'},
+{id:15,astro:7,stars:4,text:'Practical and to the point.',source:'Instant Chat'},
+{id:16,astro:8,stars:4,text:'A quick answer when I needed one.',source:'Text Question'},
+{id:17,astro:9,stars:5,text:'Very helpful on career timing.',source:'Appointment'},
+{id:18,astro:9,stars:5,text:'Detailed and encouraging.',source:'Text Question'},
+{id:19,astro:9,stars:3,text:'Good insight, call was a little rushed.',source:'Instant Call'}];
 
 // Sample subscription tiers (D-31). Benefit questions are confirmed (1 / 3 / 4); prices and the term are
 // sample values because price, duration, renewal and cancellation are on hold (P-14-02 to P-14-05).
@@ -57,4 +74,20 @@ export const POSTS=[
 {id:6,astro:3,kind:'General',title:'Your name number, explained',text:'How a name number is calculated and what it suggests.'},
 {id:7,astro:3,kind:'Subscriber',tiers:['Platinum'],title:'Lucky dates (Platinum)',text:'Personal lucky-date notes for Platinum subscribers.'},
 {id:8,astro:4,kind:'General',title:'Entrance direction basics',text:'Why the direction of your front door matters in Vastu.'},
-{id:9,astro:5,kind:'General',title:'Reading the heart line',text:'A beginner guide to the heart line in palmistry.'}];
+{id:9,astro:5,kind:'General',title:'Reading the heart line',text:'A beginner guide to the heart line in palmistry.'},
+{id:10,astro:6,kind:'General',title:'Small daily habits and your chart',text:'Three simple habits that fit most charts.'},
+{id:11,astro:7,kind:'General',title:'Lal Kitab basics',text:'A short introduction to Lal Kitab remedies.'},
+{id:12,astro:9,kind:'General',title:'Career timing in Jaimini',text:'How the Jaimini system looks at career periods.'}];
+
+// Sample profile facts shown on Explore cards (profile fields are not decided yet - P-05-01).
+export const ASTRO_META={
+0:{years:8,followers:'8.4K',exp:['Marriage','Family','Vedic']},
+1:{years:12,followers:'6.2K',exp:['Career','Finance','KP']},
+2:{years:5,followers:'1.2K',exp:['Tarot','Guidance']},
+3:{years:9,followers:'2.8K',exp:['Name numbers','Lucky dates']},
+4:{years:11,followers:'3.2K',exp:['Home','Office','Direction']},
+5:{years:6,followers:'1.9K',exp:['Palm reading','Practical advice']},
+6:{years:10,followers:'4.1K',exp:['Health','Wellbeing','Routines']},
+7:{years:7,followers:'2.3K',exp:['Remedies','Lal Kitab']},
+8:{years:4,followers:'900',exp:['Quick answers','Prashna']},
+9:{years:13,followers:'5.6K',exp:['Career','Timing','Jaimini']}};

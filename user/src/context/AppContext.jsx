@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { GR, ASTRO, CATS, CAMPS, ACTS0, ICON, APPT_PRICE, PKGS, REQ_BEHAVIOR, REVIEWS, TIERS, TIER_DAYS, POSTS } from "../data/mockData";
+import { GR, ASTRO, CATS, CAMPS, ACTS0, ICON, APPT_PRICE, PKGS, REQ_BEHAVIOR, REVIEWS, TIERS, TIER_DAYS, POSTS, ASTRO_META } from "../data/mockData";
 
 // Converts an inline-style string ("a:b;c:d") into a React style object.
 export function cssToStyle(str) {
@@ -118,6 +118,9 @@ function advance(st) {
     }
   }
   if (hold && hold.until <= now) { hold = null; msg = "Slot hold expired - the slot was released"; }
+  const logOld = st.slotLog || [];
+  const gone = st.slots.filter((x) => x.expiresAt <= now);
+  const slotLog = gone.length ? logOld.concat(gone.map((x) => ({ ...x, status: "Expired", at: now }))) : logOld;
   const live0 = st.slots.filter((x) => x.expiresAt > now);
   // Expiry reminders 3, 2 and 1 day before a slot expires (D-26); they never change expiry or refunds.
   const grp = {};
@@ -217,9 +220,9 @@ function advance(st) {
     }
     return n;
   });
-  const changed = msg || subs !== st.subs || live.some((x, i) => x !== st.slots[i]) || req !== st.req || sess !== st.sess || nl !== (st.notifLog || []) || hold !== st.hold || acts.some((a, i) => a !== st.acts[i]);
+  const changed = msg || slotLog !== logOld || subs !== st.subs || live.some((x, i) => x !== st.slots[i]) || req !== st.req || sess !== st.sess || nl !== (st.notifLog || []) || hold !== st.hold || acts.some((a, i) => a !== st.acts[i]);
   if (!changed) return null;
-  return { patch: { subs, slots: live, acts: newActs.concat(acts), wallet, txns, remedies, hold, notifLog: nl, req, sess, lastId }, msg };
+  return { patch: { subs, slotLog, slots: live, acts: newActs.concat(acts), wallet, txns, remedies, hold, notifLog: nl, req, sess, lastId }, msg };
 }
 
 const AppContext = createContext(null);
@@ -232,7 +235,7 @@ export function AppProvider({ children }) {
   const { pathname } = useLocation();
   const st = pathname === "/" ? "home" : pathname.split("/")[1];
 
-  const [state, setRaw] = useState(() => loadState({rmSrc:'All Sources',rmStat:'All',rdFile:'',consentChk:false,focusId:null,follows:[0],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:seedRemedies(Date.now()),faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,pname:'Guest User',empty:false}));
+  const [state, setRaw] = useState(() => loadState({slotLog:[],slotFilter:'Total',txStep:'pick',rmSrc:'All Sources',rmStat:'All',rdFile:'',consentChk:false,focusId:null,follows:[0,6,7,8,9],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:seedRemedies(Date.now()),faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,pname:'Guest User',empty:false}));
   const ref = useRef(state);
   const timer = useRef(null);
   const payRef = useRef(null);
@@ -300,7 +303,7 @@ const keyOf={home:'Home',explore:'Explore',astro:'Explore',services:'Services',t
 const nav=['Home','Explore','Services','Activity','Profile'].map(l=>{const on=keyOf[st]===l;return{label:l,d:ICON[l],cls:'nv'+(on?' on':''),mcls:'mt'+(on?' on':''),go:go(l.toLowerCase())};});
 const svc=(n,b,go,pend,pid)=>({name:n,blurb:b,go,pend,pid});
 const soon=()=>showToast('This flow is designed in the next pass');
-const services=[svc('Text Question','Ask an astrologer a written question and receive an answer.',go('text'),false,''),svc('Appointment','Book a scheduled voice consultation.',go('appt'),false,''),svc('Instant Call','Talk to an astrologer now.',go('session',{kind:'Call',phase:'idle'}),false,''),svc('Instant Chat','Chat with an astrologer now.',go('session',{kind:'Chat',phase:'idle'}),false,'')];
+const services=[svc('Text Question','Ask an astrologer a written question and receive an answer.',go('text',{txStep:'pick'}),false,''),svc('Appointment','Book a scheduled voice consultation.',go('appt'),false,''),svc('Instant Call','Talk to an astrologer now.',go('session',{kind:'Call',phase:'idle'}),false,''),svc('Instant Chat','Chat with an astrologer now.',go('session',{kind:'Chat',phase:'idle'}),false,'')];
 const list=ASTRO.filter(a=>vis(a)&&(s.cat==='All'||a.cats.indexOf(s.cat)>=0)&&(!s.online||a.online)&&(!s.q||(a.name+a.spec+a.langs).toLowerCase().indexOf(s.q.toLowerCase())>=0)).map(card);
 const openDlg=(k,e)=>()=>setState({dlg:{k,...(e||{})},rate:0,note:''});
 const nowT=Date.now()+(s.skew||0);
@@ -405,7 +408,7 @@ const campChange=(c,kind)=>()=>{const ov=s.campOv,cur0=ov[c.id]||{};const mine=s
 const st0=c.status||'active';
 if(kind==='cancel'||kind==='delete'){if(st0!=='active'){showToast('This campaign is already '+st0);return;}}
 if(kind==='cancel'){const amt=mine.reduce((a,x)=>a+(x.price||0),0);
-setState({campOv:{...ov,[c.id]:{...cur0,status:'cancelled'}},slots:s.slots.filter(x=>!mine.includes(x)),wallet:s.wallet+amt,
+setState({campOv:{...ov,[c.id]:{...cur0,status:'cancelled'}},slots:s.slots.filter(x=>!mine.includes(x)),slotLog:(s.slotLog||[]).concat(mine.map(x=>({...x,status:'Refunded',at:nowT}))),wallet:s.wallet+amt,
 txns:amt>0?[{label:'Refund · campaign cancelled · '+c.name+' ('+mine.length+' slot(s))',when:'Just now',amt,sign:1}].concat(s.txns):s.txns,
 notifLog:(s.notifLog||[]).concat([campNote('cx','Payment/wallet','wallet','Open wallet','The campaign "'+c.name+'" was cancelled. '+(amt>0?'₹'+amt+' was refunded to your Wallet for '+mine.length+' unused slot(s). ':'You had no unused slots. ')+'Questions you already submitted will still be answered.')])});
 showToast(amt>0?'Campaign cancelled - ₹'+amt+' refunded to your Wallet (D-21)':'Campaign cancelled');return;}
@@ -453,6 +456,19 @@ subPrice:(TIERS.find(x=>x.name===s.subTier)||TIERS[1]).price,subTierName:s.subTi
 followList:ASTRO.filter(a=>isFol(a.id)&&vis(a)).map(a=>({...card(a),tierText:tierOf(a.id)||'',unfollow:()=>{setState({follows:s.follows.filter(x=>x!==a.id)});showToast('Unfollowed');}})),noFollows:s.follows.length===0,
 subList:ASTRO.filter(a=>isSub(a.id)&&vis(a)).map(a=>{const inf=s.subInfo[a.id];return{...card(a),tierText:inf.tier,until:fmtIST(inf.expiresAt)+' (IST)',autoRenew:!!inf.autoRenew,toggleAuto:()=>setState({subInfo:{...s.subInfo,[a.id]:{...inf,autoRenew:!inf.autoRenew}}})};}),
 otherList:ASTRO.filter(a=>!isFol(a.id)&&!isSub(a.id)&&vis(a)).slice(0,4).map(a=>({...card(a),follow:()=>{setState({follows:s.follows.concat(a.id)});showToast('Following '+a.name+' (free)');},subscribe:openSub(a.id)}))};
+// Explore cards (sample facts; per-minute prices are not used: Instant Call and Chat are prepaid packages, D-45).
+const xcard=a=>{const mt=ASTRO_META[a.id]||{},busy=(REQ_BEHAVIOR[a.id]||'')==='busy',av2=!a.online?'Offline':busy?'Busy':'Online';
+const go2=kind=>()=>{setState({astro:a.id,kind,notifOpen:false,dlg:null});navigate('/session');};
+return{...card(a),avail:av2,availCls:'ex-'+av2.toLowerCase(),years:(mt.years||0)+' Years',followers:(mt.followers||'0')+' Followers',expertise:mt.exp||[],langList:a.langs.split(', '),
+priceText:'Call from ₹'+PKGS.Call[0].price+' · Chat from ₹'+PKGS.Chat[0].price+' (prepaid, 5 min minimum)',canContact:a.online,call:go2('Call'),chat:go2('Chat')};};
+const ratingNum=id=>{const r=ratingOf(id);return r?parseFloat(r.avg):0;};
+const exSubs=ASTRO.filter(a=>isSub(a.id)&&vis(a)),exFol=ASTRO.filter(a=>isFol(a.id)&&!isSub(a.id)&&vis(a)),
+exSug=ASTRO.filter(a=>!isFol(a.id)&&!isSub(a.id)&&vis(a)).slice().sort((a,b)=>ratingNum(b.id)-ratingNum(a.id));
+const exGroups={subscribed:{title:'Subscribed Astrologers',list:exSubs,empty:'You have no subscriptions yet.'},followed:{title:'Followed Astrologers',list:exFol,empty:'You are not following anyone else yet.'},suggested:{title:'Suggested Astrologers',list:exSug,empty:'No suggestions right now.'}};
+const qq=(s.q||'').trim().toLowerCase();
+const exFound=qq?ASTRO.filter(a=>vis(a)&&(a.name+' '+a.spec+' '+a.langs+' '+((ASTRO_META[a.id]||{}).exp||[]).join(' ')).toLowerCase().indexOf(qq)>=0).map(xcard):[];
+const exVals={exSections:Object.keys(exGroups).map(k=>({key:k,title:exGroups[k].title,empty:exGroups[k].empty,items:exGroups[k].list.slice(0,3).map(xcard),has:exGroups[k].list.length>0,more:exGroups[k].list.length>3,view:()=>navigate('/explore/'+k)})),
+exAll:k=>exGroups[k]?{title:exGroups[k].title,empty:exGroups[k].empty,items:exGroups[k].list.map(xcard)}:null,exSearching:!!qq,exFound};
 const pf=(()=>{
 const all=revsOf(cur.id),pub=all.filter(r=>r.status==='Published');
 const toggle=r=>()=>{setState({revSt:{...s.revSt,[r.key]:r.status==='Published'?'Hidden':'Published'}});showToast(r.status==='Published'?'Review hidden (by astrologer / Platform Admin): it is no longer shown or counted':'Review published again');};
@@ -502,8 +518,39 @@ notifLog:(s.notifLog||[]).concat([{id:nowT+'-rs',text:'Appointment with '+item.w
 dndOn:Object.keys(s.dnd).filter(k=>s.dnd[k]).map(k=>ASTRO[k].name).join(', '),hasDnd:Object.keys(s.dnd).some(k=>s.dnd[k]),
 toggleDnd:()=>{const nxt=ASTRO.find(a=>a.id!==cur.id&&vis(a));setState({dnd:{...s.dnd,[cur.id]:true},astro:nxt?nxt.id:s.astro,apptSlot:null});showToast(cur.name+' is now in Do Not Disturb: profile hidden, nothing can be bought, booked or started (D-38). Confirmed appointments stay valid (D-30)');},
 clearDnd:()=>setState({dnd:{}}),protoCancel:proto('cancel'),protoDate:proto('date')};})();
+const slotAll=s.slots.map(x=>({...x,st:x.expiresAt>nowT?'Available':'Expired'})).concat((s.slotLog||[]).map(x=>({...x,st:x.status})));
+const cnt=f=>slotAll.filter(x=>f==='Total'||x.st===f).length;
+const batchMap={};slotAll.forEach(x=>{const k=[x.astro,x.campId||'',x.type,x.boughtAt,x.benefit?1:0].join('|');(batchMap[k]=batchMap[k]||[]).push(x);});
+const campInfo=cid=>{const c=campsAll.find(z=>z.id===cid);if(!c)return null;const ce=campExp(c);return{name:c.name,end:ce==null?'No campaign end':'Campaign ends '+fmtIST(ce)+' (IST)'};};
+const batches=Object.keys(batchMap).map(k=>{const g=batchMap[k],f=g[0],av=g.filter(x=>x.st==='Available').length,us=g.filter(x=>x.st==='Used').length,ex=g.filter(x=>x.st==='Expired').length,rf=g.filter(x=>x.st==='Refunded').length;
+const exp=Math.max(...g.map(x=>x.expiresAt)),st=av>0?'Available':us===g.length?'Used':rf===g.length?'Refunded':ex>0?'Expired':'Used',paid=g.reduce((a,x)=>a+(x.price||0),0),ci=campInfo(f.campId);
+return{key:k,type:f.benefit?'Benefit':f.type,id:'#SLOT-'+Number(f.boughtAt).toString(36).toUpperCase().slice(-5),who:ASTRO[f.astro]?ASTRO[f.astro].name:'',camp:f.benefit?f.label:(f.label||'Slot'),remaining:av,n:g.length,paid:f.benefit?'Included in subscription':'₹'+paid,bought:fmtIST(f.boughtAt),valid:fmtIST(exp)+' (IST)',sched:f.benefit?'7-day benefit validity':(ci?ci.end:''),
+status:st,pillCls:st==='Available'?'pill tx-sub':'pill ex-offline',days:av>0?Math.max(0,Math.ceil((exp-nowT)/DAY)):0,canUse:av>0&&!(s.tqSusp[f.astro]&&false),at:f.boughtAt,counts:{Available:av,Used:us,Expired:ex},
+use:()=>{setState({astro:f.astro,askType:f.type==='Personal'?'Personal':'General',txStep:'buy',preview:false});navigate('/text/new');}};}).filter(b=>s.slotFilter==='Total'||b.counts[s.slotFilter]>0).sort((a,b)=>b.at-a.at);
+const qMonth=t=>new Date(t).toLocaleDateString('en-IN',{...IST,month:'long',year:'numeric'});
+const myQs=s.acts.filter(x=>x.type==='Question').slice().sort((a,b)=>(b.submittedAt||0)-(a.submittedAt||0)).map(x=>{const dp=x.dispute||null,ans=!!x.answeredAt,wait=!ans&&!x.cancelled,left=dayLeft(x),cl=dp&&dp.answeredAt?Math.max(0,7-Math.floor((nowT-dp.answeredAt)/DAY)):0;
+const stt=x.cancelled?'Cancelled · refunded':ans?'Completed':x.openedAt?'Pending':'New / Received',sub=dp?dispLabel(dp):'';
+return{id:x.id,qid:'QTN-'+new Date(x.submittedAt||nowT).getFullYear()+'-'+String(x.id%1000000).padStart(6,'0'),status:stt,subStatus:sub,statusKey:x.cancelled?'cancelled':ans?'completed':'waiting',disputed:!!dp,
+kind:x.kind||'General',paid:x.paid>0?'₹'+x.paid:(x.benefit?'Free (benefit)':'Included'),title:x.title,who:x.who,camp:x.camp||'Question',date:fmtIST(x.submittedAt||nowT),month:qMonth(x.submittedAt||nowT),
+guarantee:wait&&!(x.corr&&x.corr.active)?'Day '+Math.min(30,Math.floor((nowT-(x.submittedAt||nowT))/DAY)+1)+' of 30 guarantee':'',due:fmtIST((x.submittedAt||nowT)+30*DAY),
+answered:ans,answer:x.answer||'',len:(x.answer||'').length,attList:(x.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Sample file - this prototype has no real download')})),linkList:x.links||[],
+rated:!!x.rating,stars:'★'.repeat(x.rating||0)+'☆'.repeat(5-(x.rating||0)),canRate:ans&&!x.rating,rate:openDlg('qrate',{id:x.id}),
+canDispute:ans&&!dp&&left>0,dLeft:left,windowClosed:ans&&!dp&&left<=0,raise:openDlg('dispute',{id:x.id}),dAnswered:!!(dp&&dp.answeredAt),dAdmin:!!(dp&&dp.admin),dAnswer:dp?dp.answer||'':'',
+canComplain:!!(dp&&dp.answeredAt)&&!x.complaint&&cl>0,complain:openDlg('complaint',{id:x.id}),complained:!!x.complaint,
+corrActive:wait&&!!(x.corr&&x.corr.active),corrReplace:openDlg('correct',{id:x.id}),view:()=>navTo('answer',{ansId:x.id})};});
+const myQMonths=[...new Set(myQs.map(q=>q.month))];
+// History archive: cancelled questions, and completed ones whose dispute window is over or whose dispute is finished (sample rule; retention is P-11-04).
+const histQs=s.acts.filter(x=>x.type==='Question'&&(x.cancelled||(x.answeredAt&&(dayLeft(x)<=0||(x.dispute&&(x.dispute.answeredAt||x.dispute.admin)))))).slice().sort((a,b)=>(b.submittedAt||0)-(a.submittedAt||0)).map(x=>{const canc=!!x.cancelled,closedAt=canc?(x.submittedAt||nowT)+30*DAY:x.answeredAt;
+return{id:x.id,qid:'QTN-'+new Date(x.submittedAt||nowT).getFullYear()+'-'+String(x.id%1000000).padStart(6,'0'),camp:x.camp||'Question',who:x.who,kind:x.kind||'General',title:x.title,statusKey:canc?'cancelled':'completed',status:canc?'Cancelled':'Completed',
+tags:[x.dispute?'Dispute':'',x.complaint?'Platform Complaint':''].filter(Boolean),asked:fmtIST(x.submittedAt||nowT),closed:fmtIST(closedAt),closedLabel:canc?'Cancelled':'Completed',
+money:canc?(x.paid>0?'Refunded · ₹'+x.paid:'Refunded'):(x.paid>0?'Paid · ₹'+x.paid:'Free (benefit)'),month:qMonth(x.submittedAt||nowT),view:()=>navTo('answer',{ansId:x.id})};});
+const histMonths=[...new Set(histQs.map(q=>q.month))];
+const txVals={histQs,histMonths,myQs,myQMonths,slotBatches:batches,slotFilter:s.slotFilter,slotOpts:['Total','Available','Used','Expired'].map(f=>({value:f,label:(f==='Total'?'Total Purchased':f)+' ('+cnt(f)+')'})),onSlotFilter:e=>setState({slotFilter:e.target.value}),buySlots:()=>{setState({txStep:'pick'});navigate('/text/new');},txStep:s.txStep,changeAstro:()=>setState({txStep:'pick'}),
+txSub:ASTRO.filter(a=>isSub(a.id)&&vis(a)).map(a=>{const inf=s.subInfo[a.id];return{...xcard(a),days:inf?Math.max(0,Math.ceil((inf.expiresAt-nowT)/DAY)):0,tier:inf?inf.tier:'',susp:!!s.tqSusp[a.id],pick:()=>setState({astro:a.id,txStep:'buy',preview:false})};}),
+txRec:ASTRO.filter(a=>!isSub(a.id)&&vis(a)).map(a=>({...xcard(a),susp:!!s.tqSusp[a.id],subscribe:openSub(a.id)})),
+txCounts:{q:s.acts.filter(x=>x.type==='Question').length,slots:liveSlots.length}};
 return{
-...fp,...subVals,tqSuspCur:!!s.tqSusp[cur.id],dndCur:!!s.dnd[cur.id],
+...txVals,...exVals,...fp,...subVals,tqSuspCur:!!s.tqSusp[cur.id],dndCur:!!s.dnd[cur.id],
 ...ap,...ss,...pf,campCtl,mySlots,hasSlots:mySlots.length>0,mySlotsPaid:mySlots.filter(x=>!x.benefit),mySlotsBen:mySlots.filter(x=>x.benefit),benefitN:liveSlots.filter(x=>x.astro===s.astro&&x.benefit).length,nav,sHome:st==='home',sExplore:st==='explore',sAstro:st==='astro',sServices:st==='services',sText:st==='text',sActivity:st==='activity',sWallet:st==='wallet',sProfile:st==='profile',sAppt:st==='appt',sSession:st==='session',sKundli:st==='kundli',sFollow:st==='follow',sNotifs:st==='notifs',sRemedy:st==='remedy',sHelp:st==='help',sLogin:st==='login',goNotifs:go('notifs'),goRemedy:go('remedy'),
 goHome:go('home'),goExplore:go('explore'),goServices:go('services'),goActivity:go('activity'),goWallet:go('wallet'),goProfile:go('profile'),goText:go('text'),
 toggleNotif:()=>setState({notifOpen:!s.notifOpen,profMenu:false}),profMenu:!!s.profMenu,toggleProf:()=>setState({profMenu:!s.profMenu,notifOpen:false}),closeProf:()=>setState({profMenu:false}),viewProfile:go('profile'),logout:go('login',{loginStep:1}),notifOpen:s.notifOpen,wallet:s.wallet,services,
@@ -512,11 +559,11 @@ q:s.q,onQ:e=>setState({q:e.target.value}),onlineCls:'chip'+(s.online?' on':''),t
 cats:CATS.map(c=>({label:c,cls:'chip'+(s.cat===c?' on':''),go:()=>setState({cat:c})})),exploreList:list,noResults:list.length===0,
 cur:{...cur,ini:ini(cur),avL:av(cur.id,96)},subCls:isSub(cur.id)?'btn-g':'btn-p',subLabel:isSub(cur.id)?'Subscribed ✓':'Subscribe',
 toggleSub:openSub(cur.id),
-astroSvc:[{name:'Text Question',note:s.tqSusp[cur.id]?'Suspended: new slots cannot be bought. Your valid slots stay usable (D-39)':isSub(cur.id)?'Subscribed — ready to ask':'Subscribe first (D-04)',go:go('text')},{name:'Appointment',note:'Scheduled consultation',go:go('appt')},{name:'Instant Call',note:'Talk now',go:go('session',{kind:'Call',phase:'idle'})},{name:'Instant Chat',note:'Chat now',go:go('session',{kind:'Chat',phase:'idle'})}],
+astroSvc:[{name:'Text Question',go:go('text',{txStep:'buy'}),note:s.tqSusp[cur.id]?'Suspended: new slots cannot be bought. Your valid slots stay usable (D-39)':isSub(cur.id)?'Subscribed — ready to ask':'Subscribe first (D-04)'},{name:'Appointment',note:'Scheduled consultation',go:go('appt')},{name:'Instant Call',note:'Talk now',go:go('session',{kind:'Call',phase:'idle'})},{name:'Instant Chat',note:'Chat now',go:go('session',{kind:'Chat',phase:'idle'})}],
 pickList:ASTRO.filter(vis).map(a=>({name:a.name,cls:'chip'+(s.astro===a.id?' on':''),go:()=>setState({astro:a.id})})),
 notSub:!isSub(cur.id),isSub:isSub(cur.id),subscribeNow:openSub(cur.id),
 camps:campsAll.filter(campActive).map(c=>{const ce=campExp(c),left=ce==null?null:Math.ceil((ce-nowT)/DAY);
-const types=['general','personal'].filter(k=>c[k]).map(k=>{const p=c[k],fin=Math.round(p.price*(100-p.disc)/100);return{label:k==='general'?'General':'Personal',price:p.price,disc:p.disc,hasDisc:p.disc>0,final:fin,total:fin*s.qty,buy:buy(c,k)};});
+const types=['general','personal'].filter(k=>c[k]).map(k=>{const p=c[k],fin=Math.round(p.price*(100-p.disc)/100);return{label:k==='general'?'General':'Personal',price:p.price,disc:p.disc,hasDisc:p.disc>0,final:fin,total:fin*s.qty,saves:(p.price-fin)*s.qty,buy:buy(c,k)};});
 return{...c,types,special:c.special||'',expired:left!=null&&left<=0,hasWarn:left!=null&&left>0&&left<=3,warn:'Expires in '+left+' day(s) on '+(ce?fmtIST(ce):'')+' (IST). Slots bought now expire with the campaign (D-07, D-26).',expText:ce==null?'No campaign expiry':'Campaign ends '+fmtIST(ce)+' (IST)'};}).filter(c=>!c.expired),qty:s.qty,qtyUp:()=>setState({qty:Math.min(5,s.qty+1)}),qtyDown:()=>setState({qty:Math.max(1,s.qty-1)}),
 slotsN,slotStyle:slotsN?'background:rgba(var(--gn),.15);color:var(--green)':'background:rgba(var(--gd),.16);color:var(--gold)',
 draft:s.draft,onDraft:e=>setState({draft:e.target.value}),
@@ -533,7 +580,7 @@ if(s.askType==='Personal'&&!s.qFiles.length&&!s.useSaved){showToast('Attach a ho
 backEdit:()=>setState({preview:false}),
 pvText:(s.draft||'').trim(),pvAtt:s.askType==='Personal'?(s.qFiles.length?s.qFiles.join(', '):'Saved birth details from your profile'):'None (General Questions have no attachments)',
 submitFinal:()=>{const t=(s.draft||'').trim();if(s.askType==='Personal'&&!s.consentChk){showToast('Please consent to share your birth details with '+cur.name+' for this paid Personal Question (D-37)');return;}const cand=liveSlots.filter(x=>x.astro===s.astro&&(x.type===s.askType||x.benefit)).sort((a,b)=>a.expiresAt-b.expiresAt)[0];if(!cand){showToast('No valid slot left');setState({preview:false});return;}
-setState({slots:s.slots.filter(x=>x.id!==cand.id),draft:'',qFiles:[],useSaved:false,preview:false,acts:[{id:Date.now(),type:'Question',kind:s.askType,astro:s.astro,who:cur.name,when:'Just now',title:t,submittedAt:nowT,simStart:Date.now(),paid:cand.price||0,consentAt:s.askType==='Personal'?nowT:null}].concat(s.acts)});showToast('Question sent - it cannot be edited now (D-34). See it in Activity');},
+setState({slots:s.slots.filter(x=>x.id!==cand.id),slotLog:(s.slotLog||[]).concat([{...cand,status:'Used',at:nowT}]),draft:'',qFiles:[],useSaved:false,preview:false,acts:[{id:Date.now(),type:'Question',kind:s.askType,camp:cand.label||'Question',benefit:!!cand.benefit,astro:s.astro,who:cur.name,when:'Just now',title:t,submittedAt:nowT,simStart:Date.now(),paid:cand.price||0,consentAt:s.askType==='Personal'?nowT:null}].concat(s.acts)});showToast('Question sent - it cannot be edited now (D-34). See it in Activity');},
 actTabs:['All','Questions','Appointments','Calls','Chats'].map(t=>({label:t,cls:'chip'+(s.actTab===t?' on':''),go:()=>setState({actTab:t})})),actList,noActs:actList.length===0,
 hasHeld:heldKeys.length>0,heldText:heldKeys.map(k=>heldMap[k]+' slot(s) with '+ASTRO[k].name+' (next expiry '+fmtIST(Math.min(...liveSlots.filter(x=>x.astro==k).map(x=>x.expiresAt)))+' IST)').join(' · '),
 txns:s.txns.map(t=>({label:t.label,when:t.when,amt:(t.sign>0?'+ ₹':t.sign<0?'− ₹':'₹')+t.amt,isRefund:/^Refund/.test(t.label),st:'font-size:19px;font-weight:600;color:'+(t.sign>0?'var(--green)':'var(--ink)')})),
