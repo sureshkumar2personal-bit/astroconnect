@@ -1,54 +1,36 @@
 import Card from '@/components/ui/Card.jsx';
-import Icon from '@/components/ui/Icon.jsx';
 
-// Growth shown in green; decreases shown honestly (AD-15).
-function Change({ value }) {
+// Growth shown in green; decreases shown honestly in red (AD-15).
+function Change({ value, versus }) {
   const up = value >= 0;
   return (
-    <span className={up ? 'ac-up' : 'ac-down'}>
-      {up ? '▲ +' : '▼ '}
-      {value}%
-    </span>
-  );
-}
-
-function Period({ p }) {
-  return (
-    <div className="ac-period">
-      <Icon name="calendarPlus" size={24} className="ac-icon ac-period__icon" />
-      <div>
-        <div className="ac-period__label">{p.label}</div>
-        <div className="ac-period__amount">{p.amount}</div>
-        <div className="ac-period__change">
-          <Change value={p.change} /> <span className="ac-period__vs">vs {p.versus}</span>
-        </div>
-      </div>
+    <div className="ac-eo__change">
+      <span className={up ? 'ac-up' : 'ac-down'}>{up ? '▲' : '▼'} {Math.abs(value)}%</span> vs {versus}
     </div>
   );
 }
 
+function Tile({ p, hero }) {
+  return (
+    <div className={`ac-eo__tile${hero ? ' ac-eo__tile--hero' : ''}`}>
+      <div className="ac-eo__label">{p.label}</div>
+      <div className="ac-eo__amount">{p.amount}</div>
+      <Change value={p.change} versus={p.versus} />
+    </div>
+  );
+}
+
+// Earnings Overview (AD-15): Today's Earnings highlighted, then This Week, This Month and Last Month.
 export default function EarningsCard({ data }) {
   return (
-    <Card id="h-earn" icon="coins" title="Today's Earnings" info extra={<span className="ac-badge">Illustrative Data</span>} headClass="ac-card__head--earn">
-      <div className="ac-earn">
-      <div className="ac-today">
-        <div className="ac-today__main">
-          <div className="ac-today__amount">{data.today.amount}</div>
-          <div className="ac-today__label">Today</div>
-          <div className="ac-today__sub">Expected net today, after commission, from today's booked work</div>
-        </div>
-        <div className="ac-today__rule" />
-        <div className="ac-today__change">
-          <div className="ac-today__pct"><Change value={data.today.change} /></div>
-          <div className="ac-today__vs">vs {data.today.versus}</div>
-        </div>
+    <Card id="h-earn" icon="coins" title="Earnings Overview" headClass="ac-card__head--tile">
+      <div className="ac-eo">
+        <Tile p={data.today} hero />
+        <Tile p={data.week} />
+        <Tile p={data.month} />
+        {data.lastMonth && <Tile p={data.lastMonth} />}
       </div>
-      <div className="ac-periods">
-        <Period p={data.week} />
-        <Period p={data.month} />
-      </div>
-      </div>
-      <p className="ac-card__caption">This Week and This Month count completed services. Refunds appear only in <a href="#/earnings">Wallet</a>. Sample figures.</p>
+      <p className="ac-card__caption">Net earnings after platform commission. Refunds appear only in <a href="#/earnings">Wallet</a>. Sample figures.</p>
     </Card>
   );
 }

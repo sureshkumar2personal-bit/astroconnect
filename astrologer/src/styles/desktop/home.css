@@ -22,20 +22,6 @@
   .ac-grid > :nth-child(3) { grid-column: 1 / -1; }
 }
 
-/* ---------- Light reference layout details (desktop/tablet only) ---------- */
-@media (min-width: 761px) {
-  /* Earnings: big figure + growth on the left, week/month tiles stacked on the right. */
-  :root[data-theme='light'] .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
-  :root[data-theme='light'] .ac-today { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 0 0 4px; }
-  :root[data-theme='light'] .ac-today__main { text-align: left; }
-  :root[data-theme='light'] .ac-today__rule { display: none; }
-  :root[data-theme='light'] .ac-today__change { display: flex; gap: 6px; align-items: baseline; white-space: nowrap; }
-  :root[data-theme='light'] .ac-periods { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  :root[data-theme='light'] .ac-period { padding: 9px 12px; }
-  :root[data-theme='light'] .ac-period__amount { font-size: 22px; }
-  :root[data-theme='light'] .ac-period__vs { display: none; }
-}
-
 /* ---------- Narrow desktop / tablet ---------- */
 @media (max-width: 1024px) {
   .ac-app { grid-template-columns: 200px minmax(0, 1fr); }
@@ -49,9 +35,6 @@
 /* Three-column desktop: keep labels on one line at the narrower card widths. */
 @media (min-width: 1200px) {
   .ac-counts { min-width: 190px; }
-  .ac-activity__item { gap: 10px; padding: 12px 0; }
-  .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-  .ac-activity__time { font-size: 12.5px; }
 }
 
 /* Recent Activity + Quick Actions row (after the full-width Today's Work). */
@@ -59,18 +42,22 @@
   .ac-grid--two > :nth-child(3) { grid-column: auto; }
 }
 
-/* Home sticky header: one row on wide screens (wider screens also show icons/text);
-   below 1280px the availability pills move to a second row. */
-@media (min-width: 761px) and (max-width: 1279px) {
-  .ac-topbar__controls { order: 3; width: 100%; }
+/* Desktop/tablet: the sidebar already shows the logo, so the header brand is hidden (one logo only). */
+@media (min-width: 761px) {
+  .ac-topbar .ac-brand { display: none; }
+  .ac-topbar__controls { margin-left: 0; }
 }
-/* Small tablets: short pill labels (Call / Chat), as on phones. */
+/* Home sticky header: one row from 1480px; below that the availability rail takes a full-width second row. */
+@media (min-width: 761px) and (max-width: 1479px) {
+  .ac-topbar__controls { order: 3; width: 100%; margin-left: 0; justify-content: space-between; }
+}
 @media (min-width: 761px) and (max-width: 1023px) {
-  .ac-tpill__icon, .ac-tpill__long { display: none; }
-  .ac-tpill__short { display: inline; }
+  .ac-earnchip__spark { display: none; }
 }
-@media (min-width: 1280px) and (max-width: 1439px) {
-  .ac-tpill__icon { display: none; }
+@media (min-width: 761px) and (max-width: 899px) {
+  .ac-topbar .ac-datechip, .ac-topbar__planned-label { display: none; }
+  .ac-tpill__long { display: none; }
+  .ac-tpill__short { display: inline; }
 }
 
 /* ---------- Home layout (desktop/tablet) ---------- */
@@ -105,4 +92,20 @@
 }
 @media (min-width: 1200px) {
   .ac-tw { grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr)); grid-template-areas: 'appt text sub' 'appt camp disp'; }
+}
+
+/* Greeting with the Quick Actions beside it (wide screens) or below it. */
+@media (min-width: 1200px) {
+  .ac-header { flex-wrap: nowrap; gap: 28px; }
+  .ac-header .ac-h1 { font-size: 40px; }
+  .ac-header .ac-header__sub { max-width: 460px; font-size: 16px; }
+  .ac-qa { flex: 0 1 680px; }
+}
+@media (min-width: 761px) and (max-width: 1199px) {
+  .ac-header { row-gap: 18px; }
+}
+
+/* Recent Reviews + Recent Activity: two equal columns from 900px. */
+@media (min-width: 900px) {
+  .ac-grid.ac-grid--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

@@ -6,9 +6,10 @@ export const astrologer = { firstName: 'Ananya', initial: 'A' };
 export const notifications = { unread: 3 };
 
 export const earnings = {
-  today: { amount: '₹2,450', change: 18, versus: 'Yesterday' },
-  week: { label: 'This Week', amount: '₹14,800', change: 22, versus: 'Last Week' },
-  month: { label: 'This Month', amount: '₹48,500', change: 15, versus: 'Last Month' },
+  today: { label: 'Today’s Earnings', amount: '₹2,450', change: 18, versus: 'yesterday' },
+  week: { label: 'This Week', amount: '₹14,800', change: 22, versus: 'last week' },
+  month: { label: 'This Month', amount: '₹48,500', change: 15, versus: 'last month' },
+  lastMonth: { label: 'Last Month', amount: '₹42,170', change: -4, versus: 'September' },
 };
 
 export const peakDemand = {
@@ -24,18 +25,18 @@ export const peakDemand = {
 // Today's Work counts are derived live from Text Questions and Appointments (TodaysWorkSection).
 
 export const recentActivity = [
-  { icon: 'chat', text: 'New Question Received', time: '2 min ago', href: '#/work/questions/TQ-98275' },
-  { icon: 'calendarPlus', text: 'Appointment Booked', time: '18 min ago', href: '#/work/appointments/APT-5014' },
-  { icon: 'checkCircle', text: 'Consultation Completed', time: '1 hr ago', href: '#/calls/c/CON-7781' },
-  { icon: 'userPlus', text: 'New Follower', time: '3 hrs ago', href: '#/audience/user/U-40011' },
+  { icon: 'chat', text: 'New Question Received', sub: 'Priya S. · TQ-98275', tone: 'teal', time: '2 min ago', href: '#/work/questions/TQ-98275' },
+  { icon: 'calendarPlus', text: 'Appointment Booked', sub: 'Nila V. · today 7:30 PM', tone: 'amber', time: '18 min ago', href: '#/work/appointments/APT-5014' },
+  { icon: 'checkCircle', text: 'Consultation Completed', sub: 'Instant Call with Divya S.', tone: 'green', time: '1 hr ago', href: '#/calls/c/CON-7781' },
+  { icon: 'userPlus', text: 'New Follower', sub: 'Maya J. started following you', tone: 'plain', time: '3 hrs ago', href: '#/audience/user/U-40011' },
 ];
 
 // Exactly four, in this order, with their destinations (AD-21).
 export const quickActions = [
-  { icon: 'megaphone', label: 'Campaign Questions', href: '#/work/questions' },
-  { icon: 'live', label: 'Go Live', href: '#/live' },
-  { icon: 'edit', label: 'Content Creation', href: '#/content' },
-  { icon: 'lotus', label: 'Remedy Tracker', href: '#/remedies' },
+  { icon: 'megaphone', label: 'Campaign Questions', sub: 'Answer campaign requests', href: '#/work/campaigns' },
+  { icon: 'live', label: 'Go Live', sub: 'Start a live session', href: '#/live' },
+  { icon: 'edit', label: 'Content Creation', sub: 'Post benefits and content', href: '#/content' },
+  { icon: 'lotus', label: 'Remedy Tracker', sub: 'Follow client remedies', href: '#/remedies' },
 ];
 
 // Navigation (AD-03). Only Home exists in this task.

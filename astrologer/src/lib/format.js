@@ -14,3 +14,10 @@ export function ago(d, now) {
 
 /** ₹ with two decimals when the amount has paise. */
 export const inr2 = (n) => '₹' + Number(n).toLocaleString('en-IN', Number(n) % 1 ? { minimumFractionDigits: 2, maximumFractionDigits: 2 } : { maximumFractionDigits: 0 });
+
+/** Greeting for the time the session started (device clock):
+ *  before 12:00 → morning; 12:00–16:59 → afternoon; 17:00 onwards → evening. */
+export function greetingFor(d = new Date()) {
+  const h = d.getHours();
+  return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+}
