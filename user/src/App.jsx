@@ -57,6 +57,7 @@ function Shell() {
             <Route path="/follow" element={<Following />} />
             <Route path="/notifs" element={<Notifications />} />
             <Route path="/remedy" element={<Remedy />} />
+            <Route path="/remedy/:id" element={<Remedy />} />
             <Route path="/answer" element={<AnswerDetail />} />
             <Route path="/edit" element={<EditProfile />} />
             <Route path="/help" element={<Help />} />

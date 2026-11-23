@@ -31,7 +31,15 @@ function loadState(base) {
   return migrate(base);
 }
 function migrate(o) {
-  if (o.remedies) o.remedies = o.remedies.map((r, i) => (r.id ? r : { ...r, id: "seed" + i, type: "Remedy", actId: i === 0 ? 1 : 0, astro: 0 }));
+  if (o.remedies) {
+    o.remedies = o.remedies.map((r, i) => {
+      const x = r.id ? r : { ...r, id: "seed" + i, type: "Remedy", actId: i === 0 ? 1 : 0, astro: 0 };
+      if ((x.type || "Remedy") !== "Remedy" || x.days) return x;
+      const src = x.src || "";
+      const source = /^Instant Call/.test(src) ? "Call" : /^Instant Chat/.test(src) ? "Chat" : /^Appointment/.test(src) ? "Appointment" : "Text";
+      return { ...x, ...ATONE_TPL.one, title: x.title, source, notes: "Mark each day once you have performed the ritual.", place: "Temple", time: "7:30 am", startDate: dayStart(Date.now()), completedDays: x.done ? [0] : [], proofs: x.proof ? { 0: { name: x.proof, type: "", size: 0 } } : {}, status: x.done ? "Completed" : "Pending" };
+    });
+  }
   return o;
 }
 function saveState(st) {
@@ -54,6 +62,26 @@ const fmtT = (t) => new Date(t).toLocaleTimeString("en-IN", { ...IST, hour: "num
 const fmtD = (t) => new Date(t).toLocaleDateString("en-IN", { ...IST, weekday: "short", day: "numeric", month: "short" });
 const fmtDT = (t) => fmtD(t) + ", " + fmtT(t);
 const dayStart = (t) => Math.floor((t + 19800000) / DAY) * DAY - 19800000; // midnight IST
+const fmtLong = (t) => new Date(t).toLocaleDateString("en-IN", { ...IST, weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+// Atonement (multi-day remedy) templates. Titles, gods, items and times are sample content.
+const ATONE_TPL = {
+  one: { days: 1, title: "A one-day Ganapati pooja for clarity and steady progress.", god: "Lord Ganesha", instruction: "Light the lamp and perform the Ganapati pooja with a calm intention.", things: ["Flowers", "Turmeric", "A small lamp"] },
+  five: { days: 5, title: "Five-day Ganapati pooja for career confidence.", god: "Lord Ganesha", instruction: "Light the lamp and perform the Ganapati pooja with a calm intention.", things: ["Flowers", "Turmeric", "A small lamp"] },
+  three: { days: 3, title: "Three-day lamp offering for calm decision-making.", god: "Goddess Durga", instruction: "Offer a lamp at sunrise and sit quietly for a few minutes.", things: ["Ghee lamp", "Cotton wick", "Red flowers"] },
+  seven: { days: 7, title: "Seven-day Shiva abhishekam and prayer routine.", god: "Lord Shiva", instruction: "Perform the abhishekam and recite the prayer with a steady mind.", things: ["Water", "Milk", "Bilva leaves"] },
+  lakshmi: { days: 7, title: "Seven-day Lakshmi pooja for financial stability.", god: "Goddess Lakshmi", instruction: "Light two lamps and offer flowers before the idol each morning.", things: ["Lotus or marigold flowers", "Two lamps", "Rice"] },
+};
+const mkAtone = (key, source, o) => {
+  const t = ATONE_TPL[key];
+  return { id: o.id, type: "Remedy", actId: o.actId, astro: o.astro, src: o.src, source, ...t, notes: "Mark each day once you have performed the ritual.", place: "Temple", time: "7:30 am", startDate: dayStart(o.now), completedDays: o.completed || [], proofs: o.proofs || {}, status: o.status || "Pending", done: o.status === "Completed" };
+};
+const seedRemedies = (now) => [
+  mkAtone("one", "Text", { id: "ATN-1", actId: 1, astro: 0, src: "Text Question · Meenakshi Iyer", now }),
+  mkAtone("five", "Chat", { id: "ATN-2", actId: 4, astro: 5, src: "Instant Chat · Rahul Menon", now: now - 2 * DAY, completed: [0, 1] }),
+  mkAtone("three", "Call", { id: "ATN-3", actId: 3, astro: 3, src: "Instant Call · Karthik Subramanian", now: now - 5 * DAY, completed: [0, 1, 2], proofs: { 0: { name: "day1.jpg", type: "image/jpeg", size: 120000 }, 1: { name: "day2.jpg", type: "image/jpeg", size: 130000 }, 2: { name: "day3.jpg", type: "image/jpeg", size: 110000 } }, status: "Completed" }),
+  mkAtone("seven", "Appointment", { id: "ATN-4", actId: 2, astro: 1, src: "Appointment · Arvind Nair", now: now - DAY, completed: [0] }),
+];
 const SLOT_MINS = [...Array(17)].map((_, i) => 600 + i * 30); // 10:00 - 18:00 IST
 const slotTaken = (astro, start) => (astro * 7 + Math.floor(start / 1800000) * 13) % 5 === 0; // sample availability
 const critCats = ["Appointment", "Question", "Payment/wallet", "Subscription", "Security", "Account"]; // critical categories (D-15)
@@ -65,7 +93,7 @@ function finishSess(st, sess, now, how) {
   const id = sess.actId || now;
   const who = ASTRO[sess.astro].name;
   const act = { id, type: sess.kind, astro: sess.astro, who, when: "Just now", title: "Instant " + sess.kind + " · " + sess.mins + " min package", status: "Completed", price: sess.paid, mins: sess.mins, startedAt: sess.startedAt, endedAt: now, msgs: sess.kind === "Chat" ? sess.msgs : null, earlyEnd: how !== "time", astroEarly: how === "astro" };
-  const remedy = { id: "r-" + id, type: "Remedy", actId: id, astro: sess.astro, title: "Sample remedy: light a diya on Thursday evenings.", src: "Instant " + sess.kind + " · " + who };
+  const remedy = mkAtone(sess.kind === "Call" ? "three" : "lakshmi", sess.kind, { id: "r-" + id, actId: id, astro: sess.astro, src: "Instant " + sess.kind + " · " + who, now });
   return { act, remedy, sess: { ...sess, status: "ended", endedAt: now, actId: id, how } };
 }
 
@@ -140,7 +168,7 @@ function advance(st) {
         if (now >= a.start + a.dur * 60000) {
           a = { ...a, status: "Completed" };
           remedies = [
-            { id: "r-" + a.id + "-rem", type: "Remedy", title: "Sample remedy: recite a short mantra each morning for 21 days." },
+            mkAtone("seven", "Appointment", { id: "r-" + a.id + "-rem", actId: a.id, astro: a.astro, src: "Appointment · " + a.who, now }),
             { id: "r-" + a.id + "-rec", type: "Recommendation", title: "Sample recommendation: plan important decisions after the new moon." },
             { id: "r-" + a.id + "-note", type: "Note", title: "Sample consultation note: we discussed career timing and agreed a follow-up in six weeks." },
             { id: "r-" + a.id + "-rep", type: "Report", title: "Sample report: summary of your chart reading from this consultation." },
@@ -168,7 +196,7 @@ function advance(st) {
         if (!n.openedAt && real - (n.simStart || 0) >= 10000) n = { ...n, openedAt: now };
         if (n.openedAt && real - (n.simStart || 0) >= 25000) {
           n = { ...n, answeredAt: now, answer: SAMPLE_ANSWER, attachments: [{ name: "chart.jpg" }, { name: "guidance.pdf" }, { name: "notes.txt" }], links: [{ label: "Reading about your planetary periods", url: "https://example.com/periods" }] };
-          remedies = [{ id: "r-" + q.id + "-a", type: "Remedy", actId: q.id, astro: q.astro, title: "Sample remedy from your answer: light a diya on Thursday evenings.", src: "Text Question · " + q.who }].concat(remedies);
+          remedies = [mkAtone("five", "Text", { id: "r-" + q.id + "-a", actId: q.id, astro: q.astro, src: "Text Question · " + q.who, now })].concat(remedies);
           msg = q.who + " answered your question - please rate the answer";
         }
       } else if (now - n.submittedAt >= 30 * DAY) {
@@ -183,7 +211,7 @@ function advance(st) {
       if (now - dp.raisedAt >= 3 * DAY) { n = { ...n, dispute: { ...dp, admin: true } }; msg = "Dispute not answered in 3 days - moved to Admin Review (D-19)"; }
       else if (online && real - dp.simStart >= 20000) {
         n = { ...n, dispute: { ...dp, answeredAt: now, answer: SAMPLE_DISPUTE } };
-        remedies = [{ id: "r-" + q.id + "-d", type: "Remedy", actId: q.id, astro: q.astro, title: "Sample remedy from your dispute answer: donate food on a Saturday.", src: "Dispute answer · " + q.who }].concat(remedies);
+        remedies = [mkAtone("one", "Text", { id: "r-" + q.id + "-d", actId: q.id, astro: q.astro, src: "Dispute answer · " + q.who, now })].concat(remedies);
         msg = "Dispute answered by " + q.who;
       }
     }
@@ -202,9 +230,9 @@ const pathOf = (screen) => (screen === "home" ? "/" : "/" + screen);
 export function AppProvider({ children }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const st = pathname === "/" ? "home" : pathname.slice(1);
+  const st = pathname === "/" ? "home" : pathname.split("/")[1];
 
-  const [state, setRaw] = useState(() => loadState({rdFile:'',consentChk:false,focusId:null,follows:[0],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:[{title:'Sample remedy: chant a short mantra on Thursday mornings.',src:'Text Question · Meenakshi Iyer'}],faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,pname:'Guest User',empty:false}));
+  const [state, setRaw] = useState(() => loadState({rmSrc:'All Sources',rmStat:'All',rdFile:'',consentChk:false,focusId:null,follows:[0],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:seedRemedies(Date.now()),faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,pname:'Guest User',empty:false}));
   const ref = useRef(state);
   const timer = useRef(null);
   const payRef = useRef(null);
@@ -516,7 +544,7 @@ withdraw:()=>{const a=parseInt(s.wdAmt||'0',10);const mx=Math.max(0,s.wallet-500
 if(a>mx){showToast('A withdrawal must leave at least ₹500 in your Wallet (D-32). You can withdraw up to ₹'+mx);return;}
 setState({wallet:s.wallet-a,wdAmt:'',txns:[{label:'Withdrawal to bank account (sample)',when:'Just now',amt:a,sign:-1}].concat(s.txns)});showToast('₹'+a+' withdrawn to your bank account');},
 payNow:()=>{setState({wallet:s.wallet+s.amt,modal:false,txns:[{label:'Money added',when:'Just now',amt:s.amt,sign:1}].concat(s.txns)});showToast('₹'+s.amt+' added to wallet');},
-menu:[{label:'Wallet',go:go('wallet')},{label:'Birth profiles & Kundli',go:go('kundli')},{label:'Following & subscriptions',go:go('follow')},{label:'Remedy Tracker',go:go('remedy')},{label:'Notifications',go:go('notifs')},{label:'Help & support',go:go('help')},{label:'Log out',go:go('login',{loginStep:1})},{label:s.empty?'Demo: restore sample data':'Demo: first-time user (empty states)',go:()=>setState(s.empty?{empty:false,acts:ACTS0,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],wallet:500,remedies:[{title:'Sample remedy: chant a short mantra on Thursday mornings.',src:'Text Question · Meenakshi Iyer'}],subs:[0]}:{empty:true,acts:[],txns:[],wallet:0,remedies:[],subs:[],slots:[],files:[]})}],
+menu:[{label:'Wallet',go:go('wallet')},{label:'Birth profiles & Kundli',go:go('kundli')},{label:'Following & subscriptions',go:go('follow')},{label:'Remedy Tracker',go:go('remedy')},{label:'Notifications',go:go('notifs')},{label:'Help & support',go:go('help')},{label:'Log out',go:go('login',{loginStep:1})},{label:s.empty?'Demo: restore sample data':'Demo: first-time user (empty states)',go:()=>setState(s.empty?{empty:false,acts:ACTS0,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],wallet:500,remedies:seedRemedies(Date.now()),subs:[0]}:{empty:true,acts:[],txns:[],wallet:0,remedies:[],subs:[],slots:[],files:[]})}],
 toggles:[tgl('push','Push notifications','Channel confirmed (D-16)'),tgl('inapp','In-app notifications','Channel confirmed (D-16)'),{label:'Critical alerts',note:'Always on (D-15)',on:'true',just:'justify-content:flex-end;opacity:.6',go:()=>showToast('Critical alerts cannot be turned off')}],
 soon,
 isDark:s.theme==='dark',isLight:s.theme==='light',themeLabel:s.theme==='dark'?'Switch to light mode':'Switch to dark mode',toggleTheme:()=>{const n=s.theme==='dark'?'light':'dark';try{localStorage.setItem('ac-theme',n);}catch(e){}setState({theme:n});},
@@ -546,11 +574,25 @@ setName:setBp('name'),setDob:setBp('dob'),setTob:setBp('tob'),setPob:setBp('pob'
 files:s.files.map(n=>({name:n})),onFile:e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(!/\.(jpe?g|png|pdf)$/i.test(f.name)){showToast('Only JPG, PNG or PDF files');return;}setState({files:s.files.concat([f.name])});showToast('Uploaded '+f.name);},
 noSubs:s.subs.length===0,
 notifs:NL,bellList:NL.slice(0,3),
-focusId:s.focusId,remedies:s.remedies.map(r=>{const act=s.acts.find(x=>x.id===r.actId),isRem=(r.type||'Remedy')==='Remedy',who=r.astro!=null&&ASTRO[r.astro]?ASTRO[r.astro].name:'the astrologer';
-return{...r,kindLabel:r.type||'Remedy',srcText:'From '+r.src,canDone:isRem&&!r.done,isDone:!!r.done,
-doneText:r.done?'Completed on '+fmtIST(r.doneAt)+' (IST) · '+(r.proof?'attached: '+r.proof+' (visible to '+who+')':'no attachment'):'',
-canView:!!act,view:()=>act&&act.type==='Question'?navTo('answer',{ansId:act.id}):navTo('activity',{focusId:r.actId,actTab:'All'}),
-mark:openDlg('rdone',{id:r.id})};}),
+focusId:s.focusId,rmSrcChips:['All Sources','Text','Calls & Chats','Appointments'].map(x=>({label:x,cls:'chip'+(s.rmSrc===x?' on':''),go:()=>setState({rmSrc:x})})),rmStat:s.rmStat,onRmStat:e=>setState({rmStat:e.target.value}),
+atoneList:s.remedies.filter(r=>(r.type||'Remedy')==='Remedy'&&r.days&&(s.rmSrc==='All Sources'||(s.rmSrc==='Text'&&r.source==='Text')||(s.rmSrc==='Calls & Chats'&&(r.source==='Call'||r.source==='Chat'))||(s.rmSrc==='Appointments'&&r.source==='Appointment'))&&(s.rmStat==='All'||r.status===s.rmStat)).map(r=>{const dn=(r.completedDays||[]).length,who=ASTRO[r.astro]?ASTRO[r.astro].name:'Astrologer';
+return{id:r.id,who,status:r.status,source:({Text:'Text Based',Call:'Call',Chat:'Chat',Appointment:'Appointment'})[r.source]||r.source,daysLabel:r.days+'-Day Remedy',title:r.title,progress:r.status==='Completed'?r.days+' of '+r.days+' days':'Day '+Math.min(dn+1,r.days)+' of '+r.days,view:()=>navigate('/remedy/'+r.id)};}),
+noteList:s.remedies.filter(r=>(r.type||'Remedy')!=='Remedy').map(r=>{const act=s.acts.find(x=>x.id===r.actId);return{kindLabel:r.type,title:r.title,srcText:'From '+r.src,canView:!!act,view:()=>act&&act.type==='Question'?navTo('answer',{ansId:act.id}):navTo('activity',{focusId:r.actId,actTab:'All'})};}),
+atoneOf:id=>{const r=s.remedies.find(x=>x.id===id);if(!r||(r.type||'Remedy')!=='Remedy'||!r.days)return null;
+const who=ASTRO[r.astro]?ASTRO[r.astro].name:'Astrologer',act=s.acts.find(x=>x.id===r.actId),comp=r.completedDays||[],pr=r.proofs||{};
+const days=[...Array(r.days)].map((_,i)=>{const dt=r.startDate+i*DAY,done=comp.includes(i),locked=dt>nowT;return{i,n:i+1,date:fmtLong(dt),state:done?'Completed':locked?'Locked':'Pending',done,locked,proof:pr[i]||null};});
+const proofN=days.filter(d=>d.proof).length,last=r.days-1;
+const addProof=i=>e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+if(!/^(image|video|audio)\//.test(f.type)&&!/\.(jpe?g|png|gif|webp|mp4|mov|webm|mp3|wav|m4a|ogg)$/i.test(f.name)){showToast('Attach a photo, video or audio file');return;}
+if(f.size>2*1024*1024){showToast('Proofs can be up to 2 MB');return;}
+setState({remedies:s.remedies.map(x=>x.id===id?{...x,proofs:{...(x.proofs||{}),[i]:{name:f.name,type:f.type,size:f.size}}}:x)});showToast('Proof added for day '+(i+1));};
+const markDay=i=>()=>{const d=days[i];if(d.done)return;if(d.locked){showToast('This day is locked until its date');return;}
+if(i===last){if(days.slice(0,last).some(x=>!x.done)){showToast('Complete the earlier days first');return;}if(proofN<r.days){showToast('Attach proofs for all '+r.days+' days before completing');return;}}
+const nd=comp.concat([i]),all=nd.length===r.days;
+setState({remedies:s.remedies.map(x=>x.id===id?{...x,completedDays:nd,status:all?'Completed':'Pending',done:all,doneAt:all?nowT:x.doneAt}:x)});showToast(all?'Atonement completed. Only you can mark days completed (D-29)':'Day '+(i+1)+' marked completed');};
+return{id,who,title:r.title,source:r.source,daysN:r.days,doneN:comp.length,status:r.status,god:r.god,instruction:r.instruction,things:r.things||[],notes:r.notes,place:r.place,time:r.time,days,proofN,last,
+proofsText:proofN+' / '+r.days+' Attached · Required Before Complete',canView:!!act,view:()=>act&&act.type==='Question'?navTo('answer',{ansId:act.id}):navTo('activity',{focusId:r.actId,actTab:'All'}),addProof,markDay};},
+
 rdTitle:(()=>{const r=s.dlg&&s.dlg.k==='rdone'?s.remedies.find(x=>x.id===s.dlg.id):null;return r?r.title:'';})(),rdFile:s.rdFile,
 onRdFile:e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;if(!/\.(jpe?g|png|pdf|docx?|txt)$/i.test(f.name)){showToast('Attach a photo or document (JPG, PNG, PDF, DOC or TXT)');return;}if(f.size>10*1024*1024){showToast('Files can be up to 10 MB');return;}setState({rdFile:f.name});},
 confirmDone:()=>{const id=s.dlg&&s.dlg.id;setState({remedies:s.remedies.map(r=>r.id===id?{...r,done:true,doneAt:nowT,proof:s.rdFile||null}:r),dlg:null,rdFile:''});showToast('Marked Completed. Only you can do this (D-29)');},
