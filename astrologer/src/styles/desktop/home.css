@@ -3,7 +3,7 @@
 
 /* Two-row, three-card dashboard (reference proportions) on wide screens. */
 @media (min-width: 1200px) {
-  .ac-header + .ac-grid { grid-template-columns: 1fr 1.06fr 1.12fr; }
+  .ac-header + .ac-grid { grid-template-columns: 1.06fr 1.12fr; }
   .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
   .ac-grid--two { grid-template-columns: 1.4fr 1fr; }
 }
@@ -40,6 +40,7 @@
 @media (max-width: 1024px) {
   .ac-app { grid-template-columns: 200px minmax(0, 1fr); }
   .ac-main { padding: 22px 20px 28px; }
+  .ac-topbar { margin: -22px -20px 0; padding: 10px 20px; }
   .ac-navlink { padding: 11px 16px; font-size: 16px; }
   .ac-h1 { font-size: 34px; }
   .ac-header__sub { font-size: 16px; }
@@ -51,10 +52,23 @@
   .ac-activity__item { gap: 10px; padding: 12px 0; }
   .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
   .ac-activity__time { font-size: 12.5px; }
-  .ac-wide-btn { font-size: 16px; }
 }
 
 /* Recent Activity + Quick Actions row (after the full-width Today's Work). */
 @media (min-width: 900px) and (max-width: 1199px) {
   .ac-grid--two > :nth-child(3) { grid-column: auto; }
+}
+
+/* Home sticky header: one row on wide screens (wider screens also show icons/text);
+   below 1280px the availability pills move to a second row. */
+@media (min-width: 761px) and (max-width: 1279px) {
+  .ac-topbar__controls { order: 3; width: 100%; }
+}
+/* Small tablets: short pill labels (Call / Chat), as on phones. */
+@media (min-width: 761px) and (max-width: 1023px) {
+  .ac-tpill__icon, .ac-tpill__long { display: none; }
+  .ac-tpill__short { display: inline; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .ac-tpill__icon { display: none; }
 }

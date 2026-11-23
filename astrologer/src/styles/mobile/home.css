@@ -26,7 +26,6 @@
   .ac-bottomnav__item.is-active { background: var(--active-grad); color: var(--on-accent); font-weight: 700; box-shadow: var(--active-shadow); }
 
   .ac-header { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 12px; }
-  .ac-header__actions { display: none; }
   .ac-header__brand { display: flex; align-items: center; gap: 8px; }
   .ac-header__logo { flex-grow: 1; width: auto; max-width: 190px; height: 56px; object-fit: contain; object-position: left center; margin-right: auto; }
   .ac-header__brand .ac-iconbtn { width: 44px; height: 44px; border-radius: 10px; }
@@ -46,20 +45,8 @@
   .ac-info { width: 20px; height: 20px; }
   .ac-viewall { font-size: 13px; min-height: 32px; }
 
-  .ac-pills { gap: 8px; }
-  .ac-pill { height: 44px; font-size: 16px; gap: 8px; }
-  .ac-pill.is-selected .ac-pill__dot { width: 10px; height: 10px; }
-  .ac-pill__dot { width: 8px; height: 8px; }
-  .ac-row { gap: 12px; padding: 3px 2px; }
-  .ac-row > svg { width: 22px; height: 22px; }
-  .ac-row__label { font-size: 14px; }
-  .ac-row__sub { font-size: 11px; }
   .ac-switch { width: 46px; height: 26px; border-radius: 13px; }
   .ac-switch__knob { width: 20px; height: 20px; }
-  .ac-wide-btn { height: 44px; gap: 12px; padding: 0 14px; font-size: 15px; }
-  .ac-wide-btn svg { width: 22px; height: 22px; }
-  .ac-note { font-size: 11px; line-height: 1.4; }
-  .ac-note__icon { display: none; }
 
   .ac-card__head--earn .ac-info, .ac-peakcard .ac-info { display: none; }
   .ac-badge { padding: 2px 9px; font-size: 11px; border-color: var(--border); background: var(--chip-alt); }
@@ -139,4 +126,41 @@
   .ac-earn { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .ac-today { grid-column: 1 / -1; }
   .ac-today__sub { max-width: none; }
+}
+
+/* Home sticky header on phones: row 1 logo (+ date under it) and theme / bell / profile / menu;
+   row 2 the availability pills with short labels. */
+@media (max-width: 760px) {
+  .ac-topbar {
+    margin: -16px -14px 0; padding: 8px 12px;
+    display: grid; gap: 2px 6px; align-items: center;
+    grid-template-columns: minmax(0, 1fr) repeat(4, auto);
+    grid-template-areas: 'logo theme bell profile more' 'date theme bell profile more' 'ctl ctl ctl ctl ctl';
+  }
+  .ac-topbar__meta { display: contents; }
+  .ac-topbar__logo { grid-area: logo; height: 34px; max-width: 100%; object-fit: contain; object-position: left center; }
+  .ac-topbar .ac-datechip {
+    grid-area: date; justify-self: start; padding: 0; gap: 4px; border: 0; background: none; box-shadow: none;
+    backdrop-filter: none; font-size: 11.5px; color: var(--muted);
+  }
+  .ac-topbar .ac-datechip svg { width: 13px; height: 13px; }
+  .ac-topbar .ac-theme-toggle { grid-area: theme; }
+  .ac-topbar .ac-bell { grid-area: bell; }
+  .ac-topbar .ac-profile { grid-area: profile; }
+  .ac-topbar .ac-more { grid-area: more; display: block; }
+  .ac-topbar .ac-iconbtn, .ac-topbar .ac-more .ac-iconbtn { width: 36px; height: 36px; border-radius: 10px; }
+  .ac-topbar .ac-bell__badge { top: -6px; right: -6px; width: 17px; height: 17px; font-size: 10px; }
+  .ac-topbar__controls { grid-area: ctl; margin-top: 6px; gap: 5px; justify-content: space-between; }
+  .ac-tpill { height: 34px; padding: 0 9px; gap: 5px; font-size: 12.5px; flex: 0 1 auto; }
+  .ac-tpill__icon, .ac-tpill__long { display: none; }
+  .ac-tpill__short { display: inline; }
+  .ac-topbar__planned { flex-shrink: 0; }
+}
+
+/* Very narrow phones (≤ 359px): tighter pills so all five controls fit in row 2. */
+@media (max-width: 359px) {
+  .ac-topbar__controls { gap: 3px; }
+  .ac-tpill { padding: 0 7px; gap: 4px; font-size: 12px; }
+  .ac-tpill__dot, .ac-tpill.is-on .ac-tpill__dot { width: 8px; height: 8px; }
+  .ac-topbar__controls .ac-topbar__planned { width: 34px; height: 34px; }
 }

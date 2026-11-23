@@ -42,6 +42,8 @@ const ICONS = {
   star: <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />,
   book: (<><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z" /><path d="M4 19V5M8 7h7" /></>),
   chart: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  // Not in the reference (it has a text-only Logout); used by the Home header Logout button.
+  logout: <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M16 17l5-5-5-5M21 12H9" />,
 };
 
 const FILLED = {
