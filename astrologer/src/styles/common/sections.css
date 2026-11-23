@@ -175,7 +175,38 @@
 .tq .pg--work .prog { flex: none; height: 10px; margin: 4px 0 2px; }
 .tq .pg--work .kpi .prog { width: 100%; }
 .tq .pg--work .tq-more { row-gap: 8px; }
-.tq .pg--work .tq-urg { margin-left: 8px; }
+/* Text Questions summary cards (QHeader): Priority · Questions · History · Target, each holding sections
+   that select the list below. Columns follow the space available to the page, not the viewport. */
+.tq .tq-sum { container-type: inline-size; }
+.tq .tq-sum__grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@container (min-width: 560px) { .tq .tq-sum__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 560px) and (max-width: 759px) { .tq .tq-sum__grid--3 > :last-child { grid-column: 1 / -1; } }
+@container (min-width: 760px) { .tq .tq-sum__grid--3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); } }
+@container (min-width: 1040px) {
+  .tq .tq-sum__grid:not(.tq-sum__grid--3) { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.25fr); }
+}
+.tq .tq-sum__card { gap: 8px; padding: 12px 12px 10px; }
+.tq .tq-sum__title { margin: 0 4px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mut); }
+.tq .tq-sum__parts { display: flex; flex: 1 1 auto; align-items: stretch; }
+.tq .tq-sum__part {
+  all: unset; box-sizing: border-box; position: relative; flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; gap: 2px; padding: 6px 10px 8px; border-radius: 12px;
+  cursor: pointer; overflow-wrap: anywhere;
+}
+.tq .tq-sum__part + .tq-sum__part::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--line);
+}
+.tq .tq-sum__part:hover { background: var(--sf3); }
+.tq .tq-sum__part:focus-visible { outline: 3px solid var(--pri); outline-offset: -1px; }
+.tq .tq-sum__part.on { background: var(--sf3); box-shadow: inset 0 0 0 2px var(--pri); }
+.tq .tq-sum__part.on::before, .tq .tq-sum__part.on + .tq-sum__part::before { display: none; }
+.tq .tq-sum__part--static { cursor: default; }
+.tq .tq-sum__part--static:hover { background: none; }
+.tq .tq-sum__part .sm { color: var(--mut); }
+.tq .tq-sum__hint { display: block; white-space: nowrap; opacity: .85; }
+.tq .tq-sum__part b { font-size: 26px; line-height: 1.2; }
+.tq .tq-sum__part .prog { flex: none; width: 100%; height: 8px; margin: 4px 0 2px; }
+.tq .tq-sum__more { align-self: flex-start; margin: 0 4px; }
 .tq .pg--work .chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
 .tq .pg--work .lbox { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .tq .pg--work .pane .card, .tq .pg--work .lbox .card { background: var(--sf); box-shadow: none; backdrop-filter: none; border-color: var(--line); }
@@ -515,3 +546,119 @@
 .tq .pg--calls .cc-timer { font-size: 18px; font-variant-numeric: tabular-nums; }
 .tq .pg--calls .callpop .actions { justify-content: center; }
 .tq .pg--calls .callpop:focus { outline: none; }
+
+/* ---------- Text Questions: question list + question details pane (TextQuestionsPage, QCard, QuestionToolbar) ----------
+   Glass containers with a soft glow. Dark theme: purple / lavender glass with gold glow; light theme: the same
+   design in cream and gold. Scoped to My Work so the shared .search / .badge / .av rules elsewhere are untouched. */
+.tq .pg--work {
+  --qx-glass: linear-gradient(165deg, rgba(255, 253, 247, 0.9), rgba(253, 244, 224, 0.78));
+  --qx-pane: radial-gradient(120% 80% at 50% 0%, rgba(255, 236, 190, 0.55), transparent 60%),
+             linear-gradient(170deg, rgba(255, 252, 244, 0.92), rgba(250, 236, 205, 0.8));
+  --qx-edge: rgba(214, 164, 70, 0.5);
+  --qx-line: rgba(214, 164, 70, 0.28);
+  --qx-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 14px 36px rgba(150, 100, 20, 0.13), 0 0 0 1px rgba(242, 179, 61, 0.12);
+  --qx-card: rgba(255, 255, 255, 0.72);
+  --qx-card-hi: rgba(255, 250, 236, 0.95);
+  --qx-glow: 0 0 0 1px rgba(242, 179, 61, 0.55), 0 8px 26px rgba(242, 179, 61, 0.28);
+  --qx-field: rgba(255, 255, 255, 0.75);
+  --qx-ring: conic-gradient(from 210deg, #f2b33d, #ffe39a, #e39a2b, #f2b33d);
+  --qx-art: #c98a1c; --qx-art-soft: rgba(242, 179, 61, 0.22); --qx-art-q: #8f5a00;
+}
+:root[data-theme='dark'] .tq .pg--work {
+  --qx-glass: linear-gradient(165deg, rgba(74, 40, 166, 0.62), rgba(40, 17, 100, 0.72) 55%, rgba(30, 13, 74, 0.8));
+  --qx-pane: radial-gradient(110% 75% at 50% 0%, rgba(167, 139, 250, 0.32), transparent 62%),
+             linear-gradient(170deg, rgba(88, 52, 190, 0.55), rgba(42, 18, 104, 0.75) 55%, rgba(28, 11, 70, 0.85));
+  --qx-edge: rgba(196, 170, 255, 0.42);
+  --qx-line: rgba(196, 170, 255, 0.2);
+  --qx-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 0 34px rgba(139, 92, 246, 0.24), 0 16px 40px rgba(8, 2, 30, 0.5);
+  --qx-card: rgba(255, 255, 255, 0.05);
+  --qx-card-hi: rgba(255, 207, 46, 0.08);
+  --qx-glow: 0 0 0 1px rgba(255, 207, 46, 0.7), 0 0 24px rgba(255, 207, 46, 0.28);
+  --qx-field: rgba(20, 8, 56, 0.5);
+  --qx-ring: conic-gradient(from 210deg, #ffcf2e, #c4b5fd, #8b5cf6, #ffcf2e);
+  --qx-art: #ffcf2e; --qx-art-soft: rgba(167, 139, 250, 0.3); --qx-art-q: #fff7d6;
+}
+
+/* Containers */
+.tq .pg--work .lbox, .tq .pg--work .pane {
+  background: var(--qx-glass); border: 1px solid var(--qx-edge); border-radius: 24px;
+  box-shadow: var(--qx-shadow); backdrop-filter: blur(14px) saturate(1.2);
+}
+.tq .pg--work .lbox { padding: 16px; gap: 14px; }
+.tq .pg--work .pane { padding: 18px 20px; }
+.tq .pg--work .pane:has(> .qx-empty) { background: var(--qx-pane); min-height: 460px; justify-content: center; }
+
+/* Search + Filters */
+.tq .pg--work .lbox .toolbar { gap: 10px; }
+.tq .pg--work .lbox .search {
+  height: 48px; padding: 0 16px; gap: 10px; border-radius: 999px;
+  border: 1px solid var(--qx-edge); background: var(--qx-field); color: var(--link);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) inset;
+}
+.tq .pg--work .lbox .search:focus-within { outline: none; border-color: var(--pri); box-shadow: var(--qx-glow); }
+.tq .pg--work .lbox .search input::placeholder { color: var(--mut); }
+.tq .pg--work .tq-filterbtn { min-height: 48px; border-radius: 999px; padding: 0 18px; border: 1px solid var(--qx-edge); background: var(--qx-field); }
+.tq .pg--work .tq-filterbtn svg { color: var(--link); }
+.tq .pg--work .tq-filterbtn:hover { background: var(--qx-card-hi); border-color: var(--pri); }
+.tq .pg--work .tq-filterbtn.is-active { border-color: var(--pri); box-shadow: var(--qx-glow); }
+
+/* Question cards */
+.tq .pg--work .list { gap: 14px; }
+.tq .pg--work .qcard {
+  gap: 10px; padding: 16px 16px 14px; border-radius: 18px; border: 1px solid var(--qx-line);
+  background: var(--qx-card); transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.tq .pg--work .qcard:hover { border-color: var(--qx-edge); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); transform: translateY(-1px); }
+.tq .pg--work .qcard.on { border: 1px solid var(--pri); background: var(--qx-card-hi); box-shadow: var(--qx-glow); }
+.tq .pg--work .qcard:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; }
+.tq .pg--work .qcard > .row:first-child { align-items: center; gap: 12px; }
+.tq .pg--work .qcard .av {
+  width: 46px; height: 46px; font-size: 14px; letter-spacing: 0.02em;
+  border: 2px solid transparent; background: linear-gradient(var(--av-bg), var(--av-bg)) padding-box, var(--qx-ring) border-box;
+  box-shadow: 0 0 0 3px var(--qx-art-soft);
+}
+.tq .pg--work .qcard .nm { font-size: 16px; font-weight: 700; line-height: 1.25; }
+.tq .pg--work .qcard .nm + .muted { margin-top: 2px; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.tq .pg--work .qcard .qt { font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+.tq .pg--work .qcard .meta { gap: 6px 14px; padding: 8px 0 0; border-top: 1px solid var(--qx-line); }
+.tq .pg--work .qcard__mi { display: inline-flex; align-items: center; gap: 5px; }
+.tq .pg--work .qcard__mi svg { flex: none; opacity: 0.8; }
+.tq .pg--work .qcard__foot { align-items: center; gap: 6px 8px; }
+.tq .pg--work .qcard .badge { padding: 4px 11px; font-size: 11.5px; letter-spacing: 0.01em; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04) inset; }
+.tq .pg--work .qcard .b-bad::before, .tq .pg--work .qcard .b-warn::before {
+  content: ''; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: currentColor;
+}
+.tq .pg--work .qcard .b-bad::before { box-shadow: 0 0 6px currentColor; }
+.tq .pg--work .qcard__cta {
+  display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px;
+  margin-left: auto; border: 1px solid var(--qx-edge); font-size: 13px; white-space: nowrap;
+}
+.tq .pg--work .qcard__cta--answer {
+  border-color: transparent; background: var(--pri); color: var(--on-pri); font-weight: 700;
+  box-shadow: 0 4px 14px var(--qx-art-soft), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+.tq .pg--work .qcard:hover .qcard__cta--answer { filter: brightness(1.06); }
+
+/* Empty states */
+.tq .pg--work .lbox .empty { background: var(--qx-card); border-color: var(--qx-line); }
+.tq .pg--work .qx-empty { gap: 8px; padding: 48px 24px; border: 0; background: none; box-shadow: none; backdrop-filter: none; }
+.tq .pg--work .qx-empty b { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--link); }
+.tq .pg--work .qx-empty .muted { font-size: 15px; }
+.tq .pg--work .qx-art { margin-bottom: 10px; filter: drop-shadow(0 0 18px var(--qx-art-soft)); }
+.tq .pg--work .qx-art__halo { fill: var(--qx-art-soft); }
+.tq .pg--work .qx-art__lens { stroke: var(--qx-art); fill: rgba(255, 255, 255, 0.08); }
+.tq .pg--work .qx-art__handle { stroke: var(--qx-art); }
+.tq .pg--work .qx-art__q { stroke: var(--qx-art-q); }
+.tq .pg--work .qx-art__dot { fill: var(--qx-art-q); }
+.tq .pg--work .qx-art__star, .tq .pg--work .qx-art__spark { fill: var(--qx-art); }
+.tq .pg--work .qx-art__star--sm, .tq .pg--work .qx-art__spark { opacity: 0.7; }
+@media (prefers-reduced-motion: no-preference) {
+  .tq .pg--work .qx-art__star { animation: qx-twinkle 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .tq .pg--work .qx-art__star--sm { animation-delay: 1.4s; }
+}
+@keyframes qx-twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.8); } }
+@media (max-width: 1180px) { .tq .pg--work .pane:has(> .qx-empty) { min-height: 0; } }
+@media (max-width: 480px) {
+  .tq .pg--work .lbox { padding: 12px; border-radius: 20px; }
+  .tq .pg--work .qcard { padding: 14px 12px 12px; }
+}
