@@ -6,7 +6,7 @@ import PeakDemandCard from '@/components/home/PeakDemandCard.jsx';
 import TodaysWorkSection from '@/components/home/TodaysWorkSection.jsx';
 import useHomeUi from '@/components/home/useHomeUi.jsx';
 import RecentActivityCard from '@/components/home/RecentActivityCard.jsx';
-import QuickActionsCard from '@/components/home/QuickActionsCard.jsx';
+import RecentReviewsCard from '@/components/home/RecentReviewsCard.jsx';
 import useTheme from '@/hooks/useTheme.js';
 import useAvailability from '@/hooks/useAvailability.js';
 import useTextQuestions from '@/hooks/useTextQuestions.js';
@@ -56,15 +56,17 @@ export default function App() {
       ) : (
         <main className="ac-main">
           <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel}
-            availability={availability} ui={home.ui} />
-          <div className="ac-grid">
+            availability={availability} ui={home.ui} earnToday={earnings.today} actions={quickActions} />
+          <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
+          <div className="ac-grid ac-grid--single">
             <EarningsCard data={earnings} />
+          </div>
+          <div className="ac-grid ac-grid--single">
             <PeakDemandCard data={peakDemand} />
           </div>
-          <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
-          <div className="ac-grid ac-grid--two">
+          <div className="ac-grid ac-grid--pair">
+            <RecentReviewsCard />
             <RecentActivityCard items={recentActivity} />
-            <QuickActionsCard actions={quickActions} />
           </div>
           {home.node}
         </main>

@@ -3,15 +3,29 @@ import { fmtDate } from '@/lib/format.js';
 import { hasActiveSession } from '@/hooks/useCalls.js';
 import PlannedUnavailability from './PlannedUnavailability.jsx';
 
-// One compact pill switch (ON = green, as the Online button; DND ON = gold).
-function PillSwitch({ label, short, icon, on, onClick, disabled, title, dnd }) {
+// Online/Offline: a pill holding a large slider (ON = green).
+function StatusSwitch({ label, on, onClick, disabled, title }) {
+  return (
+    <button type="button" role="switch" aria-checked={on} aria-label={label} title={title}
+      onClick={onClick} aria-disabled={disabled || undefined}
+      className={`ac-tpill ac-tpill--status${on ? ' is-on' : ''}${disabled ? ' is-disabled' : ''}`}>
+      <span className="ac-tpill__track ac-tpill__track--lg" aria-hidden="true"><span className="ac-tpill__knob" /></span>
+      <span>{label}</span>
+    </button>
+  );
+}
+
+// Instant Call / Instant Chat / DND: icon + label above a small slider (ON = gold; DND ON = violet).
+function PillSwitch({ label, text, short, icon, on, onClick, disabled, title, dnd }) {
   return (
     <button type="button" role="switch" aria-checked={on} aria-label={label} title={title || label}
       onClick={onClick} aria-disabled={disabled || undefined}
       className={`ac-tpill${on ? ' is-on' : ''}${dnd ? ' ac-tpill--dnd' : ''}${disabled ? ' is-disabled' : ''}`}>
-      <span className="ac-tpill__dot" aria-hidden="true" />
-      {icon && <Icon name={icon} size={16} stroke={1.9} className="ac-tpill__icon" />}
-      {short ? (<><span className="ac-tpill__long">{label}</span><span className="ac-tpill__short">{short}</span></>) : <span>{label}</span>}
+      <Icon name={icon} size={14} stroke={1.8} className="ac-tpill__icon" />
+      <span className="ac-tpill__label">
+        <span className="ac-tpill__long">{text || label}</span>{short && <span className="ac-tpill__short">{short}</span>}
+      </span>
+      <span className="ac-tpill__track" aria-hidden="true"><span className="ac-tpill__knob" /></span>
     </button>
   );
 }
@@ -48,14 +62,17 @@ export default function AvailabilityControls({ a, ui }) {
 
   return (
     <div className="ac-topbar__controls" role="group" aria-label="Availability" title={a.note}>
-      <PillSwitch label={statusLabel} on={online} onClick={toggleStatus} disabled={a.dnd}
+      <StatusSwitch label={statusLabel} on={online} onClick={toggleStatus} disabled={a.dnd}
         title={a.mode === null ? 'Choose Online or Offline' : `${statusLabel} — click to go ${online ? 'Offline' : 'Online'}`} />
+      <span className="ac-topbar__rule" aria-hidden="true" />
       <PillSwitch label="Instant Call" short="Call" icon="phone" on={a.call} onClick={toggleService(a.toggleCall)} disabled={a.dnd} title={tip('Instant Call', a.callSub)} />
       <PillSwitch label="Instant Chat" short="Chat" icon="chat" on={a.chat} onClick={toggleService(a.toggleChat)} disabled={a.dnd} title={tip('Instant Chat', a.chatSub)} />
-      <PillSwitch label="DND" icon="moon" on={a.dnd} onClick={toggleDnd} dnd title="DND (Do Not Disturb)" />
-      <button type="button" className={`ac-iconbtn ac-topbar__planned${a.pu ? ' is-set' : ''}`} onClick={openPlanned}
+      <PillSwitch label="DND" text="DND Mode" short="DND" icon="moon" on={a.dnd} onClick={toggleDnd} dnd title="DND (Do Not Disturb)" />
+      <span className="ac-topbar__rule" aria-hidden="true" />
+      <button type="button" className={`ac-topbar__planned${a.pu ? ' is-set' : ''}`} onClick={openPlanned}
         aria-label={plannedTitle} title={plannedTitle}>
-        <Icon name="calendarPlus" size={20} />
+        <Icon name="calendarPlus" size={18} />
+        <span className="ac-topbar__planned-label">Planned unavailability</span>
       </button>
     </div>
   );

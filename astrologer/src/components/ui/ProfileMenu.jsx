@@ -43,11 +43,12 @@ export default function ProfileMenu({ initial, onLogout }) {
 
   return (
     <div className="ac-profile" ref={wrap}>
-      <button type="button" ref={btn} className="ac-iconbtn ac-profile__btn" aria-label="Profile menu" title="Profile"
+      <button type="button" ref={btn} className="ac-profile__btn" aria-label="Profile menu" title="Profile"
         aria-haspopup="menu" aria-expanded={open} aria-controls="ac-profile-menu"
         onClick={() => setOpen((o) => !o)}
         onKeyDown={(e) => { if (e.key === 'ArrowDown' && !open) { e.preventDefault(); setOpen(true); } }}>
         <span className="ac-profile__avatar" aria-hidden="true">{initial}</span>
+        <Icon name="chevronDown" size={16} className="ac-profile__chev" />
       </button>
       {open && (
         <div id="ac-profile-menu" ref={menu} role="menu" aria-label="Profile" className="ac-profile__menu"
