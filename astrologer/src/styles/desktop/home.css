@@ -3,7 +3,7 @@
 
 /* Two-row, three-card dashboard (reference proportions) on wide screens. */
 @media (min-width: 1200px) {
-  .ac-header + .ac-grid { grid-template-columns: 1.06fr 1.12fr; }
+  .ac-header + .ac-grid { grid-template-columns: 1.2fr 1fr; }
   .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
   .ac-grid--two { grid-template-columns: 1.4fr 1fr; }
 }
@@ -71,4 +71,38 @@
 }
 @media (min-width: 1280px) and (max-width: 1439px) {
   .ac-tpill__icon { display: none; }
+}
+
+/* ---------- Home layout (desktop/tablet) ---------- */
+/* Compact greeting band, so Today's Work starts higher on the page. */
+@media (min-width: 761px) {
+  .ac-avatar-ring { width: 76px; height: 76px; border-width: 2px; padding: 3px; }
+  .ac-avatar { font-size: 28px; }
+  .ac-h1 { font-size: 32px; }
+  .ac-header__sub { margin-top: 4px; font-size: 15px; }
+  /* Earnings and Peak Demand share a row: their footnotes line up at the bottom. */
+  .ac-header + .ac-grid .ac-card__caption { margin-top: auto; }
+}
+/* Today's Work as a gap-free grid: Appointments (the day's timeline) spans two rows on the left,
+   question cards fill the rest. Below 900px the cards stack in their reading order. */
+@media (min-width: 900px) {
+  .ac-tw { align-items: stretch; }
+  .ac-tw__card--appt { grid-area: appt; }
+  .ac-tw__card--text { grid-area: text; }
+  .ac-tw__card--sub { grid-area: sub; }
+  .ac-tw__card--camp { grid-area: camp; }
+  .ac-tw__card--disp { grid-area: disp; }
+  /* The timeline spreads the day's appointments over the full card height. */
+  .ac-tw__card--appt .ac-tw__timeline { flex: 1 1 auto; }
+  .ac-tw__card--appt .ac-tw__timeline > .ac-tw__row { flex: 1 1 auto; }
+  /* Disputes sits in a narrow column: "Dispute Details" goes under the text. */
+  .ac-tw__card--disp .ac-tw__row { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; }
+  .ac-tw__card--disp .ac-tw__time { grid-row: span 2; }
+  .ac-tw__card--disp .ac-tw__row > .ac-viewall { grid-column: 2; justify-self: start; }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .ac-tw { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: 'appt text' 'appt sub' 'camp disp'; }
+}
+@media (min-width: 1200px) {
+  .ac-tw { grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr)); grid-template-areas: 'appt text sub' 'appt camp disp'; }
 }

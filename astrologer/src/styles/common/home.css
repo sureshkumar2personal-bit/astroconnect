@@ -274,6 +274,17 @@ a.ac-activity__item:hover { background: var(--chip); }
 .ac-tw__row:hover { background: var(--card); }
 .ac-tw__time { flex: none; min-width: 64px; min-height: 40px; padding: 4px 6px; border-radius: 10px; background: var(--card); color: var(--heading); font-weight: 700; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
 .ac-tw__time--bad { min-width: 40px; color: var(--danger); font-size: 16px; }
+/* Appointments as the day's timeline: a thin gold rule links the time tiles, earliest first.
+   Each row draws the half above and below its tile, so the rule always runs tile to tile. */
+.ac-tw__timeline { display: flex; flex-direction: column; }
+.ac-tw__timeline > .ac-tw__row { position: relative; border-bottom-color: transparent; }
+.ac-tw__timeline > .ac-tw__row::before, .ac-tw__timeline > .ac-tw__row::after {
+  content: ''; position: absolute; left: 39px; width: 2px; background: var(--border);
+}
+.ac-tw__timeline > .ac-tw__row::before { top: 0; height: 50%; }
+.ac-tw__timeline > .ac-tw__row::after { top: 50%; bottom: 0; }
+.ac-tw__timeline > .ac-tw__row:first-child::before, .ac-tw__timeline > .ac-tw__row:last-child::after { display: none; }
+.ac-tw__card--appt .ac-tw__time { position: relative; z-index: 1; box-sizing: border-box; width: 72px; border: 1.5px solid var(--border); }
 .ac-tw__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .ac-tw__sub { font-size: 12px; color: var(--muted); line-height: 1.4; }
 .ac-tw__badge { display: contents; }
