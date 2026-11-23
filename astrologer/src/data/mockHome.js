@@ -12,6 +12,12 @@ export const earnings = {
   lastMonth: { label: 'Last Month', amount: '₹42,170', change: -4, versus: 'September' },
 };
 
+// Instant Calls / Chats today (sample figures). The completion % is derived from completed ÷ received.
+export const instantToday = {
+  calls: { received: 8, completed: 6, missed: 2, duration: '1h 12m' },
+  chats: { received: 11, completed: 9, missed: 2, duration: '2h 05m' },
+};
+
 export const peakDemand = {
   peak: 'Evening',
   periods: [
