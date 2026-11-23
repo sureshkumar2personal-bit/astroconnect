@@ -1,8 +1,9 @@
 import Sidebar from '@/layout/Sidebar.jsx';
 import BottomNav from '@/layout/BottomNav.jsx';
 import HomeHeader from '@/layout/HomeHeader.jsx';
+import ActivityTicker from '@/components/home/ActivityTicker.jsx';
+import DndBanner from '@/components/home/DndBanner.jsx';
 import EarningsCard from '@/components/home/EarningsCard.jsx';
-import PeakDemandCard from '@/components/home/PeakDemandCard.jsx';
 import TodaysWorkSection from '@/components/home/TodaysWorkSection.jsx';
 import useHomeUi from '@/components/home/useHomeUi.jsx';
 import RecentActivityCard from '@/components/home/RecentActivityCard.jsx';
@@ -57,12 +58,11 @@ export default function App() {
         <main className="ac-main">
           <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel}
             availability={availability} ui={home.ui} earnToday={earnings.today} actions={quickActions} />
+          <DndBanner a={availability} ui={home.ui} />
+          <ActivityTicker apt={appointments} paused={availability.dnd} />
           <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
-          <div className="ac-grid ac-grid--single">
-            <EarningsCard data={earnings} />
-          </div>
-          <div className="ac-grid ac-grid--single">
-            <PeakDemandCard data={peakDemand} />
+          <div className="ac-grid ac-grid--triple">
+            <EarningsCard data={earnings} peak={peakDemand} />
           </div>
           <div className="ac-grid ac-grid--pair">
             <RecentReviewsCard />

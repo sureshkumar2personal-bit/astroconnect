@@ -26,9 +26,9 @@
 
 /* ---------- Sidebar ---------- */
 .ac-sidebar {
-  position: relative;
+  position: sticky; top: 0; align-self: start; height: 100vh; height: 100dvh; /* fixed in place; only the content area scrolls */
   isolation: isolate;
-  overflow: hidden;
+  overflow-x: hidden; overflow-y: auto; scrollbar-width: none;
   padding: 24px 14px;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
@@ -238,6 +238,65 @@
 .ac-switch__knob { width: 22px; height: 22px; border-radius: 50%; background: #fff; display: block; }
 
 /* Earnings */
+/* Instant Consultations (inside Earnings Overview) */
+.ac-ic__pill { padding: 3px 10px; border-radius: 999px; background: var(--chip); color: var(--muted); font-size: 12px; font-weight: 600; }
+.ac-ic__cols { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+.ac-ic__col { min-width: 0; padding: 0 16px; border-right: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); }
+.ac-ic__col:first-child { padding-left: 0; }
+.ac-ic__col:last-child { padding-right: 0; border-right: 0; }
+.ac-ic__sub { margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 16px; color: var(--heading); }
+.ac-ic__subicon { color: var(--positive); }
+.ac-ic__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.ac-ic__stat { min-width: 0; padding: 8px 10px; border-radius: 12px; background: var(--chip); display: flex; flex-direction: column; gap: 4px; }
+.ac-ic__label { display: flex; align-items: flex-start; gap: 5px; font-size: 11.5px; line-height: 1.25; color: var(--muted); }
+.ac-ic__label svg { flex-shrink: 0; margin-top: 1px; }
+.ac-ic__value { margin-top: auto; font-size: 17px; font-weight: 700; color: var(--heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ac-ic__value.is-ok { color: var(--positive); }
+.ac-ic__value.is-bad { color: var(--danger); }
+.ac-ic__bar { display: flex; gap: 2px; height: 8px; margin-top: 10px; border-radius: 999px; overflow: hidden; }
+.ac-ic__done { background: var(--positive); }
+.ac-ic__lost { background: var(--danger); }
+.ac-ic__pct { margin-top: 6px; font-size: 12px; color: var(--muted); }
+/* Earnings Overview | Peak Demand Hours | Instant Calls & Chats: three separate cards in one row
+   (3 columns >= 1100px, 2 columns 700-1099px, 1 column below). Content tightens to fit a third of the width. */
+.ac-main > .ac-grid.ac-grid--triple { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+.ac-grid--triple > .ac-card { padding: 16px; min-width: 0; }
+.ac-grid--triple .ac-eo { gap: 8px; }
+.ac-grid--triple .ac-eo__tile { padding: 10px 12px; gap: 2px; }
+.ac-grid--triple .ac-eo__amount { font-size: 22px; }
+.ac-grid--triple .ac-eo__label, .ac-grid--triple .ac-eo__change { font-size: 11.5px; }
+.ac-grid--triple .ac-card__title { font-size: 19px; }
+.ac-grid--triple .ac-ic__cols { margin-top: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 0; }
+.ac-grid--triple .ac-ic__col { padding: 0 10px; border-right: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); border-top: 0; }
+.ac-grid--triple .ac-ic__col:first-child { padding-left: 0; }
+.ac-grid--triple .ac-ic__col:last-child { padding-right: 0; border-right: 0; }
+.ac-grid--triple .ac-ic__sub { margin-bottom: 6px; font-size: 14px; gap: 6px; }
+.ac-grid--triple .ac-ic__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.ac-grid--triple .ac-ic__stat { padding: 6px 8px; gap: 2px; }
+.ac-grid--triple .ac-ic__label { font-size: 10.5px; }
+.ac-grid--triple .ac-ic__value { font-size: 15px; }
+.ac-grid--triple .ac-ic__bar { margin-top: 8px; }
+.ac-grid--triple .ac-ic__pct { margin-top: 4px; font-size: 11px; }
+@media (max-width: 480px) {
+  .ac-grid--triple .ac-ic__cols { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+  .ac-grid--triple .ac-ic__col, .ac-grid--triple .ac-ic__col:first-child { padding: 0; border-right: 0; }
+  .ac-grid--triple .ac-ic__col + .ac-ic__col { border-top: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); padding-top: 10px; }
+}
+/* In the 3-column row the Instant card is a third wide: one tile per row inside each side. */
+@media (min-width: 1100px) { .ac-grid--triple .ac-ic__stats { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 700px) { .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1300px) { .ac-ic__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .ac-ic__cols { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
+  .ac-ic__col, .ac-ic__col:first-child { padding: 0; border-right: 0; }
+  .ac-ic__col + .ac-ic__col { border-top: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); padding-top: 14px; }
+}
+@media (max-width: 700px) {
+  .ac-ic__cols { grid-template-columns: minmax(0, 1fr); }
+  .ac-ic__col, .ac-ic__col:first-child, .ac-ic__col:nth-child(2) { padding: 0; border-right: 0; }
+}
+
 /* Card icon in a soft square (Earnings Overview, Recent Reviews, Recent Activity). */
 .ac-card__head--tile .ac-card__icon {
   width: 36px; height: 36px; padding: 7px; box-sizing: border-box; border-radius: 10px;
@@ -262,26 +321,6 @@
 :root[data-theme='dark'] .ac-eo__tile--hero { background: var(--sidebar-bg); border-color: var(--accent); }
 :root[data-theme='dark'] .ac-eo__tile--hero .ac-eo__label, :root[data-theme='dark'] .ac-eo__tile--hero .ac-eo__change { color: var(--muted); }
 
-/* Peak demand */
-.ac-peakchip {
-  align-items: center; gap: 10px; padding: 7px 18px; border-radius: 999px; border: 1.5px solid var(--border);
-  background: var(--chip); font-weight: 600; color: var(--heading);
-}
-.ac-peakchip--body { display: flex; align-self: center; }
-.ac-peakchip--head { display: none; }
-.ac-bars {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: end;
-  border-bottom: 2px solid var(--track); height: 150px; padding: 0 6px;
-}
-.ac-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.ac-bar__value { font-size: 22px; font-weight: 700; }
-.ac-bar__fill { width: 100%; height: calc(var(--v) * 1.4px); background: var(--bar); border-radius: 8px 8px 0 0; }
-.ac-bar__fill.is-peak { background: var(--accent); }
-.ac-bars-labels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 0 6px; text-align: center; font-size: 15px; }
-.ac-barlabel { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.ac-barlabel__icon { color: var(--text-soft); }
-.ac-barlabel.is-peak { color: var(--heading); font-weight: 600; }
-.ac-barlabel.is-peak .ac-barlabel__icon { color: var(--icon); }
 
 /* Today's work */
 .ac-work__label { font-size: 13px; }
@@ -339,7 +378,6 @@
 .ac-home-ui { display: contents; }
 .ac-card__caption { margin: 10px 0 0; font-size: 12px; color: var(--muted); line-height: 1.45; }
 .ac-card__caption a { color: var(--heading); font-weight: 600; }
-.ac-barlabel__range { display: block; font-size: 10.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
 
 /* Today's Work: full-width section with five cards (AD-17 – AD-19). */
 .ac-tw { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
@@ -421,3 +459,87 @@
 .ac-rev__text { font-size: 14.5px; line-height: 1.5; }
 .ac-rev__text.is-empty { color: var(--muted); font-style: italic; }
 .ac-rev__meta { font-size: 12.5px; color: var(--muted); }
+
+/* Peak Demand Hours: flat list of four period rows. Every row uses the same grid [icon | bar | count],
+   so counts line up on one vertical line. Peak row is tinted amber inside its own padding. */
+.ac-pd { gap: 12px; }
+.ac-pd .ac-card__title { font-weight: 500; font-size: 18px; white-space: nowrap; }
+.ac-pd__pill {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+  font-size: 12px; font-weight: 500; color: var(--heading); background: color-mix(in srgb, var(--accent) 22%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--accent-border) 60%, transparent);
+}
+.ac-pd__sub { margin: -4px 0 0; font-size: 13px; font-weight: 400; color: var(--muted); }
+.ac-pd__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ac-pd__row {
+  display: grid; grid-template-columns: 24px minmax(0, 1fr) 32px; align-items: center; column-gap: 10px;
+  padding: 8px; border-radius: 8px; min-height: 52px; font-weight: 400;
+}
+.ac-pd__icon { color: var(--text-soft); }
+.ac-pd__main { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ac-pd__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; min-width: 0; }
+.ac-pd__label { font-size: 14px; font-weight: 500; color: var(--text); }
+.ac-pd__range { font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.ac-pd__track { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--muted) 18%, transparent); overflow: hidden; }
+.ac-pd__fill { height: 100%; border-radius: 999px; background: var(--bar); transform-origin: left center; animation: ac-pd-grow 400ms ease-out; }
+.ac-pd__count { text-align: right; font-size: 15px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; }
+.ac-pd__row.is-peak { background: color-mix(in srgb, var(--accent) 16%, var(--card)); }
+.ac-pd__row.is-peak .ac-pd__icon, .ac-pd__row.is-peak .ac-pd__label, .ac-pd__row.is-peak .ac-pd__count { color: var(--heading); }
+.ac-pd__row.is-peak .ac-pd__fill { background: var(--accent-border); }
+.ac-pd__foot { margin: 0; padding-top: 10px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); }
+@keyframes ac-pd-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .ac-pd__fill { animation: none; } }
+
+.ac-sidebar::-webkit-scrollbar { display: none; }
+
+/* DND indicator (AD-165): violet, matching the DND switch in the header. */
+.ac-dndbar {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px;
+  border: 1px solid var(--hdr-dnd, #5b47b8); background: color-mix(in srgb, var(--hdr-dnd, #5b47b8) 12%, var(--card));
+  color: var(--text);
+}
+:root[data-theme='dark'] .ac-dndbar { --hdr-dnd: #a78bfa; }
+.ac-dndbar__icon { flex-shrink: 0; color: var(--hdr-dnd, #5b47b8); }
+.ac-dndbar__text { margin: 0; flex-grow: 1; font-size: 14px; line-height: 1.4; }
+.ac-dndbar__off {
+  flex-shrink: 0; padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 13px; cursor: pointer;
+  border: 1px solid var(--hdr-dnd, #5b47b8); background: transparent; color: var(--hdr-dnd, #5b47b8);
+}
+.ac-dndbar__off:hover { background: color-mix(in srgb, var(--hdr-dnd, #5b47b8) 14%, transparent); }
+@media (max-width: 600px) {
+  .ac-dndbar { flex-wrap: wrap; padding: 10px 12px; }
+  .ac-dndbar__text { flex-basis: calc(100% - 40px); font-size: 13px; }
+  .ac-dndbar__off { margin-left: 32px; }
+}
+
+/* Live Activity ticker (AD-166): plain scrolling text on the page, right to left, looping without a gap. */
+.ac-ticker { overflow: hidden; }
+.ac-ticker__view {
+  position: relative; overflow: hidden; padding: 4px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+.ac-ticker__track { display: flex; width: max-content; animation: ac-ticker-scroll var(--ticker-secs, 24s) linear infinite; }
+.ac-ticker:hover .ac-ticker__track, .ac-ticker:active .ac-ticker__track, .ac-ticker.is-paused .ac-ticker__track { animation-play-state: paused; }
+.ac-ticker.is-paused .ac-ticker__num { animation: none; }
+.ac-ticker__set { display: flex; flex-shrink: 0; align-items: center; min-width: 100vw; }
+.ac-ticker__msg { display: inline-flex; align-items: center; white-space: nowrap; font-size: 15px; font-weight: 500; color: var(--text); }
+/* Small divider after every update, so the loop is separated too. */
+.ac-ticker__msg::after { content: ''; width: 1px; height: 14px; margin: 0 24px; background: var(--accent-border); opacity: .8; }
+.ac-ticker__num {
+  margin-right: 5px; padding: 0 7px; border-radius: 999px; font-weight: 700; color: var(--heading);
+  background: color-mix(in srgb, var(--accent) 24%, transparent); animation: ac-ticker-blink 1.8s ease-in-out infinite;
+}
+@keyframes ac-ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ac-ticker-blink { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@media (max-width: 600px) {
+  .ac-ticker__msg { font-size: 13px; }
+  .ac-ticker__msg::after { margin: 0 16px; }
+  .ac-ticker__track { animation-duration: calc(var(--ticker-secs, 24s) * 0.8); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ac-ticker__track { animation: none; width: auto; }
+  .ac-ticker__set + .ac-ticker__set { display: none; }
+  .ac-ticker__set { min-width: 0; flex-wrap: wrap; row-gap: 4px; }
+  .ac-ticker__num { animation: none; }
+}

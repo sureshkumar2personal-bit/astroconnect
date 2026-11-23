@@ -2,6 +2,7 @@ import Icon from '@/components/ui/Icon.jsx';
 import { fmtDate } from '@/lib/format.js';
 import { hasActiveSession } from '@/hooks/useCalls.js';
 import PlannedUnavailability from './PlannedUnavailability.jsx';
+import { DND_MESSAGE } from './DndBanner.jsx';
 
 // Online/Offline: a pill holding a large slider (ON = green).
 function StatusSwitch({ label, on, onClick, disabled, title }) {
@@ -41,10 +42,26 @@ export default function AvailabilityControls({ a, ui }) {
     online ? a.setOffline() : a.setOnline();
   };
   const toggleService = (fn) => () => (a.dnd ? ui.toast('Turn DND off first.') : fn());
+  // Turning DND on asks for confirmation first (AD-165); turning it off is immediate and always allowed.
   const toggleDnd = () => {
-    if (!a.dnd && hasActiveSession()) return ui.toast('Finish your ongoing Instant Call or Chat before turning on DND.');
-    ui.toast(a.dnd ? 'DND off — choose Online or Offline.' : 'DND on — your profile is hidden from all users.');
-    a.toggleDnd();
+    if (a.dnd) {
+      a.toggleDnd();
+      ui.toast('DND off — choose Online or Offline to resume.');
+      return;
+    }
+    if (hasActiveSession()) return ui.toast('Finish your ongoing Instant Call or Chat before turning on DND.');
+    ui.dialog({
+      title: 'Turn on DND Mode?',
+      body: (close) => (
+        <>
+          <p className="sm">{DND_MESSAGE}</p>
+          <div className="actions">
+            <button type="button" className="btn btn-o" onClick={close}>Cancel</button>
+            <button type="button" className="btn btn-p" onClick={() => { a.toggleDnd(); close(); }}>Turn on DND</button>
+          </div>
+        </>
+      ),
+    });
   };
   const openPlanned = () => ui.dialog({
     title: 'Planned Unavailability',

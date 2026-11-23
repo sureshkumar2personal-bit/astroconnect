@@ -42,6 +42,9 @@ const ICONS = {
   star: <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" />,
   book: (<><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z" /><path d="M4 19V5M8 7h7" /></>),
   chart: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  inbox: <path d="M3 13l3-8h12l3 8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 13h5l1 3h6l1-3h5" />,
+  timer: (<><circle cx="12" cy="13" r="8" /><path d="M12 9v4l2 2M9.5 2h5" /></>),
+  phoneMissed: (<><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" /><path d="M16 3l5 5M21 3l-5 5" /></>),
   // Not in the reference (it has a text-only Logout); used by the Home header Logout button.
   logout: <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3M16 17l5-5-5-5M21 12H9" />,
 };
