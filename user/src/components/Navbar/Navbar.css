@@ -43,3 +43,29 @@
   font-weight:700;
   font-size:20px;
 }
+
+:root .navbar .navbar-prof { position:relative; }
+:root .navbar .navbar-menu {
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  z-index:25;
+  min-width:180px;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  background:var(--surf);
+  box-shadow:0 10px 30px rgba(8,4,30,.6);
+}
+:root .navbar .navbar-item {
+  background:none;
+  border:0;
+  text-align:left;
+  padding:10px 14px;
+  border-radius:10px;
+  min-height:44px;
+  font-size:17px;
+  color:var(--ink);
+}
+:root .navbar .navbar-item:hover { background:rgba(var(--gl),.15); }

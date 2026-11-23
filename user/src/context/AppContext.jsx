@@ -21,7 +21,7 @@ const T0=(function(){try{return localStorage.getItem('ac-theme')==='light'?'ligh
 
 // localStorage is the backend of this prototype: state is saved on every change.
 const STORE_KEY = "ac-state-v1";
-const TRANSIENT = ["toast","dlg","modal","notifOpen","chatDraft","upi","rdFile","consentChk","rate","note","preview"];
+const TRANSIENT = ["toast","dlg","modal","notifOpen","profMenu","chatDraft","upi","rdFile","consentChk","rate","note","preview"];
 const DAY = 86400000;
 function loadState(base) {
   try {
@@ -226,7 +226,7 @@ export function AppProvider({ children }) {
     navigate(pathOf(screen));
   };
   const go = (screen, extra) => () => {
-    setState({ notifOpen: false, dlg: null, ...(screen !== "appt" ? { reschedId: null } : {}), ...(extra || {}) });
+    setState({ notifOpen: false, profMenu: false, dlg: null, ...(screen !== "appt" ? { reschedId: null } : {}), ...(extra || {}) });
     navigate(pathOf(screen));
   };
 
@@ -478,7 +478,7 @@ return{
 ...fp,...subVals,tqSuspCur:!!s.tqSusp[cur.id],dndCur:!!s.dnd[cur.id],
 ...ap,...ss,...pf,campCtl,mySlots,hasSlots:mySlots.length>0,mySlotsPaid:mySlots.filter(x=>!x.benefit),mySlotsBen:mySlots.filter(x=>x.benefit),benefitN:liveSlots.filter(x=>x.astro===s.astro&&x.benefit).length,nav,sHome:st==='home',sExplore:st==='explore',sAstro:st==='astro',sServices:st==='services',sText:st==='text',sActivity:st==='activity',sWallet:st==='wallet',sProfile:st==='profile',sAppt:st==='appt',sSession:st==='session',sKundli:st==='kundli',sFollow:st==='follow',sNotifs:st==='notifs',sRemedy:st==='remedy',sHelp:st==='help',sLogin:st==='login',goNotifs:go('notifs'),goRemedy:go('remedy'),
 goHome:go('home'),goExplore:go('explore'),goServices:go('services'),goActivity:go('activity'),goWallet:go('wallet'),goProfile:go('profile'),goText:go('text'),
-toggleNotif:()=>setState({notifOpen:!s.notifOpen}),notifOpen:s.notifOpen,wallet:s.wallet,services,
+toggleNotif:()=>setState({notifOpen:!s.notifOpen,profMenu:false}),profMenu:!!s.profMenu,toggleProf:()=>setState({profMenu:!s.profMenu,notifOpen:false}),closeProf:()=>setState({profMenu:false}),viewProfile:go('profile'),logout:go('login',{loginStep:1}),notifOpen:s.notifOpen,wallet:s.wallet,services,
 onlineList:ASTRO.filter(a=>a.online&&vis(a)).slice(0,3).map(card),lastAct:s.acts.length?{...s.acts[0],st:chipSt(s.acts[0].status)+';'}:{type:'New',title:'No activity yet — start with a Text Question.',status:'Start',st:'background:rgba(var(--gd),.16);color:var(--gold);'},lastGo:s.acts.length?go('activity'):go('services'),
 q:s.q,onQ:e=>setState({q:e.target.value}),onlineCls:'chip'+(s.online?' on':''),toggleOnline:()=>setState({online:!s.online}),
 cats:CATS.map(c=>({label:c,cls:'chip'+(s.cat===c?' on':''),go:()=>setState({cat:c})})),exploreList:list,noResults:list.length===0,
