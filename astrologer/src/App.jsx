@@ -1,7 +1,6 @@
 import Sidebar from '@/layout/Sidebar.jsx';
 import BottomNav from '@/layout/BottomNav.jsx';
 import HomeHeader from '@/layout/HomeHeader.jsx';
-import AvailabilityCard from '@/components/home/AvailabilityCard.jsx';
 import EarningsCard from '@/components/home/EarningsCard.jsx';
 import PeakDemandCard from '@/components/home/PeakDemandCard.jsx';
 import TodaysWorkSection from '@/components/home/TodaysWorkSection.jsx';
@@ -25,7 +24,8 @@ const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'num
   .format(TODAY) // the prototype's fixed today, as in the reference (fD(TODAY))
   .replace(',', '');
 
-// Astrologer app shell. Home: the seven sections in the order of AD-02, laid out as the reference Home.
+// Astrologer app shell. Home: sticky header (logo, availability controls, date, theme, bell, logout),
+// then the AD-02 sections in order; Availability (AD-02 #2) lives in the header.
 // My Work → Text Questions, Appointments and their sub-pages render in WorkPage.
 // Live, Earnings, Profile and the "More" pages render in SectionPage (pages/sections.js).
 export default function App() {
@@ -55,9 +55,9 @@ export default function App() {
         </main>
       ) : (
         <main className="ac-main">
-          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel} />
+          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel}
+            availability={availability} ui={home.ui} />
           <div className="ac-grid">
-            <AvailabilityCard a={availability} ui={home.ui} />
             <EarningsCard data={earnings} />
             <PeakDemandCard data={peakDemand} />
           </div>

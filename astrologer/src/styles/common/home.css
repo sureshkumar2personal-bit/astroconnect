@@ -68,7 +68,6 @@
 .ac-header__text { flex: 1 1 320px; min-width: 0; }
 .ac-header__sub { margin: 6px 0 0; font-size: 16px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
 .ac-header__spark { flex-shrink: 0; }
-.ac-header__actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .ac-avatar-ring { width: 112px; height: 112px; border-radius: 50%; border: 3px solid var(--border); padding: 4px; flex-shrink: 0; box-shadow: var(--avatar-glow); }
 .ac-avatar {
   width: 100%; height: 100%; border-radius: 50%; background: var(--avatar);
@@ -91,18 +90,61 @@
   background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
 }
-.ac-account {
-  display: flex; align-items: center; gap: 8px; color: var(--text); padding: 4px 10px 4px 4px;
-  border: 1.5px solid var(--glass-border); border-radius: 999px; background: var(--glass);
-  box-shadow: var(--tile-shadow); backdrop-filter: blur(6px);
+/* ---------- Home sticky header ----------
+   Logo · availability pills · date · theme · bell · profile menu, sticky at the top of Home.
+   It bleeds over .ac-main's padding so it spans the full content width. */
+.ac-topbar {
+  position: sticky; top: 0; z-index: 8;
+  margin: -24px -24px 0; padding: 10px 24px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  background: color-mix(in srgb, var(--sidebar-bg) 92%, transparent);
+  border-bottom: 1.5px solid var(--card-border);
+  box-shadow: var(--tile-shadow);
+  backdrop-filter: blur(10px);
 }
-/* Dark keeps its original borderless account control. */
-:root[data-theme='dark'] .ac-account { border-color: transparent; padding: 0; }
-.ac-account__avatar {
-  width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--border); background: var(--avatar);
+.ac-topbar__logo { width: auto; height: 44px; flex-shrink: 0; }
+.ac-topbar__controls { display: flex; align-items: center; gap: 8px; }
+.ac-topbar__meta { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.ac-topbar .ac-iconbtn { width: 40px; height: 40px; border-radius: 10px; }
+.ac-topbar .ac-datechip { padding: 8px 14px; gap: 8px; border-radius: 10px; font-size: 14px; }
+.ac-topbar .ac-bell__badge { top: -7px; right: -7px; width: 19px; height: 19px; font-size: 11px; }
+.ac-profile { position: relative; }
+.ac-topbar .ac-profile__btn { border-radius: 50%; padding: 0; }
+.ac-profile__avatar {
+  width: 100%; height: 100%; border-radius: 50%; background: var(--avatar);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif; font-size: 20px; color: var(--heading);
+  font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--heading);
 }
+.ac-profile__btn[aria-expanded='true'] { border-color: var(--accent-border); }
+/* Menu: centred under the profile button; --shift (set in JS) keeps it inside the viewport. */
+.ac-profile__menu {
+  position: absolute; top: calc(100% + 8px); left: 50%; z-index: 20;
+  transform: translateX(calc(-50% + var(--shift, 0px)));
+  min-width: 176px; padding: 6px; display: flex; flex-direction: column; gap: 2px;
+  background: var(--sidebar-bg); border: 1.5px solid var(--card-border); border-radius: 14px; box-shadow: var(--card-shadow);
+}
+.ac-profile__item {
+  display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border: 0; border-radius: 10px;
+  background: none; color: var(--text); font-size: 14px; font-weight: 500; text-align: left; white-space: nowrap;
+}
+.ac-profile__item svg { color: var(--heading); flex-shrink: 0; }
+.ac-profile__item:hover, .ac-profile__item:focus-visible { background: var(--chip); }
+.ac-topbar__planned.is-set { border-color: var(--accent-border); color: var(--heading); }
+.ac-topbar .ac-more { display: none; }
+
+/* Availability pill switches (style of the green Online button). */
+.ac-tpill {
+  height: 38px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--track); background: var(--chip);
+  color: var(--text); font-size: 14px; font-weight: 500; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.ac-tpill__dot { width: 9px; height: 9px; flex-shrink: 0; border-radius: 50%; border: 2px solid var(--muted); }
+.ac-tpill__short { display: none; }
+.ac-tpill.is-on { background: var(--online-grad); border-color: var(--online-border); color: var(--on-online); font-weight: 600; box-shadow: var(--tile-shadow); }
+.ac-tpill.is-on .ac-tpill__dot { width: 10px; height: 10px; border: 0; background: var(--on-online); }
+.ac-tpill--dnd.is-on { background: var(--accent); border-color: var(--accent-border); color: var(--on-accent); }
+.ac-tpill--dnd.is-on .ac-tpill__dot { background: var(--accent-dot); }
+.ac-tpill.is-disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* ---------- Cards ---------- */
 .ac-card {
@@ -116,37 +158,12 @@
 .ac-info { color: var(--info); flex-shrink: 0; }
 .ac-viewall { font-weight: 600; display: flex; align-items: center; gap: 2px; white-space: nowrap; }
 
-/* Availability */
-.ac-pills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.ac-pill {
-  height: 46px; width: 100%; border-radius: 999px; border: 1.5px solid var(--track); background: var(--chip);
-  color: var(--text); font-size: 18px; font-weight: 500;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-}
-.ac-pill__dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--muted); }
-.ac-pill.is-selected { border-color: var(--accent-border); background: var(--accent); color: var(--on-accent); font-weight: 600; }
-.ac-pill.is-selected .ac-pill__dot { width: 12px; height: 12px; border: 0; background: var(--accent-dot); }
-/* Online shown in green in the light reference; dark tokens keep it gold. */
-.ac-pill:first-child.is-selected { background: var(--online-grad); border-color: var(--online-border); color: var(--on-online); box-shadow: var(--tile-shadow); }
-.ac-pill:first-child.is-selected .ac-pill__dot { background: var(--on-online); }
-.ac-row { display: flex; align-items: center; gap: 14px; padding: 6px 4px; border-bottom: 1px solid var(--divider); }
-.ac-row--last { border-bottom: 0; }
-.ac-row__label { flex-grow: 1; font-size: 17px; }
-.ac-row__sub { font-size: 12px; color: var(--danger); }
-.ac-row__sub:empty { display: none; }
 .ac-switch {
   width: 50px; height: 28px; flex-shrink: 0; border-radius: 14px; border: 0; padding: 3px;
   background: var(--switch-off); display: flex; justify-content: flex-start;
 }
 .ac-switch.is-on { background: var(--accent); justify-content: flex-end; }
 .ac-switch__knob { width: 22px; height: 22px; border-radius: 50%; background: #fff; display: block; }
-.ac-wide-btn {
-  display: flex; align-items: center; gap: 14px; height: 46px; padding: 0 18px; border-radius: 999px;
-  border: 1.5px solid var(--border); background: var(--wide-btn-bg); color: var(--text); font-size: 17px; font-weight: 600;
-}
-.ac-wide-btn__label { flex-grow: 1; min-width: 0; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ac-note { margin: 0; display: flex; gap: 8px; font-size: 13px; line-height: 1.45; color: var(--muted); }
-.ac-note__icon { flex-shrink: 0; margin-top: 2px; }
 
 /* Earnings */
 .ac-card__head--earn { flex-wrap: wrap; }
@@ -257,6 +274,17 @@ a.ac-activity__item:hover { background: var(--chip); }
 .ac-tw__row:hover { background: var(--card); }
 .ac-tw__time { flex: none; min-width: 64px; min-height: 40px; padding: 4px 6px; border-radius: 10px; background: var(--card); color: var(--heading); font-weight: 700; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
 .ac-tw__time--bad { min-width: 40px; color: var(--danger); font-size: 16px; }
+/* Appointments as the day's timeline: a thin gold rule links the time tiles, earliest first.
+   Each row draws the half above and below its tile, so the rule always runs tile to tile. */
+.ac-tw__timeline { display: flex; flex-direction: column; }
+.ac-tw__timeline > .ac-tw__row { position: relative; border-bottom-color: transparent; }
+.ac-tw__timeline > .ac-tw__row::before, .ac-tw__timeline > .ac-tw__row::after {
+  content: ''; position: absolute; left: 39px; width: 2px; background: var(--border);
+}
+.ac-tw__timeline > .ac-tw__row::before { top: 0; height: 50%; }
+.ac-tw__timeline > .ac-tw__row::after { top: 50%; bottom: 0; }
+.ac-tw__timeline > .ac-tw__row:first-child::before, .ac-tw__timeline > .ac-tw__row:last-child::after { display: none; }
+.ac-tw__card--appt .ac-tw__time { position: relative; z-index: 1; box-sizing: border-box; width: 72px; border: 1.5px solid var(--border); }
 .ac-tw__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .ac-tw__sub { font-size: 12px; color: var(--muted); line-height: 1.4; }
 .ac-tw__badge { display: contents; }
