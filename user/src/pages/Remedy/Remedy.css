@@ -1,7 +1,8 @@
 /* Remedy Tracker: atonement list and detail */
-:root .remedy-page .rm-filters { padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
-:root .remedy-page .rm-filter { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-:root .remedy-page .rm-select { max-width:200px; }
+:root .remedy-page .rm-filters { padding:16px 20px; display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:12px 24px; flex-wrap:wrap; }
+:root .remedy-page .rm-filter { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+:root .remedy-page .rm-filter { display:flex; align-items:center; gap:12px; flex-wrap:nowrap; }
+:root .remedy-page .rm-select { width:170px; max-width:200px; flex:none; }
 :root .remedy-page .rm-h2 { margin:0; font:600 26px var(--font-head); font-variant-numeric:lining-nums; }
 :root .remedy-page .rm-h3 { margin:0; font:600 22px var(--font-head); font-variant-numeric:lining-nums; }
 :root .remedy-page .rm-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
