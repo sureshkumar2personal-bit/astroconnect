@@ -1,4 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=Jost:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=Jost:wght@500&display=swap");
+
+/* Fonts: elegant serif for headings, clean sans-serif for body and controls */
+:root { --font-head: 'Cormorant Garamond', Georgia, serif; --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
 
 /* ===== Global styles copied unchanged from reference/web-view.html ===== */
 body{margin:0;background:var(--page)}
@@ -14,11 +17,11 @@ button{font-family:inherit;color:inherit;cursor:pointer}
 .hov{transition:background-color .2s,border-color .2s,transform .15s}
 .hov:hover{background-color:rgba(var(--gl),.15);border-color:rgba(var(--ln2),.5)}
 .hov:active{transform:scale(.985)}
-.btn-p{background-image:linear-gradient(90deg,var(--cta1),var(--cta2));color:var(--ctaink);border:0;border-radius:999px;padding:11px 24px;min-height:44px;font-size:17px;font-weight:600;transition:filter .2s,transform .15s}
+.btn-p{background-image:linear-gradient(90deg,var(--cta1),var(--cta2));color:var(--ctaink);border:0;border-radius:999px;padding:11px 24px;min-height:44px;font-size:16px;font-weight:600;transition:filter .2s,transform .15s}
 .btn-p:hover{filter:brightness(1.07)}.btn-p:active{transform:scale(.97)}
-.btn-g{background:transparent;border:1px solid rgba(var(--ln2),.45);color:var(--ink);border-radius:999px;padding:10px 22px;min-height:44px;font-size:17px;transition:background-color .2s}
+.btn-g{background:transparent;border:1px solid rgba(var(--ln2),.45);color:var(--ink);border-radius:999px;padding:10px 22px;min-height:44px;font-size:16px;transition:background-color .2s}
 .btn-g:hover{background-color:rgba(var(--gl),.15)}
-.nv{background:transparent;border:0;color:var(--muted);padding:9px 18px;border-radius:999px;font-size:17px;min-height:44px}
+.nv{background:transparent;border:0;color:var(--muted);padding:9px 18px;border-radius:999px;font-size:16px;min-height:44px}
 .nv:hover{color:#fff;background:rgba(var(--gl),.12)}
 .nv.on{background:#5a3cc0;color:#fff}
 .chip{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.3);color:var(--em);border-radius:999px;padding:7px 16px;min-height:40px;font-size:16px;white-space:nowrap}
@@ -26,9 +29,9 @@ button{font-family:inherit;color:inherit;cursor:pointer}
 .chip.on{background:#5a3cc0;border-color:var(--acc2);color:#fff}
 .ico{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.25);border-radius:999px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 12px;gap:8px;color:var(--ink)}
 .ico:hover{background:rgba(var(--gl),.2)}
-.tag{display:inline-block;font-size:12px;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid rgba(var(--gd),.6);color:var(--gold)}
-.pill{display:inline-block;font-size:14px;padding:3px 11px;border-radius:999px;font-weight:500}
-.inp{width:100%;box-sizing:border-box;background:rgba(var(--bg0),.6);border:1px solid rgba(var(--ln),.35);border-radius:14px;color:var(--ink);padding:12px 16px;font-family:inherit;font-size:17px;min-height:44px}
+.tag{display:inline-block;font-size:13px;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid rgba(var(--gd),.6);color:var(--gold)}
+.pill{display:inline-block;font-size:15px;padding:3px 11px;border-radius:999px;font-weight:500}
+.inp{width:100%;box-sizing:border-box;background:rgba(var(--bg0),.6);border:1px solid rgba(var(--ln),.35);border-radius:14px;color:var(--ink);padding:12px 16px;font-family:inherit;font-size:16px;min-height:44px}
 .inp::placeholder{color:var(--subtle)}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
 .tb{background:#5a3cc0;border:0;border-radius:999px;width:48px;height:28px;padding:3px;display:flex;align-items:center}
@@ -49,8 +52,9 @@ html,body{margin:0;background:var(--page)}
   width: 100%;
   min-height: 100vh;
   color: var(--ink);
-  font-family: 'EB Garamond', Georgia, serif;
-  font-size: 17px;
+  font-family: var(--font-body);
+  font-variant-numeric: lining-nums; /* clear digits in the serif headings (1 vs I) */
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -81,11 +85,11 @@ html,body{margin:0;background:var(--page)}
 
 :root .sky .u-2 {
   margin:0 0 16px;
-  font:600 28px/1.2 'Cormorant Garamond',serif;
+  font:600 28px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-3 {
-  font:600 22px/1.2 'Cormorant Garamond',serif;
+  font:600 22px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-4 {
@@ -100,7 +104,7 @@ html,body{margin:0;background:var(--page)}
 }
 
 :root .sky .u-6 {
-  font:600 21px/1.2 'Cormorant Garamond',serif;
+  font:600 21px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-7 {
@@ -122,7 +126,7 @@ html,body{margin:0;background:var(--page)}
 
 :root .sky .u-10 {
   margin:0;
-  font:600 44px/1.1 'Cormorant Garamond',serif;
+  font:600 44px/1.1 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-11 {
@@ -150,7 +154,7 @@ html,body{margin:0;background:var(--page)}
 :root .sky .u-15 {
   margin:0;
   color:var(--subtle);
-  font-size:14px;
+  font-size:15px;
 }
 
 :root .sky .u-16 {
@@ -177,12 +181,12 @@ html,body{margin:0;background:var(--page)}
 
 :root .sky .u-21 {
   color:var(--subtle);
-  font-size:14px;
+  font-size:15px;
 }
 
 :root .sky .u-22 {
   margin:0 0 6px;
-  font:600 44px/1.1 'Cormorant Garamond',serif;
+  font:600 44px/1.1 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-23 {
@@ -216,7 +220,7 @@ html,body{margin:0;background:var(--page)}
 
 :root .sky .u-28 {
   margin:0;
-  font:600 22px/1.2 'Cormorant Garamond',serif;
+  font:600 22px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-29 {
@@ -243,7 +247,7 @@ html,body{margin:0;background:var(--page)}
 :root .sky .u-33 {
   margin:0;
   color:var(--subtle);
-  font-size:14px;
+  font-size:15px;
   line-height:1.4;
 }
 
@@ -282,12 +286,12 @@ html,body{margin:0;background:var(--page)}
 }
 
 :root .sky .u-40 {
-  font:600 24px 'Cormorant Garamond',serif;
+  font:600 24px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-41 {
   margin:0;
-  font:600 22px 'Cormorant Garamond',serif;
+  font:600 22px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .sky .u-42 {
@@ -323,5 +327,5 @@ html,body{margin:0;background:var(--page)}
 
 :root .sky .u-47 {
   margin:0;
-  font:600 28px 'Cormorant Garamond',serif;
+  font:600 28px var(--font-head); font-variant-numeric:lining-nums;
 }

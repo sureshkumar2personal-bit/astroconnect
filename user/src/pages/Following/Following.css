@@ -1,6 +1,6 @@
 :root .following-page .following-1 {
   margin:0;
-  font:600 24px 'Cormorant Garamond',serif;
+  font:600 24px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .following-page .following-2 {
@@ -21,7 +21,7 @@
 }
 
 :root .following-page .following-4 {
-  font:600 21px 'Cormorant Garamond',serif;
+  font:600 21px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .following-page .following-5 {
@@ -32,7 +32,7 @@
 
 :root .following-page .following-6 {
   margin:8px 0 0;
-  font:600 24px 'Cormorant Garamond',serif;
+  font:600 24px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .following-page .following-7 {

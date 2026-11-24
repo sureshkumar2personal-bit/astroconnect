@@ -1,9 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { useApp } from "../../context/AppContext";
 import "./Navbar.css";
 
 function Navbar() {
   const app = useApp();
+  const profRef = useRef(null);
+  // Close the profile menu on an outside click or the Escape key.
+  useEffect(() => {
+    if (!app.profMenu) return undefined;
+    const onDown = (e) => { if (profRef.current && !profRef.current.contains(e.target)) app.closeProf(); };
+    const onKey = (e) => { if (e.key === "Escape") app.closeProf(); };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [app.profMenu]);
 
   return (
     <header className="navbar">
@@ -85,7 +95,15 @@ function Navbar() {
             <path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 21h4" />
           </svg>
         </button>
-        <button className="ico navbar-5" onClick={app.goProfile} aria-label="Profile">G</button>
+        <div className="navbar-prof" ref={profRef}>
+          <button className="ico navbar-5" onClick={app.toggleProf} aria-label="Profile" aria-haspopup="menu" aria-expanded={app.profMenu}>G</button>
+          {app.profMenu ? (
+            <div className="card navbar-menu" role="menu" aria-label="Profile menu">
+              <button className="navbar-item" role="menuitem" onClick={app.viewProfile}>View profile</button>
+              <button className="navbar-item" role="menuitem" onClick={app.logout}>Log out</button>
+            </div>
+          ) : null}
+        </div>
       </nav>
     </header>
   );

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./AstrologerProfile.css";
 
 function AstrologerProfile() {
@@ -18,7 +19,7 @@ function AstrologerProfile() {
       ) : (
       <>
       <section className="card astrologer-profile-1">
-        <div style={cssToStyle(app.cur.avL)}>{app.cur.ini}</div>
+        <AstroAvatar id={app.cur.id} size={96} name={app.cur.name} />
         <div className="astrologer-profile-2">
           <h1 className="u-10">{app.cur.name}</h1>
           <div className="astrologer-profile-3">{app.cur.spec}</div>

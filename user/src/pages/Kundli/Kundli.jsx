@@ -6,6 +6,7 @@ function Kundli() {
   const app = useApp();
   return (
     <div className="kundli-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">{"Birth profiles & Kundli"}</h1>
       <div className="kundli-1">
         {app.bps.map((b, i1) => (

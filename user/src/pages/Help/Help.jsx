@@ -6,6 +6,7 @@ function Help() {
   const app = useApp();
   return (
     <div className="help-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">{"Help & support"}</h1>
       <section className="card u-37">
         {app.faqs.map((f, i1) => (

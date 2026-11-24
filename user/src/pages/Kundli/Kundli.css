@@ -16,7 +16,7 @@
 :root .kundli-page .kundli-3 {
   margin:0;
   align-self:flex-start;
-  font:600 22px 'Cormorant Garamond',serif;
+  font:600 22px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .kundli-page .kundli-4 {

@@ -1,11 +1,35 @@
-:root .remedy-page .remedy-1 {
-  color:var(--muted);
-  max-width:380px;
-}
-
-:root .remedy-page .rm-card { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
-:root .remedy-page .rm-head { display:flex; gap:8px; flex-wrap:wrap; }
-:root .remedy-page .rm-kind { background:rgba(154,124,255,.25); color:var(--em); }
-:root .remedy-page .rm-done { background:rgba(var(--gn),.15); color:var(--green); }
-:root .remedy-page .rm-actions { display:flex; gap:8px; flex-wrap:wrap; }
+/* Remedy Tracker: atonement list and detail */
+:root .remedy-page .rm-filters { padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
+:root .remedy-page .rm-filter { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+:root .remedy-page .rm-select { max-width:200px; }
+:root .remedy-page .rm-h2 { margin:0; font:600 26px var(--font-head); font-variant-numeric:lining-nums; }
+:root .remedy-page .rm-h3 { margin:0; font:600 22px var(--font-head); font-variant-numeric:lining-nums; }
+:root .remedy-page .rm-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
+:root .remedy-page .rm-card { padding:18px 20px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+:root .remedy-page .rm-head { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+:root .remedy-page .rm-title { margin:0; font:600 22px/1.25 var(--font-head); font-variant-numeric:lining-nums; }
+:root .remedy-page .rm-progress { display:flex; gap:8px; align-items:baseline; }
 :root .remedy-page .rm-btn { padding:6px 18px; }
+:root .remedy-page .rm-kind { background:rgba(154,124,255,.25); color:var(--em); }
+:root .remedy-page .rm-pending { background:rgba(var(--gd),.16); color:var(--gold); }
+:root .remedy-page .rm-done { background:rgba(var(--gn),.15); color:var(--green); }
+:root .remedy-page .rm-locked { background:rgba(var(--gl),.15); color:var(--subtle); }
+:root .remedy-page .rm-hero { padding:22px 24px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+:root .remedy-page .rm-detail-title { margin:0; font:600 34px/1.15 var(--font-head); font-variant-numeric:lining-nums; }
+:root .remedy-page .rm-stats { display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
+:root .remedy-page .rm-bar { width:100%; max-width:520px; height:8px; border-radius:99px; background:rgba(var(--gl),.2); overflow:hidden; }
+:root .remedy-page .rm-bar-fill { height:100%; background:var(--acc); border-radius:99px; }
+:root .remedy-page .rm-days { display:flex; gap:8px; flex-wrap:wrap; }
+:root .remedy-page .rm-daydone { border-color:rgba(var(--gn),.6); }
+:root .remedy-page .rm-day { padding:22px 24px; display:flex; flex-direction:column; gap:12px; }
+:root .remedy-page .rm-day-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+:root .remedy-page .rm-plan { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+:root .remedy-page .rm-plan li { display:flex; flex-direction:column; gap:6px; border-top:1px solid rgba(var(--ln),.15); padding-top:12px; }
+:root .remedy-page .rm-quote { margin:0; padding:8px 14px; border-left:3px solid var(--acc2); color:var(--muted); }
+:root .remedy-page .rm-status-row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; border-top:1px solid rgba(var(--ln),.15); padding-top:12px; }
+:root .remedy-page .rm-status-row .btn-p:disabled { opacity:.5; cursor:not-allowed; }
+:root .remedy-page .rm-proofs { display:flex; flex-direction:column; gap:10px; border-top:1px solid rgba(var(--ln),.15); padding-top:14px; }
+:root .remedy-page .rm-count { color:var(--gold); font-weight:600; }
+:root .remedy-page .rm-proof-row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding:8px 0; border-top:1px solid rgba(var(--ln),.1); }
+:root .remedy-page .rm-add { cursor:pointer; }
+:root .remedy-page .rm-file { position:absolute; left:-9999px; }

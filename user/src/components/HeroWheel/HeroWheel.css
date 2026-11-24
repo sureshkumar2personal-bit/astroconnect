@@ -1,0 +1,13 @@
+.hero-wheel,
+.hero-figure { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hero-figure { object-fit: cover; object-position: center; }
+.hero-wheel .hw-fx { fill: none; stroke: rgba(232, 218, 255, .85); stroke-width: 1; filter: drop-shadow(0 0 5px rgba(196, 160, 255, .85)); }
+.hero-wheel .hw-ring { transform-origin: 1015px 236px; animation: hw-cw 60s linear infinite; }
+.hero-wheel .hw-inner { transform-origin: 1015px 236px; animation: hw-ccw 90s linear infinite; }
+.hero-wheel .hw-ray { fill: rgba(220, 200, 255, .12); stroke-width: .6; }
+.hero-wheel .hw-glyph { fill: rgba(240, 230, 255, .96); stroke: none; font: 400 25px "Noto Sans Symbols", "Segoe UI Symbol", "DejaVu Sans", "Apple Symbols", sans-serif; transform-box: fill-box; transform-origin: center; animation: hw-ccw 60s linear infinite; }
+@keyframes hw-cw { to { transform: rotate(360deg); } }
+@keyframes hw-ccw { to { transform: rotate(-360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-wheel .hw-ring, .hero-wheel .hw-inner, .hero-wheel .hw-glyph { animation: none; }
+}

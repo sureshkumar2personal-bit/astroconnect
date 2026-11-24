@@ -6,6 +6,7 @@ function Wallet() {
   const app = useApp();
   return (
     <div className="wallet-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">Wallet</h1>
       <section className="wallet-1">
         <div className="wallet-2">
