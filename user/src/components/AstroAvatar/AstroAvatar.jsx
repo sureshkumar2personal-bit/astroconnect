@@ -1,11 +1,35 @@
 import React, { useId } from "react";
 import { AVATARS } from "../../data/mockData";
+import drRani from "../../assets/astrologers/dr-rani.png";
+import arjunSharma from "../../assets/astrologers/arjun-sharma.png";
+import nandiniKapoor from "../../assets/astrologers/nandini-kapoor.png";
+import acharyaMeena from "../../assets/astrologers/acharya-meena.png";
+import priyaSharma from "../../assets/astrologers/priya-sharma.png";
+import devMalhotra from "../../assets/astrologers/dev-malhotra.png";
+import ishitaSen from "../../assets/astrologers/ishita-sen.png";
+import ruWoman40 from "../../assets/astrologers/randomuser-women-40.jpg";
+import ruMan86 from "../../assets/astrologers/randomuser-men-86.jpg";
+import ruMan12 from "../../assets/astrologers/randomuser-men-12.jpg";
+
+// Photos for every astrologer. Seven were supplied with a status dot in the corner (cropped by a slight zoom);
+// the last three are placeholder portraits from randomuser.me (7, 8, 9) and are shown as they are.
+const PHOTOS = { 0: drRani, 1: arjunSharma, 2: nandiniKapoor, 3: acharyaMeena, 4: priyaSharma, 5: devMalhotra, 6: ishitaSen, 7: ruMan86, 8: ruWoman40, 9: ruMan12 };
+const NO_ZOOM = { 7: true, 8: true, 9: true };
 import "./AstroAvatar.css";
 
-// Original illustrated portrait, drawn in code from a few traits per astrologer (no photos, no licences).
+// Portrait for an astrologer: a supplied photo where there is one, otherwise a portrait drawn in code from a few traits.
 function AstroAvatar({ id, size = 52, name = "" }) {
-  const c = AVATARS[id] || AVATARS[0];
   const uid = useId().replace(/:/g, "");
+  const photo = PHOTOS[id];
+  if (photo) {
+    // The supplied photos have a small status dot in the corner; the slight zoom crops it out.
+    return (
+      <span className={"astro-avatar astro-photo" + (NO_ZOOM[id] ? " nz" : "")} style={{ width: size, height: size }}>
+        <img src={photo} width={size} height={size} alt={name ? name + " portrait" : "Astrologer portrait"} />
+      </span>
+    );
+  }
+  const c = AVATARS[id] || AVATARS[0];
   const hair = c.hair, skin = c.skin, shade = c.shade;
   const longHair = c.style === "long" || c.style === "wavy";
   return (
