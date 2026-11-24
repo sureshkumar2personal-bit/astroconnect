@@ -26,6 +26,7 @@ import AnswerDetail from "./pages/AnswerDetail/AnswerDetail";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Help from "./pages/Help/Help";
 import Login from "./pages/Login/Login";
+import InstantList from "./pages/InstantList/InstantList";
 
 function Shell() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ function Shell() {
             <Route path="/explore/:section" element={<Explore />} />
             <Route path="/astro" element={<AstrologerProfile />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/:kind" element={<InstantList />} />
             <Route path="/text" element={<TextQuestion />} />
             <Route path="/text/:tab" element={<TextQuestion />} />
             <Route path="/activity" element={<Activity />} />

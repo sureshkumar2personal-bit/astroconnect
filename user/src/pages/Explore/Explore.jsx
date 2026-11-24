@@ -49,7 +49,7 @@ function matchF(a, f) {
 }
 const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
 
-function ExCard({ a, onFollow }) {
+export function ExCard({ a, onFollow, mode }) {
   const tags = a.expertise.slice(0, 3);
   const more = a.expertise.length - tags.length;
   return (
@@ -64,7 +64,7 @@ function ExCard({ a, onFollow }) {
         <div className="xp-side">
           {a.sub ? (
             <span className="xp-subbadge"><Icon d={IC.check} size={13} />Subscribed</span>
-          ) : (
+          ) : mode ? null : (
             <button className={"xp-follow" + (a.fol ? " on" : "")} aria-pressed={a.fol} aria-label={(a.fol ? "Unfollow " : "Follow ") + a.name} onClick={() => onFollow(a)}>
               <Icon d={a.fol ? IC.check : IC.plus} size={14} />{a.fol ? "Following" : "Follow"}
             </button>
@@ -90,8 +90,12 @@ function ExCard({ a, onFollow }) {
       <div className="xp-actions">
         {a.canContact ? (
           <>
-            <button className="xp-btn xp-call" onClick={a.call} aria-label={"Call " + a.name}><Icon d={IC.phone} />Call</button>
-            <button className="xp-btn xp-chat" onClick={a.chat} aria-label={"Chat with " + a.name}><Icon d={IC.chat} />Chat</button>
+            {mode !== "chat" ? (
+              <button className="xp-btn xp-call" onClick={a.call} aria-label={"Call " + a.name}><Icon d={IC.phone} />Call</button>
+            ) : null}
+            {mode !== "call" ? (
+              <button className="xp-btn xp-chat" onClick={a.chat} aria-label={"Chat with " + a.name}><Icon d={IC.chat} />Chat</button>
+            ) : null}
           </>
         ) : (
           <span className="xp-off">{a.avail}</span>
