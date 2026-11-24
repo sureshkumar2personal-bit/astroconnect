@@ -54,6 +54,7 @@ function Shell() {
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/appt" element={<Appointment />} />
+            <Route path="/appt/:tab" element={<Appointment />} />
             <Route path="/session" element={<Session />} />
             <Route path="/kundli" element={<Kundli />} />
             <Route path="/follow" element={<Following />} />

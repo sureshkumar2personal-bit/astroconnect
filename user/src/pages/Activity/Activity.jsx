@@ -21,6 +21,7 @@ function Activity() {
             <button className={`${t.cls}`} onClick={t.go}>{t.label}</button>
           </Fragment>
         ))}
+        <button className="chip" onClick={app.goApptHistory}>Appointment History ›</button>
       </div>
       {app.hasHeld ? (
         <button className="card hov activity-1" onClick={app.goText}>

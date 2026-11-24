@@ -60,7 +60,7 @@
 :root .astrologer-profile-page .ap-pkg { display:flex; flex-direction:column; gap:2px; }
 :root .astrologer-profile-page .ap-unavail { padding:24px; display:flex; flex-direction:column; gap:12px; }
 :root .astrologer-profile-page .ap-ctl { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
-:root .astrologer-profile-page .ap-ctl-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .astrologer-profile-page .ap-ctl-title { font:600 20px var(--font-head); font-variant-numeric:lining-nums; }
 :root .astrologer-profile-page .ap-ctl-row { display:flex; gap:8px; flex-wrap:wrap; }
 :root .astrologer-profile-page .ap-rev-row { display:flex; justify-content:space-between; align-items:center; gap:12px; border-top:1px solid rgba(var(--ln),.15); padding-top:6px; }
 :root .astrologer-profile-page .chip:disabled { opacity:.4; cursor:not-allowed; }

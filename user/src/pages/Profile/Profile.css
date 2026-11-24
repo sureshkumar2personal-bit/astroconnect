@@ -15,7 +15,7 @@
   align-items:center;
   justify-content:center;
   color:#fff;
-  font:700 32px 'Cormorant Garamond',serif;
+  font:700 32px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .profile-page .profile-3 {

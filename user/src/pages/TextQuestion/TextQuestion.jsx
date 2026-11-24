@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./TextQuestion.css";
 
 function Facts({ a }) {
@@ -28,7 +29,7 @@ function PickAstrologer() {
             <Fragment key={i1}>
               <article className="card tx-card">
                 <button className="tx-pick" onClick={a.pick} aria-label={"Ask a question with " + a.name}>
-                  <div style={cssToStyle(a.av)}>{a.ini}</div>
+                  <AstroAvatar id={a.id} size={52} name={a.name} />
                   <div className="tx-who">
                     <div className="tx-name">{a.name}</div>
                     <div className="u-13">{a.spec}</div>
@@ -56,7 +57,7 @@ function PickAstrologer() {
             <Fragment key={i1}>
               <article className="card tx-card">
                 <button className="tx-pick" onClick={a.open} aria-label={"View " + a.name + " profile"}>
-                  <div style={cssToStyle(a.av)}>{a.ini}</div>
+                  <AstroAvatar id={a.id} size={52} name={a.name} />
                   <div className="tx-who">
                     <div className="tx-name">{a.name}</div>
                     <div className="u-13">{a.spec}</div>
@@ -294,14 +295,24 @@ function Purchased() {
 
 function MyQuestions() {
   const app = useApp();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState("Total");
   const [search, setSearch] = useState("");
+  const [draft, setDraft] = useState("");
+  const [sOpen, setSOpen] = useState(false);
+  const sRef = useRef(null);
   const [month, setMonth] = useState("All Months");
   const [view, setView] = useState("list");
+  // Collapsed icon search: click opens and focuses; Enter or the Search button applies; Escape clears and closes.
+  const openSearch = () => { setSOpen(true); setTimeout(() => sRef.current && sRef.current.focus(), 30); };
+  const applySearch = () => setSearch(draft);
+  const closeSearch = () => { setDraft(""); setSearch(""); setSOpen(false); };
+  const onSearchBtn = () => { if (!sOpen) openSearch(); else if (!draft.trim()) closeSearch(); else applySearch(); };
+  const onSearchKey = (e) => { if (e.key === "Enter") applySearch(); else if (e.key === "Escape") closeSearch(); };
   const [open, setOpen] = useState({});
   const text = search.trim().toLowerCase();
   const inMonth = app.myQs.filter((x) => month === "All Months" || x.month === month);
-  const match = (x) => !text || (x.qid + " " + x.title + " " + x.who + " " + x.camp + " " + x.kind + " " + x.status + " " + (x.paid === "Free (benefit)" ? "free" : "paid")).toLowerCase().includes(text);
+  const match = (x) => !text || (x.qid + " " + x.title + " " + x.who + " " + x.camp + " " + x.kind + " " + x.status + " " + (x.paid === "Free (benefit)" ? "free" : "paid") + (x.kind === "Personal" ? " individual" : "")).toLowerCase().includes(text);
   const byStatus = (x) => filter === "Total" || (filter === "Waiting" && x.statusKey === "waiting") || (filter === "Completed" && x.statusKey === "completed") || (filter === "Disputed" && x.disputed) || (filter === "Cancelled" && x.statusKey === "cancelled");
   const counts = {
     Total: inMonth.length,
@@ -318,7 +329,21 @@ function MyQuestions() {
         <div className="tx-ov-top">
           <h2 className="tx-h2">Question Status Overview</h2>
           <div className="tx-ov-tools">
-            <input className="inp tx-search" placeholder="Search by ID, question, astrologer, type or paid/free" aria-label="Search questions" value={search} onChange={(e) => setSearch(e.target.value)} />
+<div className={"tx-sbar" + (sOpen ? " open" : "")}>
+              <input
+                ref={sRef}
+                className="tx-sinput"
+                placeholder="Search Paid / Personal / General or a keyword"
+                aria-label="Search questions"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onKeyDown={onSearchKey}
+                tabIndex={sOpen ? 0 : -1}
+              />
+              <button className="tx-sbtn" aria-label={sOpen ? "Search" : "Open search"} aria-expanded={sOpen} onClick={onSearchBtn}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+              </button>
+            </div>
             <select className="inp tx-select" aria-label="Select month" value={month} onChange={(e) => setMonth(e.target.value)}>
               <option value="All Months">All Months</option>
               {app.myQMonths.map((m, i1) => (<Fragment key={i1}><option value={m}>{m}</option></Fragment>))}
@@ -423,8 +448,8 @@ function MyQuestions() {
       </div>
       {list.length === 0 ? (
         <div className="card u-39">
-          <div className="u-40">No questions found</div>
-          <div className="remedy-1">Try another filter, month or search.</div>
+          <div className="u-40">{"No active questions"}{month === "All Months" ? "" : " in " + month}{"."}</div>
+          <div className="remedy-1">{"Finished questions are in History. "}<button className="chip" onClick={() => navigate("/text/history")}>Open History</button></div>
         </div>
       ) : null}
     </>

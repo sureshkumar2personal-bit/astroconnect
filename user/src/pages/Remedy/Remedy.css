@@ -2,12 +2,12 @@
 :root .remedy-page .rm-filters { padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
 :root .remedy-page .rm-filter { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 :root .remedy-page .rm-select { max-width:200px; }
-:root .remedy-page .rm-h2 { margin:0; font:600 26px 'Cormorant Garamond',serif; }
-:root .remedy-page .rm-h3 { margin:0; font:600 22px 'Cormorant Garamond',serif; }
+:root .remedy-page .rm-h2 { margin:0; font:600 26px var(--font-head); font-variant-numeric:lining-nums; }
+:root .remedy-page .rm-h3 { margin:0; font:600 22px var(--font-head); font-variant-numeric:lining-nums; }
 :root .remedy-page .rm-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
 :root .remedy-page .rm-card { padding:18px 20px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
 :root .remedy-page .rm-head { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-:root .remedy-page .rm-title { margin:0; font:600 22px/1.25 'Cormorant Garamond',serif; }
+:root .remedy-page .rm-title { margin:0; font:600 22px/1.25 var(--font-head); font-variant-numeric:lining-nums; }
 :root .remedy-page .rm-progress { display:flex; gap:8px; align-items:baseline; }
 :root .remedy-page .rm-btn { padding:6px 18px; }
 :root .remedy-page .rm-kind { background:rgba(154,124,255,.25); color:var(--em); }
@@ -15,7 +15,7 @@
 :root .remedy-page .rm-done { background:rgba(var(--gn),.15); color:var(--green); }
 :root .remedy-page .rm-locked { background:rgba(var(--gl),.15); color:var(--subtle); }
 :root .remedy-page .rm-hero { padding:22px 24px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
-:root .remedy-page .rm-detail-title { margin:0; font:600 34px/1.15 'Cormorant Garamond',serif; }
+:root .remedy-page .rm-detail-title { margin:0; font:600 34px/1.15 var(--font-head); font-variant-numeric:lining-nums; }
 :root .remedy-page .rm-stats { display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
 :root .remedy-page .rm-bar { width:100%; max-width:520px; height:8px; border-radius:99px; background:rgba(var(--gl),.2); overflow:hidden; }
 :root .remedy-page .rm-bar-fill { height:100%; background:var(--acc); border-radius:99px; }

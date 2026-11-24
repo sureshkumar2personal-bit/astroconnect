@@ -1,11 +1,13 @@
 import React, { Fragment } from "react";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./Following.css";
 
 function Following() {
   const app = useApp();
   return (
     <div className="following-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">{"Following & subscriptions"}</h1>
       <p className="u-33">Follow is free and never subscribes you. Subscribe is paid, and a successful subscription also follows the astrologer automatically (D-36).</p>
 
@@ -15,7 +17,7 @@ function Following() {
           <Fragment key={i1}>
             <div className="card following-2 fl-card">
               <button className="following-3" onClick={a.open}>
-                <div style={cssToStyle(a.av)}>{a.ini}</div>
+                <AstroAvatar id={a.id} size={52} name={a.name} />
                 <div>
                   <div className="following-4">{a.name}</div>
                   <div className="u-13">{a.tierText}{" · until "}{a.until}</div>
@@ -37,7 +39,7 @@ function Following() {
           <Fragment key={i1}>
             <div className="card following-2">
               <button className="following-3" onClick={a.open}>
-                <div style={cssToStyle(a.av)}>{a.ini}</div>
+                <AstroAvatar id={a.id} size={52} name={a.name} />
                 <div>
                   <div className="following-4">{a.name}</div>
                   <div className="u-13">{a.tierText ? "Subscribed · " + a.tierText : "Following (free)"}</div>
@@ -57,7 +59,7 @@ function Following() {
         {app.otherList.map((a, i1) => (
           <Fragment key={i1}>
             <div className="card following-7">
-              <div style={cssToStyle(a.av)}>{a.ini}</div>
+              <AstroAvatar id={a.id} size={52} name={a.name} />
               <div className="u-5">
                 <div className="following-4">{a.name}</div>
               </div>

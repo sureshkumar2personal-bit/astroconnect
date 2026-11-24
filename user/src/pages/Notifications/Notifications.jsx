@@ -6,6 +6,7 @@ function Notifications() {
   const app = useApp();
   return (
     <div className="notifications-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">Notifications</h1>
       <div className="u-25">
         <section className="card u-37">

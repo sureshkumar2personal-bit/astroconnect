@@ -39,7 +39,7 @@
 :root .navbar .navbar-5 {
   padding:0;
   width:44px;
-  font-family:'Cormorant Garamond',serif;
+  font-family:var(--font-head);
   font-weight:700;
   font-size:20px;
 }

@@ -7,6 +7,7 @@ function List() {
   const app = useApp();
   return (
     <div className="remedy-page page">
+      <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <div>
         <h1 className="u-22">Atonement</h1>
         <p className="u-23">Remedies your astrologers prescribe or attach, from any service (D-11).</p>

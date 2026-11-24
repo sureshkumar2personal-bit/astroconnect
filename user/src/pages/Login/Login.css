@@ -11,5 +11,5 @@
 
 :root .login-page .login-2 {
   margin:0;
-  font:600 34px 'Cormorant Garamond',serif;
+  font:600 34px var(--font-head); font-variant-numeric:lining-nums;
 }

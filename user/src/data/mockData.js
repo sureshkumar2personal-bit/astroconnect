@@ -18,6 +18,8 @@ export const CAMPS=[
 {id:'c1',name:'Quick Answer',note:'Short, focused reply',general:{price:99,disc:0},personal:{price:149,disc:20},daysLeft:30},
 {id:'c2',name:'Detailed Reading',note:'In-depth written answer',general:{price:199,disc:10},personal:{price:299,disc:25},daysLeft:2},
 {id:'c3',name:'Festival Special',special:'Special Campaign · Festival',note:'Occasion-based offer',general:{price:149,disc:30},personal:null,daysLeft:20}];
+// Local time of day, `days` from today (used for the sample appointment history).
+const apptAt=(days,h,m)=>{const t=new Date(Date.now()+days*86400000);t.setHours(h,m,0,0);return t.getTime();};
 export const ACTS0=[
 {id:1,type:'Question',kind:'General',astro:0,who:'Meenakshi Iyer',when:'2 days ago',title:'Will a job change this year work out for me?',submittedAt:Date.now()-3*86400000,openedAt:Date.now()-3*86400000+10000,answeredAt:Date.now()-2*86400000,answer:'Sample answer: your chart shows a supportive period for change between March and June. Prepare early and avoid signing anything in the first week of April.',paid:99,camp:'Quick Answer',attachments:[{name:'job-timing-chart.pdf'},{name:'summary.txt'}],links:[{label:'Understanding dasha periods',url:'https://example.com/dasha'}]},
 {id:6,type:'Question',kind:'Personal',astro:2,who:'Lakshmi Varma',when:'2 days ago',title:'I feel low on energy for a few weeks. Does my chart show a good window for recovery?',submittedAt:Date.now()-2*86400000,openedAt:Date.now()-2*86400000+10000,simStart:0,paid:149,camp:'Detailed Reading',consentAt:Date.now()-2*86400000},
@@ -25,6 +27,13 @@ export const ACTS0=[
 {id:8,type:'Question',kind:'General',astro:4,who:'Sunita Deshmukh',when:'Last month',title:'Is this a good direction for my new office entrance?',submittedAt:Date.now()-35*86400000,openedAt:null,simStart:0,paid:99,camp:'Quick Answer',cancelled:true},
 {id:9,type:'Question',kind:'General',astro:1,who:'Arvind Nair',when:'3 weeks ago',title:'Is this the right time to accept the new role I was offered?',submittedAt:Date.now()-22*86400000,openedAt:Date.now()-22*86400000+10000,answeredAt:Date.now()-20*86400000,answer:'Sample answer: the offer looks well timed. Confirm the joining date in the second week of the month.',paid:99,camp:'Career & Education',rating:5,review:'Practical and clear.'},
 {id:10,type:'Question',kind:'Personal',astro:0,who:'Meenakshi Iyer',when:'6 weeks ago',title:'Which period suits expanding my business into a second city?',submittedAt:Date.now()-44*86400000,openedAt:Date.now()-44*86400000+10000,answeredAt:Date.now()-41*86400000,answer:'Sample answer: the quarter after next is the stronger window. Start preparations early and avoid signing in the first week.',paid:250,camp:'Business & Finance',rating:4,consentAt:Date.now()-44*86400000},
+{id:11,type:'Appointment',astro:0,who:'Meenakshi Iyer',when:'',title:'Voice consultation · 30 min',status:'Completed',start:apptAt(-3,10,0),dur:30,price:349,bookedAt:apptAt(-8,18,20),payVia:'Wallet',txn:'TXN-A1B2C3',sent:[],reschedCount:0,rating:5},
+{id:12,type:'Appointment',astro:1,who:'Arvind Nair',when:'',title:'Voice consultation · 15 min',status:'Completed',start:apptAt(-7,16,0),dur:15,price:199,bookedAt:apptAt(-12,11,5),payVia:'UPI',txn:'TXN-D4E5F6',sent:[],reschedCount:1,rating:4},
+{id:13,type:'Appointment',astro:3,who:'Karthik Subramanian',when:'',title:'Voice consultation · 30 min',status:'Cancelled · refunded',start:apptAt(-10,11,30),dur:30,price:349,bookedAt:apptAt(-15,9,40),payVia:'Wallet',txn:'TXN-G7H8I9',sent:[],reschedCount:0},
+{id:14,type:'Appointment',astro:5,who:'Rahul Menon',when:'',title:'Voice consultation · 15 min',status:'Completed',start:apptAt(-14,18,30),dur:15,price:199,bookedAt:apptAt(-19,20,10),payVia:'Bank / card',txn:'TXN-J1K2L3',sent:[],reschedCount:0,rating:5},
+{id:15,type:'Appointment',astro:2,who:'Lakshmi Varma',when:'',title:'Voice consultation · 30 min',status:'Astrologer no-show · refunded',start:apptAt(-20,14,0),dur:30,price:349,bookedAt:apptAt(-24,13,15),payVia:'Wallet',txn:'TXN-M4N5O6',sent:[],reschedCount:0},
+{id:16,type:'Appointment',astro:0,who:'Meenakshi Iyer',when:'',title:'Voice consultation · 30 min',status:'Completed',start:apptAt(-32,10,30),dur:30,price:349,bookedAt:apptAt(-36,19,0),payVia:'UPI',txn:'TXN-P7Q8R9',sent:[],reschedCount:0,rating:4},
+{id:17,type:'Appointment',astro:1,who:'Arvind Nair',when:'',title:'Voice consultation · 15 min',status:'Upcoming',start:apptAt(6,17,30),dur:15,price:199,bookedAt:apptAt(-1,12,0),payVia:'Wallet',txn:'TXN-S1T2U3',sent:[],reschedCount:0},
 {id:2,type:'Appointment',astro:1,who:'Arvind Nair',when:'Sat, 10:30 AM',title:'Career consultation',status:'Upcoming',start:Date.now()+3*86400000+3600000,dur:30,price:349,bookedAt:Date.now()-86400000,sent:[],reschedCount:0},
 {id:3,type:'Call',who:'Karthik Subramanian',when:'Last week',title:'Instant Call · 12 min',status:'Completed'},
 {id:4,type:'Chat',who:'Rahul Menon',when:'Last week',title:'Instant Chat · 9 min',status:'Completed'}];
@@ -91,3 +100,16 @@ export const ASTRO_META={
 7:{years:7,followers:'2.3K',exp:['Remedies','Lal Kitab']},
 8:{years:4,followers:'900',exp:['Quick answers','Prashna']},
 9:{years:13,followers:'5.6K',exp:['Career','Timing','Jaimini']}};
+
+// Traits used to draw each astrologer's illustrated portrait (original artwork, no photos).
+export const AVATARS={
+0:{female:true,skin:'#c98f5a',shade:'#b57d4a',hair:'#1f1512',style:'long',beard:'none',bindi:true,earrings:true,outfit:'#8e2f4f',bg:['#6e4fd0','#3a2a86']},
+1:{skin:'#b97c4a',shade:'#a56b3d',hair:'#1b1411',style:'short',beard:'mustache',glasses:true,outfit:'#3c6fa8',bg:['#2f9aa0','#1c5a73']},
+2:{female:true,skin:'#d6a46c',shade:'#c39157',hair:'#2a1a14',style:'wavy',beard:'none',bindi:true,earrings:true,outfit:'#2f8a63',bg:['#e0a33d','#a8691d']},
+3:{skin:'#a9693a',shade:'#965a30',hair:'#171210',style:'short',beard:'short',tilak:true,outfit:'#e27b22',bg:['#4cb583','#1f7a53']},
+4:{female:true,skin:'#c48a56',shade:'#b07846',hair:'#2d211c',style:'bun',beard:'none',bindi:true,earrings:true,outfit:'#2a7f8f',bg:['#d9778f','#9a3f63']},
+5:{skin:'#bf8450',shade:'#ab7342',hair:'#1c1512',style:'wavy',beard:'none',outfit:'#26356b',bg:['#7a8be0','#3d4aa0']},
+6:{female:true,skin:'#b87c4c',shade:'#a56b3e',hair:'#201714',style:'long',beard:'none',glasses:true,bindi:true,outfit:'#d9692d',bg:['#e5895c','#b24a28']},
+7:{skin:'#cf9760',shade:'#bb844f',hair:'#1a1310',style:'short',beard:'full',outfit:'#5a5148',bg:['#8d6bd8','#533a9e']},
+8:{female:true,skin:'#dba76f',shade:'#c8945c',hair:'#2a1c16',style:'long',beard:'none',bindi:true,earrings:true,outfit:'#c75a8d',bg:['#e6b25a','#b9742c']},
+9:{skin:'#9b6035',shade:'#88532d',hair:'#d9d6d0',style:'older',beard:'mustache',glasses:true,vibhuti:true,outfit:'#e8dfcf',bg:['#58a888','#2c6b57']}};

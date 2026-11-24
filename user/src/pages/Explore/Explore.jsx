@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./Explore.css";
 
 function AstroCard({ a }) {
   return (
     <article className="card ex-card">
       <button className="ex-top" onClick={a.open} aria-label={"Open " + a.name + " profile"}>
-        <div style={cssToStyle(a.av)}>{a.ini}</div>
+        <AstroAvatar id={a.id} size={52} name={a.name} />
         <div className="ex-who">
           <div className="ex-name">{a.name}</div>
           <div className="u-13">{a.spec}</div>
@@ -35,16 +36,34 @@ function AstroCard({ a }) {
 
 function Home() {
   const app = useApp();
+  const [sOpen, setSOpen] = useState(false);
+  const sRef = useRef(null);
+  // Collapsed icon search: click opens and focuses; typing filters live; the button or Escape clears and closes.
+  const openSearch = () => { setSOpen(true); setTimeout(() => sRef.current && sRef.current.focus(), 30); };
+  const closeSearch = () => { app.onQ({ target: { value: "" } }); setSOpen(false); };
   return (
     <div className="explore-page page">
-      <div>
-        <h1 className="u-10">Explore Astrologers</h1>
-        <p className="u-23">Find an astrologer for your next consultation</p>
-      </div>
-      <div className="ex-search">
-        <label className="u-11" htmlFor="sq">Search astrologers</label>
-        <input className="inp" id="sq" placeholder="Search by name, speciality, expertise or language" value={app.q ?? ""} onChange={app.onQ} />
-        <span className="tag u-24">Search fields, filters, sorting and ranking · PENDING · P-04-01 – P-04-04</span>
+      <div className="ex-headrow">
+        <div>
+          <h1 className="u-10">Explore Astrologers</h1>
+          <p className="u-23">Find an astrologer for your next consultation</p>
+        </div>
+        <div className={"ex-sbar" + (sOpen || app.q ? " open" : "")}>
+          <input
+            ref={sRef}
+            className="ex-sinput"
+            id="sq"
+            placeholder="Search by name, speciality, expertise or language"
+            aria-label="Search astrologers"
+            value={app.q ?? ""}
+            onChange={app.onQ}
+            onKeyDown={(e) => { if (e.key === "Escape") closeSearch(); }}
+            tabIndex={sOpen || app.q ? 0 : -1}
+          />
+          <button className="ex-sbtn" aria-label={sOpen || app.q ? "Close search" : "Open search"} aria-expanded={sOpen || !!app.q} onClick={() => (sOpen || app.q ? closeSearch() : openSearch())}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+          </button>
+        </div>
       </div>
       {app.exSearching ? (
         <section>
