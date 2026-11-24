@@ -1,64 +1,131 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./Explore.css";
 
-function Explore() {
+function AstroCard({ a }) {
+  return (
+    <article className="card ex-card">
+      <button className="ex-top" onClick={a.open} aria-label={"Open " + a.name + " profile"}>
+        <AstroAvatar id={a.id} size={52} name={a.name} />
+        <div className="ex-who">
+          <div className="ex-name">{a.name}</div>
+          <div className="u-13">{a.spec}</div>
+        </div>
+        <span className={"pill ex-avail " + a.availCls}>{a.avail}</span>
+      </button>
+      <div className="ex-facts">
+        <span>{a.ratingText}</span>
+        <span>{a.years}</span>
+        <span>{a.followers}</span>
+      </div>
+      <div className="ex-tags" aria-label="Areas of expertise">
+        {a.expertise.map((t, i1) => (<Fragment key={i1}><span className="chip ex-chip">{t}</span></Fragment>))}
+      </div>
+      <div className="u-13">{"Languages: "}{a.langList.join(", ")}</div>
+      <div className="u-15">{a.priceText}</div>
+      <div className="ex-actions">
+        <button className="btn-p ex-btn" onClick={a.call} disabled={!a.canContact}>Call</button>
+        <button className="btn-p ex-btn" onClick={a.chat} disabled={!a.canContact}>Chat</button>
+        <button className="btn-g ex-btn" onClick={a.open}>View Profile</button>
+      </div>
+    </article>
+  );
+}
+
+function Home() {
   const app = useApp();
+  const [sOpen, setSOpen] = useState(false);
+  const sRef = useRef(null);
+  // Collapsed icon search: click opens and focuses; typing filters live; the button or Escape clears and closes.
+  const openSearch = () => { setSOpen(true); setTimeout(() => sRef.current && sRef.current.focus(), 30); };
+  const closeSearch = () => { app.onQ({ target: { value: "" } }); setSOpen(false); };
   return (
     <div className="explore-page page">
-      <h1 className="u-10">Explore astrologers</h1>
-      <div className="explore-1">
-        <div className="explore-2">
-          <label className="u-11" htmlFor="sq">Search astrologers</label>
+      <div className="ex-headrow">
+        <div>
+          <h1 className="u-10">Explore Astrologers</h1>
+          <p className="u-23">Find an astrologer for your next consultation</p>
+        </div>
+        <div className={"ex-sbar" + (sOpen || app.q ? " open" : "")}>
           <input
-            className="inp"
+            ref={sRef}
+            className="ex-sinput"
             id="sq"
-            placeholder="Search by name, speciality or language"
+            placeholder="Search by name, speciality, expertise or language"
+            aria-label="Search astrologers"
             value={app.q ?? ""}
             onChange={app.onQ}
+            onKeyDown={(e) => { if (e.key === "Escape") closeSearch(); }}
+            tabIndex={sOpen || app.q ? 0 : -1}
           />
+          <button className="ex-sbtn" aria-label={sOpen || app.q ? "Close search" : "Open search"} aria-expanded={sOpen || !!app.q} onClick={() => (sOpen || app.q ? closeSearch() : openSearch())}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+          </button>
         </div>
-        <button className={`${app.onlineCls}`} onClick={app.toggleOnline}>Online now</button>
       </div>
-      <div className="u-12">
-        {app.cats.map((c, i1) => (
+      {app.exSearching ? (
+        <section>
+          <h2 className="ex-h2">Search results</h2>
+          <div className="ex-grid">
+            {app.exFound.map((a, i1) => (<Fragment key={i1}><AstroCard a={a} /></Fragment>))}
+          </div>
+          {app.exFound.length === 0 ? <div className="card u-39"><div className="u-40">No astrologers match your search</div></div> : null}
+        </section>
+      ) : (
+        app.exSections.map((sec, i1) => (
           <Fragment key={i1}>
-            <button className={`${c.cls}`} onClick={c.go}>{c.label}</button>
-          </Fragment>
-        ))}
-      </div>
-      <div className="u-4">
-        {app.exploreList.map((a, i1) => (
-          <Fragment key={i1}>
-            <button className="card hov explore-3" onClick={a.open}>
-              <div className="explore-4">
-                <div style={cssToStyle(a.av)}>{a.ini}</div>
-                <div className="u-5">
-                  <div className="u-3">{a.name}</div>
-                  <div className="u-7">{a.spec}</div>
-                </div>
-                {a.online ? (
-                  <span className="u-8" aria-label="Online" />
-                ) : null}
+            <section className="ex-section" aria-label={sec.title}>
+              <div className="ex-sec-head">
+                <h2 className="ex-h2">{sec.title}</h2>
+                {sec.more ? <button className="chip" onClick={sec.view}>View More</button> : null}
               </div>
-              <div className="u-13">{a.langs}</div>
-              <div className="u-13">{a.ratingText}</div>
-              {a.sub ? (
-                <span className="pill explore-5">Subscribed</span>
-              ) : null}
-            </button>
+              {sec.has ? (
+                <div className="ex-grid">
+                  {sec.items.map((a, i2) => (<Fragment key={i2}><AstroCard a={a} /></Fragment>))}
+                </div>
+              ) : <p className="u-15">{sec.empty}</p>}
+              
+            </section>
           </Fragment>
-        ))}
-      </div>
-      {app.noResults ? (
-        <div className="card u-14">No astrologers match. Try another filter.</div>
-      ) : null}
-      <p className="u-15">
-        {"Sample astrologers. Explore vs Services boundary — "}
-        <span className="tag">PENDING · P-01-08</span>
-      </p>
+        ))
+      )}
     </div>
   );
+}
+
+function Full({ section }) {
+  const app = useApp();
+  const g = app.exAll(section);
+  const [shown, setShown] = useState(6);
+  if (!g) {
+    return (
+      <div className="explore-page page">
+        <div><button className="btn-g u-16" onClick={app.goExplore}>← Back</button></div>
+        <div className="card u-39"><div className="u-40">This list was not found</div></div>
+      </div>
+    );
+  }
+  return (
+    <div className="explore-page page">
+      <div className="ex-sec-head">
+        <h1 className="u-10">{g.title}</h1>
+        <button className="btn-g u-16" onClick={app.goExplore}>← Back</button>
+      </div>
+      {g.items.length ? (
+        <div className="ex-grid">
+          {g.items.slice(0, shown).map((a, i1) => (<Fragment key={i1}><AstroCard a={a} /></Fragment>))}
+        </div>
+      ) : <p className="u-15">{g.empty}</p>}
+      {g.items.length > shown ? <div><button className="btn-g" onClick={() => setShown(shown + 6)}>See More</button></div> : null}
+    </div>
+  );
+}
+
+function Explore() {
+  const { section } = useParams();
+  return section ? <Full key={section} section={section} /> : <Home />;
 }
 
 export default Explore;

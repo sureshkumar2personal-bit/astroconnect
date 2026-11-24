@@ -1,6 +1,6 @@
 :root .appointment-page .appointment-1 {
   margin:6px 0 0;
-  font:600 22px/1.2 'Cormorant Garamond',serif;
+  font:600 22px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .appointment-page .appointment-2 {
@@ -11,8 +11,69 @@
 :root .appointment-page .ap-days { display:flex; align-items:center; gap:8px; }
 :root .appointment-page .ap-nav { min-width:40px; min-height:40px; padding:0; }
 :root .appointment-page .ap-hold { display:flex; flex-direction:column; gap:10px; }
-:root .appointment-page .ap-timer { font:600 24px 'Cormorant Garamond',serif; color:var(--gold); }
+:root .appointment-page .ap-timer { font:600 24px var(--font-head); font-variant-numeric:lining-nums; color:var(--gold); }
 :root .appointment-page .ap-actions { display:flex; gap:10px; flex-wrap:wrap; }
 :root .appointment-page .ap-proto { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
-:root .appointment-page .ap-proto-title { font:600 20px 'Cormorant Garamond',serif; }
+:root .appointment-page .ap-proto-title { font:600 20px var(--font-head); font-variant-numeric:lining-nums; }
 :root .appointment-page .chip:disabled, :root .appointment-page .ico:disabled { opacity:.4; cursor:not-allowed; }
+
+/* Appointment History */
+:root .appointment-page .ah-tabs { display:flex; gap:8px; flex-wrap:wrap; }
+:root .appointment-page .ah-bar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+:root .appointment-page .ah-section { display:flex; flex-direction:column; gap:14px; }
+:root .appointment-page .ah-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:12px 16px; border:1px solid rgba(var(--ln),.35); border-radius:14px; background:rgba(var(--gl),.06); }
+:root .appointment-page .ah-nav { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+:root .appointment-page .ah-arrow { min-width:40px; min-height:40px; padding:0; flex:none; }
+:root .appointment-page .ah-month { max-width:180px; min-width:150px; }
+:root .appointment-page .ah-list { display:flex; flex-direction:column; gap:14px; }
+:root .appointment-page .ah-card { padding:16px 20px; display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+:root .appointment-page .ah-head { width:100%; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+:root .appointment-page .ah-name { font:600 22px var(--font-head); font-variant-numeric:lining-nums; }
+:root .appointment-page .ah-pills { display:flex; gap:6px; flex-wrap:wrap; align-items:flex-start; }
+:root .appointment-page .ah-meta { display:flex; gap:16px; flex-wrap:wrap; font-size:15px; color:var(--muted); }
+:root .appointment-page .ah-when { display:flex; gap:12px; flex-wrap:wrap; align-items:baseline; }
+:root .appointment-page .ah-st-booked { background:rgba(154,124,255,.25); color:var(--em); }
+:root .appointment-page .ah-st-completed { background:rgba(var(--gn),.15); color:var(--green); }
+:root .appointment-page .ah-st-cancelled { background:rgba(var(--gd),.16); color:var(--gold); }
+:root .appointment-page .ah-st-resched { background:rgba(120,190,255,.2); color:#9fd0ff; }
+:root .appointment-page .ah-detail { width:100%; display:flex; flex-direction:column; gap:12px; border-top:1px solid rgba(var(--ln),.15); padding-top:12px; }
+:root .appointment-page .ah-dl { margin:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px 20px; }
+:root .appointment-page .ah-dl div { display:flex; flex-direction:column; }
+:root .appointment-page .ah-dl dt { color:var(--subtle); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+:root .appointment-page .ah-dl dd { margin:0; font-weight:600; }
+:root .appointment-page .ah-notes { display:flex; flex-direction:column; gap:6px; background:rgba(var(--gl),.08); border-radius:14px; padding:12px 14px; }
+:root .appointment-page .ah-note { line-height:1.4; }
+:root .appointment-page .ah-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+:root .appointment-page .ah-btn { padding:6px 16px; min-height:40px; }
+:root .appointment-page .ah-legend { display:flex; gap:14px; flex-wrap:wrap; font-size:15px; color:var(--muted); }
+:root .appointment-page .ah-dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; vertical-align:middle; background:currentColor; }
+:root .appointment-page .ah-dots .ah-dot { margin-right:2px; }
+:root .appointment-page .ah-dot.ah-st-booked { color:#b79bff; background:#b79bff; }
+:root .appointment-page .ah-dot.ah-st-completed { color:var(--green); background:var(--green); }
+:root .appointment-page .ah-dot.ah-st-cancelled { color:var(--gold); background:var(--gold); }
+:root .appointment-page .ah-dot.ah-st-resched { color:#9fd0ff; background:#9fd0ff; }
+:root .appointment-page .ah-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; }
+:root .appointment-page .ah-wd { text-align:center; font-size:13px; letter-spacing:.08em; color:var(--subtle); padding:4px 0; }
+:root .appointment-page .ah-cell { min-height:68px; display:flex; flex-direction:column; align-items:flex-start; gap:4px; padding:8px; border-radius:12px; background:rgba(var(--gl),.07); border:1px solid rgba(var(--ln),.18); color:var(--ink); text-align:left; }
+:root .appointment-page .ah-cell.out { opacity:.4; }
+:root .appointment-page .ah-cell.today { border-color:var(--gold); }
+:root .appointment-page .ah-cell.sel { background:#5a3cc0; color:#fff; border-color:var(--acc2); }
+:root .appointment-page .ah-dn { font-weight:600; }
+:root .appointment-page .ah-dots { display:flex; align-items:center; gap:2px; flex-wrap:wrap; }
+:root .appointment-page .ah-count { font-size:12px; margin-left:4px; color:var(--muted); }
+:root .appointment-page .ah-sel { display:flex; flex-direction:column; gap:12px; }
+:root .appointment-page .ah-h2 { margin:0; font:600 24px var(--font-head); font-variant-numeric:lining-nums; }
+:root .appointment-page .rm-kind { background:rgba(154,124,255,.25); color:var(--em); }
+
+/* Astrologer chooser */
+:root .appointment-page .ap-sec { display:flex; flex-direction:column; gap:12px; }
+:root .appointment-page .ap-h2 { margin:0; font:600 26px var(--font-head); font-variant-numeric:lining-nums; }
+:root .appointment-page .ap-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+:root .appointment-page .ap-acard { display:flex; align-items:center; gap:14px; padding:16px; flex-wrap:wrap; }
+:root .appointment-page .ap-ainfo { flex:1; min-width:160px; display:flex; flex-direction:column; gap:3px; }
+:root .appointment-page .ap-aname { font:600 21px var(--font-head); font-variant-numeric:lining-nums; }
+:root .appointment-page .ap-arow { display:flex; gap:6px; flex-wrap:wrap; margin-top:2px; }
+:root .appointment-page .ap-slots { color:var(--muted); font-size:15px; }
+:root .appointment-page .ap-slots strong { color:var(--green); font-size:17px; }
+:root .appointment-page .ap-empty { padding:16px; }
+:root .appointment-page .ap-chosen { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }

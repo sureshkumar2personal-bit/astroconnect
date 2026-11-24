@@ -45,18 +45,22 @@ function Shell() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/explore/:section" element={<Explore />} />
             <Route path="/astro" element={<AstrologerProfile />} />
             <Route path="/services" element={<Services />} />
             <Route path="/text" element={<TextQuestion />} />
+            <Route path="/text/:tab" element={<TextQuestion />} />
             <Route path="/activity" element={<Activity />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/appt" element={<Appointment />} />
+            <Route path="/appt/:tab" element={<Appointment />} />
             <Route path="/session" element={<Session />} />
             <Route path="/kundli" element={<Kundli />} />
             <Route path="/follow" element={<Following />} />
             <Route path="/notifs" element={<Notifications />} />
             <Route path="/remedy" element={<Remedy />} />
+            <Route path="/remedy/:id" element={<Remedy />} />
             <Route path="/answer" element={<AnswerDetail />} />
             <Route path="/edit" element={<EditProfile />} />
             <Route path="/help" element={<Help />} />

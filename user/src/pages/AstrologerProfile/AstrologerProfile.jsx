@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { useApp, cssToStyle } from "../../context/AppContext";
+import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
 import "./AstrologerProfile.css";
 
 function AstrologerProfile() {
@@ -13,12 +14,11 @@ function AstrologerProfile() {
         <section className="card ap-unavail">
           <h2 className="u-28">This astrologer is unavailable</h2>
           <p className="u-30">The profile is hidden while the astrologer is in Do Not Disturb. Nothing can be bought, booked, asked or started right now. Your existing confirmed appointments and valid slots keep their rules (D-30, D-38).</p>
-          <div className="ap-ctl-row"><button className="chip" onClick={app.pf.toggleDnd}>Prototype: clear Do Not Disturb</button></div>
         </section>
       ) : (
       <>
       <section className="card astrologer-profile-1">
-        <div style={cssToStyle(app.cur.avL)}>{app.cur.ini}</div>
+        <AstroAvatar id={app.cur.id} size={96} name={app.cur.name} />
         <div className="astrologer-profile-2">
           <h1 className="u-10">{app.cur.name}</h1>
           <div className="astrologer-profile-3">{app.cur.spec}</div>
@@ -79,7 +79,6 @@ function AstrologerProfile() {
           ))}
           {app.pf.noReviews ? <div className="card astrologer-profile-8"><p className="u-30">No reviews yet.</p></div> : null}
         </div>
-        <span className="tag u-24">Review display and sorting · PENDING · P-05-03</span>
       </section>
       <section>
         <h2 className="u-2">Live sessions</h2>
@@ -131,28 +130,6 @@ function AstrologerProfile() {
             </Fragment>
           ))}
         </div>
-        <span className="tag u-24">Where Live sessions and posts appear · PENDING · P-14-07</span>
-      </section>
-      <section className="card ap-ctl">
-        <div className="ap-ctl-title">Prototype controls (sample)</div>
-        <div className="u-13">Simulate astrologer and Platform Admin actions for {app.cur.name}.</div>
-        <div className="ap-ctl-row">
-          <button className="chip" onClick={app.pf.toggleDnd}>Put in Do Not Disturb</button>
-          <button className="chip" onClick={app.pf.toggleSusp}>{app.pf.tqSusp ? "Resume Text Questions" : "Suspend Text Questions"}</button>
-          <button className="chip" onClick={app.pf.submitChange} disabled={app.pf.hasPend}>Astrologer submits a profile change</button>
-          <button className="chip" onClick={app.pf.approve} disabled={!app.pf.hasPend}>Platform Admin approves it</button>
-          {app.fp.goLiveBtns.map((b, i1) => (<Fragment key={i1}><button className="chip" onClick={b.go}>{b.label}</button></Fragment>))}
-        </div>
-        {app.pf.hasPend ? <div className="u-13">{"Awaiting approval (users still see the verified details): "}{app.pf.pend}</div> : null}
-        <div className="u-13">Reviews (hide or show as astrologer / Platform Admin):</div>
-        {app.pf.allReviews.map((r, i1) => (
-          <Fragment key={i1}>
-            <div className="ap-rev-row">
-              <span>{r.stars}{" "}{r.text}{" · "}<em>{r.status}</em></span>
-              <button className="chip" onClick={r.toggle}>{r.hidden ? "Show" : "Hide"}</button>
-            </div>
-          </Fragment>
-        ))}
       </section>
       </>
       )}

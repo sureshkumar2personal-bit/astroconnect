@@ -16,7 +16,7 @@
 }
 
 :root .services-page .services-3 {
-  font:600 26px/1.2 'Cormorant Garamond',serif;
+  font:600 26px/1.2 var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .services-page .services-4 {

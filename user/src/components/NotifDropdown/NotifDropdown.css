@@ -19,7 +19,7 @@
 }
 
 :root .notif-dropdown .notif-dropdown-2 {
-  font:600 22px 'Cormorant Garamond',serif;
+  font:600 22px var(--font-head); font-variant-numeric:lining-nums;
 }
 
 :root .notif-dropdown .notif-dropdown-3 {
