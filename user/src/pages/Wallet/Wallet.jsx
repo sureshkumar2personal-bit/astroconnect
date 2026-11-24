@@ -60,12 +60,9 @@ function Wallet() {
         </div>
         <span className="u-21">{app.payModeText}</span>
         <div className="u-12">
-          <span className="tag">Currency · PENDING · P-10-01</span>
-          <span className="tag">Top-up methods · PENDING · P-10-02</span>
-          <span className="tag">Top-up limits · PENDING · P-10-03</span>
-          <span className="tag">Invoices · PENDING · P-10-07</span>
-          <span className="tag">Tax · PENDING · P-10-08</span>
-          <span className="tag">History vs Activity · PENDING · P-10-09</span>
+          
+          
+          
         </div>
       </section>
     </div>

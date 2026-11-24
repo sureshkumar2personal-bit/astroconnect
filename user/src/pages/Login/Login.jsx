@@ -11,13 +11,12 @@ function Login() {
           <>
             <h1 className="login-2">Welcome to Astrum</h1>
             <p className="u-23">Log in to ask questions and book consultations.</p>
-            <label className="u-7" htmlFor="ph">Mobile number (sample)</label>
+            <label className="u-7" htmlFor="ph">Mobile number</label>
             <input className="inp" id="ph" placeholder="Enter your number" />
             <button className="btn-p" onClick={app.loginNext}>Continue</button>
             <button className="btn-g" onClick={app.goHome}>Continue as guest</button>
             <div className="u-12">
-              <span className="tag">Login method · PENDING · P-02-01</span>
-              <span className="tag">Guest access · PENDING · P-02-02</span>
+              
             </div>
           </>
         ) : null}
@@ -30,7 +29,6 @@ function Login() {
             <input className="inp" aria-label="Place of birth" placeholder="Place of birth" />
             <button className="btn-p" onClick={app.goHome}>Get started</button>
             <button className="btn-g" onClick={app.goHome}>Skip for now</button>
-            <span className="tag u-24">Step during onboarding · PENDING · P-02-03</span>
           </>
         ) : null}
       </section>

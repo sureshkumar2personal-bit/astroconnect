@@ -76,7 +76,6 @@ function Dialog() {
                 </Fragment>
               ))}
             </div>
-            <span className="tag">Price, term, renewal and cancellation · PENDING · P-14-02 – P-14-05 (sample values)</span>
             <div className="u-1">
               <button className="btn-p" onClick={app.confirmSubscribe}>{"Subscribe · ₹"}{app.subPrice}</button>
               <button className="btn-g" onClick={app.closeDlg}>Cancel</button>
@@ -99,8 +98,8 @@ function Dialog() {
                 <label className="u-11" htmlFor="upi">UPI ID</label>
                 <input id="upi" className="inp" placeholder="name@bank" value={app.upi ?? ""} onChange={app.onUpi} />
               </>
-            ) : <p className="u-15">You would be taken to your bank or card page here (sample).</p>}
-            <p className="u-15">This payment does not use your Wallet (D-33). Sample screen: <span className="tag">PENDING · P-10-02</span></p>
+            ) : <p className="u-15">You would be taken to your bank or card page here.</p>}
+            <p className="u-15">This payment does not use your Wallet (D-33). </p>
             <div className="u-1">
               <button className="btn-p" onClick={app.confirmDirect}>{"Pay ₹"}{app.payAmt}</button>
               <button className="btn-g" onClick={app.closeDlg}>Cancel</button>
@@ -163,7 +162,6 @@ function Dialog() {
               value={app.note ?? ""}
               onChange={app.onNote}
             />
-            <span className="tag u-24">{"Rating scale, edit & time limit · PENDING · P-07-10"}</span>
             <div className="u-1">
               <button className="btn-p" onClick={app.submitReview}>Submit review</button>
               <button className="btn-g" onClick={app.closeDlg}>Cancel</button>
@@ -196,7 +194,7 @@ function Dialog() {
               <span className="pill u-34">{app.dn.cat}{app.dn.crit ? " · Critical" : ""}</span>
             </div>
             <p className="dialog-6">{app.dn.text}</p>
-            <div className="u-21">{app.dn.time}{" · sample · delivered by push and in-app (D-16)"}</div>
+            <div className="u-21">{app.dn.time}{" · delivered by push and in-app (D-16)"}</div>
             <div className="u-1">
               <button className="btn-p" onClick={app.dn.go}>{app.dn.cta}</button>
               <button className="btn-g" onClick={app.closeDlg}>Close</button>
@@ -217,14 +215,12 @@ function Dialog() {
               <button className="btn-g" onClick={app.rs.cancel} disabled={!app.rs.early}>Cancel appointment</button>
             </div>
             {app.rs.canR ? null : <p className="u-15">You have already rescheduled this appointment once.</p>}
-            {app.rs.early ? null : <span className="tag">Late-cancellation deduction · PENDING · AP-05-01</span>}
           </>
         ) : null}
         {app.dReport ? (
           <>
             <p className="u-23">Whether users can share or report an astrologer profile is not decided.</p>
             <button className="btn-g dialog-7" disabled>Report or share</button>
-            <span className="tag u-24">PENDING · P-05-05</span>
           </>
         ) : null}
         {app.dTerms ? (
@@ -234,7 +230,6 @@ function Dialog() {
                 <Fragment key={i1}>
                   <div className="dialog-9">
                     <span>{t.l}</span>
-                    <span className="tag">{"PENDING · "}{t.p}</span>
                   </div>
                 </Fragment>
               ))}

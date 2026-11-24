@@ -164,20 +164,9 @@ function BookForm({ setStep }) {
           )}
           <p className="u-33">
             {"No dispute option for appointments (D-09). After the consultation you give a 1–5 rating (D-10). Cancel up to 12 hours before the start; reschedule once (D-41). Late-cancellation deduction: "}
-            <span className="tag">PENDING · AP-05-01</span>
           </p>
         </section>
       </div>
-      <section className="card ap-proto">
-        <div className="ap-proto-title">Prototype controls (sample)</div>
-        <div className="u-13">Simulate astrologer-side events to test the rules. Prices and slot availability are sample values.</div>
-        <div className="ap-actions">
-          <button className="chip" onClick={app.toggleDnd}>{"Put " + app.cur.name + " in Do Not Disturb"}</button>
-          <button className="chip" onClick={app.protoCancel}>Astrologer cancels my next appointment</button>
-          <button className="chip" onClick={app.protoDate}>Astrologer closes that date</button>
-          {app.hasDnd ? <button className="chip" onClick={app.clearDnd}>{"Clear Do Not Disturb (" + app.dndOn + ")"}</button> : null}
-        </div>
-      </section>
     </div>
   );
 }

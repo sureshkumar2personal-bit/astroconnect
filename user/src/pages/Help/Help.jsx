@@ -25,8 +25,7 @@ function Help() {
       </section>
       <div className="u-36">
         <button className="btn-p" onClick={app.contact}>Contact support</button>
-        <span className="tag">Channels · PENDING · P-17-01</span>
-        <span className="tag">Ticket categories · PENDING · P-17-02</span>
+        
       </div>
     </div>
   );

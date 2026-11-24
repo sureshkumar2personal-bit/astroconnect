@@ -86,7 +86,7 @@ function Home() {
                   {sec.items.map((a, i2) => (<Fragment key={i2}><AstroCard a={a} /></Fragment>))}
                 </div>
               ) : <p className="u-15">{sec.empty}</p>}
-              {sec.key === "suggested" ? <span className="tag u-24">Suggestion order · PENDING · P-04-04</span> : null}
+              
             </section>
           </Fragment>
         ))

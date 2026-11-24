@@ -93,7 +93,6 @@ function Purchase() {
               <div>
                 <button className="btn-p" onClick={app.subscribeNow}>Subscribe</button>
               </div>
-              <span className="tag u-24">Terms · PENDING · P-14-02</span>
             </section>
           ) : null}
           {app.isSub ? (
@@ -149,7 +148,6 @@ function Purchase() {
               <p className="u-33">
                 Buy now and ask right away, or hold the slot and ask later. A slot expires at the earlier of 7 days after purchase and the campaign end date (IST). Holding does not extend this, and expired slots are not refunded (D-05 – D-07).
               </p>
-              <span className="tag u-24">Campaign limits · PENDING · P-06-13</span>
             </section>
           ) : null}
         </div>
@@ -206,7 +204,6 @@ function Purchase() {
                     </Fragment>
                   ))}
                   <label className="tq-check"><input type="checkbox" checked={!!app.useSaved} onChange={app.toggleSaved} />{" Use birth details saved in my profile"}</label>
-                  <span className="tag u-24">Birth profile choice · PENDING · P-06-07</span>
                 </div>
               ) : null}
               <div>
@@ -217,24 +214,6 @@ function Purchase() {
           <p className="u-15">Your question appears in Activity once sent. Answers can be disputed within 7 days (D-08).</p>
         </section>
       </div>
-      <section className="card tq-ctl">
-        <div className="tq-ctl-title">Prototype controls: astrologer changes a campaign (sample)</div>
-        <div className="u-13">Cancelling refunds unused slots to your Wallet. Deleting refunds nothing and keeps each slot's original deadline. Reducing never cancels purchases or questions. Extending also extends unused slots. Reactivating does not restore expired slots (D-21).</div>
-        {app.campCtl.map((c, i1) => (
-          <Fragment key={i1}>
-            <div className="tq-ctl-row">
-              <div className="tq-ctl-name"><strong>{c.name}</strong><span className="u-13">{c.statusText}</span></div>
-              <div className="tq-ctl-btns">
-                <button className="chip" onClick={c.cancel}>Cancel</button>
-                <button className="chip" onClick={c.del}>Delete</button>
-                <button className="chip" onClick={c.reduce}>Reduce slots</button>
-                <button className="chip" onClick={c.extend}>Extend +7 days</button>
-                <button className="chip" onClick={c.reactivate}>Reactivate</button>
-              </div>
-            </div>
-          </Fragment>
-        ))}
-      </section>
     </>
   );
 }
@@ -487,7 +466,7 @@ function History() {
           </div>
         </div>
         <div className="u-13">{"Showing "}{list.length}{" of "}{all.length}{" questions"}</div>
-        <p className="u-15">Cancelled and completed questions whose dispute period is over are kept here. How long history is kept: <span className="tag">PENDING · P-11-04</span> Invoices: <span className="tag">PENDING · P-10-07</span></p>
+        <p className="u-15">Cancelled and completed questions whose dispute period is over are kept here. How long history is kept:  Invoices: </p>
       </section>
       <h3 className="tx-h3">Completed cycles and archives</h3>
       <div className="tx-qlist">

@@ -96,7 +96,7 @@ function Navbar() {
           </svg>
         </button>
         <div className="navbar-prof" ref={profRef}>
-          <button className="ico navbar-5" onClick={app.toggleProf} aria-label="Profile" aria-haspopup="menu" aria-expanded={app.profMenu}>G</button>
+          <button className="ico navbar-5" onClick={app.toggleProf} aria-label="Profile" aria-haspopup="menu" aria-expanded={app.profMenu}>{app.pini}</button>
           {app.profMenu ? (
             <div className="card navbar-menu" role="menu" aria-label="Profile menu">
               <button className="navbar-item" role="menuitem" onClick={app.viewProfile}>View profile</button>

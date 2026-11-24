@@ -53,7 +53,6 @@ function Session() {
               <button className="btn-p" onClick={app.sendReq} disabled={!app.curAvail}>Send request</button>
             </div>
             <p className="u-33">The astrologer must accept within 30 seconds, otherwise the request expires. You can cancel before it is accepted (D-44).</p>
-            <span className="tag u-24">{"Subscription requirement · PENDING · "}{app.pidSub}</span>
           </section>
         </div>
       ) : null}
@@ -103,7 +102,7 @@ function Session() {
             <h2 className="u-28">{app.sesTitle}</h2>
             <span className="ss-timer" role="timer">{app.discNow ? "Paused · " : ""}{app.remText}{" left"}</span>
           </div>
-          {app.discNow ? <p className="u-30">{"Connection lost. Reconnecting for up to 5 minutes; your remaining paid time is preserved (D-46). If reconnection fails permanently: "}<span className="tag">PENDING · AP-06-01</span></p> : null}
+          {app.discNow ? <p className="u-30">{"Connection lost. Reconnecting for up to 5 minutes; your remaining paid time is preserved (D-46). If reconnection fails permanently: "}</p> : null}
           {app.reconn && !app.discNow ? <p className="u-15">Reconnected. Your remaining time was preserved.</p> : null}
           {app.isChat ? (
             <>
@@ -134,12 +133,6 @@ function Session() {
             <button className="btn-g" onClick={app.endNow("user")}>End session</button>
           </div>
           <p className="u-15">Ending early is not refunded (D-45). No dispute option for this service (D-09).</p>
-          <div className="ss-proto">
-            <span className="u-13">Prototype controls (sample):</span>
-            <button className="chip" onClick={app.addMin}>+1 minute</button>
-            <button className="chip" onClick={app.disc} disabled={app.discNow}>Simulate disconnect</button>
-            <button className="chip" onClick={app.endNow("astro")}>Astrologer ends early</button>
-          </div>
         </section>
       ) : null}
 

@@ -16,7 +16,6 @@ function TopUpModal() {
             </Fragment>
           ))}
         </div>
-        <span className="tag u-24">Payment methods · PENDING · P-10</span>
         <div className="u-1">
           <button className="btn-p" onClick={app.payNow}>Pay ₹{app.amt}</button>
           <button className="btn-g" onClick={app.closeTop}>Cancel</button>

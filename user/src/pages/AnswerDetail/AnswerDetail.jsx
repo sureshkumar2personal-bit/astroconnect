@@ -33,9 +33,6 @@ function AnswerDetail() {
         </section>
       ) : null}
       {app.ans.corrCycles ? <p className="u-15">{"Corrections so far: "}{app.ans.corrCycles}{". The astrologer may ask again; the original deadline continues."}</p> : null}
-      {app.ans.canReqCorr ? (
-        <div className="ad-proto"><span className="u-13">Prototype control (sample):</span> <button className="chip" onClick={app.ans.reqCorr}>Astrologer requests a correction</button></div>
-      ) : null}
       {app.ansCancelled ? (
         <section className="card u-14">{"Not answered within 30 days: this question was cancelled and the amount refunded to your Wallet (D-18, D-32)."}</section>
       ) : null}

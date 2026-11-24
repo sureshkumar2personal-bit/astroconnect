@@ -27,7 +27,6 @@ function Activity() {
         <button className="card hov activity-1" onClick={app.goText}>
           <span className="pill u-34">Held slots</span>
           <span className="activity-2">{app.heldText}</span>
-          <span className="tag">Placement · PENDING · P-01-09</span>
         </button>
       ) : null}
       <div className="activity-3">
@@ -60,7 +59,6 @@ function Activity() {
               {x.inProg ? (
                 <div className="u-36">
                   <span className="u-13">{x.discNow ? "Connection lost - reconnecting for up to 5 minutes; your remaining time is preserved (D-42)." : "In progress. If you disconnect we reconnect automatically for 5 minutes and keep your remaining time (D-42)."}</span>
-                  {x.discNow ? null : <button className="chip" onClick={x.disc}>Simulate disconnect</button>}
                 </div>
               ) : null}
               {x.astroCx ? (
@@ -104,17 +102,6 @@ function Activity() {
           </Fragment>
         ))}
       </div>
-      <section className="card activity-clock">
-        <div className="activity-clock-title">Prototype clock (sample controls)</div>
-        <div className="u-13">{"Moves deadlines forward to test expiry, 30-day refunds and 3-day dispute answers. Offset: +"}{app.skewDays}{" day(s)"}</div>
-        <div className="activity-clock-row">
-          <button className="chip" onClick={app.addSkew(1)}>+1 day</button>
-          <button className="chip" onClick={app.addSkew(3)}>+3 days</button>
-          <button className="chip" onClick={app.addSkew(7)}>+7 days</button>
-          <button className="chip" onClick={app.addSkew(30)}>+30 days</button>
-          <button className="chip" onClick={app.resetSkew}>Reset</button>
-        </div>
-      </section>
       {app.noActs ? (
         <div className="card activity-8">
           <div className="activity-9">Nothing here yet</div>

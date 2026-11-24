@@ -51,8 +51,8 @@ function saveState(st) {
 }
 const fmtIST = (t) => new Date(t).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short" });
 
-const SAMPLE_ANSWER = "Sample answer: the coming months look supportive. Take the steps in your remedy and revisit this in a few weeks.";
-const SAMPLE_DISPUTE = "Sample additional answer: here is more detail on the point you raised, with a clearer timeline.";
+const SAMPLE_ANSWER = "The coming months look supportive. Take the steps in your remedy and revisit this in a few weeks.";
+const SAMPLE_DISPUTE = "Here is more detail on the point you raised, with a clearer timeline.";
 // Question status shown to users (D-25): New / Received, Pending, Completed.
 export const qStatus = (x) => x.cancelled ? "Cancelled · refunded" : x.answeredAt ? "Completed" : x.openedAt ? "Pending" : "New";
 const dispLabel = (d) => d.admin ? "Admin Review" : d.answeredAt ? "Dispute answered" : "Dispute raised";
@@ -80,10 +80,10 @@ const seedRemedies = (now) => [
   mkAtone("one", "Text", { id: "ATN-1", actId: 1, astro: 0, src: "Text Question · Meenakshi Iyer", now }),
   mkAtone("five", "Chat", { id: "ATN-2", actId: 4, astro: 5, src: "Instant Chat · Rahul Menon", now: now - 2 * DAY, completed: [0, 1] }),
   mkAtone("three", "Call", { id: "ATN-3", actId: 3, astro: 3, src: "Instant Call · Karthik Subramanian", now: now - 5 * DAY, completed: [0, 1, 2], proofs: { 0: { name: "day1.jpg", type: "image/jpeg", size: 120000 }, 1: { name: "day2.jpg", type: "image/jpeg", size: 130000 }, 2: { name: "day3.jpg", type: "image/jpeg", size: 110000 } }, status: "Completed" }),
-  { id: "ND-11", type: "Note", actId: 11, astro: 0, src: "Appointment · Meenakshi Iyer", title: "Sample consultation note: we reviewed family timing and agreed to revisit in a month." },
-  { id: "RP-11", type: "Report", actId: 11, astro: 0, src: "Appointment · Meenakshi Iyer", title: "Sample report: summary of your chart reading from this consultation." },
+  { id: "ND-11", type: "Note", actId: 11, astro: 0, src: "Appointment · Meenakshi Iyer", title: "We reviewed family timing and agreed to revisit in a month." },
+  { id: "RP-11", type: "Report", actId: 11, astro: 0, src: "Appointment · Meenakshi Iyer", title: "Summary of your chart reading from this consultation." },
   mkAtone("three", "Appointment", { id: "ATN-5", actId: 11, astro: 0, src: "Appointment · Meenakshi Iyer", now: now - 3 * DAY, completed: [0, 1, 2], proofs: { 0: { name: "d1.jpg", type: "image/jpeg", size: 90000 }, 1: { name: "d2.jpg", type: "image/jpeg", size: 90000 }, 2: { name: "d3.jpg", type: "image/jpeg", size: 90000 } }, status: "Completed" }),
-  { id: "ND-12", type: "Recommendation", actId: 12, astro: 1, src: "Appointment · Arvind Nair", title: "Sample recommendation: plan important decisions after the new moon." },
+  { id: "ND-12", type: "Recommendation", actId: 12, astro: 1, src: "Appointment · Arvind Nair", title: "Plan important decisions after the new moon." },
   mkAtone("seven", "Appointment", { id: "ATN-4", actId: 2, astro: 1, src: "Appointment · Arvind Nair", now: now - DAY, completed: [0] }),
 ];
 const SLOT_MINS = [...Array(17)].map((_, i) => 600 + i * 30); // 10:00 - 18:00 IST
@@ -167,7 +167,7 @@ function advance(st) {
             msg = "Astrologer no-show - full refund to your Wallet (D-41)";
           } else {
             a = { ...a, status: "No-show" };
-            msg = "Marked as no-show. The late-cancellation deduction is PENDING (AP-05-01)";
+            msg = "Marked as no-show.";
           }
         }
       } else if (a.status === "In progress") {
@@ -176,9 +176,9 @@ function advance(st) {
           a = { ...a, status: "Completed" };
           remedies = [
             mkAtone("seven", "Appointment", { id: "r-" + a.id + "-rem", actId: a.id, astro: a.astro, src: "Appointment · " + a.who, now }),
-            { id: "r-" + a.id + "-rec", type: "Recommendation", title: "Sample recommendation: plan important decisions after the new moon." },
-            { id: "r-" + a.id + "-note", type: "Note", title: "Sample consultation note: we discussed career timing and agreed a follow-up in six weeks." },
-            { id: "r-" + a.id + "-rep", type: "Report", title: "Sample report: summary of your chart reading from this consultation." },
+            { id: "r-" + a.id + "-rec", type: "Recommendation", title: "Plan important decisions after the new moon." },
+            { id: "r-" + a.id + "-note", type: "Note", title: "We discussed career timing and agreed a follow-up in six weeks." },
+            { id: "r-" + a.id + "-rep", type: "Report", title: "Summary of your chart reading from this consultation." },
           ].map((x) => ({ ...x, actId: a.id, astro: a.astro, src: "Appointment · " + a.who })).concat(remedies);
         }
       }
@@ -239,7 +239,7 @@ export function AppProvider({ children }) {
   const { pathname } = useLocation();
   const st = pathname === "/" ? "home" : pathname.split("/")[1];
 
-  const [state, setRaw] = useState(() => loadState({slotLog:[],slotFilter:'Total',txStep:'pick',rmSrc:'All Sources',rmStat:'All',rdFile:'',consentChk:false,focusId:null,follows:[0,6,7,8,9],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:seedRemedies(Date.now()),faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,pname:'Guest User',empty:false}));
+  const [state, setRaw] = useState(() => loadState({slotLog:[],slotFilter:'Total',txStep:'pick',rmSrc:'All Sources',rmStat:'All',rdFile:'',consentChk:false,focusId:null,follows:[0,6,7,8,9],subInfo:{0:{tier:'Silver',startedAt:Date.now()-10*86400000,expiresAt:Date.now()+20*86400000,autoRenew:false}},lives:[],liveIn:{},liveCm:{},liveDraft:'',postLike:{},postCm:{},cmDraft:{},subTier:'Gold',autoRen:false,revSt:{},pendBio:{},apprBio:{},tqSusp:{},campOv:{},payMode:'wallet',upi:'',payM:'UPI',wdAmt:'',req:null,sess:null,pkgMins:5,skew:0,dnd:{},hold:null,apptDur:30,apptDay:1,apptSlot:null,apptWeek:0,reschedId:null,reschedFree:false,notifLog:[],astro:0,campBase:Date.now(),askType:'General',qFiles:[],useSaved:false,preview:false,q:'',cat:'All',online:false,subs:[0],slots:[{id:'seed-slot-1',astro:0,type:'General',label:'Quick Answer',boughtAt:Date.now()-1*DAY,expiresAt:Date.now()+5*DAY+3*3600000,price:99}],qty:1,wallet:500,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],actTab:'All',acts:ACTS0,disputed:{},reviewed:{},toggles:{push:true,inapp:true},modal:false,amt:500,toast:'',notifOpen:false,theme:T0,draft:'',day:0,time:0,kind:'Call',phase:'idle',msgs:[],chatDraft:'',lastId:0,bps:[{name:'Self',dob:'01 Jan 1990',tob:'06:30 AM',pob:'Chennai'},{name:'Family member',dob:'12 Aug 1962',tob:'09:10 PM',pob:'Madurai'}],bp:0,files:[],remedies:seedRemedies(Date.now()),faq:-1,loginStep:1,dlg:null,rate:0,note:'',ansId:1,prof:{email:'',gender:'',dob:'',city:'',lang:'English',hideName:false,kundliOnly:true},pname:'Priya Sharma',empty:false}));
   const ref = useRef(state);
   const timer = useRef(null);
   const payRef = useRef(null);
@@ -402,7 +402,7 @@ endNow:how=>()=>{const f=finishSess(s,sx,nowT,how);setState({sess:f.sess,lastId:
 disc:()=>setState({sess:{...sx,discAt:Date.now(),discNow:nowT}}),addMin:()=>setState({skew:(s.skew||0)+60000}),
 msgs:msgsView,chatDraft:s.chatDraft,onChat:e=>setState({chatDraft:e.target.value}),
 sendChat:()=>{const t=(s.chatDraft||'').trim();if(!t||!live)return;setState({sess:{...sx,msgs:sx.msgs.concat([{me:true,t,at:nowT}])},chatDraft:''});
-setTimeout(()=>{const c=ref.current.sess;if(c&&c.status==='live')setState({sess:{...c,msgs:c.msgs.concat([{me:false,t:'Thank you. This is a sample reply from the astrologer.',at:Date.now()+(ref.current.skew||0)}])}});},1000);},
+setTimeout(()=>{const c=ref.current.sess;if(c&&c.status==='live')setState({sess:{...c,msgs:c.msgs.concat([{me:false,t:'Thank you. I will be glad to help further.',at:Date.now()+(ref.current.skew||0)}])}});},1000);},
 endSummary:ended?(sx.how==='time'?'The package time ended.':sx.how==='astro'?'The astrologer ended the session early.':'You ended the session early. There is no refund for early termination (D-45).'):'',
 endPaid:ended?'Paid ₹'+sx.paid+' · '+sx.mins+' min':'',astroEarly:ended&&sx.how==='astro',complained:!!(act&&act.complaint),
 sesNeedRate:!!act&&!act.rating,rateSes:openDlg('qrate',{id:ended?sx.actId:0}),complainSes:openDlg('scomplaint',{id:ended?sx.actId:0}),
@@ -464,7 +464,7 @@ otherList:ASTRO.filter(a=>!isFol(a.id)&&!isSub(a.id)&&vis(a)).slice(0,4).map(a=>
 const xcard=a=>{const mt=ASTRO_META[a.id]||{},busy=(REQ_BEHAVIOR[a.id]||'')==='busy',av2=!a.online?'Offline':busy?'Busy':'Online';
 const go2=kind=>()=>{setState({astro:a.id,kind,notifOpen:false,dlg:null});navigate('/session');};
 return{...card(a),avail:av2,availCls:'ex-'+av2.toLowerCase(),years:(mt.years||0)+' Years',followers:(mt.followers||'0')+' Followers',expertise:mt.exp||[],langList:a.langs.split(', '),
-priceText:'Call from ₹'+PKGS.Call[0].price+' · Chat from ₹'+PKGS.Chat[0].price+' (prepaid, 5 min minimum)',canContact:a.online,call:go2('Call'),chat:go2('Chat')};};
+ratingAvg:(ratingOf(a.id)||{}).avg||'–',ratingN:(ratingOf(a.id)||{}).n||0,yearsN:mt.years||0,fol:isFol(a.id),callFrom:PKGS.Call[0].price,chatFrom:PKGS.Chat[0].price,priceText:'Call from ₹'+PKGS.Call[0].price+' · Chat from ₹'+PKGS.Chat[0].price+' (prepaid, 5 min minimum)',canContact:a.online,call:go2('Call'),chat:go2('Chat')};};
 const ratingNum=id=>{const r=ratingOf(id);return r?parseFloat(r.avg):0;};
 const exSubs=ASTRO.filter(a=>isSub(a.id)&&vis(a)),exFol=ASTRO.filter(a=>isFol(a.id)&&!isSub(a.id)&&vis(a)),
 exSug=ASTRO.filter(a=>!isFol(a.id)&&!isSub(a.id)&&vis(a)).slice().sort((a,b)=>ratingNum(b.id)-ratingNum(a.id));
@@ -484,7 +484,7 @@ pkgs:['Call','Chat'].map(k=>({kind:'Instant '+k,items:PKGS[k].map(p=>p.mins+' mi
 dnd:!!s.dnd[cur.id],tqSusp:!!s.tqSusp[cur.id],pend:s.pendBio[cur.id]||'',hasPend:!!s.pendBio[cur.id],
 toggleDnd:()=>{setState({dnd:{...s.dnd,[cur.id]:!s.dnd[cur.id]}});showToast(s.dnd[cur.id]?'Do Not Disturb cleared':cur.name+' is in Do Not Disturb: the profile is hidden from users (D-38)');},
 toggleSusp:()=>{setState({tqSusp:{...s.tqSusp,[cur.id]:!s.tqSusp[cur.id]}});showToast(s.tqSusp[cur.id]?'Text Questions available again':'Text Questions suspended: no new slots can be bought (D-39)');},
-submitChange:()=>{setState({pendBio:{...s.pendBio,[cur.id]:'Updated sample profile text for '+cur.name+': now also offering extended remedy guidance.'}});showToast('Profile change submitted: users keep seeing the previously verified details (D-48)');},
+submitChange:()=>{setState({pendBio:{...s.pendBio,[cur.id]:'Updated profile text for '+cur.name+': now also offering extended remedy guidance.'}});showToast('Profile change submitted: users keep seeing the previously verified details (D-48)');},
 approve:()=>{const n={...s.pendBio},t=n[cur.id];delete n[cur.id];setState({pendBio:n,apprBio:{...s.apprBio,[cur.id]:t}});showToast('Platform Admin approved the change: users now see the new details');}}};})();
 const ap=(()=>{
 const item=s.reschedId?s.acts.find(x=>x.id===s.reschedId):null;
@@ -541,7 +541,7 @@ const stt=x.cancelled?'Cancelled · refunded':ans?'Completed':x.openedAt?'Pendin
 return{id:x.id,qid:'QTN-'+new Date(x.submittedAt||nowT).getFullYear()+'-'+String(x.id%1000000).padStart(6,'0'),status:stt,subStatus:sub,statusKey:x.cancelled?'cancelled':ans?'completed':'waiting',disputed:!!dp,
 kind:x.kind||'General',paid:x.paid>0?'₹'+x.paid:(x.benefit?'Free (benefit)':'Included'),title:x.title,who:x.who,camp:x.camp||'Question',date:fmtIST(x.submittedAt||nowT),month:qMonth(x.submittedAt||nowT),
 guarantee:wait&&!(x.corr&&x.corr.active)?'Day '+Math.min(30,Math.floor((nowT-(x.submittedAt||nowT))/DAY)+1)+' of 30 guarantee':'',due:fmtIST((x.submittedAt||nowT)+30*DAY),
-answered:ans,answer:x.answer||'',len:(x.answer||'').length,attList:(x.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Sample file - this prototype has no real download')})),linkList:x.links||[],
+answered:ans,answer:x.answer||'',len:(x.answer||'').length,attList:(x.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Download is not available yet')})),linkList:x.links||[],
 rated:!!x.rating,stars:'★'.repeat(x.rating||0)+'☆'.repeat(5-(x.rating||0)),canRate:ans&&!x.rating,rate:openDlg('qrate',{id:x.id}),
 canDispute:ans&&!dp&&left>0,dLeft:left,windowClosed:ans&&!dp&&left<=0,raise:openDlg('dispute',{id:x.id}),dAnswered:!!(dp&&dp.answeredAt),dAdmin:!!(dp&&dp.admin),dAnswer:dp?dp.answer||'':'',
 canComplain:!!(dp&&dp.answeredAt)&&!x.complaint&&cl>0,complain:openDlg('complaint',{id:x.id}),complained:!!x.complaint,
@@ -572,8 +572,21 @@ qs.filter(x=>!s.reviewed[x.id]&&!x.dispute).slice(0,2).forEach(x=>out.push({key:
 s.acts.filter(x=>x.type==='Appointment'&&x.start&&x.status==='Upcoming'&&dayStart(x.start)===td+DAY).forEach(x=>out.push({key:'tom'+x.id,icon:'🗓',text:'Tomorrow '+fmtT(x.start)+' · '+x.who,go:()=>navTo('activity',{focusId:x.id,actTab:'Appointments'})}));
 return out;})();
 const homeUpcoming=s.acts.filter(x=>x.type==='Appointment'&&x.start&&(x.status==='Upcoming'||x.status==='In progress')&&x.start+x.dur*60000>nowT).slice().sort((a,b)=>a.start-b.start).map(x=>({id:x.id,who:x.who,spec:ASTRO[x.astro]?ASTRO[x.astro].spec:'',dayText:fmtD(x.start),timeText:fmtT(x.start)+' – '+fmtT(x.start+x.dur*60000),durText:x.dur+' min',status:x.status==='Upcoming'?'Booked':x.status,open:()=>navTo('activity',{focusId:x.id,actTab:'Appointments'})}));
+const homeActions=(()=>{const out=[];
+const ap=homeUpcoming[0];
+if(ap){const it=s.acts.find(x=>x.id===ap.id);out.push({key:'appt',rel:(()=>{const d=Math.round((dayStart(it?it.start:nowT)-dayStart(nowT))/DAY);return d<=0?'Today':d===1?'Tomorrow':'In '+d+' days';})(),label:'Upcoming appointment',badge:ap.status,title:'Voice consultation',sub:'with '+ap.who,rows:[['Date',ap.dayText],['Time',ap.timeText.split(' – ')[0]],['Type','Audio Call'],['Duration',it?it.dur+' minutes':ap.durText]],cta:'View details',go:ap.open});}
+const sl=s.slots.filter(x=>x.expiresAt>nowT).slice().sort((p,q)=>p.expiresAt-q.expiresAt)[0];
+if(sl){const left=sl.expiresAt-nowT;out.push({key:'slot',label:'Text Question',badge:'Action required',title:'Submit your question',sub:'Astrologer: '+(ASTRO[sl.astro]?ASTRO[sl.astro].name:''),text:'You have purchased a Text Question. Submit your question to the astrologer.',exp:'Expires '+fmtIST(sl.expiresAt),left:Math.max(0,Math.ceil(left/DAY))+' day(s) left',pct:Math.max(4,Math.min(100,Math.round(left/(7*DAY)*100))),cta:'Submit question',go:()=>{setState({astro:sl.astro});navigate('/text/purchased');}});}
+const an=s.acts.filter(x=>x.type==='Question'&&x.answeredAt&&!x.cancelled&&!s.reviewed[x.id]&&!x.dispute).slice().sort((p,q)=>q.answeredAt-p.answeredAt)[0];
+if(an)out.push({key:'ans',label:'Review answer',badge:'Answer received',title:'Your answer is ready',sub:'Astrologer: '+an.who,rows:[['Answered on',fmtDT(an.answeredAt)],['Question',an.title.length>60?an.title.slice(0,59)+'…':an.title]],cta:'View answer',go:()=>navTo('activity',{focusId:an.id,actTab:'Questions'})});
+return out;})();
+const ago=t=>{const m=Math.max(1,Math.round((nowT-t)/60000));return m<60?m+' min ago':m<1440?Math.round(m/60)+' hr ago':Math.round(m/1440)+' day(s) ago';};
+const ansQ=s.acts.filter(x=>x.type==='Question'&&x.answeredAt&&!x.cancelled).slice().sort((p,q)=>q.answeredAt-p.answeredAt)[0];
+const homeAnswer=ansQ?{who:ansQ.who,topic:(ansQ.kind||'Question')+' question',ago:ago(ansQ.answeredAt),go:()=>navTo('activity',{focusId:ansQ.id,actTab:'Questions'})}:null;
+const remDue=s.remedies.find(r=>(r.type||'Remedy')==='Remedy'&&r.days&&r.status!=='Completed'&&!r.done&&(()=>{const di=Math.floor((dayStart(nowT)-r.startDate)/DAY);return di>=0&&di<r.days&&!(r.completedDays||[]).includes(di);})());
+const homeReminder=remDue?{god:remDue.god||'Your atonement',when:'Every day · '+(remDue.time||''),done:()=>navigate('/remedy/'+remDue.id)}:null;
 const homeLog=s.acts.map((x,i)=>({x,i})).sort((p,q)=>((q.x.submittedAt||q.x.bookedAt||0)-(p.x.submittedAt||p.x.bookedAt||0))||p.i-q.i).map(o=>o.x).map(x=>{const isQ=x.type==='Question';const status=isQ?(x.dispute?dispLabel(x.dispute):qStatus(x)):x.status;const ts=x.submittedAt||x.bookedAt;return{id:x.id,type:x.type,status,st:chipSt(status)+';',title:x.title,who:x.who||'',dateText:ts?fmtD(ts):(x.when||''),open:()=>navTo('activity',{focusId:x.id,actTab:'All'})};});
-const txVals={homeTicker,homeUpcoming,homeLog,nowMs:nowT,apptHist,goApptHistory:()=>navigate('/appt/my'),histQs,histMonths,myQs,myQMonths,slotBatches:batches,slotFilter:s.slotFilter,slotOpts:['Total','Available','Used','Expired'].map(f=>({value:f,label:(f==='Total'?'Total Purchased':f)+' ('+cnt(f)+')'})),onSlotFilter:e=>setState({slotFilter:e.target.value}),buySlots:()=>{setState({txStep:'pick'});navigate('/text/new');},txStep:s.txStep,changeAstro:()=>setState({txStep:'pick'}),
+const txVals={homeAnswer,homeReminder,homeToast:showToast,goKundli:go('kundli'),homeActions,homeTicker,homeUpcoming,homeLog,nowMs:nowT,apptHist,goApptHistory:()=>navigate('/appt/my'),histQs,histMonths,myQs,myQMonths,slotBatches:batches,slotFilter:s.slotFilter,slotOpts:['Total','Available','Used','Expired'].map(f=>({value:f,label:(f==='Total'?'Total Purchased':f)+' ('+cnt(f)+')'})),onSlotFilter:e=>setState({slotFilter:e.target.value}),buySlots:()=>{setState({txStep:'pick'});navigate('/text/new');},txStep:s.txStep,changeAstro:()=>setState({txStep:'pick'}),
 txSub:ASTRO.filter(a=>isSub(a.id)&&vis(a)).map(a=>{const inf=s.subInfo[a.id];return{...xcard(a),days:inf?Math.max(0,Math.ceil((inf.expiresAt-nowT)/DAY)):0,tier:inf?inf.tier:'',susp:!!s.tqSusp[a.id],pick:()=>setState({astro:a.id,txStep:'buy',preview:false})};}),
 txRec:ASTRO.filter(a=>!isSub(a.id)&&vis(a)).map(a=>({...xcard(a),susp:!!s.tqSusp[a.id],subscribe:openSub(a.id)})),
 txCounts:{q:s.acts.filter(x=>x.type==='Question').length,slots:liveSlots.length}};
@@ -617,9 +630,9 @@ payChips:[['wallet','Wallet (₹'+s.wallet+')'],['direct','UPI / bank (direct)']
 wdMax:Math.max(0,s.wallet-500),wdAmt:s.wdAmt,onWd:e=>setState({wdAmt:e.target.value.replace(/[^0-9]/g,'')}),wdAll:()=>setState({wdAmt:String(Math.max(0,s.wallet-500))}),
 withdraw:()=>{const a=parseInt(s.wdAmt||'0',10);const mx=Math.max(0,s.wallet-500);if(!a||a<=0){showToast('Enter an amount to withdraw');return;}
 if(a>mx){showToast('A withdrawal must leave at least ₹500 in your Wallet (D-32). You can withdraw up to ₹'+mx);return;}
-setState({wallet:s.wallet-a,wdAmt:'',txns:[{label:'Withdrawal to bank account (sample)',when:'Just now',amt:a,sign:-1}].concat(s.txns)});showToast('₹'+a+' withdrawn to your bank account');},
+setState({wallet:s.wallet-a,wdAmt:'',txns:[{label:'Withdrawal to bank account',when:'Just now',amt:a,sign:-1}].concat(s.txns)});showToast('₹'+a+' withdrawn to your bank account');},
 payNow:()=>{setState({wallet:s.wallet+s.amt,modal:false,txns:[{label:'Money added',when:'Just now',amt:s.amt,sign:1}].concat(s.txns)});showToast('₹'+s.amt+' added to wallet');},
-menu:[{label:'Wallet',go:go('wallet')},{label:'Birth profiles & Kundli',go:go('kundli')},{label:'Following & subscriptions',go:go('follow')},{label:'Remedy Tracker',go:go('remedy')},{label:'Notifications',go:go('notifs')},{label:'Help & support',go:go('help')},{label:'Log out',go:go('login',{loginStep:1})},{label:s.empty?'Demo: restore sample data':'Demo: first-time user (empty states)',go:()=>setState(s.empty?{empty:false,acts:ACTS0,txns:[{label:'Money added',when:'Last week',amt:500,sign:1}],wallet:500,remedies:seedRemedies(Date.now()),subs:[0]}:{empty:true,acts:[],txns:[],wallet:0,remedies:[],subs:[],slots:[],files:[]})}],
+menu:[{label:'Wallet',go:go('wallet')},{label:'Birth profiles & Kundli',go:go('kundli')},{label:'Following & subscriptions',go:go('follow')},{label:'Remedy Tracker',go:go('remedy')},{label:'Notifications',go:go('notifs')},{label:'Help & support',go:go('help')},{label:'Log out',go:go('login',{loginStep:1})}],
 toggles:[tgl('push','Push notifications','Channel confirmed (D-16)'),tgl('inapp','In-app notifications','Channel confirmed (D-16)'),{label:'Critical alerts',note:'Always on (D-15)',on:'true',just:'justify-content:flex-end;opacity:.6',go:()=>showToast('Critical alerts cannot be turned off')}],
 soon,
 isDark:s.theme==='dark',isLight:s.theme==='light',themeLabel:s.theme==='dark'?'Switch to light mode':'Switch to dark mode',toggleTheme:()=>{const n=s.theme==='dark'?'light':'dark';try{localStorage.setItem('ac-theme',n);}catch(e){}setState({theme:n});},
@@ -627,14 +640,14 @@ sAnswer:st==='answer',sEdit:st==='edit',goEdit:go('edit'),
 ans:{...ansItem,corrActive:!ansDone&&!ansCancelled&&!!(ansItem.corr&&ansItem.corr.active),corrCycles:(ansItem.corr&&ansItem.corr.cycles)||0,corrReplace:openDlg('correct',{id:ansItem.id}),
 canReqCorr:!ansDone&&!ansCancelled&&!(ansItem.corr&&ansItem.corr.active),
 reqCorr:()=>{setState({acts:s.acts.map(x=>x.id===ansItem.id?{...x,corr:{...(x.corr||{}),active:true,at:nowT}}:x),notifLog:(s.notifLog||[]).concat([{id:nowT+'-corr',cat:'Question',go:'activity',cta:'Open Activity',at:nowT,text:ansItem.who+' asked you to correct your question. Replace it with another General Question: same slot, no extra payment. The original deadline ('+fmtIST((ansItem.submittedAt||nowT)+30*DAY)+' IST) continues.'}])});showToast('Simulated: the astrologer requested a correction');},
-attList:(ansItem.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Sample file - this prototype has no real download')})),linkList:ansItem.links||[],len:(ansItem.answer||'').length,status:ansStatus,st:chipSt(ansStatus)+';',left:ansLeft,bar:'height:100%;width:'+Math.round(ansLeft/7*100)+'%;background:var(--acc)',canDispute:ansDone&&!ansDsp&&ansLeft>0,windowClosed:ansDone&&!ansDsp&&ansLeft<=0,disputed:ansDsp,dispute:openDlg('dispute',{id:ansItem.id}),
+attList:(ansItem.attachments||[]).slice(0,3).map(a=>({name:a.name,kind:(a.name.split('.').pop()||'').toUpperCase().replace('JPG','JPEG'),open:()=>showToast('Download is not available yet')})),linkList:ansItem.links||[],len:(ansItem.answer||'').length,status:ansStatus,st:chipSt(ansStatus)+';',left:ansLeft,bar:'height:100%;width:'+Math.round(ansLeft/7*100)+'%;background:var(--acc)',canDispute:ansDone&&!ansDsp&&ansLeft>0,windowClosed:ansDone&&!ansDsp&&ansLeft<=0,disputed:ansDsp,dispute:openDlg('dispute',{id:ansItem.id}),
 due:fmtIST((ansItem.submittedAt||nowT)+30*DAY),rated:!!ansItem.rating,stars:'★'.repeat(ansItem.rating||0),needRate:ansDone&&!ansItem.rating,rate:openDlg('qrate',{id:ansItem.id}),
 dRaised:dpo?fmtIST(dpo.raisedAt):'',dAnswered:!!(dpo&&dpo.answeredAt),dAnswerText:dpo?dpo.answer:'',dAdmin:!!(dpo&&dpo.admin),
 canComplain:!!(dpo&&dpo.answeredAt)&&!cmpt&&complaintLeft>0,complaint:openDlg('complaint',{id:ansItem.id}),complained:!!cmpt,cLeft:complaintLeft},ansWaiting:!ansDone&&!ansCancelled,ansCancelled,ansDone,
 skewDays:Math.round((s.skew||0)/DAY),addSkew:n=>()=>{setState({skew:(s.skew||0)+n*DAY});setTimeout(runAdvance,0);},resetSkew:()=>setState({skew:0}),
 submitRate:()=>{if(!s.rate){showToast('A rating is required');return;}setState({acts:s.acts.map(x=>x.id===s.dlg.id?{...x,rating:s.rate,review:(s.note||'').trim(),ratedAt:nowT}:x),dlg:null});showToast('Thank you. Your review cannot be edited or deleted; ask Platform Support for changes.');},
 submitComplaint:()=>{const t=(s.note||'').trim();if(!t){showToast('Describe the problem first');return;}setState({acts:s.acts.map(x=>x.id===s.dlg.id?{...x,complaint:{at:nowT,text:t}}:x),dlg:null});showToast('Platform Complaint submitted');},
-pname:s.pname,pini:(s.pname||'G')[0].toUpperCase(),onName:e=>setState({pname:e.target.value}),saveName:()=>showToast('Profile saved'),
+profile:s.prof||{},saveProfile:(name,p)=>{setState({pname:(name||'').trim()||s.pname,prof:p});showToast('Profile saved');},pname:s.pname,pini:(s.pname||'G')[0].toUpperCase(),onName:e=>setState({pname:e.target.value}),saveName:()=>showToast('Profile saved'),
 dlgOn:!!s.dlg,dlgTitle:{correct:'Replace your question',rdone:'Mark remedy Completed',subscribe:'Subscribe',pay:'Pay directly',qrate:(rateIsQ?'Rate this answer':'Rate this consultation'),scomplaint:'Platform complaint',chatlog:'Chat messages',complaint:'Platform Complaint',review:'Write a review',dispute:'Raise a dispute',notif:'Notification',resched:'Reschedule or cancel',report:'Share or report',terms:'Subscription terms'}[dk]||'',
 rs,rateNote:rateIsQ?'A rating is required after every answer. It does not stop you from raising a dispute (D-17).':'A rating of 1–5 stars is required after every consultation; written feedback is optional (D-10).',dScomplaint:dk==='scomplaint',dChatlog:dk==='chatlog',cl,dPay:dk==='pay',payAmt:s.dlg&&s.dlg.k==='pay'?s.dlg.amt:0,payLabel:s.dlg&&s.dlg.k==='pay'?s.dlg.label:'',upi:s.upi,onUpi:e=>setState({upi:e.target.value}),payMs:['UPI','Bank / card'].map(m=>({label:m,cls:'chip'+(s.payM===m?' on':''),go:()=>setState({payM:m})})),payIsUpi:s.payM==='UPI',confirmDirect,dReview:dk==='review',dQrate:dk==='qrate',dComplaint:dk==='complaint',noClose:dk==='qrate',dDispute:dk==='dispute',dNotif:dk==='notif',dResched:dk==='resched',dReport:dk==='report',dTerms:dk==='terms',closeDlg:()=>setState({dlg:null}),
 stars:[1,2,3,4,5].map(n=>({label:n+' star'+(n>1?'s':''),cls:'chip'+(s.rate>=n?' on':''),go:()=>setState({rate:n})})),note:s.note,onNote:e=>setState({note:e.target.value}),
