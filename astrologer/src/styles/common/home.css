@@ -30,23 +30,20 @@
   isolation: isolate;
   overflow-x: hidden; overflow-y: auto; scrollbar-width: none;
   padding: 24px 14px;
-  background: var(--sidebar-bg);
+  /* Full-height artwork: covers the whole scrollable sidebar (attachment: local), top to bottom,
+     under a soft veil in the theme colour so menu text stays readable. */
+  --side-veil: linear-gradient(to bottom,
+    color-mix(in srgb, var(--sidebar-bg) 82%, transparent) 0%,
+    color-mix(in srgb, var(--sidebar-bg) 62%, transparent) 45%,
+    color-mix(in srgb, var(--sidebar-bg) 38%, transparent) 100%);
+  background: var(--side-veil), var(--art) left bottom / auto 100% no-repeat, var(--sidebar-bg);
+  background-attachment: local, local, local;
   border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.ac-sidebar::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  /* Light: the zodiac wheel + mountains art, sized so the wheel fits the sidebar width. */
-  background: var(--art) left bottom / var(--art-size) no-repeat;
-  opacity: var(--art-opacity);
-  -webkit-mask-image: var(--art-mask);
-  mask-image: var(--art-mask);
-}
+/* (The artwork used to be a ::before layer that stopped after one screen height when the sidebar scrolled.) */
 .ac-logo { display: block; max-width: 100%; height: auto; }
 /* The dark logo PNG carries a soft black glow; "screen" drops the black so it blends into the purple. */
 :root[data-theme='dark'] .ac-logo { mix-blend-mode: screen; }
@@ -282,10 +279,23 @@
   .ac-grid--triple .ac-ic__col, .ac-grid--triple .ac-ic__col:first-child { padding: 0; border-right: 0; }
   .ac-grid--triple .ac-ic__col + .ac-ic__col { border-top: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); padding-top: 10px; }
 }
-/* In the 3-column row the Instant card is a third wide: one tile per row inside each side. */
-@media (min-width: 1100px) { .ac-grid--triple .ac-ic__stats { grid-template-columns: minmax(0, 1fr); } }
-@media (min-width: 700px) { .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Columns follow the room the cards actually get (the sidebar takes ~250px from 761px up):
+   phones in landscape (700–760, no sidebar) 2 columns; tablets (761–999) 1 column;
+   1000–1279 2 columns with Instant Calls & Chats full width below; 3 columns from 1280px. */
+@media (min-width: 700px) and (max-width: 760px) {
+  .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ac-main > .ac-grid.ac-grid--triple > :nth-child(3) { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ac-main > .ac-grid.ac-grid--triple > :nth-child(3) { grid-column: 1 / -1; }
+}
+@media (min-width: 1280px) {
+  .ac-main > .ac-grid.ac-grid--triple { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ac-main > .ac-grid.ac-grid--triple > :nth-child(3) { grid-column: auto; }
+  /* In the 3-column row the Instant card is a third wide: one tile per row inside each side. */
+  .ac-grid--triple .ac-ic__stats { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 1300px) { .ac-ic__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 900px) {
   .ac-ic__cols { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
@@ -295,6 +305,14 @@
 @media (max-width: 700px) {
   .ac-ic__cols { grid-template-columns: minmax(0, 1fr); }
   .ac-ic__col, .ac-ic__col:first-child, .ac-ic__col:nth-child(2) { padding: 0; border-right: 0; }
+}
+/* Home row: Instant Calls and Instant Chats stay side by side (aligned, with the divider) from 481px;
+   the general rules above would otherwise stack/offset them inside the row on tablets. */
+@media (min-width: 481px) {
+  .ac-grid--triple .ac-ic__cols.ac-ic__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 0; }
+  .ac-grid--triple .ac-ic__col.ac-ic__col { padding: 0 10px; border-top: 0; border-right: 1px solid color-mix(in srgb, var(--card-border) 70%, transparent); }
+  .ac-grid--triple .ac-ic__col.ac-ic__col:first-child { padding-left: 0; }
+  .ac-grid--triple .ac-ic__col.ac-ic__col:last-child { padding-right: 0; border-right: 0; }
 }
 
 /* Card icon in a soft square (Earnings Overview, Recent Reviews, Recent Activity). */
@@ -464,6 +482,9 @@
    so counts line up on one vertical line. Peak row is tinted amber inside its own padding. */
 .ac-pd { gap: 12px; }
 .ac-pd .ac-card__title { font-weight: 500; font-size: 18px; white-space: nowrap; }
+/* On narrower cards the "Peak" pill wraps under the title instead of running past the card edge. */
+.ac-pd .ac-card__head { flex-wrap: wrap; row-gap: 6px; }
+.ac-pd .ac-card__title { flex-grow: 1; }
 .ac-pd__pill {
   display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; white-space: nowrap;
   font-size: 12px; font-weight: 500; color: var(--heading); background: color-mix(in srgb, var(--accent) 22%, var(--card));

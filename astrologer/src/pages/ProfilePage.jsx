@@ -15,11 +15,12 @@ const sectionOf = (route) => {
 
 export function meta(route) {
   if (route.parts[0] === 'preview') {
-    return { title: 'Profile Preview', subtitle: 'How users see your profile in the User App', parent: '/profile' };
+    return { title: 'Profile Preview', parent: '/profile' };
   }
   const k = sectionOf(route);
   if (k) return { title: `Edit ${profileStore.get().sections[k].title}`, subtitle: 'Only this section is changed', parent: '/profile' };
-  return { title: 'Profile', subtitle: 'Each section is edited separately' };
+  // Back goes to the Home dashboard.
+  return { title: 'Profile', parent: '/' };
 }
 
 export default function ProfilePage({ route, mobile, ui, ctx }) {

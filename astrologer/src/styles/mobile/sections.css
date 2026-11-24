@@ -95,6 +95,12 @@
   .tq .pg--earnings .ern-filters .grow { display: none; }
   .tq .pg--earnings .ern-filters .btn { flex: 1 1 100%; }
   .tq .pg--earnings .ern-open { align-self: stretch; text-align: center; }
+  /* Expanded row (ExpandTable): the row and its details read as one card. */
+  .tq .xtbl tr.is-open { margin-bottom: 0; border-bottom: 0; border-radius: 14px 14px 0 0; box-shadow: none; }
+  .tq .xtbl tr.is-open td { background: none; }
+  .tq .xtbl tr.xtbl-d { margin-top: 0; border-top: 0; border-radius: 0 0 14px 14px; padding-top: 0; background: var(--card-surface); }
+  .tq .tbl.xtbl tr.xtbl-d > td { display: block; padding: 4px 0 8px; text-align: left; background: none; }
+  .tq .xtbl-d__body { align-items: stretch; }
 }
 
 

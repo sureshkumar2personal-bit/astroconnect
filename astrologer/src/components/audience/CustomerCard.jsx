@@ -3,8 +3,8 @@ import { AVATAR_BG } from '@/data/mockAudience.js';
 import { isExpired } from '@/hooks/useAudience.js';
 import { Avatar, Badge } from '@/components/ui/sectionKit.jsx';
 
-// Customer card (AD-136): name, User ID, follow + subscription status, dates, View Profile.
-export default function CustomerCard({ u }) {
+// Customer card (AD-136): name, User ID, follow + subscription status, dates, View Profile (opens a popup).
+export default function CustomerCard({ u, onView }) {
   return (
     <section className="card au-card">
       <div className="row">
@@ -17,7 +17,7 @@ export default function CustomerCard({ u }) {
         {u.blocked && <Badge kind="bad">Block requested</Badge>}
       </div>
       <span className="muted sm">Customer since {fmtDate(dt(u.since))} · last activity {fmtDate(dt(u.last))}</span>
-      <a className="btn btn-o sm" href={`#/audience/user/${encodeURIComponent(u.uid)}`}>View Profile</a>
+      <button type="button" className="btn btn-o sm" onClick={() => onView(u)} aria-haspopup="dialog">View Profile</button>
     </section>
   );
 }

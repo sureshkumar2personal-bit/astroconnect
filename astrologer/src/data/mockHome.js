@@ -55,12 +55,12 @@ export const mainNav = [
 ];
 // Destinations that exist so far (hash routes, see lib/router.js).
 export const navHref = { home: '#/', work: '#/work', live: '#/live', earnings: '#/earnings', profile: '#/profile' };
-// My Work sub-pages, in the reference sidebar order (Text Questions, Subscription Questions,
-// Campaign Management, Appointments). Answer Templates and History open from the My Work page.
+// My Work sub-pages in the sidebar: Text Questions and Appointments. Subscription Questions and
+// Campaign Management are not listed; they open from the Text Questions page (category switch,
+// summary cards, "Campaign Management" button) and Home Quick Actions, and keep Text Questions
+// highlighted (`also`). Answer Templates and History open from the My Work page.
 export const workNav = [
-  { key: 'questions', label: 'Text Questions', href: '#/work/questions' },
-  { key: 'subscriptions', label: 'Subscription Questions', href: '#/work/subscriptions' },
-  { key: 'campaigns', label: 'Campaign Management', href: '#/work/campaigns' },
+  { key: 'questions', label: 'Text Questions', href: '#/work/questions', also: ['subscriptions', 'campaigns'] },
   { key: 'appointments', label: 'Appointments', href: '#/work/appointments' },
 ];
 // "More" pages, in the reference sidebar order. Their placement under the five main

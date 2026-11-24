@@ -16,7 +16,8 @@ export function meta(route) {
     const x = callsStore.get().hist.find((h) => h.id === id);
     return { title: `Consultation ${id}`, subtitle: x?.svc, parent: '/calls' };
   }
-  return { title: 'Instant Call & Chat', subtitle: 'Prepaid packages · one request or consultation at a time across both services' };
+  // Back goes to the Home dashboard.
+  return { title: 'Instant Call & Chat', parent: '/' };
 }
 
 export default function CallsPage({ route, ui, ctx }) {

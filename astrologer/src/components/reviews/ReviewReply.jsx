@@ -27,9 +27,9 @@ export default function ReviewReply({ r, ui }) {
         <span className="sr">Your reply</span>
         <textarea className="short" placeholder="Write a reply…" value={text}
           onChange={(e) => { setText(e.target.value); if (err) setErr(''); }}
-          aria-invalid={!!err} aria-describedby={err ? 'rv-reply-err' : undefined} />
+          aria-invalid={!!err} aria-describedby={err ? `rv-reply-err-${r.id}` : undefined} />
       </label>
-      {err && <span id="rv-reply-err" className="rv-err sm" role="alert">{err}</span>}
+      {err && <span id={`rv-reply-err-${r.id}`} className="rv-err sm" role="alert">{err}</span>}
       <div className="btn-row">
         <button type="button" className="btn btn-p" onClick={save}>{r.reply ? 'Update reply' : 'Post reply'}</button>
         {r.reply && <button type="button" className="btn btn-o danger" onClick={remove}>Delete reply</button>}

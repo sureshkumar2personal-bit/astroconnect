@@ -17,7 +17,8 @@ export function meta(route) {
     return t ? { title: `Transaction ${t.id}`, subtitle: t.svc, parent: '/earnings' } : { title: 'Transaction not found', parent: '/earnings' };
   }
   if (v === 'offers') return { title: 'Offer performance', subtitle: 'Matches Wallet & Earnings · revenue and discounts never double-counted', parent: '/earnings' };
-  return { title: 'Earnings & Wallet', subtitle: 'Gross revenue, commission and net earnings · refunds appear only here' };
+  // Back goes to the Home dashboard.
+  return { title: 'Earnings & Wallet', parent: '/' };
 }
 
 export default function EarningsPage({ route, ui, ctx }) {
