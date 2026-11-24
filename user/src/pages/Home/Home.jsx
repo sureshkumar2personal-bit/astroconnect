@@ -107,7 +107,7 @@ function Home() {
         <button onClick={ans.go} style={S("height: 40px; padding: 0 16px; border-radius: 999px; border: none; background: var(--h-b-E3EFEC); color: var(--h-t-0E4D4A); font-weight: 700; font-size: 13.5px")}>View</button>
       </div>
 ) : null}
-{rem ? (
+{true ? (
 <div style={S("flex: 1; background: var(--h-b-FBF1DE); border: 1px solid var(--h-o-F0DFBC); border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 14px; justify-content: space-between")}>
         <div style={S("display: flex; gap: 16px; align-items: center")}>
           <div style={S("width: 72px; height: 72px; flex-shrink: 0; border-radius: 50%; background: var(--h-b-FFF8EA); border: 1px solid var(--h-o-EBD5A6); display: flex; align-items: center; justify-content: center")}>
@@ -124,12 +124,16 @@ function Home() {
             <span style={S("color: var(--h-t-5E5440); font-size: 13.5px")}>{rem.when}</span>
           </div>
         </div>
-        {true ? (<>
+        {rem.doneToday ? (
+          <div style={S("height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: var(--h-b-DDF0E7); color: var(--h-t-135E4B); font-weight: 700; font-size: 14px")}>✓ Completed for today</div>
+        ) : rem.snoozed ? (
+          <div style={S("min-height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px 12px; background: var(--h-b-FFF8EA); color: var(--h-t-6E5218); font-weight: 600; font-size: 14px")}>{rem.snoozeText}</div>
+        ) : (
           <div style={S("display: flex; gap: 10px")}>
             <button onClick={rem.done} style={S("flex: 1; height: 44px; border-radius: 14px; border: none; background: var(--h-b-0E4D4A); color: var(--h-t-FFFFFF); font-weight: 700; font-size: 14px")}>Mark as done</button>
-            <button onClick={() => app.homeToast("Reminder snoozed for 30 minutes")} style={S("flex: 1; height: 44px; border-radius: 14px; border: 1px solid var(--h-o-E0C78F); background: var(--h-b-FFF8EA); color: var(--h-t-6E5218); font-weight: 700; font-size: 14px")}>Remind later</button>
+            <button onClick={rem.snooze} style={S("flex: 1; height: 44px; border-radius: 14px; border: 1px solid var(--h-o-E0C78F); background: var(--h-b-FFF8EA); color: var(--h-t-6E5218); font-weight: 700; font-size: 14px")}>Remind later</button>
           </div>
-        </>) : null}
+        )}
         
       </div>
 ) : null}
