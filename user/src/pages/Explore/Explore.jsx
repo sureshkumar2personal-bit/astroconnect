@@ -7,28 +7,39 @@ import "./Explore.css";
 function AstroCard({ a }) {
   return (
     <article className="card ex-card">
+      <span className="ex-price" title={a.priceText}>{"from ₹" + a.chatFrom}</span>
       <button className="ex-top" onClick={a.open} aria-label={"Open " + a.name + " profile"}>
-        <AstroAvatar id={a.id} size={52} name={a.name} />
-        <div className="ex-who">
-          <div className="ex-name">{a.name}</div>
-          <div className="u-13">{a.spec}</div>
-        </div>
-        <span className={"pill ex-avail " + a.availCls}>{a.avail}</span>
+        <span className="ex-ph">
+          <AstroAvatar id={a.id} size={68} name={a.name} />
+          <i className={"ex-dot " + a.availCls} title={a.avail} aria-label={a.avail} />
+        </span>
+        <span className="ex-who">
+          <span className="ex-name">{a.name}</span>
+          <span className="ex-spec">{a.spec}</span>
+          <span className="ex-facts"><span><b>{"★ " + a.ratingAvg}</b>{" (" + a.ratingN + ")"}</span><span>{a.years}</span></span>
+          <span className="ex-foll">{a.followers}</span>
+        </span>
       </button>
-      <div className="ex-facts">
-        <span>{a.ratingText}</span>
-        <span>{a.years}</span>
-        <span>{a.followers}</span>
-      </div>
       <div className="ex-tags" aria-label="Areas of expertise">
-        {a.expertise.map((t, i1) => (<Fragment key={i1}><span className="chip ex-chip">{t}</span></Fragment>))}
+        {a.expertise.map((t, i1) => (<Fragment key={i1}><span className="ex-chip">{t}</span></Fragment>))}
       </div>
-      <div className="u-13">{"Languages: "}{a.langList.join(", ")}</div>
-      <div className="u-15">{a.priceText}</div>
+      <div className="ex-langs" aria-label="Languages">
+        {a.langList.map((t, i1) => (<Fragment key={i1}><span className="ex-lang">{t}</span></Fragment>))}
+      </div>
       <div className="ex-actions">
-        <button className="btn-p ex-btn" onClick={a.call} disabled={!a.canContact}>Call</button>
-        <button className="btn-p ex-btn" onClick={a.chat} disabled={!a.canContact}>Chat</button>
-        <button className="btn-g ex-btn" onClick={a.open}>View Profile</button>
+        {a.canContact ? (
+          <>
+            <button className="ex-act ex-call" onClick={a.call}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" /></svg>Call
+            </button>
+            <button className="ex-act ex-chat" onClick={a.chat}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" /></svg>Chat
+            </button>
+          </>
+        ) : (
+          <span className={"ex-unavail " + a.availCls}>{a.avail}</span>
+        )}
+        <button className="ex-view" onClick={a.open}>{"View Profile →"}</button>
       </div>
     </article>
   );
