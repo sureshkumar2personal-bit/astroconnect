@@ -1,5 +1,6 @@
-import { navigate } from '@/lib/router.js';
-import { Badge, Grid, Note, PendingTag, Sec, Seg, SwitchRow, Table } from '@/components/ui/sectionKit.jsx';
+import { Badge, Grid, Note, PendingTag, Sec, Seg, SwitchRow } from '@/components/ui/sectionKit.jsx';
+import ExpandTable from '@/components/ui/ExpandTable.jsx';
+import { ConsultationInfo } from './ConsultationDetails.jsx';
 import { dt, fmtDateTime, inr } from '@/lib/format.js';
 import { callsActions, svcName } from '@/hooks/useCalls.js';
 import LiveStatus from './LiveStatus.jsx';
@@ -28,10 +29,11 @@ export default function CallsOverview({ st, av, ui }) {
       </Grid>
 
       <Sec title="History" right={<Seg label="History" options={[['call', 'Call History'], ['chat', 'Chat History']]} value={st.tab} onChange={callsActions.setTab} />}>
-        <Table bare cols={['Consultation', 'User', 'Date & time', 'Actual duration', 'Package · Amount', 'Payment']}
+        {/* A history row expands in place to show its consultation details (no separate page). */}
+        <ExpandTable key={st.tab} cols={['Consultation', 'User', 'Date & time', 'Actual duration', 'Package · Amount', 'Payment']}
           rows={hist.map((x) => ({
             key: x.id,
-            onOpen: () => navigate(`/calls/c/${x.id}`),
+            detail: () => <ConsultationInfo x={x} />,
             cells: [<b>{x.id}</b>, x.user, fmtDateTime(dt(x.at)), x.dur, `${x.pk} · ${inr(x.amt)}`, x.pay],
           }))} />
         {st.tab === 'chat' && <p className="muted sm">Chat messages are visible to you and the user for 24 hours only. Records stay.</p>}

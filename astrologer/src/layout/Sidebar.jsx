@@ -22,7 +22,7 @@ export default function Sidebar({ theme, active = 'home', workView }) {
                 s.rule ? (
                   <div key={s.key} className="ac-subnav__rule" />
                 ) : (
-                  <a key={s.key} href={s.href || '#'} onClick={s.href ? undefined : inert} aria-current={s.key === workView ? 'page' : undefined} className={`ac-sublink ${s.key === workView ? 'is-active' : ''}`}>
+                  <a key={s.key} href={s.href || '#'} onClick={s.href ? undefined : inert} aria-current={s.key === workView ? 'page' : undefined} className={`ac-sublink ${s.key === workView || s.also?.includes(workView) ? 'is-active' : ''}`}>
                     {s.label}
                   </a>
                 )

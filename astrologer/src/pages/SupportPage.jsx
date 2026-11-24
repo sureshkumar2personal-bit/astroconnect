@@ -14,7 +14,8 @@ export function meta(route) {
     return { title: a || 'Ticket', subtitle: t?.cat, parent: '/support' };
   }
   if (sub === 'new') return { title: 'New support ticket', subtitle: 'Platform will reply in this ticket', parent: '/support' };
-  return { title: 'Help & Support', subtitle: 'For issues you raise with the Platform' };
+  // Back goes to the Home dashboard.
+  return { title: 'Help & Support', parent: '/' };
 }
 
 export default function SupportPage({ route, ui }) {

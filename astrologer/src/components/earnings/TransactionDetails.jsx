@@ -4,11 +4,12 @@ import { Empty, Facts, Sec } from '@/components/ui/sectionKit.jsx';
 
 // Transaction Details (AD-122, opened from a transaction row — AD-78).
 // Links to the related Appointment, Consultation or Text Question (WAL-03).
-export default function TransactionDetails({ t }) {
-  if (!t) return <Empty title="Transaction not found"><a href="#/earnings">Back to Earnings & Wallet</a></Empty>;
+/** The transaction's details: facts and a link to the related item. Shown in the expanded
+ *  Transactions row (Earnings & Wallet) and on the #/earnings/tx/<id> page. */
+export function TxInfo({ t }) {
   const net = txNet(t);
   return (
-    <Sec>
+    <>
       <Facts items={[
         ['Transaction ID', t.id],
         ['Service / type', t.svc],
@@ -21,6 +22,11 @@ export default function TransactionDetails({ t }) {
         ['Status', t.st],
       ]} />
       <a className="btn btn-o ern-open" href={relatedHref(t.ref)}>Open {t.ref}</a>
-    </Sec>
+    </>
   );
+}
+
+export default function TransactionDetails({ t }) {
+  if (!t) return <Empty title="Transaction not found"><a href="#/earnings">Back to Earnings & Wallet</a></Empty>;
+  return <Sec><TxInfo t={t} /></Sec>;
 }

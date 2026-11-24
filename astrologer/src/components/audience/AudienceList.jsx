@@ -5,7 +5,7 @@ import CustomerCard from './CustomerCard.jsx';
 
 // The one Audience list (AD-135): All Users / Followers / Subscribers, search, sort and the
 // "Since" date filter (AD-137). Filter state lives in the store, so Back keeps it (AD-77).
-export default function AudienceList({ s }) {
+export default function AudienceList({ s, onView }) {
   const f = s.filters;
   const set = audienceActions.setFilter;
   const users = visibleUsers(s.list, f);
@@ -31,7 +31,7 @@ export default function AudienceList({ s }) {
       </div>
 
       {users.length ? (
-        <Grid>{users.map((u) => <CustomerCard key={u.uid} u={u} />)}</Grid>
+        <Grid>{users.map((u) => <CustomerCard key={u.uid} u={u} onView={onView} />)}</Grid>
       ) : (
         <Empty title="No customers for this filter" />
       )}

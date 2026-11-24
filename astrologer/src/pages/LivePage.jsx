@@ -12,7 +12,8 @@ export function meta(route) {
   const s = liveStore.get();
   if (s.live) return { title: `Live now: ${s.live.topic}`, subtitle: `Audience: ${s.live.aud}` };
   if (isSummary(route)) return { title: 'Post-Live summary', subtitle: s.past[0]?.topic, parent: '/live' };
-  return { title: 'Live Sessions', subtitle: 'Free for now · one Live per calendar month · no recording or replay' };
+  // Back goes to the Home dashboard.
+  return { title: 'Live Sessions', parent: '/' };
 }
 
 export default function LivePage({ route, ui }) {

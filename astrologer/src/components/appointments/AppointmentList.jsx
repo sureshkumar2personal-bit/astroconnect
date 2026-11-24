@@ -63,7 +63,7 @@ export default function AppointmentList({ apt, mobile }) {
           </tbody>
         </table>
       </div>
-      <p className="muted sm">Appointment status and payment settlement status are tracked separately. Settlement: 3% commission, eligible 3 days after completion (Wallet).</p>
+
     </>
   );
 }

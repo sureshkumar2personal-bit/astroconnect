@@ -22,6 +22,11 @@ const ICONS = {
   info: (<><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>),
   phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />,
   chat: (<><path d={CHAT_BUBBLE} /><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01" /></>),
+  flag: <path d="M5 21V4M5 4h11l-2 4 2 4H5" />,
+  alert: (<><path d="M12 3l9.5 17h-19z" /><path d="M12 10v4.5M12 17.5h.01" /></>),
+  history: (<><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1M3 4v4h4" /><path d="M12 8v4l3 2" /></>),
+  // Speech bubble with a question mark (My Work → Text Questions).
+  chatQuestion: (<><path d={CHAT_BUBBLE} /><path d="M10.2 8.6a1.9 1.9 0 1 1 2.6 1.8c-.5.2-.8.6-.8 1.1v.4M12 13.9h.01" /></>),
   moon: <path d={MOON} />,
   bars: <path d="M5 20v-6M12 20V9M19 20V4" />,
   clock: (<><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>),
