@@ -1,3 +1,4 @@
+import Icon from '@/components/ui/Icon.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { navigate, routes } from '@/lib/router.js';
 import { astrologerProfile } from '@/data/mockTextQuestions.js';
@@ -40,11 +41,10 @@ function screenMeta(route, tq, mobile) {
   const subtitle = '';
     const actions = (
       <>
-        <a className="btn btn-o" href={`#${routes.campaigns}`}>Campaign Management</a>
-        <a className="btn btn-p" href={`#${routes.campNew}`}>+ Create Campaign</a>
+        <a className="btn btn-o btn-camp" href={`#${routes.campaigns}`}><Icon name="megaphone" size={18} className="btn-camp__icon" />Campaign Management</a>
+        <a className="btn btn-navy" href={`#${routes.campNew}`}>+ Create Campaign</a>
       </>
     );
-    if (q && mobile) return { title: 'Question Details', subtitle: '', parent: list, crumb: null };
     // Back goes straight to My Work (the question pane has its own Back to the list).
     return { title, subtitle, parent: routes.hub, back: true, actions, crumb: null };
   }
@@ -187,8 +187,10 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
         profile={astrologerProfile}
       />
       <div className={`pg pg--work${mobile ? ' screen' : ''}`}>
-        {m.back && <BackBtn mobile={mobile} onClick={() => navigate(m.parent)} />}
-        <PageActions mobile={mobile} subtitle={m.subtitle}>{actions}</PageActions>
+        <div className="pg-top">
+          {m.back && <BackBtn mobile={mobile} onClick={() => navigate(m.parent)} />}
+          <PageActions mobile={mobile} subtitle={m.subtitle}>{actions}</PageActions>
+        </div>
         {content}
       </div>
       <Dialog open={!!dialog} title={dTitle} onClose={close} sheet={mobile}>{dBody}</Dialog>

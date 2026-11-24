@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-10, AD-11, AD-24 – AD-62, AD-69 – AD-74 |
+| Owned decisions | AD-10, AD-11, AD-24 – AD-62, AD-69 – AD-74, AD-167 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -124,6 +124,7 @@ IST calendar days (AD-71).
 | AD-72 | **Text-Based Questions and Subscription Questions:** both categories remain available and are displayed **separately**. **Text-Based Questions** are the normal Text-Based Question service; **Subscription Questions** are questions offered to users as part of a subscriber benefit/offer. Subscription Questions do not replace normal Text-Based Questions, and the two are never merged into one count or one indistinguishable section. Benefit questions per subscription: Silver **1**, Gold **3**, Platinum **4**. Subscription prices, validity periods, renewal rules, and other plan benefits are not confirmed. *(Amended 2026-11-19.)* |
 | AD-73 | **Text-Based Questions service suspension:** if the astrologer misses the monthly minimum answer target for **three consecutive months**, only the **Text-Based Questions service** is suspended for **three months**. The astrologer account is not suspended, and other services remain available under their normal rules. During the suspension, **all new Text-Based Question purchases and submissions are blocked**, including new Campaign Questions and Open Questions. **Previously purchased questions and slots remain valid** during the suspension (within their existing validity, AD-28) and are not blocked or cancelled because of the suspension. The astrologer must answer every outstanding previously purchased question during the suspension period; existing questions continue under the normal 30-day answer deadline, and any question not answered within its deadline is automatically cancelled and refunded under the existing rules (AD-30). **Reopening:** after the three-month period, the service reopens **only after all outstanding previously purchased questions have been answered** or resolved through the existing auto-cancellation/refund process; until then it stays unavailable. On reopening, the normal monthly quota of **1,000** and minimum target of **800** apply; any previous 10% or 20% reduced quota is not carried forward, and the reduced-quota progression is not restarted. *(Amended 2026-11-19.)* |
 | AD-74 | **DND / Planned Unavailability — activation and visibility:** DND can be activated only when the astrologer is not engaged in active work; it **cannot be activated during an ongoing Instant Call or Instant Chat**, which must be finished first. While DND is active, the astrologer's **entire profile is invisible to all users** for the complete selected period: users cannot view the profile or book any service, all services are unavailable (Text-Based Questions, Appointments, Instant Call, Instant Chat, and other bookable services), and users are blocked from submitting new Text-Based Questions to the astrologer. Hiding the profile is required; disabling a booking button while the profile stays discoverable is not sufficient. |
+| AD-167 | **Question list and details layout:** the question list shows compact rows (user, User ID, Question ID, campaign, received time, priority and pending days); the selected row opens in place to show the question, pending days, answer deadline, type, source, attachments, and payment. On desktop the first question is shown by default without marking it opened (AD-51); a question is opened when the astrologer selects it. The details pane shows the question header and the tabs Question and Previous questions; the Question tab shows a short preview with Show More, and when expanded it shows the full question text with the user's attachments below it (a General question has none, AD-45), each attachment opening for viewing, and Show Less folds both back; for an open question the answer editor is inline in the pane (AD-36, AD-45) with Voice to Text, Use Template, Add Link, Attach File, and Attach Remedy, Auto Save, Save Draft, Preview, and Submit. Attach Remedy goes to the existing optional remedy field (AD-39). The separate Write Answer screen remains available. On phones the details card is shown under the question list (stacked, the same width and height as the list card), and selecting a row shows that question's details there; the row's chevron still opens it in place. No business rule from AD-36, AD-39, AD-45, AD-46, AD-48, or AD-51 is changed. The pane no longer shows the user's age, gender, location, the amount paid and slots, or the received date that AD-34 lists; whether AD-34 should be amended is open (AP-02-26). |
 
 **Referenced decisions** (owned by [`01_HOME_SCREEN.md`](01_HOME_SCREEN.md))
 
@@ -290,6 +291,7 @@ The astrologer saves, edits, deletes, and reuses their own templates (AD-38).
 - The four tabs are separate and must not be collapsed into generic Priority or Completed tabs (AD-46).
 - Secondary tabs or filters: Drafts and Expired (AD-46, AD-47).
 - Urgency filters within Received Questions: Priority 1 and Priority 2 (AD-32, AD-33, AD-46).
+- The question list and the question details pane follow AD-167: compact rows, the selected row opened in place, a tabbed details pane (Question and Previous questions, with attachments under the expanded question), and the answer editor inline for an open question. The first question is shown by default without being marked opened (AD-51).
 
 Filters and search (AD-49): Date Range; Month; Campaign; General/Personal;
 Priority 1/2; Question Status; Answered/Pending/Disputed/Expired; Search by
@@ -597,6 +599,7 @@ Resolved (kept in the review list): AP-02-25 — Special Campaign label/type man
 | ID | Topic | Status |
 |----|-------|--------|
 | AP-02-24 | Does the cancellation refund also apply to campaign deletion? | Open |
+| AP-02-26 | Question details pane without User profile / Campaign & payment: amend AD-34? | Open |
 
 **Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-24))
 
@@ -615,6 +618,7 @@ Resolved (kept in the review list): AP-02-25 — Special Campaign label/type man
 
 Confirmed rules only.
 
+- [ ] The question list shows compact rows with the selected row opened in place; the details pane shows the Question and Previous questions tabs, the expanded question shows the user's attachments below its text, and, for an open question, the inline answer editor; the first question is shown by default without being marked opened (AD-167, AD-51).
 - [ ] During DND or Planned Unavailability, no new slot purchases or question submissions are accepted (AD-10).
 - [ ] During DND or Planned Unavailability, slot expiry and the 30-day answer deadline continue (AD-11).
 - [ ] The monthly quota is 1,000 slots shared by campaigns and Open Questions; no carry-forward; resets on the 1st at 12:00 AM IST; pro-rata by remaining days with whole-number rounding for mid-month joiners (AD-24).
@@ -679,3 +683,6 @@ Confirmed rules only.
 | 2026-11-19 | AD-35 re-quoted (General-to-Personal upgrade removed; X-05 resolved); §5.9 step 2, BR-02-18 and acceptance criterion updated. Cross-app statuses synchronized with the review list: X-02, X-05, X-11, X-12, X-13 Resolved; §10 open dependencies reduced to X-14. |
 | 2026-11-20 | Master Decision Document applied: AD-31 re-quoted (amended — refund of purchased unused slots on cancellation; ruling C1) and AD-40 re-quoted (amended — mandatory rating, optional written review; ruling C4); §5.5, BR-02-26, BR-02-49, BR-02-59, edge cases, and acceptance criteria updated. AD-26 unchanged (label question AP-02-25). AP-02-24, AP-02-25, X-16, X-18 added; links to modules 03 – 17. |
 | 2026-11-20 | AD-26 re-quoted (amended — mandatory Special Campaign label/type); §5 flow, screens, BR-02-05, edge case, acceptance updated; AP-02-25 Resolved; X-16, X-18 Resolved and X-25 added (User App aligned). |
+| 2026-11-24 | AD-167 added (Text Questions list and details layout, inline answer editor, first question shown by default). No existing rule changed. |
+| 2026-11-24 | AD-167 amended: details pane tabs are Question and Previous questions; user attachments show below the expanded question. AP-02-26 added (effect on AD-34). |
+| 2026-11-24 | AD-167 amended: on phones the details card is stacked under the question list instead of opening on its own screen. |
