@@ -10,7 +10,11 @@ export const ASTRO=[
 {id:6,name:'Vasanthi Raghavan',spec:'Vedic · Health & Wellbeing',langs:'Tamil, English',online:true,cats:['Vedic'],bio:'Gentle guidance on health routines and wellbeing using the birth chart.'},
 {id:7,name:'Tarun Verma',spec:'Lal Kitab · Remedies',langs:'Hindi, Punjabi, English',online:true,cats:['Vedic'],bio:'Simple, practical remedies explained step by step.'},
 {id:8,name:'Anjali Pillai',spec:'Prashna · Quick Answers',langs:'Malayalam, English',online:false,cats:['KP'],bio:'Short, focused answers to a single pressing question.'},
-{id:9,name:'Mohan Krishnan',spec:'Jaimini · Career',langs:'Tamil, Telugu, English',online:true,cats:['Vedic'],bio:'Career direction and timing using the Jaimini system.'}];
+{id:9,name:'Mohan Krishnan',spec:'Jaimini · Career',langs:'Tamil, Telugu, English',online:true,cats:['Vedic'],bio:'Career direction and timing using the Jaimini system.'},
+{id:10,name:'Geetha Ramesh',spec:'Nadi · Life Path',langs:'Tamil, English',online:true,cats:['Vedic'],bio:'Palm-leaf style readings of life path, timing and turning points.'},
+{id:11,name:'Suresh Babu',spec:'Muhurtham · Auspicious Dates',langs:'Telugu, Tamil, English',online:false,cats:['Vedic'],bio:'Choosing auspicious dates for weddings, housewarmings and new ventures.'},
+{id:12,name:'Deepa Nambiar',spec:'Tarot · Relationships',langs:'Malayalam, English',online:true,cats:['Tarot'],bio:'Gentle tarot guidance on relationships and family decisions.'},
+{id:13,name:'Harish Gowda',spec:'KP · Education & Career',langs:'Kannada, English, Hindi',online:true,cats:['KP'],bio:'KP chart analysis for studies, exams and early-career choices.'}];
 export const CATS=['All','Vedic','KP','Tarot','Numerology','Vastu','Palmistry'];
 // Sample campaigns: prices, discounts and expiry are sample values (P-06-13 is still open).
 export const CAMPS=[
@@ -67,7 +71,14 @@ export const REVIEWS=[
 {id:16,astro:8,stars:4,text:'A quick answer when I needed one.',source:'Text Question'},
 {id:17,astro:9,stars:5,text:'Very helpful on career timing.',source:'Appointment'},
 {id:18,astro:9,stars:5,text:'Detailed and encouraging.',source:'Text Question'},
-{id:19,astro:9,stars:3,text:'Good insight, call was a little rushed.',source:'Instant Call'}];
+{id:19,astro:9,stars:3,text:'Good insight, call was a little rushed.',source:'Instant Call'},
+{id:20,astro:10,stars:5,text:'Accurate and patient. The timing guidance matched what happened.',source:'Appointment'},
+{id:21,astro:10,stars:5,text:'Very clear explanation of my life path.',source:'Text Question'},
+{id:22,astro:11,stars:4,text:'Helpful dates for the housewarming, explained simply.',source:'Text Question'},
+{id:23,astro:12,stars:5,text:'Warm, honest reading on a family decision.',source:'Instant Chat'},
+{id:24,astro:12,stars:4,text:'Good guidance and no rush.',source:'Appointment'},
+{id:25,astro:13,stars:5,text:'Clear next steps for my exam preparation.',source:'Text Question'},
+{id:26,astro:13,stars:4,text:'Practical and well explained.',source:'Instant Call'}];
 
 // Sample subscription tiers (D-31). Benefit questions are confirmed (1 / 3 / 4); prices and the term are
 // sample values because price, duration, renewal and cancellation are on hold (P-14-02 to P-14-05).
@@ -90,16 +101,20 @@ export const POSTS=[
 
 // Sample profile facts shown on Explore cards (profile fields are not decided yet - P-05-01).
 export const ASTRO_META={
-0:{years:8,followers:'8.4K',exp:['Marriage','Family','Vedic']},
-1:{years:12,followers:'6.2K',exp:['Career','Finance','KP']},
-2:{years:5,followers:'1.2K',exp:['Tarot','Guidance']},
-3:{years:9,followers:'2.8K',exp:['Name numbers','Lucky dates']},
-4:{years:11,followers:'3.2K',exp:['Home','Office','Direction']},
-5:{years:6,followers:'1.9K',exp:['Palm reading','Practical advice']},
-6:{years:10,followers:'4.1K',exp:['Health','Wellbeing','Routines']},
-7:{years:7,followers:'2.3K',exp:['Remedies','Lal Kitab']},
-8:{years:4,followers:'900',exp:['Quick answers','Prashna']},
-9:{years:13,followers:'5.6K',exp:['Career','Timing','Jaimini']}};
+0:{years:8,followers:'8.4K',specLabel:'Vedic Astrology',topics:['Marriage', 'Family'],joinedDays:900,exp:['Marriage','Family','Vedic']},
+1:{years:12,followers:'6.2K',specLabel:'KP Astrology',topics:['Career', 'Finance'],joinedDays:700,exp:['Career','Finance','KP']},
+2:{years:5,followers:'1.2K',specLabel:'Tarot Reading',topics:['Relationships', 'Horoscope'],joinedDays:30,exp:['Tarot','Guidance']},
+3:{years:9,followers:'2.8K',specLabel:'Numerology',topics:['Muhurtham', 'Career'],joinedDays:400,exp:['Name numbers','Lucky dates']},
+4:{years:11,followers:'3.2K',specLabel:'Vastu',topics:['Home & Office', 'Family'],joinedDays:500,exp:['Home','Office','Direction']},
+5:{years:6,followers:'1.9K',specLabel:'Palmistry',topics:['Horoscope', 'Career'],joinedDays:20,exp:['Palm reading','Practical advice']},
+6:{years:10,followers:'4.1K',specLabel:'Vedic Astrology',topics:['Health', 'Family'],joinedDays:800,exp:['Health','Wellbeing','Routines']},
+7:{years:7,followers:'2.3K',specLabel:'Lal Kitab',topics:['Gemstones', 'Finance'],joinedDays:600,exp:['Remedies','Lal Kitab']},
+8:{years:4,followers:'900',specLabel:'Prashna',topics:['Education', 'Relationships'],joinedDays:12,exp:['Quick answers','Prashna']},
+9:{years:13,followers:'5.6K',specLabel:'Vedic Astrology',topics:['Career', 'Kundli Matching'],joinedDays:1000,exp:['Career','Timing','Jaimini']},
+10:{years:15,followers:'7.1K',specLabel:'Nadi Astrology',topics:['Horoscope','Family'],joinedDays:650,exp:['Life path','Timing','Nadi']},
+11:{years:9,followers:'2.6K',specLabel:'Vedic Astrology',topics:['Muhurtham','Family'],joinedDays:420,exp:['Muhurtham','Auspicious dates']},
+12:{years:6,followers:'3.4K',specLabel:'Tarot Reading',topics:['Relationships','Family'],joinedDays:300,exp:['Tarot','Relationships']},
+13:{years:8,followers:'1.7K',specLabel:'KP Astrology',topics:['Education','Career'],joinedDays:200,exp:['Education','Exams','KP']}};
 
 // Traits used to draw each astrologer's illustrated portrait (original artwork, no photos).
 export const AVATARS={
@@ -112,4 +127,8 @@ export const AVATARS={
 6:{female:true,skin:'#b87c4c',shade:'#a56b3e',hair:'#201714',style:'long',beard:'none',glasses:true,bindi:true,outfit:'#d9692d',bg:['#e5895c','#b24a28']},
 7:{skin:'#cf9760',shade:'#bb844f',hair:'#1a1310',style:'short',beard:'full',outfit:'#5a5148',bg:['#8d6bd8','#533a9e']},
 8:{female:true,skin:'#dba76f',shade:'#c8945c',hair:'#2a1c16',style:'long',beard:'none',bindi:true,earrings:true,outfit:'#c75a8d',bg:['#e6b25a','#b9742c']},
-9:{skin:'#9b6035',shade:'#88532d',hair:'#d9d6d0',style:'older',beard:'mustache',glasses:true,vibhuti:true,outfit:'#e8dfcf',bg:['#58a888','#2c6b57']}};
+9:{skin:'#9b6035',shade:'#88532d',hair:'#d9d6d0',style:'older',beard:'mustache',glasses:true,vibhuti:true,outfit:'#e8dfcf',bg:['#58a888','#2c6b57']},
+10:{female:true,skin:'#c28552',shade:'#ae7445',hair:'#241915',style:'long',beard:'none',bindi:true,earrings:true,outfit:'#7a3fa0',bg:['#5aa0d8','#2c5f94']},
+11:{skin:'#b57a48',shade:'#a16a3c',hair:'#181210',style:'short',beard:'short',tilak:true,outfit:'#c9632a',bg:['#9b7be0','#5a3da6']},
+12:{female:true,skin:'#d4a06a',shade:'#c18d58',hair:'#2b1d17',style:'bun',beard:'none',bindi:true,outfit:'#2f7f6f',bg:['#e48fa6','#a8456a']},
+13:{skin:'#a46a3c',shade:'#915a31',hair:'#1a1411',style:'wavy',beard:'mustache',glasses:true,outfit:'#2d4a7a',bg:['#6bbd8e','#2f7a58']}};
