@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-01 – AD-09, AD-12 – AD-23, AD-63 – AD-68, AD-164 |
+| Owned decisions | AD-01 – AD-09, AD-12 – AD-23, AD-63 – AD-68, AD-164, AD-165, AD-166 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -90,6 +90,8 @@ Astrologer App bottom navigation.
 | AD-67 | **Campaign Questions Home visual:** a compact chart/progress visual showing today's received question count (green indicator), the astrologer's **currently selected** Daily Answer Goal (yellow indicator; default 10, AD-19 — not a fixed 10), and critical questions (red indicator). *(Amended 2026-11-19.)* |
 | AD-68 | **Disputes on Home** are shown separately. An **immediate notification** is sent when a dispute is raised, and a **reminder** is sent before the 3-day Dispute Answer deadline expires. No generic repeated "within 3 days" warning is shown for every open dispute. If the astrologer does not respond within 3 days, the dispute is escalated to Admin Review (AD-41). *(Amended 2026-11-19.)* |
 | AD-164 | **Offline vs DND:** Offline means the astrologer is not accepting that instant service; DND means the astrologer is unavailable for new services across the platform. Appointments may still arrive when the astrologer is Offline (AD-05), but not while DND is active (AD-74). |
+| AD-165 | **DND confirmation and indicator:** turning DND on first shows a confirmation, and DND takes effect only when the astrologer confirms. The message shown is: "DND Mode is ON. You will not appear online, receive new appointments, or receive any consultation requests." While DND is ON the app clearly indicates DND Mode is ON on Home, and the astrologer can turn DND OFF at any time. Turning DND OFF restores the ability to receive new requests; the astrologer then chooses Online or Offline (AD-08). Existing confirmed appointments remain valid (AD-07, AD-09). Activation restriction during an ongoing Instant Call/Chat stays (AD-74). |
+| AD-166 | **Live Activity ticker:** Home shows a single-line ticker between the greeting and Today's Work. It scrolls continuously from right to left and shows today's activity messages built from live app data (for example "2 New Followers joined today.", "2 New Subscribers joined today."). New Followers, New Subscribers, and Appointments are always shown, including a count of 0; when all counts are 0 it shows "Welcome! Your daily activity updates will appear here." Messages update when the underlying data changes. The ticker may pause while the user hovers or touches it, and shows a static line when the device requests reduced motion. While DND is ON (AD-07, AD-165) the ticker stops scrolling and shows the updates as they were when DND was turned on; no new activity is displayed during DND. When DND is turned OFF the ticker scrolls again and shows the current counts. Flowers are not shown until defined (AP-01-16); the appointments message is not shown as "booked today" until the booking date is confirmed (AP-01-17). |
 
 **Referenced decisions** (owned by [`02_TEXT_BASED_QUESTIONS.md`](02_TEXT_BASED_QUESTIONS.md))
 
@@ -256,6 +258,8 @@ Mock figures are illustrative only (AD-15).
 - Text-Based Questions and Appointments have no individual switches (AD-06).
 - Planned Unavailability can be edited or cancelled (AD-09).
 - Offline means the astrologer is not accepting that instant service; DND means unavailable for new services across the platform. Appointments may still arrive while Offline, but not during DND (AD-164).
+- DND confirmation, indicator, and turning DND off follow AD-165: the confirmation message is shown before DND takes effect, a DND-ON indicator stays visible on Home, and DND can be turned off at any time.
+- The Live Activity ticker follows AD-166: single line between the greeting and Today's Work, live counts, all three updates always shown (including 0), welcome message only when all counts are 0; stops during DND and resumes when DND is OFF. Flowers and "booked today" are `PENDING DISCUSSION` (AP-01-16, AP-01-17).
 - Only one pending request or active consultation is allowed across Instant Call and Instant Chat (single atomic lock, AD-105 → [06](06_INSTANT_CALL_AND_CHAT.md)).
 - Appointment timings belong to the Appointment Module (AD-13).
 - Turning DND OFF does not make the astrologer Online (AD-08).
@@ -382,6 +386,8 @@ Retired: AP-01-01, AP-01-02, AP-01-04, AP-01-06 – AP-01-13, AP-GL-01 (resolved
 | ID | Topic | Status |
 |----|-------|--------|
 | AP-01-15 | Planned Unavailability limits | Open |
+| AP-01-16 | Flowers received (Live Activity ticker): definition and source | Open |
+| AP-01-17 | Ticker appointments message: booked today vs scheduled today | Open |
 
 **Resolved** (kept in the Review List with status Resolved):
 
@@ -416,6 +422,8 @@ Confirmed rules only.
 - [ ] Turning DND OFF does not make the astrologer Online (AD-08).
 - [ ] Planned Unavailability can be set, edited, and cancelled; existing confirmed appointments remain valid (AD-09).
 - [ ] Offline and DND are distinct: Appointments can arrive while Offline but not during DND (AD-164).
+- [ ] Turning DND on shows the confirmation message first; while DND is ON, Home clearly shows DND Mode is ON; DND can be turned off at any time, after which the astrologer chooses Online or Offline (AD-165, AD-08).
+- [ ] The Live Activity ticker appears between the greeting and Today's Work, scrolls right to left in a loop, uses live counts, always shows New Followers, New Subscribers, and Appointments (including 0), shows the welcome message only when all counts are 0, and stops while DND is ON and resumes when DND is OFF (AD-166, AD-165).
 - [ ] New requests resume when DND is turned OFF or the unavailable period ends, subject to other rules (AD-12).
 - [ ] Home contains no Availability Schedule or timings controls (AD-13).
 - [ ] Today's Earnings shows expected Net Earnings after commission from today's booked/assigned work, with no refund figures; refunds appear in Wallet only (AD-14).
@@ -448,3 +456,7 @@ Confirmed rules only.
 | 2026-11-19 | Cross-app statuses synchronized with the review list: X-09 Resolved (User App D-36); X-12 User App alignment completed (User App D-38). X-14 stays Open. No decision changed. |
 | 2026-11-20 | Master Decision Document applied: AD-09 re-quoted (amended — confirmed appointments remain valid; ruling C2); AD-164 added (Offline vs DND). AD-17, AD-21, AD-74 unchanged (rulings C3, C5, C6). Links to new modules 03 – 17; AP-01-14, AP-01-15, X-17 added. |
 | 2026-11-20 | AD-07 re-quoted (amended — DND blocks all new services; confirmed appointments remain valid); AP-01-14 Resolved; X-17 Resolved (User App aligned). |
+| 2026-11-23 | AD-165 added (DND confirmation, DND-ON indicator, turn off at any time). AD-07, AD-08, AD-74, AD-164 unchanged. |
+| 2026-11-23 | AD-166 added (Live Activity ticker). AP-01-16 (Flowers) and AP-01-17 (booked vs scheduled today) added as open questions. |
+| 2026-11-23 | AD-166 amended: all three ticker updates always shown (including 0); welcome message only when all counts are 0. |
+| 2026-11-23 | AD-166 amended: ticker stops while DND is ON and resumes with current counts when DND is OFF. |

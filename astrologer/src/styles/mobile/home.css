@@ -26,15 +26,14 @@
   .ac-bottomnav__item.is-active { background: var(--active-grad); color: var(--on-accent); font-weight: 700; box-shadow: var(--active-shadow); }
 
   .ac-header { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 12px; }
-  .ac-header__actions { display: none; }
   .ac-header__brand { display: flex; align-items: center; gap: 8px; }
   .ac-header__logo { flex-grow: 1; width: auto; max-width: 190px; height: 56px; object-fit: contain; object-position: left center; margin-right: auto; }
   .ac-header__brand .ac-iconbtn { width: 44px; height: 44px; border-radius: 10px; }
   .ac-header__welcome { display: flex; align-items: center; gap: 14px; }
   .ac-header__text { flex: 1 1 auto; }
-  .ac-avatar-ring { width: 92px; height: 92px; }
-  .ac-avatar { font-size: 32px; }
-  .ac-h1 { font-size: 25px; }
+  .ac-avatar-ring { width: 72px; height: 72px; border-width: 2px; padding: 3px; }
+  .ac-avatar { font-size: 26px; }
+  .ac-h1 { font-size: 24px; }
   .ac-header__sub { margin-top: 4px; font-size: 13px; }
   .ac-header__spark { display: none; }
   .ac-bell__badge { top: -8px; right: -8px; width: 20px; height: 20px; font-size: 11px; }
@@ -46,36 +45,15 @@
   .ac-info { width: 20px; height: 20px; }
   .ac-viewall { font-size: 13px; min-height: 32px; }
 
-  .ac-pills { gap: 8px; }
-  .ac-pill { height: 44px; font-size: 16px; gap: 8px; }
-  .ac-pill.is-selected .ac-pill__dot { width: 10px; height: 10px; }
-  .ac-pill__dot { width: 8px; height: 8px; }
-  .ac-row { gap: 12px; padding: 3px 2px; }
-  .ac-row > svg { width: 22px; height: 22px; }
-  .ac-row__label { font-size: 14px; }
-  .ac-row__sub { font-size: 11px; }
   .ac-switch { width: 46px; height: 26px; border-radius: 13px; }
   .ac-switch__knob { width: 20px; height: 20px; }
-  .ac-wide-btn { height: 44px; gap: 12px; padding: 0 14px; font-size: 15px; }
-  .ac-wide-btn svg { width: 22px; height: 22px; }
-  .ac-note { font-size: 11px; line-height: 1.4; }
-  .ac-note__icon { display: none; }
 
-  .ac-card__head--earn .ac-info, .ac-peakcard .ac-info { display: none; }
-  .ac-badge { padding: 2px 9px; font-size: 11px; border-color: var(--border); background: var(--chip-alt); }
-  .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; }
-  .ac-today { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 0; padding: 0; }
-  .ac-today__amount { font-size: 38px; line-height: 1.05; }
-  .ac-today__label, .ac-today__rule { display: none; }
-  .ac-today__change { display: flex; gap: 4px; font-size: 13px; align-items: baseline; white-space: nowrap; }
-  .ac-today__pct { font-size: 13px; }
-  .ac-today__vs { font-size: 13px; color: var(--text); }
-  .ac-periods { display: contents; }
-  .ac-period { border-radius: 10px; padding: 7px 9px; flex-direction: column; text-align: center; gap: 0; }
-  .ac-period__icon, .ac-period__vs { display: none; }
-  .ac-period__label { font-size: 11px; }
-  .ac-period__amount { font-family: inherit; font-size: 17px; }
-  .ac-period__change { font-size: 11px; }
+  .ac-peakcard .ac-info { display: none; }
+  .ac-eo { gap: 8px; }
+  .ac-eo__tile { padding: 10px 12px; border-radius: 12px; }
+  .ac-eo__label { font-size: 11.5px; }
+  .ac-eo__amount { font-size: 22px; }
+  .ac-eo__change { font-size: 11px; }
 
   .ac-peakchip--body { display: none; }
   .ac-peakchip--head { display: flex; gap: 6px; padding: 3px 9px; font-size: 11px; background: transparent; white-space: nowrap; flex-shrink: 0; }
@@ -104,22 +82,29 @@
   .ac-progress { height: 12px; border-radius: 6px; }
   .ac-goal__pct { font-size: 17px; }
 
-  .ac-activity { gap: 2px; }
-  .ac-activity .ac-card__head { padding-bottom: 4px; }
-  .ac-activity__item { gap: 12px; padding: 7px 2px; }
-  .ac-activity__item svg { width: 24px; height: 24px; }
+  .ac-activity, .ac-reviews { gap: 6px; }
+  .ac-activity__item { gap: 10px; padding: 7px 2px 10px; }
+  .ac-activity__item:not(:last-child)::after { left: 19px; top: 43px; }
+  .ac-activity__ic { width: 34px; height: 34px; }
   .ac-activity__text { font-size: 14px; }
-  .ac-activity__time { font-size: 12px; }
+  .ac-activity__sub { font-size: 12px; }
+  .ac-activity__time { font-size: 11.5px; }
+  .ac-rev__item { gap: 10px; padding: 10px 2px; }
+  .ac-rev__av { width: 34px; height: 34px; font-size: 13px; }
+  .ac-rev__text { font-size: 13.5px; }
+  .ac-rev__meta { font-size: 11.5px; }
 
-  .ac-qa { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; flex-grow: 0; }
-  .ac-qa__tile { min-height: 0; height: 86px; border-radius: 12px; gap: 4px; padding: 6px 2px; font-size: 12px; font-weight: 400; }
-  .ac-qa__icon { width: 28px; height: 28px; }
+  .ac-qa { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .ac-qa__tile { flex-direction: column; justify-content: center; gap: 6px; min-height: 84px; padding: 10px 4px; border-radius: 12px; text-align: center; }
+  .ac-qa__ic { width: 40px; height: 40px; border-radius: 10px; }
+  .ac-qa__txt b { font-size: 11.5px; font-weight: 500; }
+  .ac-qa__txt span, .ac-qa__go { display: none; }
 }
 
 @media (max-width: 380px) {
   .ac-counts { width: 165px; }
   .ac-goal__top { flex-wrap: wrap; }
-  .ac-qa__tile { font-size: 11px; }
+  .ac-qa__txt b { font-size: 11px; }
 }
 
 /* Home additions: Today's Work cards on phones. */
@@ -134,9 +119,66 @@
   .ac-header__brand .ac-more .ac-iconbtn { width: 44px; height: 44px; border-radius: 10px; }
 }
 
-/* Very narrow phones (≤ 359px): Today's Earnings amount gets its own row; week/month tiles side by side below. */
+/* Very narrow phones (≤ 359px): smaller earnings figures so the 2 × 2 tiles fit. */
 @media (max-width: 359px) {
-  .ac-earn { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .ac-today { grid-column: 1 / -1; }
-  .ac-today__sub { max-width: none; }
+  .ac-eo__amount { font-size: 19px; }
+  .ac-eo__tile { padding: 9px 10px; }
+}
+
+/* Home sticky header on phones: brand (date under it), today's earnings, then theme / bell /
+   profile / menu; last row the availability rail (the earnings trend line is hidden). */
+@media (max-width: 760px) {
+  .ac-topbar {
+    margin: -16px -14px 0; padding: 8px 12px;
+    display: grid; gap: 8px 6px; align-items: center;
+    grid-template-columns: minmax(0, 1fr) repeat(5, auto);
+    grid-template-areas: 'brand earn theme bell profile more' 'date date theme bell profile more' 'ctl ctl ctl ctl ctl ctl';
+  }
+  .ac-topbar__meta { display: contents; }
+  .ac-brand { grid-area: brand; gap: 6px; min-width: 0; }
+  .ac-brand__emblem { width: 28px; height: 28px; }
+  .ac-brand__name { font-size: 16px; white-space: nowrap; }
+  .ac-brand__tag { display: none; }
+  .ac-earnchip__spark, .ac-earnchip__delta, .ac-earnchip__label { display: none; }
+  .ac-topbar .ac-datechip { grid-area: date; justify-self: start; gap: 4px; margin-top: -4px; font-size: 11.5px; color: var(--muted); }
+  .ac-topbar .ac-datechip svg { width: 13px; height: 13px; }
+  .ac-earnchip { grid-area: earn; height: 36px; padding: 0 10px; gap: 6px; border-radius: 10px; }
+  .ac-earnchip__amt { font-size: 15px; }
+  .ac-topbar .ac-theme-toggle { grid-area: theme; }
+  .ac-topbar .ac-bell { grid-area: bell; }
+  .ac-topbar .ac-profile { grid-area: profile; }
+  .ac-topbar .ac-more { grid-area: more; display: block; }
+  .ac-topbar .ac-iconbtn, .ac-topbar .ac-more .ac-iconbtn { width: 36px; height: 36px; border-radius: 10px; }
+  .ac-topbar .ac-bell__badge { top: -6px; right: -6px; width: 17px; height: 17px; font-size: 10px; }
+  .ac-profile__btn { padding: 2px; }
+  .ac-profile__avatar { width: 30px; height: 30px; font-size: 14px; }
+  .ac-profile__chev { display: none; }
+  .ac-topbar__controls { grid-area: ctl; margin: 0; padding: 3px; gap: 0; justify-content: space-between; }
+  .ac-topbar__rule { margin: 6px 1px; }
+  .ac-tpill { padding: 0 6px; column-gap: 4px; }
+  .ac-tpill__label { font-size: 11px; }
+  .ac-tpill--status { padding: 0 8px 0 4px; gap: 6px; font-size: 13px; }
+  .ac-tpill__track--lg { width: 36px; height: 20px; }
+  .ac-tpill__track--lg .ac-tpill__knob { width: 14px; height: 14px; }
+  .ac-tpill--status.is-on .ac-tpill__knob { left: 19px; }
+  .ac-topbar__planned { padding: 0 8px; flex-shrink: 0; }
+  .ac-topbar__planned-label { display: none; }
+}
+
+/* Narrow phones: short labels (Call / Chat / DND) so the whole rail fits. */
+@media (max-width: 400px) {
+  .ac-tpill__long { display: none; }
+  .ac-tpill__short { display: inline; }
+  .ac-topbar__rule { display: none; }
+  .ac-brand__emblem { display: none; }
+}
+@media (max-width: 359px) {
+  .ac-topbar { gap: 8px 4px; }
+  .ac-brand__name { font-size: 13px; }
+  .ac-earnchip { padding: 0 6px; }
+  .ac-earnchip__amt { font-size: 13px; }
+  .ac-topbar .ac-iconbtn, .ac-topbar .ac-more .ac-iconbtn { width: 32px; height: 32px; }
+  .ac-profile__avatar { width: 28px; height: 28px; font-size: 13px; }
+  .ac-tpill__icon { display: none; }
+  .ac-tpill, .ac-tpill--status { padding: 0 5px; }
 }

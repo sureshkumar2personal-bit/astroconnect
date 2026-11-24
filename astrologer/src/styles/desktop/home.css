@@ -3,7 +3,7 @@
 
 /* Two-row, three-card dashboard (reference proportions) on wide screens. */
 @media (min-width: 1200px) {
-  .ac-header + .ac-grid { grid-template-columns: 1fr 1.06fr 1.12fr; }
+  .ac-header + .ac-grid { grid-template-columns: 1.2fr 1fr; }
   .ac-grid + .ac-grid { grid-template-columns: 1.35fr 1fr 0.85fr; }
   .ac-grid--two { grid-template-columns: 1.4fr 1fr; }
 }
@@ -22,24 +22,11 @@
   .ac-grid > :nth-child(3) { grid-column: 1 / -1; }
 }
 
-/* ---------- Light reference layout details (desktop/tablet only) ---------- */
-@media (min-width: 761px) {
-  /* Earnings: big figure + growth on the left, week/month tiles stacked on the right. */
-  :root[data-theme='light'] .ac-earn { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; }
-  :root[data-theme='light'] .ac-today { flex-direction: column; align-items: flex-start; gap: 6px; padding: 0 0 0 4px; }
-  :root[data-theme='light'] .ac-today__main { text-align: left; }
-  :root[data-theme='light'] .ac-today__rule { display: none; }
-  :root[data-theme='light'] .ac-today__change { display: flex; gap: 6px; align-items: baseline; white-space: nowrap; }
-  :root[data-theme='light'] .ac-periods { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  :root[data-theme='light'] .ac-period { padding: 9px 12px; }
-  :root[data-theme='light'] .ac-period__amount { font-size: 22px; }
-  :root[data-theme='light'] .ac-period__vs { display: none; }
-}
-
 /* ---------- Narrow desktop / tablet ---------- */
 @media (max-width: 1024px) {
   .ac-app { grid-template-columns: 200px minmax(0, 1fr); }
   .ac-main { padding: 22px 20px 28px; }
+  .ac-topbar { margin: -22px -20px 0; padding: 10px 20px; }
   .ac-navlink { padding: 11px 16px; font-size: 16px; }
   .ac-h1 { font-size: 34px; }
   .ac-header__sub { font-size: 16px; }
@@ -48,13 +35,77 @@
 /* Three-column desktop: keep labels on one line at the narrower card widths. */
 @media (min-width: 1200px) {
   .ac-counts { min-width: 190px; }
-  .ac-activity__item { gap: 10px; padding: 12px 0; }
-  .ac-activity__text { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-  .ac-activity__time { font-size: 12.5px; }
-  .ac-wide-btn { font-size: 16px; }
 }
 
 /* Recent Activity + Quick Actions row (after the full-width Today's Work). */
 @media (min-width: 900px) and (max-width: 1199px) {
   .ac-grid--two > :nth-child(3) { grid-column: auto; }
+}
+
+/* Desktop/tablet: the sidebar already shows the logo, so the header brand is hidden (one logo only). */
+@media (min-width: 761px) {
+  .ac-topbar .ac-brand { display: none; }
+  .ac-topbar__controls { margin-left: 0; }
+}
+/* Home sticky header: one row from 1480px; below that the availability rail takes a full-width second row. */
+@media (min-width: 761px) and (max-width: 1479px) {
+  .ac-topbar__controls { order: 3; width: 100%; margin-left: 0; justify-content: space-between; }
+}
+@media (min-width: 761px) and (max-width: 1023px) {
+  .ac-earnchip__spark { display: none; }
+}
+@media (min-width: 761px) and (max-width: 899px) {
+  .ac-topbar .ac-datechip, .ac-topbar__planned-label { display: none; }
+  .ac-tpill__long { display: none; }
+  .ac-tpill__short { display: inline; }
+}
+
+/* ---------- Home layout (desktop/tablet) ---------- */
+/* Compact greeting band, so Today's Work starts higher on the page. */
+@media (min-width: 761px) {
+  .ac-avatar-ring { width: 76px; height: 76px; border-width: 2px; padding: 3px; }
+  .ac-avatar { font-size: 28px; }
+  .ac-h1 { font-size: 32px; }
+  .ac-header__sub { margin-top: 4px; font-size: 15px; }
+  /* Earnings and Peak Demand share a row: their footnotes line up at the bottom. */
+  .ac-header + .ac-grid .ac-card__caption { margin-top: auto; }
+}
+/* Today's Work as a gap-free grid: Appointments (the day's timeline) spans two rows on the left,
+   question cards fill the rest. Below 900px the cards stack in their reading order. */
+@media (min-width: 900px) {
+  .ac-tw { align-items: stretch; }
+  .ac-tw__card--appt { grid-area: appt; }
+  .ac-tw__card--text { grid-area: text; }
+  .ac-tw__card--sub { grid-area: sub; }
+  .ac-tw__card--camp { grid-area: camp; }
+  .ac-tw__card--disp { grid-area: disp; }
+  /* The timeline spreads the day's appointments over the full card height. */
+  .ac-tw__card--appt .ac-tw__timeline { flex: 1 1 auto; }
+  .ac-tw__card--appt .ac-tw__timeline > .ac-tw__row { flex: 1 1 auto; }
+  /* Disputes sits in a narrow column: "Dispute Details" goes under the text. */
+  .ac-tw__card--disp .ac-tw__row { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; }
+  .ac-tw__card--disp .ac-tw__time { grid-row: span 2; }
+  .ac-tw__card--disp .ac-tw__row > .ac-viewall { grid-column: 2; justify-self: start; }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .ac-tw { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: 'appt text' 'appt sub' 'camp disp'; }
+}
+@media (min-width: 1200px) {
+  .ac-tw { grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr)); grid-template-areas: 'appt text sub' 'appt camp disp'; }
+}
+
+/* Greeting with the Quick Actions beside it (wide screens) or below it. */
+@media (min-width: 1200px) {
+  .ac-header { flex-wrap: nowrap; gap: 28px; }
+  .ac-header .ac-h1 { font-size: 40px; }
+  .ac-header .ac-header__sub { max-width: 460px; font-size: 16px; }
+  .ac-qa { flex: 0 1 680px; }
+}
+@media (min-width: 761px) and (max-width: 1199px) {
+  .ac-header { row-gap: 18px; }
+}
+
+/* Recent Reviews + Recent Activity: two equal columns from 900px. */
+@media (min-width: 900px) {
+  .ac-grid.ac-grid--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

@@ -1,13 +1,13 @@
 import Sidebar from '@/layout/Sidebar.jsx';
 import BottomNav from '@/layout/BottomNav.jsx';
 import HomeHeader from '@/layout/HomeHeader.jsx';
-import AvailabilityCard from '@/components/home/AvailabilityCard.jsx';
+import ActivityTicker from '@/components/home/ActivityTicker.jsx';
+import DndBanner from '@/components/home/DndBanner.jsx';
 import EarningsCard from '@/components/home/EarningsCard.jsx';
-import PeakDemandCard from '@/components/home/PeakDemandCard.jsx';
 import TodaysWorkSection from '@/components/home/TodaysWorkSection.jsx';
 import useHomeUi from '@/components/home/useHomeUi.jsx';
 import RecentActivityCard from '@/components/home/RecentActivityCard.jsx';
-import QuickActionsCard from '@/components/home/QuickActionsCard.jsx';
+import RecentReviewsCard from '@/components/home/RecentReviewsCard.jsx';
 import useTheme from '@/hooks/useTheme.js';
 import useAvailability from '@/hooks/useAvailability.js';
 import useTextQuestions from '@/hooks/useTextQuestions.js';
@@ -25,7 +25,8 @@ const dateLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'num
   .format(TODAY) // the prototype's fixed today, as in the reference (fD(TODAY))
   .replace(',', '');
 
-// Astrologer app shell. Home: the seven sections in the order of AD-02, laid out as the reference Home.
+// Astrologer app shell. Home: sticky header (logo, availability controls, date, theme, bell, logout),
+// then the AD-02 sections in order; Availability (AD-02 #2) lives in the header.
 // My Work → Text Questions, Appointments and their sub-pages render in WorkPage.
 // Live, Earnings, Profile and the "More" pages render in SectionPage (pages/sections.js).
 export default function App() {
@@ -55,16 +56,17 @@ export default function App() {
         </main>
       ) : (
         <main className="ac-main">
-          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel} />
-          <div className="ac-grid">
-            <AvailabilityCard a={availability} ui={home.ui} />
-            <EarningsCard data={earnings} />
-            <PeakDemandCard data={peakDemand} />
-          </div>
+          <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel}
+            availability={availability} ui={home.ui} earnToday={earnings.today} actions={quickActions} />
+          <DndBanner a={availability} ui={home.ui} />
+          <ActivityTicker apt={appointments} paused={availability.dnd} />
           <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
-          <div className="ac-grid ac-grid--two">
+          <div className="ac-grid ac-grid--triple">
+            <EarningsCard data={earnings} peak={peakDemand} />
+          </div>
+          <div className="ac-grid ac-grid--pair">
+            <RecentReviewsCard />
             <RecentActivityCard items={recentActivity} />
-            <QuickActionsCard actions={quickActions} />
           </div>
           {home.node}
         </main>

@@ -10,6 +10,21 @@ import TimelinePage from '@/components/work/TimelinePage.jsx';
 import AddLinkForm from '@/components/work/AddLinkForm.jsx';
 import { CorrectionBody, FiltersBody, PreviewBody } from '@/components/work/QDialogs.jsx';
 
+// Detail-pane empty state art: a glowing magnifier over a question mark, with a few stars.
+const PaneArt = () => (
+  <svg className="qx-art" width="132" height="132" viewBox="0 0 132 132" fill="none" aria-hidden="true">
+    <circle className="qx-art__halo" cx="60" cy="58" r="50" />
+    <circle className="qx-art__lens" cx="58" cy="56" r="32" strokeWidth="5" />
+    <path className="qx-art__handle" d="M81 80l22 22" strokeWidth="9" strokeLinecap="round" />
+    <path className="qx-art__q" d="M50 47a9 9 0 1 1 13 8c-3 1.6-5 3.6-5 7.5" strokeWidth="5" strokeLinecap="round" />
+    <circle className="qx-art__dot" cx="58" cy="71" r="3.2" />
+    <path className="qx-art__star" d="M108 18l2.2 6.3 6.3 2.2-6.3 2.2-2.2 6.3-2.2-6.3-6.3-2.2 6.3-2.2z" />
+    <path className="qx-art__star qx-art__star--sm" d="M20 96l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" />
+    <circle className="qx-art__spark" cx="112" cy="64" r="2.2" />
+    <circle className="qx-art__spark" cx="16" cy="40" r="1.8" />
+  </svg>
+);
+
 // My Work → Text-Based Questions / Subscription Questions (reference R.tq, TQSUB.q/answer/timeline).
 // Desktop/tablet: header, tabs, then list + detail pane side by side (stacked below 1180px).
 // Phone: one screen at a time — list, question details, write answer, timeline.
@@ -107,7 +122,11 @@ export default function TextQuestionsPage({ tq, route, mobile, ui }) {
                 {detail}
               </>
             ) : (
-              <div className="empty"><b>Select a question</b><span className="muted">Its details and actions appear here.</span></div>
+              <div className="empty qx-empty">
+                <PaneArt />
+                <b>Select a question</b>
+                <span className="muted">Its details and actions appear here.</span>
+              </div>
             )}
           </div>
         </div>

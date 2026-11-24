@@ -20,6 +20,7 @@ export const notificationsSeed = [
   { id: 'N2', cat: 'B', title: 'Dispute Response Required', text: 'Reminder: dispute on TQ-97790 is due 22 Nov 2026, 10:00 AM.', at: '2026-11-20T10:00', href: '/work/questions/TQ-97790', read: false },
   { id: 'N3', cat: 'C', title: 'New Booking', text: 'Nila V. booked a 30-min appointment today at 7:30 PM.', at: '2026-11-20T08:00', href: '/work/appointments/APT-5014', read: true },
   { id: 'N4', cat: 'B', title: 'New Question Received', text: 'Priya S. sent TQ-98275 (Navaratri Blessings).', at: '2026-11-20T11:40', href: '/work/questions/TQ-98275', read: true },
+  { id: 'N5b', cat: 'A', title: 'New Subscriber', text: 'Maya J. subscribed to Silver.', at: '2026-11-20T09:30', href: '/audience/user/U-40011', read: true },
   { id: 'N5', cat: 'A', title: 'New Subscriber', text: 'Hari K. subscribed to Gold.', at: '2026-11-19T16:00', href: '/audience/user/U-41870', read: true },
   { id: 'N6', cat: 'G', title: 'Withdrawal Processing', text: 'WD-2231 · ₹5,000 to UPI is processing.', at: '2026-11-19T18:30', href: '/earnings', read: true },
   { id: 'N7', cat: 'H', title: 'New Device Login', text: 'New login from Chrome on Windows, Chennai.', at: '2026-11-20T07:55', href: '/settings', read: false, security: true },

@@ -38,8 +38,9 @@ export default function TodaysWorkSection({ tq, apt, a }) {
   return (
     <Card id="h-work" icon="briefcase" title="Today's Work" className="ac-tw-section">
       <div className="ac-tw">
-        <div className="ac-tw__card">
+        <div className="ac-tw__card ac-tw__card--appt">
           <div className="ac-tw__head"><b>Appointments · {todayCount} today</b><ViewAll href="#/work/appointments" /></div>
+          <div className="ac-tw__timeline">
           {next3.length ? next3.map((x) => (
             <a key={x.id} href={`#/work/appointments/${x.id}`} className="ac-tw__row">
               <span className="ac-tw__time">{fmtTime(x.at)}</span>
@@ -47,9 +48,10 @@ export default function TodaysWorkSection({ tq, apt, a }) {
               <span className="tq ac-tw__badge"><Badge kind={STATUS_KIND[x.status]}>{x.status}</Badge></span>
             </a>
           )) : <span className="ac-tw__sub">No upcoming appointments</span>}
+          </div>
         </div>
 
-        <div className="ac-tw__card">
+        <div className="ac-tw__card ac-tw__card--text">
           <div className="ac-tw__head"><b>Text-Based Questions · today</b><ViewAll href="#/work/questions">Open</ViewAll></div>
           <Counts items={[['Received', rcv], ['Answered', done, 'ac-up'], ['Pending', pendingToday(qs, 'text'), 'ac-heading']]} />
           <div className="ac-goal__top">
@@ -73,13 +75,13 @@ export default function TodaysWorkSection({ tq, apt, a }) {
           <div className="ac-goal__text">{a.goalText} · Dispute answers don't count.</div>
         </div>
 
-        <div className="ac-tw__card">
+        <div className="ac-tw__card ac-tw__card--sub">
           <div className="ac-tw__head"><b>Subscription Questions · today</b><ViewAll href="#/work/subscriptions">Open</ViewAll></div>
           <Counts items={[['Received', receivedToday(qs, 'sub')], ['Answered', answeredToday(qs, 'sub'), 'ac-up'], ['Pending', pendingToday(qs, 'sub'), 'ac-heading']]} />
           <span className="ac-tw__sub">Shown separately from Text-Based Questions · Silver 1 · Gold 3 · Platinum 4 benefit questions</span>
         </div>
 
-        <div className="ac-tw__card">
+        <div className="ac-tw__card ac-tw__card--camp">
           <div className="ac-tw__head"><b>Campaign Questions</b></div>
           {bars.map(([k, label, v]) => (
             <div key={k} className="ac-tw__bar">
@@ -90,7 +92,7 @@ export default function TodaysWorkSection({ tq, apt, a }) {
           ))}
         </div>
 
-        <div className="ac-tw__card ac-tw__card--bad">
+        <div className="ac-tw__card ac-tw__card--bad ac-tw__card--disp">
           <div className="ac-tw__head"><b>Disputes · {disputes.length} open</b><span className="tq"><Badge kind="bad">Shown separately</Badge></span></div>
           {disputes.length ? disputes.map((q) => (
             <a key={q.id} href={`#/work/questions/${q.id}`} className="ac-tw__row">
