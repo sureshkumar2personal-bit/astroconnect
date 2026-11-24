@@ -1,26 +1,18 @@
-:root .edit-profile-page .edit-profile-1 {
-  max-width:640px;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-:root .edit-profile-page .edit-profile-2 {
-  opacity:.6;
-}
-
-:root .edit-profile-page .edit-profile-3 {
-  border-top:1px solid rgba(var(--ln),.2);
-  padding-top:14px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  align-items:flex-start;
-}
-
-:root .edit-profile-page .edit-profile-4 {
-  opacity:.5;
-  cursor:not-allowed;
-  border-color:var(--redb);
-}
+:root .edit-profile-page { max-width:760px; }
+:root .edit-profile-page .ep-card { padding:20px 24px; display:flex; flex-direction:column; gap:14px; }
+:root .edit-profile-page .ep-h2 { margin:0; font:600 24px var(--font-head); font-variant-numeric:lining-nums; }
+:root .edit-profile-page .ep-photo { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+:root .edit-profile-page .ep-avatar { width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; font:600 28px var(--font-head); background:linear-gradient(135deg,#5a3cc0,#9a7cff); color:#fff; }
+:root .edit-profile-page .ep-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px 20px; }
+:root .edit-profile-page .ep-field { display:flex; flex-direction:column; gap:6px; }
+:root .edit-profile-page .ep-err { color:var(--gold); font-size:14px; }
+:root .edit-profile-page .ep-switch { display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; text-align:left; background:transparent; border:0; border-top:1px solid rgba(var(--ln),.15); padding:12px 0 2px; color:var(--ink); }
+:root .edit-profile-page .ep-switch:first-of-type { border-top:0; }
+:root .edit-profile-page .ep-switch-text { display:flex; flex-direction:column; gap:2px; }
+:root .edit-profile-page .ep-track { flex:none; width:46px; height:26px; border-radius:999px; background:rgba(var(--ln),.3); position:relative; transition:background .2s; }
+:root .edit-profile-page .ep-track.on { background:#7a5cf0; }
+:root .edit-profile-page .ep-knob { position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; transition:transform .2s; }
+:root .edit-profile-page .ep-track.on .ep-knob { transform:translateX(20px); }
+:root .edit-profile-page .ep-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+:root .edit-profile-page .ep-delete { margin-left:auto; }
+@media (prefers-reduced-motion: reduce) { :root .edit-profile-page .ep-track, :root .edit-profile-page .ep-knob { transition:none; } }

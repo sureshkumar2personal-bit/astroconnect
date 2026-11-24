@@ -24,13 +24,12 @@ function Following() {
                 </div>
               </button>
               <label className="fl-auto"><input type="checkbox" checked={!!a.autoRenew} onChange={a.toggleAuto} />{" Auto-renew (off by default)"}</label>
-              <span className="tag">Renewal and cancellation rules · PENDING · P-14-04, P-14-05</span>
             </div>
           </Fragment>
         ))}
       </div>
       {app.noSubs ? (
-        <div className="card following-5">{"You have no active subscriptions. Price, duration and renewal are "}<span className="tag">PENDING · P-14-02 – P-14-05</span></div>
+        <div className="card following-5">{"You have no active subscriptions. Price, duration and renewal are "}</div>
       ) : null}
 
       <h2 className="following-1">Following</h2>
@@ -69,7 +68,6 @@ function Following() {
           </Fragment>
         ))}
       </div>
-      <span className="tag u-24">Where Live sessions and posts appear · PENDING · P-14-07</span>
     </div>
   );
 }

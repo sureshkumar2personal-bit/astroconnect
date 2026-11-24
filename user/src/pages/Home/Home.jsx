@@ -45,9 +45,6 @@ function Home() {
               <button className="card hov home-10" onClick={v.go}>
                 <span className="u-3">{v.name}</span>
                 <span className="home-11">{v.blurb}</span>
-                {v.pend ? (
-                  <span className="tag">{"PENDING · "}{v.pid}</span>
-                ) : null}
               </button>
             </Fragment>
           ))}

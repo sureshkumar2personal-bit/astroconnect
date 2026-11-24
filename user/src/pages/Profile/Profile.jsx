@@ -10,7 +10,7 @@ function Profile() {
         <div className="profile-2">{app.pini}</div>
         <div className="u-19">
           <h1 className="u-10">{app.pname}</h1>
-          <div className="u-17">Sample profile</div>
+          <div className="u-17">{app.profile.city ? app.profile.city : "Your profile"}</div>
         </div>
         <button className="btn-g" onClick={app.goEdit}>Edit profile</button>
       </section>
@@ -48,7 +48,6 @@ function Profile() {
           ))}
           <p className="u-33">
             {"Critical alerts cannot be turned off (D-15). Email, WhatsApp and SMS are not confirmed — "}
-            <span className="tag">PENDING · P-15-01</span>
           </p>
         </section>
       </div>

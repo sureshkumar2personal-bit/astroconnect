@@ -19,9 +19,6 @@ function Services() {
             <div className="card services-2">
               <div className="services-3">{v.name}</div>
               <div className="services-4">{v.blurb}</div>
-              {v.pend ? (
-                <span className="tag u-24">{"PENDING · "}{v.pid}</span>
-              ) : null}
               <div>
                 <button className="btn-p" onClick={v.go}>Start</button>
               </div>
@@ -31,7 +28,6 @@ function Services() {
       </div>
       <p className="u-15">
         {"Which services appear here and their layout — "}
-        <span className="tag">PENDING · P-01-07</span>
       </p>
     </div>
   );

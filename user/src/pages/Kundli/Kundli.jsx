@@ -33,9 +33,7 @@ function Kundli() {
           </div>
           <p className="u-33">
             {"Changing date, time or place updates the Kundli automatically; uploaded files stay unchanged (D-14). Fields — "}
-            <span className="tag">PENDING · P-13-01</span>
             {" Delete — "}
-            <span className="tag">PENDING · P-13-04</span>
           </p>
         </section>
         <div className="u-26">
@@ -46,7 +44,7 @@ function Kundli() {
               width="240"
               height="240"
               role="img"
-              aria-label="Sample Kundli chart"
+              aria-label="Kundli chart"
               fill="none"
               stroke="var(--acc)"
               strokeWidth="1.5">
@@ -58,8 +56,7 @@ function Kundli() {
               <text x="150" y="100" fill="var(--em)" stroke="none" fontSize="14" textAnchor="middle">10</text>
             </svg>
             <span className="u-21">
-              {"Sample chart for "}{app.bp.name}{" · "}
-              <span className="tag">Generation · PENDING · P-13-02</span>
+              {"Chart for "}{app.bp.name}{" · "}
             </span>
           </section>
           <section className="card u-29">
@@ -71,13 +68,12 @@ function Kundli() {
                 <div className="kundli-5">{f.name}</div>
               </Fragment>
             ))}
-            <span className="tag u-24">Size limits · PENDING · P-13-03</span>
           </section>
         </div>
       </div>
       <section className="card kd-consent">
         <h2 className="u-41">Sharing your birth details</h2>
-        <p className="u-33">Your birth details and horoscope are shared with an astrologer only with your consent for the paid service you choose (D-37). Which birth profile is shared for other services: <span className="tag">PENDING · P-06-07, P-13-09</span></p>
+        <p className="u-33">Your birth details and horoscope are shared with an astrologer only with your consent for the paid service you choose (D-37). Which birth profile is shared for other services: </p>
         {app.hasConsents ? (
           app.consents.map((c, i1) => (
             <Fragment key={i1}>

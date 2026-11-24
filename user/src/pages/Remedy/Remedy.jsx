@@ -71,9 +71,8 @@ function List() {
       </div>
       <p className="u-15">
         {"Only you can mark days completed (D-29). "}
-        <span className="tag">Reminders · PENDING · P-16-03</span>{" "}
-        <span className="tag">Your own remedies · PENDING · P-16-04</span>{" "}
-        <span className="tag">Astrologer edits · PENDING · P-16-06</span>
+        {" "}
+        {" "}
       </p>
     </div>
   );

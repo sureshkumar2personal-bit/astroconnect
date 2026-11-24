@@ -19,10 +19,6 @@ function Notifications() {
               </button>
             </Fragment>
           ))}
-          <p className="notifications-3">
-            {"Sample items. Where notifications live — "}
-            <span className="tag">PENDING · P-01-04</span>
-          </p>
         </section>
         <section className="card u-43">
           <h2 className="u-41">Preferences</h2>
@@ -47,7 +43,6 @@ function Notifications() {
           ))}
           <p className="u-33">
             {"Critical: appointment, question, payment/wallet, subscription, security and account alerts are always on (D-15). Non-critical list — "}
-            <span className="tag">PENDING · P-15-02</span>
           </p>
         </section>
       </div>
