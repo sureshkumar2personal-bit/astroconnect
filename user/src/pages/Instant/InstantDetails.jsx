@@ -59,12 +59,12 @@ function InstantDetails() {
         <div className="in-main">
           <section className="card in-card">
             <div className="in-row"><h2>Birth details</h2><button className="in-link" onClick={fillFromProfile}>Fill from my profile</button></div>
-            <label className="in-f">Full name<input className="inp" value={det.name} onChange={set("name")} autoComplete="name" aria-invalid={!!e.name} />{e.name ? <em>{e.name}</em> : null}</label>
+            <label className="in-f"><span className="in-cap">Full name</span><input className="inp" value={det.name} onChange={set("name")} autoComplete="name" aria-invalid={!!e.name} />{e.name ? <em>{e.name}</em> : null}</label>
             <div className="in-two">
-              <label className="in-f">Date of birth<input className="inp" type="date" value={det.dob} max={new Date().toISOString().slice(0, 10)} onChange={set("dob")} aria-invalid={!!e.dob} />{e.dob ? <em>{e.dob}</em> : null}</label>
-              <label className="in-f">Time of birth <small>If known</small><input className="inp" type="time" value={det.tob} onChange={set("tob")} /></label>
+              <label className="in-f"><span className="in-cap">Date of birth</span><input className="inp" type="date" value={det.dob} max={new Date().toISOString().slice(0, 10)} onChange={set("dob")} aria-invalid={!!e.dob} />{e.dob ? <em>{e.dob}</em> : null}</label>
+              <label className="in-f"><span className="in-cap">Time of birth <small>If known</small></span><input className="inp" type="time" value={det.tob} onChange={set("tob")} /></label>
             </div>
-            <label className="in-f">Place of birth <small>Optional</small><input className="inp" value={det.pob} placeholder="City, State" onChange={set("pob")} /></label>
+            <label className="in-f"><span className="in-cap">Place of birth <small>Optional</small></span><input className="inp" value={det.pob} placeholder="City, State" onChange={set("pob")} /></label>
           </section>
           <section className="card in-card">
             <h2>Horoscope <small>Optional</small></h2>
