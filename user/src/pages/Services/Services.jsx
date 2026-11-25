@@ -4,17 +4,24 @@ import "./Services.css";
 
 function Services() {
   const app = useApp();
+  const instant = app.services.filter((v) => v.name === "Instant Call" || v.name === "Instant Chat");
+  const call = instant.find((v) => v.name === "Instant Call") || instant[0];
   return (
     <div className="services-page page">
       <div>
         <h1 className="u-22">Services</h1>
-        <p className="u-23">
-          {"Start something new. Already bought or used a service? "}
-          <button className="services-1" onClick={app.goActivity}>Open Activity</button>
-        </p>
       </div>
       <div className="u-18">
         {app.services.map((v, i1) => (
+          v.name === "Instant Call" ? (
+            <div className="card services-2" key="instant">
+              <div className="services-3">Instant Call &amp; Chat</div>
+              <div className="services-4">Talk or chat with an astrologer now.</div>
+              <div>
+                <button className="btn-p" onClick={call ? call.go : undefined}>Start</button>
+              </div>
+            </div>
+          ) : v.name === "Instant Chat" ? null : (
           <Fragment key={i1}>
             <div className="card services-2">
               <div className="services-3">{v.name}</div>
@@ -24,6 +31,7 @@ function Services() {
               </div>
             </div>
           </Fragment>
+          )
         ))}
       </div>
       <p className="u-15">
