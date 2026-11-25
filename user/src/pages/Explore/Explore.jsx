@@ -23,7 +23,7 @@ const KW = {
   Family: "family children parents", Education: "education studies exams", Relationships: "relationships love partner", "Home & Office": "home office property",
   Horoscope: "horoscope birth chart jathagam", "Kundli Matching": "kundli matching porutham compatibility", Muhurtham: "muhurtham muhurat auspicious dates", Gemstones: "gemstones remedies",
 };
-const GROUPS = [
+export const GROUPS = [
   { key: "avail", title: "Availability", opts: ["Online", "Offline"] },
   { key: "spec", title: "Specialization", opts: ["Vedic Astrology", "KP Astrology", "Numerology", "Vastu", "Palmistry", "Prashna", "Lal Kitab", "Tarot Reading", "Nadi Astrology"] },
   { key: "topic", title: "Expertise and topics", opts: ["Marriage", "Career", "Finance", "Family", "Health", "Education", "Relationships", "Home & Office", "Horoscope", "Kundli Matching", "Muhurtham", "Gemstones"] },
@@ -32,12 +32,12 @@ const GROUPS = [
   { key: "rating", title: "Rating", opts: ["4.0+", "4.5+", "4.8+"], single: true },
   { key: "rel", title: "Relationship", opts: ["Following", "Subscribed", "Not following"] },
 ];
-const EMPTY_F = () => ({ avail: [], spec: [], topic: [], lang: [], exp: [], rating: [], rel: [] });
+export const EMPTY_F = () => ({ avail: [], spec: [], topic: [], lang: [], exp: [], rating: [], rel: [] });
 const SORTS = [["recommended", "Recommended"], ["rating", "Highest rated"], ["exp", "Most experienced"], ["followers", "Most followed"], ["newest", "Newest first"]];
 const STOP = ["and", "&", "the", "of", "for", "in", "astrologer", "astrologers"];
 
 const expOk = (y, o) => (o === "0–5 years" ? y < 5 : o === "5–10 years" ? y >= 5 && y < 10 : o === "10–15 years" ? y >= 10 && y < 15 : y >= 15);
-function matchF(a, f) {
+export function matchF(a, f) {
   if (f.avail.length && f.avail.indexOf(a.online ? "Online" : "Offline") < 0) return false;
   if (f.spec.length && f.spec.indexOf(a.specLabel) < 0) return false;
   if (f.topic.length && !f.topic.some((t) => a.topics.indexOf(t) > -1)) return false;
@@ -47,7 +47,7 @@ function matchF(a, f) {
   if (f.rel.length && !f.rel.some((r) => (r === "Following" ? a.fol || a.sub : r === "Subscribed" ? a.sub : !a.fol && !a.sub))) return false;
   return true;
 }
-const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
+export const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
 
 export function ExCard({ a, onFollow, mode }) {
   const tags = a.expertise.slice(0, 3);
@@ -124,7 +124,7 @@ function Block({ id, title, desc, count, onMore, moreLabel, tools, children, emp
   );
 }
 
-function FiltersDrawer({ cards, draft, setDraft, onClose, onApply }) {
+export function FiltersDrawer({ cards, draft, setDraft, onClose, onApply, groups = GROUPS }) {
   const total = cards.filter((a) => matchF(a, draft)).length;
   const toggle = (g, o) => {
     setDraft((d) => {
@@ -142,7 +142,7 @@ function FiltersDrawer({ cards, draft, setDraft, onClose, onApply }) {
           <button className="ico" onClick={onClose} aria-label="Close filters"><Icon d={IC.close} /></button>
         </div>
         <div className="xp-dbody">
-          {GROUPS.map((g) => (
+          {groups.map((g) => (
             <div key={g.key} role="group" aria-label={g.title} className="xp-group">
               <div className="xp-ghead"><h3>{g.title}</h3>{draft[g.key].length ? <span>{g.single ? draft[g.key][0] : draft[g.key].length + " selected"}</span> : null}</div>
               <div className="xp-opts">
