@@ -157,3 +157,17 @@
 .in-f .in-cap { display:flex; align-items:baseline; gap:8px; min-height:22px; }
 .in-f .inp { min-height:48px; height:48px; box-sizing:border-box; }
 .in-two { align-items:start; }
+
+/* Details page: two cards side by side with a bottom bar (layout from the approved prototype) */
+.in-two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:stretch; }
+.in-crumb { background:none; border:0; padding:6px 0; color:var(--muted); font-size:15px; }
+.in-crumb:hover { color:var(--ink); }
+.in-drop { align-items:center; text-align:center; }
+.in-drop .in-choose { min-height:44px; }
+.in-foot { display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:14px 20px; }
+.in-footwho { display:flex; flex-direction:row; align-items:center; gap:12px; } .in-footwho > div { display:flex; flex-direction:column; } .in-footwho small { color:var(--subtle); font-size:13px; } .in-footwho b { font:600 20px var(--font-head); }
+.in-footacts { display:flex; gap:10px; }
+@media (max-width:860px) { .in-two-col { grid-template-columns:minmax(0,1fr); } }
+.in-opt-tag { font:400 14px var(--font-body); color:var(--subtle); }
+.in-two-col .in-drop { flex:1; justify-content:center; }
+.in-two-col .in-file { flex:1; align-content:center; }
