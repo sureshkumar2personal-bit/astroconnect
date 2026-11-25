@@ -24,9 +24,9 @@ const ICONS = {
 };
 
 // One card layout (the original Recent Activity card) used by both columns, so they line up row by row.
-function DashCard({ num, icon, title, status, rows, desc, go }) {
+function DashCard({ num, icon, title, status, rows, desc, go, muted }) {
   return (
-    <article className="ac-card" role="button" tabIndex={0} onClick={go} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }} style={S("background: var(--h-b-FFFCF6); border: 1px solid var(--h-o-EFE4CF); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; min-width: 0")}>
+    <article className="ac-card" role="button" tabIndex={0} onClick={go} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }} style={S("background: var(--h-b-FFFCF6); border: 1px " + (muted ? "dashed" : "solid") + " var(--h-o-EFE4CF); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; min-width: 0")}>
       <div style={S("display: flex; align-items: center; justify-content: space-between; gap: 8px")}>
         <div style={S("display: flex; align-items: center; gap: 10px; min-width: 0")}>
           <span style={S("font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 700; color: var(--h-t-8A6A26); line-height: 1")}>{num}</span>
@@ -59,18 +59,31 @@ function Home() {
     hasRibbon: a.sub || a.fol, ribbon: a.sub ? "Subscribed" : "Following", ribbonBg: a.sub ? "var(--gold)" : "var(--acc2)",
     ...TINTS[i % 3], open: a.open, onCall: a.call, onChat: a.chat, onNotify: a.open,
   }));
-  const hasActions = app.homeActions.length > 0, noActions = !hasActions;
   const who = (s) => (s || "").replace(/^(with|Astrologer:)\s*/, "");
   const actionCards = app.homeActions.map((x) => x.key === "appt"
     ? { key: x.key, icon: "cal", title: x.label, status: x.badge, rows: [["Service", "Voice consultation"], ["Astrologer", who(x.sub)], ["Date & time", x.rows[0][1] + ", " + x.rows[1][1]]], desc: x.rel + " · " + x.rows[2][1] + " · " + x.rows[3][1], go: x.go }
     : x.key === "slot"
       ? { key: x.key, icon: "q", title: x.label, status: x.badge, rows: [["Service", "Text Question"], ["Astrologer", who(x.sub)], ["Expires", x.exp.replace(/^Expires\s*/, "")]], desc: x.text + " " + x.left + ".", go: x.go }
       : { key: x.key, icon: "q", title: x.label, status: x.badge, rows: [["Service", "Text Question"], ["Astrologer", who(x.sub)], ["Answered on", x.rows[0][1]]], desc: x.rows[1][1], go: x.go });
-  const ans = app.homeAnswer, rem = app.homeReminder;
+  // Each dashboard column always shows 3 cards: real items first, then muted default suggestions.
+  const svcGo = (name) => (svcs.find((v) => v.title === name) || {}).go || goServices;
+  const hasKey = (k) => actionCards.some((c) => c.key === k);
+  const defaultActions = [
+    !hasKey("appt") && { key: "d-appt", icon: "cal", title: "Book an appointment", status: "Suggested", rows: [["Service", "Voice consultation"], ["Astrologer", "Choose an astrologer"], ["Date & time", "Pick a slot"]], desc: "Schedule a personal session at your convenient time.", go: svcGo("Appointment"), muted: true },
+    !hasKey("slot") && !hasKey("ans") && { key: "d-text", icon: "q", title: "Ask a Text Question", status: "Suggested", rows: [["Service", "Text Question"], ["Astrologer", "Choose an astrologer"], ["Answer in", "Within 30 days"]], desc: "Get a personal written answer from an astrologer.", go: svcGo("Text Question"), muted: true },
+    { key: "d-instant", icon: "q", title: "Instant Call or Chat", status: "Suggested", rows: [["Service", "Instant Call / Chat"], ["Astrologer", "Choose an online astrologer"], ["Start", "Right away"]], desc: "Talk or chat with an available astrologer now.", go: svcGo("Instant Call"), muted: true },
+  ].filter(Boolean);
+  const shownActions = actionCards.concat(defaultActions).slice(0, 3);
+  // Static sample shown when there is no real answered question yet (design preview).
+  const ans = app.homeAnswer || { who: "Dr. Priya", topic: "Relationship guidance", ago: "20 min ago", go: () => {} };
+  const rem = app.homeReminder;
   const activityCards = app.homeLog.slice(0, 3).map((x) => ({
     key: "a" + x.id, icon: x.type === "Appointment" ? "cal" : "q", title: x.type === "Question" ? "Text Question" : x.type, status: x.status,
     rows: [["Service", x.type === "Appointment" ? "Voice consultation" : "Text Question"], ["Astrologer", x.who || "—"], ["Date & time", x.dateText]], desc: x.title, go: x.open,
   }));
+  const shownActivity = activityCards.concat(Array.from({ length: Math.max(0, 3 - activityCards.length) }, (_, i) => ({
+    key: "p" + i, icon: "q", title: "No activity yet", status: "\u2014", rows: [["Service", "\u2014"], ["Astrologer", "\u2014"], ["Date & time", "\u2014"]], desc: "Your bookings and questions will appear here.", go: () => {}, muted: true,
+  })));
   return (
     <div className="home-page page">
       <div className="home-dash">
@@ -108,10 +121,10 @@ function Home() {
       </div>
 ) : null}
 {true ? (
-<div style={S("flex: 1; background: var(--h-b-FBF1DE); border: 1px solid var(--h-o-F0DFBC); border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 14px; justify-content: space-between")}>
+<div style={S("flex: 1; background: var(--h-b-FBF1DE); border: 1px solid var(--h-o-F0DFBC); border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between")}>
         <div style={S("display: flex; gap: 16px; align-items: center")}>
-          <div style={S("width: 72px; height: 72px; flex-shrink: 0; border-radius: 50%; background: var(--h-b-FFF8EA); border: 1px solid var(--h-o-EBD5A6); display: flex; align-items: center; justify-content: center")}>
-            <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+          <div style={S("width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; background: var(--h-b-FFF8EA); border: 1px solid var(--h-o-EBD5A6); display: flex; align-items: center; justify-content: center")}>
+            <svg width="36" height="36" viewBox="0 0 48 48" aria-hidden="true">
               <path d="M24 8c4 6 5 9 5 12a5 5 0 0 1-10 0c0-3 1-6 5-12z" fill="#E29A2E"></path>
               <path d="M24 14c2 3 2.5 5 2.5 6.5a2.5 2.5 0 0 1-5 0c0-1.5.5-3.5 2.5-6.5z" fill="#F7D27A"></path>
               <path d="M8 28h32c-1.5 7-8 11-16 11S9.5 35 8 28z" fill="#B8903F"></path>
@@ -119,7 +132,7 @@ function Home() {
             </svg>
           </div>
           <div style={S("display: flex; flex-direction: column; gap: 2px")}>
-            <span style={S("font-size: 11.5px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--h-t-7D5E1E); font-weight: 700")}>Daily attunement reminder</span>
+            <span style={S("font-size: 11.5px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--h-t-7D5E1E); font-weight: 700")}>Daily atonement reminder</span>
             <span style={S("font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 700; line-height: 1.1")}>{rem.god}</span>
             <span style={S("color: var(--h-t-5E5440); font-size: 13.5px")}>{rem.when}</span>
           </div>
@@ -160,7 +173,6 @@ function Home() {
   <section style={S("display: flex; flex-direction: column; gap: 18px")}>
     <div>
       <h2 className="d-h2" style={S("margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 700")}>Get Guidance Your Way</h2>
-      <p style={S("margin: 2px 0 0; color: var(--h-t-5E6866)")}>Choose the way you'd like to connect with our astrologers.</p>
     </div>
     <div className="d-g2">
       {svcs.map((c, i_c) => (<Fragment key={i_c}>
@@ -239,24 +251,14 @@ function Home() {
         <h2 className="d-h2" style={S("margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 700")}>Your Next Actions</h2>
         <button onClick={goServices} style={S("height: 40px; padding: 0 6px; border: none; background: transparent; color: var(--h-t-0E4D4A); font-weight: 700; font-size: 14.5px; white-space: nowrap")}>View All →</button>
       </div>
-      {noActions ? (
-        <div className="d-empty" style={S("grid-row: 2 / span 3; background: var(--h-b-FFFFFF); border-radius: 20px; padding: 28px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px")}>
-          <div style={S("font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 700")}>You are all caught up</div>
-          <p style={S("margin: 0; color: var(--h-t-5E6866); font-size: 14px; max-width: 320px")}>No pending actions right now. When you book a session or buy a question, it will appear here.</p>
-          <button onClick={goExplore} style={S("height: 46px; padding: 0 22px; border-radius: 14px; border: none; background: var(--h-b-0E4D4A); color: var(--h-t-FFFFFF); font-weight: 700; font-size: 14px")}>Find an astrologer</button>
-        </div>
-      ) : null}
-      {actionCards.map((x, i) => (<DashCard key={x.key} num={"0" + (i + 1)} {...x} primary />))}
+      {shownActions.map((x, i) => (<DashCard key={x.key} num={"0" + (i + 1)} {...x} primary />))}
     </section>
     <section className="d-panel" style={S("border-radius: 28px; padding: 24px; display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 14px; min-width: 0")}>
       <div style={S("display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px")}>
         <h2 className="d-h2" style={S("margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 700")}>Recent Activity</h2>
         <button onClick={goActivity} style={S("height: 40px; padding: 0 6px; border: none; background: transparent; color: var(--h-t-0E4D4A); font-weight: 700; font-size: 14.5px; white-space: nowrap")}>View More →</button>
       </div>
-      {activityCards.length === 0 ? (
-        <div className="d-empty" style={S("grid-row: 2 / span 3; background: var(--h-b-FFFFFF); border-radius: 20px; padding: 28px 20px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--h-t-5E6866)")}>No activity yet. Start with a Text Question.</div>
-      ) : null}
-      {activityCards.map((x, i) => (<DashCard key={x.key} num={"0" + (i + 1)} {...x} />))}
+      {shownActivity.map((x, i) => (<DashCard key={x.key} num={"0" + (i + 1)} {...x} />))}
     </section>
   </div>
 </main>

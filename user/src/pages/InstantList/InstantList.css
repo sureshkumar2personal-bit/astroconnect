@@ -1,3 +1,23 @@
 :root .il-page .il-head { display:flex; flex-direction:column; gap:4px; }
 :root .il-page .il-intro { margin:0; color:var(--muted); font-size:16px; }
 :root .il-page .il-count { margin:0; color:var(--subtle); font-size:14px; }
+
+:root .il-page .il-tabs { display:flex; gap:8px; margin:12px 0 4px; }
+:root .il-page .il-tab { flex:1; max-width:220px; min-height:44px; padding:0 16px; border-radius:12px; border:1px solid var(--line, rgba(255,255,255,0.18)); background:transparent; color:inherit; font-weight:600; }
+:root .il-page .il-tab.on { border-color:var(--acc); color:var(--acc); background:rgba(255,255,255,0.06); }
+
+:root .il-page .il-sec { margin:20px 0 12px; font-size:22px; }
+:root .il-page .il-none { margin:0; color:var(--muted); }
+:root .il-page .il-busy { position:relative; display:flex; flex-direction:column; gap:12px; min-width:0; padding:18px; }
+:root .il-page .il-busy .xp-card { background:none; border:0; box-shadow:none; padding:0; }
+:root .il-page .il-busy .xp-actions { display:none; }
+:root .il-page .il-pill { position:absolute; top:16px; right:16px; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:700; background:rgba(246,194,68,0.18); color:#F6C244; pointer-events:none; }
+:root .il-page .il-busy-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+:root .il-page .il-b { height:44px; min-height:44px; flex:1 1 0; min-width:0; padding:0 10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+:root .il-page .il-b[disabled] { opacity:.5; cursor:not-allowed; }
+:root .il-page .il-meter { margin-top:auto; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:12px; background:rgba(255,255,255,0.05); }
+:root .il-page .il-boxes { display:flex; gap:5px; }
+:root .il-page .il-box { width:16px; height:16px; border-radius:4px; border:1.5px solid var(--subtle, #8a8a99); background:transparent; box-sizing:border-box; }
+:root .il-page .il-box.on { background:var(--subtle, #8a8a99); }
+:root .il-page .il-box.mine { background:var(--acc); border-color:var(--acc); }
+:root .il-page .il-wl { color:var(--subtle); font-size:13px; }

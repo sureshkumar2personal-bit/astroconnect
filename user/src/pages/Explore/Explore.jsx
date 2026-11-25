@@ -222,9 +222,9 @@ function ExploreMain() {
   const subs = cards.filter((a) => a.sub);
   const followed = cards.filter((a) => a.fol && !a.sub);
   const SECS = {
-    subscribed: { title: "Subscribed astrologers", desc: "Astrologers you have an active paid subscription with.", list: subs, empty: ["No subscriptions yet", "Subscribe to an astrologer to ask questions and book appointments."] },
-    followed: { title: "Astrologers you follow", desc: "Astrologers you follow on AstroConnect.", list: followed, empty: ["You are not following anyone yet", "Follow astrologers you like and they’ll appear here."] },
-    popular: { title: "Popular astrologers", desc: "Ranked by followers and ratings on AstroConnect.", list: cards.slice().sort((x, y) => y.followersN * Number(y.ratingAvg) - x.followersN * Number(x.ratingAvg)) },
+    subscribed: { title: "Subscribed astrologers", list: subs, empty: ["No subscriptions yet", "Subscribe to an astrologer to ask questions and book appointments."] },
+    followed: { title: "Astrologers you follow", list: followed, empty: ["You are not following anyone yet", "Follow astrologers you like and they’ll appear here."] },
+    popular: { title: "Popular astrologers", list: cards.slice().sort((x, y) => y.followersN * Number(y.ratingAvg) - x.followersN * Number(x.ratingAvg)) },
   };
   const grid = (list) => (<div className="xp-grid">{list.map((a) => (<ExCard key={a.id} a={a} onFollow={onFollow} />))}</div>);
 
@@ -250,7 +250,6 @@ function ExploreMain() {
     <div className="explore-page page xp-page">
       <section className="xp-intro">
         <h1>Explore</h1>
-        <p>Discover astrologers, explore their expertise and connect with the ones you like.</p>
         <div className="xp-searchrow">
           <label className="xp-search">
             <Icon d={IC.search} size={18} />
@@ -267,7 +266,7 @@ function ExploreMain() {
 
       <section className="xp-cats" aria-labelledby="cat-h">
         <div className="xp-bhead">
-          <div><h2 id="cat-h">Explore by category</h2><p className="xp-bdesc">Browse by specialization or by what you need help with.</p></div>
+          <div><h2 id="cat-h">Explore by category</h2></div>
           {cat ? <button className="xp-more-btn" onClick={() => setCat(null)}>Clear category</button> : null}
         </div>
         <div className="xp-tiles">
@@ -307,7 +306,7 @@ function ExploreMain() {
               {grid(SECS[k].list.slice(0, 3))}
             </Block>
           ))}
-          <Block id="all" title="Explore all astrologers" desc="Every astrologer on AstroConnect. Sort, filter or search to narrow down." count={cards.length + " astrologers"} tools={sortTools} loadMore={loadMore(sorted(cards))}
+          <Block id="all" title="Explore all astrologers" count={cards.length + " astrologers"} tools={sortTools} loadMore={loadMore(sorted(cards))}
             shown={cards.length <= lim ? "You’ve seen all " + cards.length + " astrologers" : null}>
             {grid(sorted(cards).slice(0, lim))}
           </Block>

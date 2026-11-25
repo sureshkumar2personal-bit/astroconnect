@@ -22,7 +22,6 @@ function PickAstrologer() {
     <>
       <section className="tx-block">
         <h2 className="tx-h2">Choose astrologer</h2>
-        <p className="u-33">Astrologers you are subscribed to. A subscription is needed before you can ask an astrologer a question (D-04).</p>
         {app.txSub.length ? <div className="u-13">{"Showing "}{Math.min(subShown, app.txSub.length)}{" of "}{app.txSub.length}</div> : null}
         <div className="tx-grid">
           {app.txSub.slice(0, subShown).map((a, i1) => (
@@ -50,7 +49,6 @@ function PickAstrologer() {
 
       <section className="tx-block">
         <h2 className="tx-h2">Recommended astrologers</h2>
-        <p className="u-33">Subscribe to one of these astrologers to unlock asking them a text-based question.</p>
         {app.txRec.length ? <div className="u-13">{"Showing "}{Math.min(recShown, app.txRec.length)}{" of "}{app.txRec.length}</div> : null}
         <div className="tx-grid">
           {app.txRec.slice(0, recShown).map((a, i1) => (

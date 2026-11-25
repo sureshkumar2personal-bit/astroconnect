@@ -14,7 +14,12 @@ export const ASTRO=[
 {id:10,name:'Geetha Ramesh',spec:'Nadi · Life Path',langs:'Tamil, English',online:true,cats:['Vedic'],bio:'Palm-leaf style readings of life path, timing and turning points.'},
 {id:11,name:'Suresh Babu',spec:'Muhurtham · Auspicious Dates',langs:'Telugu, Tamil, English',online:false,cats:['Vedic'],bio:'Choosing auspicious dates for weddings, housewarmings and new ventures.'},
 {id:12,name:'Deepa Nambiar',spec:'Tarot · Relationships',langs:'Malayalam, English',online:true,cats:['Tarot'],bio:'Gentle tarot guidance on relationships and family decisions.'},
-{id:13,name:'Harish Gowda',spec:'KP · Education & Career',langs:'Kannada, English, Hindi',online:true,cats:['KP'],bio:'KP chart analysis for studies, exams and early-career choices.'}];
+{id:13,name:'Harish Gowda',spec:'KP · Education & Career',langs:'Kannada, English, Hindi',online:true,cats:['KP'],bio:'KP chart analysis for studies, exams and early-career choices.'},
+{id:14,name:'Revathi Sundaram',spec:'Vedic · Marriage Matching',langs:'Tamil, English',online:true,cats:['Vedic'],bio:'Kundli matching and timing for marriage decisions.'},
+{id:15,name:'Pranav Kulkarni',spec:'KP · Business & Finance',langs:'Marathi, Hindi, English',online:true,cats:['KP'],bio:'KP guidance on business timing, investments and finance.'},
+{id:16,name:'Nisha Agarwal',spec:'Tarot · Career',langs:'Hindi, English',online:true,cats:['Tarot'],bio:'Tarot readings for career change and workplace decisions.'},
+{id:17,name:'Venkatesh Rao',spec:'Numerology · Name Analysis',langs:'Telugu, English',online:true,cats:['Numerology'],bio:'Name and birth-number analysis for new ventures and children.'},
+{id:18,name:'Kavya Menon',spec:'Palmistry · Relationships',langs:'Malayalam, English',online:true,cats:['Palmistry'],bio:'Palm reading with a focus on relationships and life balance.'}];
 export const CATS=['All','Vedic','KP','Tarot','Numerology','Vastu','Palmistry'];
 // Sample campaigns: prices, discounts and expiry are sample values (P-06-13 is still open).
 export const CAMPS=[
@@ -49,7 +54,7 @@ export const APPT_PRICE={15:199,30:349};
 // Sample prepaid packages for Instant Call / Instant Chat (minimum 5 minutes - D-45). Prices are samples.
 export const PKGS={Call:[{mins:5,price:149},{mins:10,price:279},{mins:15,price:399}],Chat:[{mins:5,price:99},{mins:10,price:189},{mins:15,price:269}]};
 // Sample astrologer behaviour when a request arrives (D-44): anything not listed accepts.
-export const REQ_BEHAVIOR={1:'decline',3:'busy',5:'ignore'};
+export const REQ_BEHAVIOR={1:'decline',3:'busy',5:'ignore',14:'busy',15:'busy',16:'busy',17:'busy',18:'busy'};
 
 // Sample reviews (D-49): only Published reviews are shown and counted in the public rating.
 export const REVIEWS=[
@@ -78,7 +83,20 @@ export const REVIEWS=[
 {id:23,astro:12,stars:5,text:'Warm, honest reading on a family decision.',source:'Instant Chat'},
 {id:24,astro:12,stars:4,text:'Good guidance and no rush.',source:'Appointment'},
 {id:25,astro:13,stars:5,text:'Clear next steps for my exam preparation.',source:'Text Question'},
-{id:26,astro:13,stars:4,text:'Practical and well explained.',source:'Instant Call'}];
+{id:26,astro:13,stars:4,text:'Practical and well explained.',source:'Instant Call'},
+{id:27,astro:14,stars:5,text:'Matching was thorough and the timing advice was spot on.',source:'Appointment'},
+{id:28,astro:14,stars:5,text:'Calm and clear about our marriage questions.',source:'Instant Call'},
+{id:29,astro:14,stars:4,text:'Good explanation of the match points.',source:'Text Question'},
+{id:30,astro:15,stars:4,text:'Practical view on business timing, no fluff.',source:'Appointment'},
+{id:31,astro:15,stars:5,text:'Helped me plan an investment decision with confidence.',source:'Instant Chat'},
+{id:32,astro:16,stars:5,text:'Insightful reading for my career change.',source:'Instant Chat'},
+{id:33,astro:16,stars:4,text:'Warm and encouraging, clear next steps.',source:'Appointment'},
+{id:34,astro:16,stars:4,text:'Good guidance, a little short on time.',source:'Instant Call'},
+{id:35,astro:17,stars:5,text:'The name analysis was detailed and easy to follow.',source:'Text Question'},
+{id:36,astro:17,stars:5,text:'Very knowledgeable and patient.',source:'Appointment'},
+{id:37,astro:17,stars:4,text:'Useful suggestions for the new business name.',source:'Instant Call'},
+{id:38,astro:18,stars:4,text:'Interesting palm reading with practical advice.',source:'Appointment'},
+{id:39,astro:18,stars:5,text:'Honest and kind about relationships.',source:'Instant Chat'}];
 
 // Sample subscription tiers (D-31). Benefit questions are confirmed (1 / 3 / 4); prices and the term are
 // sample values because price, duration, renewal and cancellation are on hold (P-14-02 to P-14-05).
@@ -114,7 +132,12 @@ export const ASTRO_META={
 10:{years:15,followers:'7.1K',specLabel:'Nadi Astrology',topics:['Horoscope','Family'],joinedDays:650,exp:['Life path','Timing','Nadi']},
 11:{years:9,followers:'2.6K',specLabel:'Vedic Astrology',topics:['Muhurtham','Family'],joinedDays:420,exp:['Muhurtham','Auspicious dates']},
 12:{years:6,followers:'3.4K',specLabel:'Tarot Reading',topics:['Relationships','Family'],joinedDays:300,exp:['Tarot','Relationships']},
-13:{years:8,followers:'1.7K',specLabel:'KP Astrology',topics:['Education','Career'],joinedDays:200,exp:['Education','Exams','KP']}};
+13:{years:8,followers:'1.7K',specLabel:'KP Astrology',topics:['Education','Career'],joinedDays:200,exp:['Education','Exams','KP']},
+14:{years:11,followers:'3.9K',specLabel:'Vedic Astrology',topics:['Marriage','Kundli Matching'],joinedDays:540,exp:['Marriage','Matching','Vedic']},
+15:{years:9,followers:'2.2K',specLabel:'KP Astrology',topics:['Finance','Career'],joinedDays:380,exp:['Business','Finance','KP']},
+16:{years:5,followers:'2.7K',specLabel:'Tarot Reading',topics:['Career','Guidance'],joinedDays:260,exp:['Tarot','Career']},
+17:{years:14,followers:'4.8K',specLabel:'Numerology',topics:['Name Analysis','Career'],joinedDays:720,exp:['Name numbers','Birth numbers']},
+18:{years:7,followers:'2.0K',specLabel:'Palmistry',topics:['Relationships','Horoscope'],joinedDays:310,exp:['Palm reading','Relationships']}};
 
 // Traits used to draw each astrologer's illustrated portrait (original artwork, no photos).
 export const AVATARS={

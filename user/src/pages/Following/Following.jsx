@@ -9,7 +9,6 @@ function Following() {
     <div className="following-page page">
       <div><button className="btn-g u-16" onClick={app.goProfile}>← Profile</button></div>
       <h1 className="u-10">{"Following & subscriptions"}</h1>
-      <p className="u-33">Follow is free and never subscribes you. Subscribe is paid, and a successful subscription also follows the astrologer automatically (D-36).</p>
 
       <h2 className="following-1">Subscribed</h2>
       <div className="u-4">
