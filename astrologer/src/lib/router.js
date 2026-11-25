@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 //   #/work/questions[/:id[/answer | /timeline]]      Text-Based Questions list, details, answer editor, timeline
 //   #/work/subscriptions[/:id[/answer | /timeline]]  Subscription Questions (same screens, category 'sub')
 //   #/work/campaigns[/new | /open | /:campaignId]    Campaign Management, editor, Open Questions settings
-//   #/work/templates | history
+//   #/work/templates | history[/sub]
 //   #/work/appointments[/calendar | /:id]  Appointments list, Calendar & Availability, details
 //   #/<section>[/...]                Section pages (Live, Earnings, Profile and the "More" pages);
 //                                    see SECTION_KEYS. The rest of the path is passed as `parts`.
@@ -47,7 +47,8 @@ export function parseRoute(path) {
   return {
     page: 'work',
     view,
-    cat: view === 'subscriptions' ? 'sub' : 'text',
+    // Text-Based or Subscription Questions; History takes the category from #/work/history[/sub].
+    cat: view === 'subscriptions' || (view === 'history' && parts[2] === 'sub') ? 'sub' : 'text',
     id: qView && parts[2] ? decodeURIComponent(parts[2]) : null,
     editor: qView && sub === 'answer',
     timeline: qView && sub === 'timeline',
@@ -71,6 +72,7 @@ export const routes = {
   campEdit: (id) => `/work/campaigns/${encodeURIComponent(id)}`,
   openSettings: '/work/campaigns/open',
   view: (v) => `/work/${v}`,
+  historyFor: (cat) => (cat === 'sub' ? '/work/history/sub' : '/work/history'),
   appointments: '/work/appointments',
   aptDetail: (id) => `/work/appointments/${encodeURIComponent(id)}`,
   aptCalendar: '/work/appointments/calendar',

@@ -3,12 +3,13 @@ import { HISTORY_FILTERS, HISTORY_MONTHS, dueDate, fmtDate, matchesId } from '@/
 import { navigate, routes } from '@/lib/router.js';
 import { QStatus } from './bits.jsx';
 
-// History (reference TQSUB.history; AD-47, AD-50): month summary of Text-Based Questions and the
-// records that are no longer open; a row opens the question timeline.
-export default function HistoryPage({ tq }) {
+// History (reference TQSUB.history; AD-47, AD-50): month summary and the records that are no longer
+// open, for Text-Based Questions (#/work/history) or Subscription Questions (#/work/history/sub);
+// the two categories are never merged (AD-72). A row opens the question timeline.
+export default function HistoryPage({ tq, cat = 'text' }) {
   const { month, status, q: search } = tq.history;
   const inM = (d) => d && d.slice(0, 7) === month;
-  const text = tq.questions.filter((q) => q.cat === 'text');
+  const text = tq.questions.filter((q) => q.cat === cat);
   const received = text.filter((q) => inM(q.recv)).length;
   const answered = text.filter((q) => inM(q.answeredAt)).length;
   const expired = text.filter((q) => q.status === 'Expired' && dueDate(q).toISOString().slice(0, 7) === month).length;

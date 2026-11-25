@@ -14,20 +14,39 @@
 .tq .dot-dnd { background: var(--bad); }
 .tq .me { display: flex; align-items: center; gap: 10px; }
 .tq .av-me { background: var(--avatar); border: 2px solid var(--gold); color: var(--heading); font-family: 'Playfair Display', serif; font-size: 18px; }
-/* The question list and the question details are two equal cards: same width, same height, same top and bottom.
-   The height is fixed, so folding or opening a row never moves either card; each card scrolls inside. */
-.tq .split { --tq-split-h: 830px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: stretch; min-height: var(--tq-split-h); }
+/* The question list and the question details are two cards with the same width, top and bottom.
+   Side by side (from 1181px) the row is as tall as the taller card, so every question shows (no scroll
+   inside the list) and both cards fill the row:
+   - list: every closed row has the same height on both pages (--tq-card-h), rows stack from the top;
+   - details: the answer box takes the spare height, so the answer buttons always sit at the bottom.
+   Stacked (below 1181px) each card is as tall as its content. */
+.tq .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: stretch; }
 .tq .split > .lbox, .tq .split > .pane { box-sizing: border-box; }
-/* Narrower columns wrap more text, so the shared card height is raised to keep it the same in every state. */
-@media (min-width: 1181px) and (max-width: 1400px) { .tq .split { --tq-split-h: 850px; } }
-@media (min-width: 1181px) and (max-width: 1260px) { .tq .split { --tq-split-h: 930px; } }
-.tq .split > .lbox .list { flex: 1 1 auto; }
+/* Shared sizes for Text-Based and Subscription Questions, by width band (narrow desktops wrap badges onto a
+   second line): --tq-card-h = one collapsed-card height (the tallest card at that width);
+   --tq-panels-h = panel height that fits a full list of 7 questions (a longer list still grows the row). */
+@media (min-width: 1181px) and (max-width: 1209px) { .tq .split { --tq-card-h: 125px; --tq-panels-h: 1200px; } }
+@media (min-width: 1210px) and (max-width: 1279px) { .tq .split { --tq-card-h: 106px; --tq-panels-h: 1045px; } }
+@media (min-width: 1280px) and (max-width: 1339px) { .tq .split { --tq-panels-h: 910px; } }
+/* Wide desktops: every row fits on one line, so cards stay at their compact single-line height. */
+@media (min-width: 1560px) { .tq .split { --tq-card-h: 62px; --tq-panels-h: 760px; } }
+@media (min-width: 1181px) {
+  /* One shared panel height for Text-Based and Subscription Questions (fits a full list of questions; a
+     longer list still grows the row), so both pages have identical panel and card dimensions. */
+  .tq .split { min-height: var(--tq-panels-h, 890px); }
+  .tq .split > .lbox .list { flex: 1 1 auto; justify-content: flex-start; }
+  .tq .split > .lbox .list > .qcard[aria-expanded='false'] { flex: none; min-height: var(--tq-card-h, 84px); }
+  .tq .split > .lbox .list > .qcard[aria-expanded='false'] .qcard__top { flex: 1 1 auto; align-items: center; }
+  .tq .split > .pane { justify-content: space-between; }
+  .tq .split > .pane > .qd-answer { flex: 1 1 auto; }
+  .tq .split > .pane > .qd-answer > textarea { flex: 1 1 auto; }
+}
 .tq .lbox { border: 1.5px solid var(--gold); border-radius: 18px; padding: 14px; }
 .tq .pane { display: flex; flex-direction: column; gap: 14px; border: 1.5px solid var(--gold); border-radius: 18px; padding: 16px 18px; position: sticky; top: 16px; min-width: 0; scroll-margin-top: 16px; }
 
 @media (max-width: 1180px) {
-  /* Stacked: both cards are full width and share one fixed height each. */
-  .tq .split { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; min-height: 0; }
+  /* Stacked: both cards are full width, each as tall as its content. */
+  .tq .split { grid-template-columns: minmax(0, 1fr); }
   .tq .pane { position: static; }
 }
 /* Tablet: narrower main column next to the sidebar. */
@@ -132,18 +151,10 @@
 
 /* ---------- Instant Call & Chat (desktop) ---------- */
 /* Instant Call & Chat — desktop/tablet: no extra rules needed. */
-/* Rows keep their own height; the list scrolls instead of squeezing them. */
+/* Rows keep their own height by default (open rows, and every row when stacked). */
 .tq .split > .lbox .list > * { flex: none; }
-
-/* The answer box takes whatever height is left in the details card, so the card never ends in blank space. */
-.tq .split > .pane > .qd-answer { flex: 1 1 auto; min-height: 0; }
-.tq .split > .pane > .qd-answer > textarea { flex: 1 1 auto; min-height: 200px; resize: none; }
-/* When the rows are shorter than the card (all folded), spread them evenly instead of leaving one blank block under the last row.
-   Rows keep their own size; with a row open the list scrolls as before. */
-.tq .split > .lbox .list { justify-content: flex-start; gap: 10px; }
-/* Closed rows share any spare height equally (capped), so the gap between rows stays one even 10px. */
-.tq .split > .lbox .list > .qcard[aria-expanded='false'] { flex: 1 1 0; min-height: 72px; max-height: 104px; }
-.tq .split > .lbox .list > .qcard .qcard__top { flex: 1 1 auto; }
+/* The answer box starts at a practical height (180px) and can be resized. */
+.tq .split > .pane > .qd-answer > textarea { resize: vertical; }
 /* Both cards end with the same bottom padding. */
 .tq .pg--work .split > .pane { padding-bottom: 16px; }
 
@@ -161,5 +172,5 @@
 .tq .split > .pane .qd-panel { padding: 12px 14px; gap: 6px; }
 .tq .split > .pane .qd-answer { gap: 8px; padding-top: 10px; }
 .tq .split > .pane .qd-answer .etools { padding: 6px 10px; }
-.tq .split > .pane .qd-answer textarea { min-height: 140px; }
+.tq .split > .pane .qd-answer textarea { min-height: 180px; }
 .tq .split > .pane .aed-foot { padding-top: 10px; }

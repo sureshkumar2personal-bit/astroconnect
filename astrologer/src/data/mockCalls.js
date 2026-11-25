@@ -5,8 +5,8 @@ export const ME = { name: 'Ananya R.', id: 'AST-1042' }; // astrologer details s
 
 export const callsSeed = {
   tab: 'call', // History tab: 'call' | 'chat'
-  lock: null, // single availability lock across both services (AD-105): null | 'Call request' | 'Chat request' | 'In session'
-  req: null, // pending incoming request { s, user, pk, left }
+  // Waiting incoming requests, one FIFO queue per service: { id, s, user, uid, sub, pk, at (ms), left (s) }.
+  queue: { call: [], chat: [] },
   session: null, // active consultation { s, user, pk, start, state, pausedMs, dropAt }
   now: 0, // last clock tick (ms) while a request or session is running
   // Prepaid packages (AD-106). ₹75 for 5 minutes is illustrative only.
@@ -26,6 +26,3 @@ export const callsSeed = {
   ],
 };
 
-// What a simulated incoming request / finished session looks like in the prototype.
-export const SIM_USER = { name: 'Priya S.', uid: 'U-43350' };
-export const SIM_CHAT = [['u', 'Hello'], ['me', 'Hello, how can I help?']];

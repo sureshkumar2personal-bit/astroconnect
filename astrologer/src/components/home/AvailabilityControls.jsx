@@ -1,6 +1,7 @@
 import Icon from '@/components/ui/Icon.jsx';
 import { fmtDate } from '@/lib/format.js';
 import { hasActiveSession } from '@/hooks/useCalls.js';
+import { serviceMessage } from '@/hooks/useAvailability.js';
 import PlannedUnavailability from './PlannedUnavailability.jsx';
 import { DND_MESSAGE } from './DndBanner.jsx';
 
@@ -41,7 +42,13 @@ export default function AvailabilityControls({ a, ui }) {
     if (a.dnd) return ui.toast('Turn DND off first.');
     online ? a.setOffline() : a.setOnline();
   };
-  const toggleService = (fn) => () => (a.dnd ? ui.toast('Turn DND off first.') : fn());
+  // Switch Instant Call or Chat and confirm the new state (each service on its own).
+  const toggleService = (service) => () => {
+    if (a.dnd) return ui.toast('Turn DND off first.');
+    const next = !a[service];
+    (service === 'call' ? a.toggleCall : a.toggleChat)();
+    ui.toast(serviceMessage(service, next));
+  };
   // Turning DND on asks for confirmation first (AD-165); turning it off is immediate and always allowed.
   const toggleDnd = () => {
     if (a.dnd) {
@@ -82,8 +89,8 @@ export default function AvailabilityControls({ a, ui }) {
       <StatusSwitch label={statusLabel} on={online} onClick={toggleStatus} disabled={a.dnd}
         title={a.mode === null ? 'Choose Online or Offline' : `${statusLabel} — click to go ${online ? 'Offline' : 'Online'}`} />
       <span className="ac-topbar__rule" aria-hidden="true" />
-      <PillSwitch label="Instant Call" short="Call" icon="phone" on={a.call} onClick={toggleService(a.toggleCall)} disabled={a.dnd} title={tip('Instant Call', a.callSub)} />
-      <PillSwitch label="Instant Chat" short="Chat" icon="chat" on={a.chat} onClick={toggleService(a.toggleChat)} disabled={a.dnd} title={tip('Instant Chat', a.chatSub)} />
+      <PillSwitch label="Instant Call" short="Call" icon="phone" on={a.call} onClick={toggleService('call')} disabled={a.dnd} title={tip('Instant Call', a.callSub)} />
+      <PillSwitch label="Instant Chat" short="Chat" icon="chat" on={a.chat} onClick={toggleService('chat')} disabled={a.dnd} title={tip('Instant Chat', a.chatSub)} />
       <PillSwitch label="DND" text="DND Mode" short="DND" icon="moon" on={a.dnd} onClick={toggleDnd} dnd title="DND (Do Not Disturb)" />
       <span className="ac-topbar__rule" aria-hidden="true" />
       <button type="button" className={`ac-topbar__planned${a.pu ? ' is-set' : ''}`} onClick={openPlanned}

@@ -68,7 +68,7 @@ export default function QHeader({ tq, cat, toolbar }) {
           </SumCard>
 
           <SumCard title="History" icon="clock" tone="info"
-            foot={isText && <a className="go sm tq-sum__more" href={`#${routes.view('history')}`}>View Full History →</a>}>
+            foot={<a className="go sm tq-sum__more" href={`#${routes.historyFor(cat)}`}>View Full History →</a>}>
             <Part icon="checkCircle" label="Completed" value={countTab(q, cat, 'answered')} on={is('answered')} onClick={() => show('answered')} />
             <Part icon="headset" label="Resolved" value={countTab(q, cat, 'solved')} on={is('solved')} onClick={() => show('solved')} />
           </SumCard>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/Icon.jsx';
 import { greetingFor } from '@/lib/format.js';
+import { logout } from '@/lib/session.js';
 import Bell from '@/components/ui/Bell.jsx';
 import ThemeToggle from '@/components/ui/ThemeToggle.jsx';
 import ProfileMenu from '@/components/ui/ProfileMenu.jsx';
@@ -62,8 +63,8 @@ export default function HomeHeader({ theme, onToggleTheme, name, initial, unread
           <div className="ac-datechip ac-topbar__date"><Icon name="calendar" size={18} className="ac-icon" />{dateLabel}</div>
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <Bell unread={unread} />
-          {/* View Profile → Profile page. Logout: prototype, same behaviour as Settings → Logout (AD-157). */}
-          <ProfileMenu initial={initial} onLogout={() => ui.toast('Logout (prototype)')} />
+          {/* View Profile → Profile page. Logout ends the session (prototype; same as Settings → Logout, AD-157). */}
+          <ProfileMenu initial={initial} onLogout={logout} />
           <MoreMenu />
         </div>
       </header>

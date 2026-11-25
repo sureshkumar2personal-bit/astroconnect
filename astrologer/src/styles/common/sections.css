@@ -915,3 +915,8 @@
 /* In the equal-width details card the footer must still fit on one row. */
 .tq .aed-count { flex: 1 1 120px; font-size: 12px; }
 .tq .aed-btn { padding: 0 10px; gap: 6px; font-size: 13.5px; }
+
+/* Text-Based and Subscription Questions share one layout: the summary rows have the same height on both pages
+   (Subscription has no Monthly Target card), so the panels below start at the same place. */
+@media (min-width: 1181px) { .tq .tq-sum__row2 { grid-auto-rows: minmax(157px, auto); } }
+@media (min-width: 1300px) { .tq .tq-sum__row2 { grid-auto-rows: minmax(139px, auto); } }

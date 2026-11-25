@@ -3,10 +3,11 @@ import { APP_VERSION } from '@/data/mockSettings.js';
 import { settingsActions } from '@/hooks/useSettings.js';
 import { AccountRequest } from './SettingsDialogs.jsx';
 import { openDoc } from './PrivacySecurity.jsx';
+import { logout } from '@/lib/session.js';
 
 // About & Account Actions (AD-157): App Version, About AstroConnect, Logout, Request Account
 // Deactivation / Deletion. Requests go to Platform Admin for approval — never applied instantly
-// (SET-04). Request statuses are not defined in the spec. Prototype: Logout does not sign out.
+// (SET-04). Request statuses are not defined in the spec. Prototype: Logout ends the session (lib/session.js); there is no real sign-in yet.
 export default function AboutActions({ s, ui }) {
   const request = (kind) => ui.dialog({
     title: kind,
@@ -18,7 +19,7 @@ export default function AboutActions({ s, ui }) {
       <button type="button" className="st-link" onClick={() => openDoc(ui, 'About AstroConnect')}>About AstroConnect</button>
       {s.request && <Note>{s.request} sent to Platform Admin for approval.</Note>}
       <BtnRow>
-        <button type="button" className="btn btn-o" onClick={() => ui.toast('Logout (prototype)')}>Logout</button>
+        <button type="button" className="btn btn-o" onClick={logout}>Logout</button>
         <button type="button" className="btn btn-o danger" onClick={() => request('Account deactivation request')}>Request Account Deactivation</button>
         <button type="button" className="btn btn-o danger" onClick={() => request('Account deletion request')}>Request Account Deletion</button>
       </BtnRow>

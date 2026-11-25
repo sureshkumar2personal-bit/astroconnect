@@ -22,6 +22,13 @@ const ICONS = {
   info: (<><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>),
   phone: <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />,
   chat: (<><path d={CHAT_BUBBLE} /><path d="M8 10.5h.01M12 10.5h.01M16 10.5h.01" /></>),
+  // Expand (open the full consultation) and minimize (back to the floating card).
+  expand: <path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" />,
+  minimize: <path d="M5 12h14" />,
+  shrink: <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7" />,
+  more: (<><circle cx="5" cy="12" r="1.4" /><circle cx="12" cy="12" r="1.4" /><circle cx="19" cy="12" r="1.4" /></>),
+  speaker: <path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />,
+  phoneEnd: <path d="M3 15.5c5-4.7 13-4.7 18 0l-2.4 2.4-3.3-1.5v-2.7a11 11 0 0 0-6.6 0v2.7l-3.3 1.5z" />,
   flag: <path d="M5 21V4M5 4h11l-2 4 2 4H5" />,
   alert: (<><path d="M12 3l9.5 17h-19z" /><path d="M12 10v4.5M12 17.5h.01" /></>),
   history: (<><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1M3 4v4h4" /><path d="M12 8v4l3 2" /></>),

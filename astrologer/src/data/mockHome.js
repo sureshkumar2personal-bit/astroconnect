@@ -39,10 +39,10 @@ export const recentActivity = [
 
 // Exactly four, in this order, with their destinations (AD-21).
 export const quickActions = [
-  { icon: 'megaphone', label: 'Campaign Questions', sub: 'Answer campaign requests', href: '#/work/campaigns' },
-  { icon: 'live', label: 'Go Live', sub: 'Start a live session', href: '#/live' },
-  { icon: 'edit', label: 'Content Creation', sub: 'Post benefits and content', href: '#/content' },
-  { icon: 'lotus', label: 'Remedy Tracker', sub: 'Follow client remedies', href: '#/remedies' },
+  { icon: 'megaphone', label: 'Campaign Questions', short: 'Campaign', sub: 'Answer campaign requests', href: '#/work/campaigns' },
+  { icon: 'live', label: 'Go Live', short: 'Go Live', sub: 'Start a live session', href: '#/live' },
+  { icon: 'edit', label: 'Content Creation', short: 'Content', sub: 'Post benefits and content', href: '#/content' },
+  { icon: 'lotus', label: 'Remedy Tracker', short: 'Remedy', sub: 'Follow client remedies', href: '#/remedies' },
 ];
 
 // Navigation (AD-03). Only Home exists in this task.
