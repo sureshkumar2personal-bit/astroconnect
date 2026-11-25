@@ -146,7 +146,7 @@ function Session() {
             {app.sesNeedRate ? <button className="btn-p" onClick={app.rateSes}>Rate this consultation (required)</button> : null}
             {app.astroEarly && !app.complained ? <button className="btn-g" onClick={app.complainSes}>Submit Platform complaint</button> : null}
             {app.complained ? <span className="pill ss-pill">Platform complaint submitted</span> : null}
-            <button className="btn-g" onClick={app.startAnother}>Start another</button>
+            <button className={app.sesNeedRate ? "btn-g" : "btn-p"} onClick={app.startAnother}>Start another</button>
           </div>
         </section>
       ) : null}

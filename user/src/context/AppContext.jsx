@@ -406,7 +406,7 @@ setTimeout(()=>{const c=ref.current.sess;if(c&&c.status==='live')setState({sess:
 endSummary:ended?(sx.how==='time'?'The package time ended.':sx.how==='astro'?'The astrologer ended the session early.':'You ended the session early. There is no refund for early termination (D-45).'):'',
 endPaid:ended?'Paid ₹'+sx.paid+' · '+sx.mins+' min':'',astroEarly:ended&&sx.how==='astro',complained:!!(act&&act.complaint),
 sesNeedRate:!!act&&!act.rating,rateSes:openDlg('qrate',{id:ended?sx.actId:0}),complainSes:openDlg('scomplaint',{id:ended?sx.actId:0}),
-startAnother:()=>setState({sess:null,req:null})};})();
+startAnother:()=>{const k=sx&&sx.kind?sx.kind.toLowerCase():'';setState({sess:null,req:null});if(k==='call'||k==='chat')navigate('/services/'+k);}};})();
 const campNote=(id,cat,go,cta,text)=>({id:nowT+'-'+id+'-'+Math.random().toString(36).slice(2,6),cat,go,cta,text,at:nowT});
 const campChange=(c,kind)=>()=>{const ov=s.campOv,cur0=ov[c.id]||{};const mine=s.slots.filter(x=>x.campId===c.id&&x.expiresAt>nowT);
 const st0=c.status||'active';
