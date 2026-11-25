@@ -9,7 +9,8 @@ import { REMEDY_FILTERS } from '@/data/mockRemedies.js';
 // Remedies from Text Question answers and Dispute Answers (AD-39) and every appointment
 // attachment (AD-102, AD-163), each linked to the User and the original record.
 // Only the User can mark one Completed (AD-22). No subscription, payment or delivery (REM-04).
-export const meta = () => ({ title: 'Remedy Tracker', subtitle: 'Remedies you prescribed · only the user can mark one Completed' });
+// Back goes to the Home dashboard.
+export const meta = () => ({ title: 'Remedy Tracker', parent: '/' });
 
 export default function RemediesPage({ ctx, ui }) {
   const { filter } = useRemedies();
@@ -27,7 +28,7 @@ export default function RemediesPage({ ctx, ui }) {
       ) : (
         <div className="empty">No remedies</div>
       )}
-      <p className="muted sm">Remedies from answers, Dispute Answers and appointment attachments appear here and in the user's Remedy Tracker. You can't mark a remedy completed. No remedy subscription, payment or delivery workflow.</p>
+
     </>
   );
 }

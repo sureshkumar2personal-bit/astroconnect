@@ -1,10 +1,14 @@
-import { navigate } from '@/lib/router.js';
 import { dt, fmtDateTime, inr2 } from '@/lib/format.js';
 import { earningsActions, monthTx, txNet, txStatusKind } from '@/hooks/useEarnings.js';
 import { MONTHS, SERVICES, TX_STATUSES } from '@/data/mockEarnings.js';
-import { Badge, Kpi, KpiGrid, PendingTag, Sec, Table } from '@/components/ui/sectionKit.jsx';
+import { Badge, Kpi, KpiGrid, PendingTag, Sec } from '@/components/ui/sectionKit.jsx';
+import ExpandTable from '@/components/ui/ExpandTable.jsx';
+import { TxInfo } from './TransactionDetails.jsx';
+
+const COLS = ['Transaction', 'Service', 'Related ID', 'Date & time', 'Gross', 'Commission', 'Net', 'Status'];
 
 // Transactions (AD-122) with month-wise summary and PDF statement (AD-123).
+// Clicking a transaction expands its details in place (no separate page); clicking again collapses it.
 // Filters are kept in the store so they persist on Back (AD-77).
 export default function EarningsTransactions({ s, ui }) {
   const list = monthTx(s);
@@ -41,11 +45,10 @@ export default function EarningsTransactions({ s, ui }) {
         <Kpi label="Month commission" value={inr2(sum((t) => t.c || 0))} />
         <Kpi label="Month net (known rates)" value={inr2(sum((t) => txNet(t) ?? 0))} />
       </KpiGrid>
-      <Table bare
-        cols={['Transaction', 'Service', 'Related ID', 'Date & time', 'Gross', 'Commission', 'Net', 'Status']}
+      <ExpandTable cols={COLS}
         rows={list.map((t) => ({
           key: t.id,
-          onOpen: () => navigate(`/earnings/tx/${t.id}`),
+          detail: () => <TxInfo t={t} />,
           cells: [
             <b>{t.id}</b>, t.svc, `${t.ref} · ${t.user}`, fmtDateTime(dt(t.at)), inr2(t.g),
             t.c == null ? <PendingTag id="AP-08-02" /> : inr2(t.c),

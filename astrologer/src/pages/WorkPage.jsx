@@ -1,3 +1,4 @@
+import Icon from '@/components/ui/Icon.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { navigate, routes } from '@/lib/router.js';
 import { astrologerProfile } from '@/data/mockTextQuestions.js';
@@ -28,34 +29,35 @@ const SUB_TITLES = {
 /** Header text, back target and page-level buttons for each My Work screen (reference PH). */
 function screenMeta(route, tq, mobile) {
   const v = route.view;
-  if (v === 'hub') return { title: 'My Work', subtitle: 'Manage your questions, responses and consultations', crumb: null };
+  // Back goes to the Home dashboard.
+  if (v === 'hub') return { title: 'My Work', crumb: null, parent: routes.home, back: true };
   if (v === 'questions' || v === 'subscriptions') {
     const q = route.id && tq.byId(route.id);
     const cat = q ? q.cat : route.cat;
     const list = routes.listFor(cat);
     if (q && route.editor && isOpen(q) && q.status !== 'Correction Requested') return { title: 'Write Answer', subtitle: `${q.id} · ${q.name}`, parent: routes.detail(q.id), back: true };
     if (q && route.timeline) return { title: 'Question Timeline', subtitle: q.id, parent: routes.detail(q.id), back: true };
-    const [title, subtitle] = SUB_TITLES[cat];
+    const [title] = SUB_TITLES[cat];
+  const subtitle = '';
     const actions = (
       <>
-        <a className="btn btn-o" href={`#${routes.campaigns}`}>Campaign Management</a>
-        <a className="btn btn-p" href={`#${routes.campNew}`}>+ Create Campaign</a>
+        <a className="btn btn-o btn-camp" href={`#${routes.campaigns}`}><Icon name="megaphone" size={18} className="btn-camp__icon" />Campaign Management</a>
+        <a className="btn btn-navy" href={`#${routes.campNew}`}>+ Create Campaign</a>
       </>
     );
-    if (q && mobile) return { title: 'Question Details', subtitle: '', parent: list };
-    return { title, subtitle, parent: q ? list : routes.hub, actions };
+    // Back goes straight to My Work (the question pane has its own Back to the list).
+    return { title, subtitle, parent: routes.hub, back: true, actions, crumb: null };
   }
   if (v === 'campaigns') {
-    if (route.camp === 'open') return { title: 'Open Questions settings', subtitle: 'Questions sent without choosing a campaign · shared monthly quota', parent: routes.campaigns, back: true };
+    if (route.camp === 'open') return { title: 'Open Questions settings', crumb: null, parent: routes.campaigns, back: true };
     if (route.camp) {
       const edit = route.camp !== 'new';
-      return { title: edit ? 'Edit Campaign' : 'Create Campaign', subtitle: 'Same editor for Regular and Special Campaigns', parent: routes.campaigns, back: true };
+      return { title: edit ? 'Edit Campaign' : 'Create Campaign', crumb: null, parent: routes.campaigns, back: true };
     }
     return {
       title: 'Campaign Management',
-      subtitle: 'My Work › Text Questions › Campaign Management',
       crumb: null,
-      parent: routes.list,
+      parent: routes.hub, // Back goes straight to My Work
       back: true,
       actions: (
         <>
@@ -65,8 +67,8 @@ function screenMeta(route, tq, mobile) {
       ),
     };
   }
-  if (v === 'templates') return { title: 'Answer Templates', subtitle: 'Your own reusable answers. Only you can see these.', parent: routes.hub, back: true, tplAction: true };
-  if (v === 'history') return { title: 'History', subtitle: 'Month-wise records of your Text Questions', parent: routes.hub, back: true };
+  if (v === 'templates') return { title: 'Answer Templates', crumb: null, parent: routes.hub, back: true, tplAction: true };
+  if (v === 'history') return { title: 'History', crumb: null, parent: routes.hub, back: true };
   return { title: 'My Work', subtitle: '' };
 }
 
@@ -135,10 +137,12 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
   if (view === 'appointments') {
     return (
       <>
-        <WorkHeader mobile={mobile} title={appointmentsTitle(route, mobile)} subtitle={appointmentsSubtitle(route)}
+        <WorkHeader mobile={mobile} title={appointmentsTitle(route, mobile)} crumb={null}
           onBack={mobile && (route.id || route.calendar) ? () => navigate(routes.appointments) : mobile ? () => navigate(routes.hub) : null}
           theme={theme} onToggleTheme={onToggleTheme} unread={unread} availability={availability} profile={astrologerProfile} />
         <div className={mobile ? 'screen apt' : 'apt'}>
+          {/* Appointments list: Back goes to My Work (phones use the ‹ in the header). */}
+          {!route.id && !route.calendar && <BackBtn mobile={mobile} onClick={() => navigate(routes.hub)} />}
           <AppointmentsPage apt={apt} route={route} mobile={mobile} openDialog={openDialog} toast={toast} />
         </div>
         <Dialog open={!!dialog} title={dTitle} onClose={close} sheet={mobile}>{dBody}</Dialog>
@@ -183,8 +187,10 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
         profile={astrologerProfile}
       />
       <div className={`pg pg--work${mobile ? ' screen' : ''}`}>
-        {m.back && <BackBtn mobile={mobile} onClick={() => navigate(m.parent)} />}
-        <PageActions mobile={mobile} subtitle={m.subtitle}>{actions}</PageActions>
+        <div className="pg-top">
+          {m.back && <BackBtn mobile={mobile} onClick={() => navigate(m.parent)} />}
+          <PageActions mobile={mobile} subtitle={m.subtitle}>{actions}</PageActions>
+        </div>
         {content}
       </div>
       <Dialog open={!!dialog} title={dTitle} onClose={close} sheet={mobile}>{dBody}</Dialog>

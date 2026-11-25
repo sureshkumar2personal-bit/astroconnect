@@ -95,6 +95,12 @@
   .tq .pg--earnings .ern-filters .grow { display: none; }
   .tq .pg--earnings .ern-filters .btn { flex: 1 1 100%; }
   .tq .pg--earnings .ern-open { align-self: stretch; text-align: center; }
+  /* Expanded row (ExpandTable): the row and its details read as one card. */
+  .tq .xtbl tr.is-open { margin-bottom: 0; border-bottom: 0; border-radius: 14px 14px 0 0; box-shadow: none; }
+  .tq .xtbl tr.is-open td { background: none; }
+  .tq .xtbl tr.xtbl-d { margin-top: 0; border-top: 0; border-radius: 0 0 14px 14px; padding-top: 0; background: var(--card-surface); }
+  .tq .tbl.xtbl tr.xtbl-d > td { display: block; padding: 4px 0 8px; text-align: left; background: none; }
+  .tq .xtbl-d__body { align-items: stretch; }
 }
 
 
@@ -189,4 +195,66 @@
 /* Answer Templates on phones: text full width, Edit/Delete together underneath. */
 @media (max-width: 760px) {
   .tq .pg--work .card.tpl > .grow { flex-basis: 100%; }
+}
+
+/* My Work pages on phones: the two page actions share one row to save vertical space. */
+@media (max-width: 760px) {
+  .tq .pg--work .ph-act { gap: 8px; flex-wrap: nowrap; }
+  .tq .pg--work .ph-act .btn { flex: 1 1 auto; min-width: 0; min-height: 40px; padding: 0 8px; font-size: 12.5px; white-space: nowrap; }
+  .tq .pg--work .ph-act .btn-camp__icon { display: none; }
+}
+
+/* Question rows and details on phones. */
+@media (max-width: 760px) {
+  .tq .qcard__top { gap: 10px; padding: 10px 0 10px 12px; }
+  .tq .qcard__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tq .qcard__side { align-items: flex-end; }
+  .tq .qd-head__due { align-items: flex-start; text-align: left; flex-basis: 100%; }
+}
+
+/* ---------- Text-Based Questions on phones: question rows, details and answer footer ---------- */
+@media (max-width: 760px) {
+  .tq .pg .qcard, .tq .qcard { padding: 0; }
+  /* Row: avatar + name/IDs on the first line, then the category/date line and the priority line use the full row width. */
+  .tq .qcard__top { display: grid; grid-template-columns: 40px minmax(0, 1fr) 44px; grid-template-areas: 'av name chev' 'sub sub chev' 'side side chev'; column-gap: 10px; row-gap: 4px; align-items: center; padding: 10px 0 10px 12px; }
+  .tq .qcard__top > .av { grid-area: av; }
+  .tq .qcard__main { display: contents; }
+  .tq .qcard__name { grid-area: name; min-width: 0; flex-direction: column; align-items: flex-start; gap: 0; }
+  .tq .qcard__sub { grid-area: sub; margin-top: 2px; }
+  .tq .qcard__side { grid-area: side; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 2px 12px; }
+  .tq .qcard__top > .qcard__chev { grid-area: chev; align-self: stretch; margin-left: 0; }
+  /* Tap targets of at least 40px for the small text controls. */
+  .tq .qd-more, .tq .qcard__more { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
+  .tq .qd-head__name { display: inline-block; padding: 10px 0; margin: -10px 0; }
+  .tq .qd-answer .etools .btn, .tq .etools__tpl { min-height: 40px; }
+  .tq .etools .etools__tpl select { height: 40px; }
+  .tq button.file--btn { min-height: 44px; padding: 0 14px; }
+  /* Answer footer: counter on its own line, Save Draft and Preview side by side, Submit Answer full width. */
+  .tq .aed-count { flex: 1 1 100%; }
+  .tq .aed-count__bar { max-width: none; }
+  .tq .aed-foot .aed-btn--ghost, .tq .aed-foot .aed-btn--line { flex: 1 1 0; }
+  .tq .aed-foot .aed-btn--main { flex: 1 1 100%; }
+  .tq .qd-answer textarea { min-height: 180px; }
+}
+
+/* Phones: the two question categories share one row (labels may wrap inside their buttons). */
+@media (max-width: 760px) {
+  .tq .pg--work > .tabs, .tq .pg--work .tabs[aria-label='Question category'] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tq .pg--work .tabs[aria-label='Question category'] .tab { min-height: 48px; padding: 6px 10px; line-height: 1.2; white-space: normal; text-align: center; justify-content: center; }
+}
+
+/* Phones: slightly tighter card padding and gaps, same as the compact desktop cards. */
+@media (max-width: 760px) {
+  .tq .pg--work .lbox { padding: 12px; gap: 10px; }
+  .tq .lbox .list { gap: 8px; }
+  .tq .qcard__body { gap: 8px; padding: 10px 12px 12px; }
+  .tq .qd-head { padding-bottom: 6px; }
+  .tq .qd-panel { padding: 12px 14px; }
+  .tq .qd-answer { gap: 8px; padding-top: 10px; }
+  .tq .qd-answer textarea { min-height: 160px; }
+}
+
+/* Phones: the details card sits under the question list; scrolling to it leaves room for the sticky header. */
+@media (max-width: 760px) {
+  .tq .split > .pane { scroll-margin-top: 112px; }
 }

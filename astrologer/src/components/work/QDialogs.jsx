@@ -91,3 +91,16 @@ export function FiltersBody({ filters, campaigns, onApply, onReset }) {
     </>
   );
 }
+
+/** Opens one of the user's question attachments (AD-34, AD-45). The prototype stores no files, so it shows the file's details. */
+export function AttachmentBody({ q, name, onClose }) {
+  const ext = (name.split('.').pop() || '').toLowerCase();
+  const kind = ['jpg', 'jpeg', 'png'].includes(ext) ? 'Image' : ext === 'pdf' ? 'PDF document' : ext === 'txt' ? 'Text file' : 'File';
+  return (
+    <>
+      <div className="note"><b>{name}</b><br />{kind} · sent by {q.name} ({q.uid}) with {q.id}</div>
+      <p className="muted sm">Prototype: uploaded files are not stored, so only the file details are shown. The live app opens the user's uploaded file here.</p>
+      <div className="actions"><button type="button" className="btn btn-p" onClick={onClose}>Close</button></div>
+    </>
+  );
+}

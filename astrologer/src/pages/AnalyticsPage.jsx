@@ -12,7 +12,8 @@ import { CHANGE as C, callChat, profilePerformance as pp } from '@/data/mockAnal
 // AD-145 metric groups, AD-146 KPI cards + graphs + period filter + previous-period comparison +
 // drill-down to each service, AD-147 figures from the owning module (Text Questions, Appointments
 // and Live are counted from their live state; "Answered/Completed" is one metric, AP-13-01).
-export const meta = () => ({ title: 'Analytics', subtitle: 'Simple overview · figures match each module and Wallet' });
+// Back goes to the Home dashboard.
+export const meta = () => ({ title: 'Analytics', parent: '/' });
 
 export default function AnalyticsPage({ ctx }) {
   const s = useAnalytics();

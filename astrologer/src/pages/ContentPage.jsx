@@ -8,8 +8,9 @@ import ContentPost from '@/components/content/ContentPost.jsx';
 //   #/content             General Posts · Subscriber Benefit Content · Templates · Delivery History
 //   #/content/edit/new    editor for new content (opened from a Create / template button)
 //   #/content/edit/<id>   editor for an existing post (AD-139 Edit)
-//   #/content/p/<id>      post details (AD-78)
-const LIST = { title: 'Benefits & Content', subtitle: 'General Posts and Subscriber Benefit Content · no video posts' };
+//   #/content/p/<id>      post details (AD-78), for direct links; in the list a post expands in place
+// Back goes to the Home dashboard.
+const LIST = { title: 'Benefits & Content', parent: '/' };
 
 /** Which screen the route shows, given the store. */
 function screen(route, s) {
@@ -37,5 +38,5 @@ export default function ContentPage({ route, mobile, ui }) {
 
   if (sc.kind === 'post') return <ContentPost post={sc.post} id={sc.id} ui={ui} />;
   if (sc.kind === 'editor') return sc.loadId || !s.ed ? <p className="muted" aria-busy="true">Loading…</p> : <ContentEditor s={s} mobile={mobile} ui={ui} />;
-  return <ContentList s={s} />;
+  return <ContentList s={s} ui={ui} />;
 }

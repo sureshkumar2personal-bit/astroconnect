@@ -4,7 +4,7 @@ import ReviewDetail from '@/components/reviews/ReviewDetail.jsx';
 
 // Ratings & Reviews (spec 10_RATINGS_AND_REVIEWS.md, AD-129 – AD-134). Routes:
 //   #/reviews           ratings summary + review list
-//   #/reviews/r/<id>    Review Details (AD-78)
+//   #/reviews/r/<id>    Review Details (AD-78), for direct links; on the list a review expands in place
 const detailId = (route) => (route.parts[0] === 'r' ? route.parts[1] : null);
 
 export function meta(route) {
@@ -13,12 +13,13 @@ export function meta(route) {
     const r = reviewsStore.get().list.find((x) => x.id === id);
     return { title: `Review ${id}`, subtitle: r?.svc, parent: '/reviews' };
   }
-  return { title: 'Ratings & Reviews', subtitle: 'A 1–5 star rating is mandatory after every service; written feedback is optional' };
+  // Back goes to the Home dashboard.
+  return { title: 'Ratings & Reviews', parent: '/' };
 }
 
 export default function ReviewsPage({ route, ui, ctx }) {
   const s = useReviews();
   const id = detailId(route);
   if (id) return <ReviewDetail r={s.list.find((x) => x.id === id)} ui={ui} ctx={ctx} />;
-  return <ReviewList s={s} />;
+  return <ReviewList s={s} ui={ui} ctx={ctx} />;
 }

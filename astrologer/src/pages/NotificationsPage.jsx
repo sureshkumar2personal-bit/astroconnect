@@ -8,7 +8,8 @@ import NotificationItem from '@/components/notifications/NotificationItem.jsx';
 // Preferences live in Settings (AD-150, AD-153) — linked, not duplicated here.
 
 export function meta() {
-  return { title: 'Activity & Notification Centre', subtitle: `${unreadCount(notificationsStore.get())} unread` };
+  // Back goes to the Home dashboard.
+  return { title: 'Activity & Notification Centre', parent: '/' };
 }
 
 export default function NotificationsPage() {

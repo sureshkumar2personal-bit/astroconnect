@@ -1,11 +1,13 @@
-import { navigate } from '@/lib/router.js';
 import { fmtDate, dt } from '@/lib/format.js';
 import { SERVICES, STATUSES, REPLY_STATES } from '@/data/mockReviews.js';
 import { avgRating, filterReviews, publishedOnly, reviewsActions, statusKind } from '@/hooks/useReviews.js';
-import { Badge, Kpi, KpiGrid, PendingTag, Stars, Table } from '@/components/ui/sectionKit.jsx';
+import { Badge, Kpi, KpiGrid, PendingTag, Stars } from '@/components/ui/sectionKit.jsx';
+import ExpandTable from '@/components/ui/ExpandTable.jsx';
+import { ReviewInfo } from './ReviewDetail.jsx';
 
 // Ratings & Reviews list: public + service-wise ratings (AD-132, AD-134), Service / Status / Reply
-// filters and the review table (AD-130, AD-131). Rows open Review Details (AD-78).
+// filters and the review table (AD-130, AD-131). Each row expands in place to show its full
+// details, Publish / Hide and the reply; several can be open at once (no separate page).
 const COLS = ['Review', 'Service', 'Rating', 'Feedback', 'Status', 'Reply'];
 
 function FilterSelect({ label, value, options, onChange }) {
@@ -19,7 +21,7 @@ function FilterSelect({ label, value, options, onChange }) {
   );
 }
 
-export default function ReviewList({ s }) {
+export default function ReviewList({ s, ui, ctx }) {
   const pub = publishedOnly(s.list);
   const avg = avgRating(pub);
   const rows = filterReviews(s.list, s.filters);
@@ -42,9 +44,9 @@ export default function ReviewList({ s }) {
         <FilterSelect label="Reply" value={f.rep} options={REPLY_STATES} onChange={set('rep')} />
       </div>
 
-      <Table cols={COLS} rows={rows.map((r) => ({
+      <ExpandTable multi className="card" cols={COLS} rows={rows.map((r) => ({
         key: r.id,
-        onOpen: () => navigate(`/reviews/r/${encodeURIComponent(r.id)}`),
+        detail: () => <ReviewInfo r={r} ui={ui} ctx={ctx} />,
         cells: [
           <span key="id"><b>{r.id}</b><div className="muted sm">{r.user} · {fmtDate(dt(r.at))}</div></span>,
           r.svc,

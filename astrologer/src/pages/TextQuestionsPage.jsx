@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { activeFilterCount, filterQuestions, isOpen } from '@/lib/textQuestions.js';
+import { TABS, activeFilterCount, filterQuestions, isOpen } from '@/lib/textQuestions.js';
 import { navigate, routes } from '@/lib/router.js';
 import QHeader from '@/components/work/QHeader.jsx';
 import QuestionToolbar from '@/components/work/QuestionToolbar.jsx';
@@ -8,7 +8,7 @@ import QDetail from '@/components/work/QDetail.jsx';
 import AnswerPage from '@/components/work/AnswerPage.jsx';
 import TimelinePage from '@/components/work/TimelinePage.jsx';
 import AddLinkForm from '@/components/work/AddLinkForm.jsx';
-import { CorrectionBody, FiltersBody, PreviewBody } from '@/components/work/QDialogs.jsx';
+import { AttachmentBody, CorrectionBody, FiltersBody, PreviewBody } from '@/components/work/QDialogs.jsx';
 
 // Detail-pane empty state art: a glowing magnifier over a question mark, with a few stars.
 const PaneArt = () => (
@@ -38,7 +38,7 @@ export default function TextQuestionsPage({ tq, route, mobile, ui }) {
   const viewing = q && !route.editor && !route.timeline ? q.id : null;
   useEffect(() => {
     if (viewing) tq.openQuestion(viewing);
-    if (viewing && !mobile && window.matchMedia('(max-width: 1180px)').matches) {
+    if (viewing && window.matchMedia('(max-width: 1180px)').matches) {
       requestAnimationFrame(() => paneRef.current?.scrollIntoView({ block: 'start' }));
     }
   }, [viewing]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -69,35 +69,44 @@ export default function TextQuestionsPage({ tq, route, mobile, ui }) {
 
   if (route.timeline) return <TimelinePage q={q} campaignName={tq.campaignName(q.camp)} />;
 
-  if (route.editor && isOpen(q) && q.status !== 'Correction Requested') {
-    const preview = () => {
-      const text = q.draft.trim();
-      ui.dialog({
-        title: 'Preview Answer',
-        body: (close) => (
-          <PreviewBody q={q} text={text} onBack={close} onSubmit={() => {
-            tq.submitAnswer(q.id, text); close(); ui.toast('Answer submitted. The user can see it now.'); navigate(routes.detail(q.id));
-          }} />
-        ),
-      });
-    };
-    const addLink = () => ui.dialog({
-      title: 'Add Link',
-      body: (close) => <AddLinkForm onCancel={close} onAdd={(url) => { tq.addLink(q.id, url); close(); }} />,
+  const items = filterQuestions(tq.questions, { cat, tab: tq.tab, prio: tq.prio, f: tq.filters });
+  // Desktop opens with the first (oldest) question shown, without marking it opened (AD-51);
+  // clicking a row opens it.
+  const shown = q || items[0] || null;
+  const preview = () => {
+    const text = shown.draft.trim();
+    ui.dialog({
+      title: 'Preview Answer',
+      body: (close) => (
+        <PreviewBody q={shown} text={text} onBack={close} onSubmit={() => {
+          tq.submitAnswer(shown.id, text); close(); ui.toast('Answer submitted. The user can see it now.'); navigate(routes.detail(shown.id));
+        }} />
+      ),
     });
+  };
+  const addLink = () => ui.dialog({
+    title: 'Add Link',
+    body: (close) => <AddLinkForm onCancel={close} onAdd={(url) => { tq.addLink(shown.id, url); close(); }} />,
+  });
+
+  if (route.editor && isOpen(q) && q.status !== 'Correction Requested') {
     return <AnswerPage key={q.id} q={q} tq={tq} onPreview={preview} onAddLink={addLink} toast={ui.toast} />;
   }
 
-  const detail = q && <QDetail q={q} campaignName={tq.campaignName(q.camp)} {...handlers} />;
-  if (mobile && q) return detail;
-
-  const items = filterQuestions(tq.questions, { cat, tab: tq.tab, prio: tq.prio, f: tq.filters });
+  const openFile = (name) => ui.dialog({
+    title: 'Attachment',
+    body: (close) => <AttachmentBody q={shown} name={name} onClose={close} />,
+  });
+  const detail = shown && <QDetail key={shown.id} q={shown} campaignName={tq.campaignName(shown.camp)} tq={tq} onPreview={preview} onAddLink={addLink} onOpenFile={openFile} toast={ui.toast} {...handlers} />;
   const list = (
     <div className="lbox">
-      <QuestionToolbar filters={tq.filters} onSearch={tq.setSearch} onOpenFilters={openFilters} />
+      <div className="lhead">
+        <h2>{tq.tab === 'received' ? 'Pending questions' : (TABS.find((t) => t.key === tq.tab) || TABS[0]).label}</h2>
+        <span className="muted sm">{items.length} shown · oldest first</span>
+      </div>
       <div className="list" id="qlist">
         {items.length
-          ? items.map((x) => <QCard key={x.id} q={x} campaignName={tq.campaignName(x.camp)} selected={x.id === q?.id} />)
+          ? items.map((x) => <QCard key={x.id} q={x} campaignName={tq.campaignName(x.camp)} selected={x.id === shown?.id} mobile={mobile} />)
           : (
             <div className="empty">
               <b>No questions here</b>
@@ -111,14 +120,13 @@ export default function TextQuestionsPage({ tq, route, mobile, ui }) {
 
   return (
     <>
-      <QHeader tq={tq} cat={cat} />
-      {mobile ? list : (
+      <QHeader tq={tq} cat={cat} toolbar={<QuestionToolbar filters={tq.filters} onSearch={tq.setSearch} onOpenFilters={openFilters} />} />
+      {(
         <div className="split">
           {list}
           <div className="pane" ref={paneRef}>
-            {q ? (
+            {shown ? (
               <>
-                <button type="button" className="btn btn-o sm pg-back" onClick={() => navigate(routes.listFor(cat))}>‹ Back</button>
                 {detail}
               </>
             ) : (
