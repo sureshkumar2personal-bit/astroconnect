@@ -1,8 +1,8 @@
 import { Badge, BtnRow, Sec } from '@/components/ui/sectionKit.jsx';
 import { callsActions, sessionTime, svcName } from '@/hooks/useCalls.js';
 
-// "Live status" card: the single availability lock (AD-105) and the prototype request
-// simulator, or the running session with timer, disconnect and end (AD-107, AD-109).
+// "Live status" card: waiting-request counts and the prototype request simulator, or the
+// running session with timer, disconnect and end (AD-107, AD-109).
 export default function LiveStatus({ st, av, ui }) {
   const c = st.session;
   const simulate = (s) => { const err = callsActions.simulate(s, av); if (err) ui.toast(err); };
@@ -21,14 +21,15 @@ export default function LiveStatus({ st, av, ui }) {
           <p className="muted sm">The user sees an extension option 1 minute before the package ends; if they pay, the same session continues. The other service stays unavailable until this session ends. DND can't be turned on during a session.</p>
           <BtnRow>
             <button type="button" className="btn btn-o" onClick={callsActions.drop} disabled={!!c.dropAt}>Simulate disconnect</button>
-            <button type="button" className="btn btn-p danger-f" onClick={callsActions.end}>End session</button>
+            <button type="button" className="btn btn-o" onClick={() => callsActions.setMode('expanded')}>Open consultation</button>
+            <button type="button" className="btn btn-p danger-f" onClick={callsActions.end}>End {c.s === 'call' ? 'call' : 'chat'}</button>
           </BtnRow>
           <span className="muted sm">Prototype — no call, audio or chat is connected.</span>
         </>
       ) : (
         <>
-          <div className="row"><span className="grow">Lock</span><Badge kind="info">{st.lock ? `Busy — ${st.lock}` : 'Free'}</Badge></div>
-          <p className="muted sm">Try an incoming request (prototype):</p>
+          <div className="row"><span className="grow">Waiting requests</span><Badge kind="info">{`Calls ${st.queue?.call?.length || 0} · Chats ${st.queue?.chat?.length || 0}`}</Badge></div>
+          <p className="muted sm">Requests arrive automatically while a service is ON (prototype source: existing customers). For testing, add one now:</p>
           <BtnRow>
             <button type="button" className="btn btn-p" onClick={() => simulate('call')}>Simulate Call request</button>
             <button type="button" className="btn btn-o" onClick={() => simulate('chat')}>Simulate Chat request</button>

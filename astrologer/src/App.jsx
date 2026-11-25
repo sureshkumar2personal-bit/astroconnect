@@ -3,6 +3,8 @@ import BottomNav from '@/layout/BottomNav.jsx';
 import HomeHeader from '@/layout/HomeHeader.jsx';
 import ActivityTicker from '@/components/home/ActivityTicker.jsx';
 import DndBanner from '@/components/home/DndBanner.jsx';
+import RequestRail from '@/components/home/RequestRail.jsx';
+import SessionWindow from '@/components/calls/SessionWindow.jsx';
 import EarningsCard from '@/components/home/EarningsCard.jsx';
 import TodaysWorkSection from '@/components/home/TodaysWorkSection.jsx';
 import useHomeUi from '@/components/home/useHomeUi.jsx';
@@ -10,6 +12,7 @@ import RecentActivityCard from '@/components/home/RecentActivityCard.jsx';
 import RecentReviewsCard from '@/components/home/RecentReviewsCard.jsx';
 import useTheme from '@/hooks/useTheme.js';
 import useAvailability from '@/hooks/useAvailability.js';
+import { useIncomingRequests } from '@/lib/requestSource.js';
 import useTextQuestions from '@/hooks/useTextQuestions.js';
 import { TODAY, answeredToday } from '@/lib/textQuestions.js';
 import useAppointments from '@/hooks/useAppointments.js';
@@ -33,6 +36,7 @@ export default function App() {
   const { theme, toggle } = useTheme();
   const textQuestions = useTextQuestions();
   const availability = useAvailability(answeredToday(textQuestions.questions, 'text'));
+  useIncomingRequests(availability); // Instant Call / Chat requests arrive on every page, including the Dashboard
   const appointments = useAppointments();
   const path = useHashPath();
   const route = parseRoute(path);
@@ -59,6 +63,7 @@ export default function App() {
           <HomeHeader theme={theme} onToggleTheme={toggle} name={astrologer.firstName} initial={astrologer.initial} unread={unread} dateLabel={dateLabel}
             availability={availability} ui={home.ui} earnToday={earnings.today} actions={quickActions} />
           <DndBanner a={availability} ui={home.ui} />
+          <RequestRail a={availability} home />
           <ActivityTicker apt={appointments} paused={availability.dnd} />
           <TodaysWorkSection tq={textQuestions} apt={appointments} a={availability} />
           <div className="ac-grid ac-grid--triple">
@@ -71,6 +76,8 @@ export default function App() {
           {home.node}
         </main>
       )}
+      {/* The accepted Instant Call / Chat session window (compact, workspace or pill) on every page. */}
+      <SessionWindow availability={availability} />
       <BottomNav active={tab} />
     </div>
   );

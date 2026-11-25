@@ -1,12 +1,38 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { isFreshLogin, loadAvailability, saveAvailability } from '@/lib/session.js';
 
 // Availability rules: AD-04 – AD-09 (docs/02-astrologer-app/01_HOME_SCREEN.md), shared live by
 // Home, Instant Call & Chat and Profile (App passes one instance to every page).
 // mode: 'online' | 'offline' | null (null = DND just turned off, AD-08).
 // pu: Planned Unavailability period { start, end } (YYYY-MM-DD) or null (AD-09).
 // Daily Answer Goal default 10, as in the reference (tq.goal).
+/** Confirmation shown after Instant Call / Instant Chat is switched; `on` is the new state. */
+export const SERVICE_MESSAGES = {
+  chat: {
+    on: 'Instant Chat is now ON. You are available to receive chat requests.',
+    off: 'Instant Chat is now OFF. You will not receive new chat requests.',
+  },
+  call: {
+    on: 'Instant Call is now ON. You are available to receive call requests.',
+    off: 'Instant Call is now OFF. You will not receive new call requests.',
+  },
+};
+export const serviceMessage = (service, on) => SERVICE_MESSAGES[service][on ? 'on' : 'off'];
+
 export default function useAvailability(answeredToday) {
-  const [state, setState] = useState({ mode: 'online', call: true, chat: true, dnd: false, goal: 10, pu: null });
+  // Login (new tab or after Logout): Online, DND off, and Instant Call and Instant Chat OFF — the
+  // astrologer switches each one on from the dashboard header when ready. Refresh in the same session:
+  // everything as it was. Call and Chat are independent switches (AD-04 – AD-06); requests only arrive
+  // for a service that is ON while Online and not on DND (availableFor in hooks/useCalls.js).
+  const [state, setState] = useState(() => {
+    const base = { mode: 'online', call: false, chat: false, dnd: false, goal: 10, pu: null };
+    const saved = loadAvailability();
+    if (!saved) return base;
+    if (isFreshLogin) return { ...base, goal: saved.goal ?? 10, pu: saved.pu ?? null };
+    return { ...base, ...saved };
+  });
+  // Saved on every change, so every page and a refresh see the same availability.
+  useEffect(() => { saveAvailability(state); }, [state]);
 
   const actions = useMemo(
     () => ({

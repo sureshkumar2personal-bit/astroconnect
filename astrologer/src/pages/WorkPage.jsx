@@ -166,7 +166,7 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
       );
   } else if (view === 'campaigns') content = <CampaignsPage tq={tq} onAction={campaignAction} />;
   else if (view === 'templates') content = <TemplatesPage templates={tq.templates} onEdit={editTemplate} onDelete={deleteTemplate} />;
-  else content = <HistoryPage tq={tq} />;
+  else content = <HistoryPage tq={tq} cat={route.cat} />;
 
   const actions = m.tplAction
     ? <button type="button" className="btn btn-p" onClick={() => editTemplate(null)}>+ Create Template</button>
