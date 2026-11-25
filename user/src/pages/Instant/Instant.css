@@ -152,3 +152,8 @@
 .is-txtbtn { display:inline-flex; align-items:center; gap:6px; min-height:38px; padding:0 14px; border-radius:10px; border:0; font-weight:600; font-size:14px; color:#fff; } .is-txtbtn.ex { background:#2aa6a0; } .is-txtbtn.end { background:#d6453d; }
 .is-full .is-msgs { padding:16px 20px; }
 @media (max-width:760px) { .is-chat { right:8px; bottom:8px; } }
+
+/* Details form: captions on one line so the inputs sit at the same height */
+.in-f .in-cap { display:flex; align-items:baseline; gap:8px; min-height:22px; }
+.in-f .inp { min-height:48px; height:48px; box-sizing:border-box; }
+.in-two { align-items:start; }
