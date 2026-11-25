@@ -50,14 +50,13 @@ function InstantDetails() {
   const next = () => { if (validate()) navigate("/services/instant/pay"); };
   return (
     <div className="in-page page">
-      <div><button className="btn-g u-16" onClick={() => navigate("/services/" + bk.kind)}>{"← " + (wl ? "Waiting-list booking" : k.label)}</button></div>
+      <div><button className="in-crumb" onClick={() => navigate("/services/" + bk.kind)}>{"‹  " + (wl ? "Waiting-list booking" : k.label)}</button></div>
       <div className="in-head">
         <h1 className="in-h1">Your Consultation Details</h1>
         <p className="in-sub">{a.name + " will see these details when your " + k.name.toLowerCase() + " starts."}</p>
       </div>
-      <div className="in-cols">
-        <div className="in-main">
-          <section className="card in-card">
+      <div className="in-two-col">
+        <section className="card in-card">
             <div className="in-row"><h2>Birth details</h2><button className="in-link" onClick={fillFromProfile}>Fill from my profile</button></div>
             <label className="in-f"><span className="in-cap">Full name</span><input className="inp" value={det.name} onChange={set("name")} autoComplete="name" aria-invalid={!!e.name} />{e.name ? <em>{e.name}</em> : null}</label>
             <div className="in-two">
@@ -65,9 +64,9 @@ function InstantDetails() {
               <label className="in-f"><span className="in-cap">Time of birth <small>If known</small></span><input className="inp" type="time" value={det.tob} onChange={set("tob")} /></label>
             </div>
             <label className="in-f"><span className="in-cap">Place of birth <small>Optional</small></span><input className="inp" value={det.pob} placeholder="City, State" onChange={set("pob")} /></label>
-          </section>
-          <section className="card in-card">
-            <h2>Horoscope <small>Optional</small></h2>
+        </section>
+        <section className="card in-card">
+            <div className="in-row"><h2>Horoscope</h2><small className="in-opt-tag">Optional</small></div>
             <input ref={input} type="file" className="sr-only" accept="application/pdf,image/png,image/jpeg,image/webp" onChange={onFile} tabIndex={-1} aria-hidden="true" />
             {f ? (
               <div className="in-file">
@@ -84,25 +83,23 @@ function InstantDetails() {
               </div>
             ) : (
               <div className="in-drop">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" /></svg>
                 <b>Upload your horoscope</b>
                 <span>PDF, JPG, PNG or WEBP, up to {MAX_MB} MB. Optional: you can continue without one.</span>
-                <button className="btn-g" onClick={() => input.current && input.current.click()}>Choose file</button>
+                <button className="btn-p in-choose" onClick={() => input.current && input.current.click()}>Choose file</button>
                 <button className="in-link" onClick={useSample}>No file handy? Use a sample chart</button>
               </div>
             )}
             {fileErr ? <p className="in-err">{fileErr}</p> : null}
             <p className="in-note">{"Shared only with " + a.name + " for this consultation (D-37)."}</p>
-          </section>
-        </div>
-        <aside className="card in-card in-who">
-          <AstroAvatar id={a.id} size={64} name={a.name} />
-          <b>{a.name}</b>
-          <span className="in-pill">{k.label + (wl ? " waiting list" : "")}</span>
-        </aside>
+        </section>
       </div>
-      <div className="in-bar-actions">
-        <button className="btn-g" onClick={() => navigate("/services/" + bk.kind)}>Back</button>
-        <button className="btn-p" onClick={next}>Continue to Payment</button>
+      <div className="card in-foot">
+        <div className="in-footwho"><AstroAvatar id={a.id} size={44} name={a.name} /><div><small>{a.name}</small><b>{k.label + (wl ? " waiting list" : "")}</b></div></div>
+        <div className="in-footacts">
+          <button className="btn-g" onClick={() => navigate("/services/" + bk.kind)}>Back</button>
+          <button className="btn-p" onClick={next}>Continue to Payment</button>
+        </div>
       </div>
       {preview && f ? (
         <>
