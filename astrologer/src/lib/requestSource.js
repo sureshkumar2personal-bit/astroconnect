@@ -10,7 +10,7 @@ import { availableFor, callsActions, callsStore } from '@/hooks/useCalls.js';
 // passed through callsActions.receive) and return a function that disconnects.
 const FIRST_MS = [5000, 9000]; // first request after a service is switched ON
 const NEXT_MS = [18000, 30000]; // then one every 18–30 s
-const MAX_WAITING = 5; // stop adding while this many are already waiting in that queue
+const MAX_WAITING = 3; // Call and Chat share one waiting list of at most 3 users (WAITING_MAX)
 const between = ([a, b]) => a + Math.floor(Math.random() * (b - a));
 
 // Testing: localStorage 'ac-request-feed' = 'off' pauses this placeholder source (the test buttons still work).
@@ -33,7 +33,8 @@ export function useIncomingRequests(availability) {
   const callOn = availableFor(availability, 'call');
   const chatOn = availableFor(availability, 'chat');
   const receive = (s) => {
-    if (callsStore.get().queue[s].length >= MAX_WAITING) return;
+    const q = callsStore.get().queue;
+    if (q.call.length + q.chat.length >= MAX_WAITING) return;
     callsActions.receive(s, av.current);
   };
   useEffect(() => (callOn ? connect('call', receive) : undefined), [callOn]); // eslint-disable-line react-hooks/exhaustive-deps
