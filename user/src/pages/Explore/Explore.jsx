@@ -23,7 +23,7 @@ const KW = {
   Family: "family children parents", Education: "education studies exams", Relationships: "relationships love partner", "Home & Office": "home office property",
   Horoscope: "horoscope birth chart jathagam", "Kundli Matching": "kundli matching porutham compatibility", Muhurtham: "muhurtham muhurat auspicious dates", Gemstones: "gemstones remedies",
 };
-const GROUPS = [
+export const GROUPS = [
   { key: "avail", title: "Availability", opts: ["Online", "Offline"] },
   { key: "spec", title: "Specialization", opts: ["Vedic Astrology", "KP Astrology", "Numerology", "Vastu", "Palmistry", "Prashna", "Lal Kitab", "Tarot Reading", "Nadi Astrology"] },
   { key: "topic", title: "Expertise and topics", opts: ["Marriage", "Career", "Finance", "Family", "Health", "Education", "Relationships", "Home & Office", "Horoscope", "Kundli Matching", "Muhurtham", "Gemstones"] },
@@ -32,12 +32,12 @@ const GROUPS = [
   { key: "rating", title: "Rating", opts: ["4.0+", "4.5+", "4.8+"], single: true },
   { key: "rel", title: "Relationship", opts: ["Following", "Subscribed", "Not following"] },
 ];
-const EMPTY_F = () => ({ avail: [], spec: [], topic: [], lang: [], exp: [], rating: [], rel: [] });
+export const EMPTY_F = () => ({ avail: [], spec: [], topic: [], lang: [], exp: [], rating: [], rel: [] });
 const SORTS = [["recommended", "Recommended"], ["rating", "Highest rated"], ["exp", "Most experienced"], ["followers", "Most followed"], ["newest", "Newest first"]];
 const STOP = ["and", "&", "the", "of", "for", "in", "astrologer", "astrologers"];
 
 const expOk = (y, o) => (o === "0–5 years" ? y < 5 : o === "5–10 years" ? y >= 5 && y < 10 : o === "10–15 years" ? y >= 10 && y < 15 : y >= 15);
-function matchF(a, f) {
+export function matchF(a, f) {
   if (f.avail.length && f.avail.indexOf(a.online ? "Online" : "Offline") < 0) return false;
   if (f.spec.length && f.spec.indexOf(a.specLabel) < 0) return false;
   if (f.topic.length && !f.topic.some((t) => a.topics.indexOf(t) > -1)) return false;
@@ -47,7 +47,7 @@ function matchF(a, f) {
   if (f.rel.length && !f.rel.some((r) => (r === "Following" ? a.fol || a.sub : r === "Subscribed" ? a.sub : !a.fol && !a.sub))) return false;
   return true;
 }
-const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
+export const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
 
 export function ExCard({ a, onFollow, mode }) {
   const tags = a.expertise.slice(0, 3);
@@ -124,7 +124,7 @@ function Block({ id, title, desc, count, onMore, moreLabel, tools, children, emp
   );
 }
 
-function FiltersDrawer({ cards, draft, setDraft, onClose, onApply }) {
+export function FiltersDrawer({ cards, draft, setDraft, onClose, onApply, groups = GROUPS }) {
   const total = cards.filter((a) => matchF(a, draft)).length;
   const toggle = (g, o) => {
     setDraft((d) => {
@@ -142,7 +142,7 @@ function FiltersDrawer({ cards, draft, setDraft, onClose, onApply }) {
           <button className="ico" onClick={onClose} aria-label="Close filters"><Icon d={IC.close} /></button>
         </div>
         <div className="xp-dbody">
-          {GROUPS.map((g) => (
+          {groups.map((g) => (
             <div key={g.key} role="group" aria-label={g.title} className="xp-group">
               <div className="xp-ghead"><h3>{g.title}</h3>{draft[g.key].length ? <span>{g.single ? draft[g.key][0] : draft[g.key].length + " selected"}</span> : null}</div>
               <div className="xp-opts">
@@ -222,9 +222,9 @@ function ExploreMain() {
   const subs = cards.filter((a) => a.sub);
   const followed = cards.filter((a) => a.fol && !a.sub);
   const SECS = {
-    subscribed: { title: "Subscribed astrologers", desc: "Astrologers you have an active paid subscription with.", list: subs, empty: ["No subscriptions yet", "Subscribe to an astrologer to ask questions and book appointments."] },
-    followed: { title: "Astrologers you follow", desc: "Astrologers you follow on AstroConnect.", list: followed, empty: ["You are not following anyone yet", "Follow astrologers you like and they’ll appear here."] },
-    popular: { title: "Popular astrologers", desc: "Ranked by followers and ratings on AstroConnect.", list: cards.slice().sort((x, y) => y.followersN * Number(y.ratingAvg) - x.followersN * Number(x.ratingAvg)) },
+    subscribed: { title: "Subscribed astrologers", list: subs, empty: ["No subscriptions yet", "Subscribe to an astrologer to ask questions and book appointments."] },
+    followed: { title: "Astrologers you follow", list: followed, empty: ["You are not following anyone yet", "Follow astrologers you like and they’ll appear here."] },
+    popular: { title: "Popular astrologers", list: cards.slice().sort((x, y) => y.followersN * Number(y.ratingAvg) - x.followersN * Number(x.ratingAvg)) },
   };
   const grid = (list) => (<div className="xp-grid">{list.map((a) => (<ExCard key={a.id} a={a} onFollow={onFollow} />))}</div>);
 
@@ -250,7 +250,6 @@ function ExploreMain() {
     <div className="explore-page page xp-page">
       <section className="xp-intro">
         <h1>Explore</h1>
-        <p>Discover astrologers, explore their expertise and connect with the ones you like.</p>
         <div className="xp-searchrow">
           <label className="xp-search">
             <Icon d={IC.search} size={18} />
@@ -267,7 +266,7 @@ function ExploreMain() {
 
       <section className="xp-cats" aria-labelledby="cat-h">
         <div className="xp-bhead">
-          <div><h2 id="cat-h">Explore by category</h2><p className="xp-bdesc">Browse by specialization or by what you need help with.</p></div>
+          <div><h2 id="cat-h">Explore by category</h2></div>
           {cat ? <button className="xp-more-btn" onClick={() => setCat(null)}>Clear category</button> : null}
         </div>
         <div className="xp-tiles">
@@ -307,7 +306,7 @@ function ExploreMain() {
               {grid(SECS[k].list.slice(0, 3))}
             </Block>
           ))}
-          <Block id="all" title="Explore all astrologers" desc="Every astrologer on AstroConnect. Sort, filter or search to narrow down." count={cards.length + " astrologers"} tools={sortTools} loadMore={loadMore(sorted(cards))}
+          <Block id="all" title="Explore all astrologers" count={cards.length + " astrologers"} tools={sortTools} loadMore={loadMore(sorted(cards))}
             shown={cards.length <= lim ? "You’ve seen all " + cards.length + " astrologers" : null}>
             {grid(sorted(cards).slice(0, lim))}
           </Block>

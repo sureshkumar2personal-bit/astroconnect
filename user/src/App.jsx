@@ -27,6 +27,11 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import Help from "./pages/Help/Help";
 import Login from "./pages/Login/Login";
 import InstantList from "./pages/InstantList/InstantList";
+import { InstantProvider } from "./pages/Instant/InstantContext";
+import InstantDetails from "./pages/Instant/InstantDetails";
+import InstantPay from "./pages/Instant/InstantPay";
+import InstantWaiting from "./pages/Instant/InstantWaiting";
+import InstantRefund from "./pages/Instant/InstantRefund";
 
 function Shell() {
   const { pathname } = useLocation();
@@ -43,12 +48,17 @@ function Shell() {
       <Navbar />
       <main className="scr app-main" ref={mainRef}>
         <div className="app-content">
+          <InstantProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/explore/:section" element={<Explore />} />
             <Route path="/astro" element={<AstrologerProfile />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/instant/details" element={<InstantDetails />} />
+            <Route path="/services/instant/pay" element={<InstantPay />} />
+            <Route path="/services/instant/waiting" element={<InstantWaiting />} />
+            <Route path="/services/instant/refund" element={<InstantRefund />} />
             <Route path="/services/:kind" element={<InstantList />} />
             <Route path="/text" element={<TextQuestion />} />
             <Route path="/text/:tab" element={<TextQuestion />} />
@@ -69,6 +79,7 @@ function Shell() {
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </InstantProvider>
         </div>
       </main>
       <NotifDropdown />

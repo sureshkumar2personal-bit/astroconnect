@@ -13,7 +13,6 @@ function Activity() {
     <div className="activity-page page">
       <div>
         <h1 className="u-22">Activity</h1>
-        <p className="u-23">Services you have already bought or used.</p>
       </div>
       <div className="u-12">
         {app.actTabs.map((t, i1) => (

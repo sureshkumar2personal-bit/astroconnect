@@ -1,3 +1,55 @@
 :root .il-page .il-head { display:flex; flex-direction:column; gap:4px; }
 :root .il-page .il-intro { margin:0; color:var(--muted); font-size:16px; }
 :root .il-page .il-count { margin:0; color:var(--subtle); font-size:14px; }
+
+:root .il-page .il-tabs { display:flex; gap:8px; margin:12px 0 4px; }
+:root .il-page .il-tab { flex:1; max-width:220px; min-height:44px; padding:0 16px; border-radius:12px; border:1px solid var(--line, rgba(255,255,255,0.18)); background:transparent; color:inherit; font-weight:600; }
+:root .il-page .il-tab.on { border-color:var(--acc); color:var(--acc); background:rgba(255,255,255,0.06); }
+
+:root .il-page .il-sec { margin:20px 0 12px; font-size:22px; }
+:root .il-page .il-none { margin:0; color:var(--muted); }
+:root .il-page .il-busy { position:relative; display:flex; flex-direction:column; gap:12px; min-width:0; padding:18px; }
+:root .il-page .il-busy .xp-card { background:none; border:0; box-shadow:none; padding:0; }
+:root .il-page .il-busy .xp-actions { display:none; }
+:root .il-page .il-pill { position:absolute; top:16px; right:16px; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:700; background:rgba(246,194,68,0.18); color:#F6C244; pointer-events:none; }
+:root .il-page .il-busy-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+:root .il-page .il-b { height:44px; min-height:44px; flex:1 1 0; min-width:0; padding:0 10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+:root .il-page .il-b[disabled] { opacity:.5; cursor:not-allowed; }
+:root .il-page .il-meter { margin-top:auto; display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:12px; background:rgba(255,255,255,0.05); }
+:root .il-page .il-boxes { display:flex; gap:5px; }
+:root .il-page .il-box { width:16px; height:16px; border-radius:4px; border:1.5px solid var(--subtle, #8a8a99); background:transparent; box-sizing:border-box; }
+:root .il-page .il-box.on { background:var(--subtle, #8a8a99); }
+:root .il-page .il-box.mine { background:var(--acc); border-color:var(--acc); }
+:root .il-page .il-wl { color:var(--subtle); font-size:13px; }
+
+:root .il-page .il-tools { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+:root .il-page .il-search { flex:1; min-width:240px; }
+:root .il-page .il-search input { width:100%; min-height:48px; padding:0 16px; border-radius:14px; background:rgba(var(--bg0),.6); border:1px solid rgba(var(--ln),.35); color:var(--ink); font:inherit; }
+:root .il-page .il-sort { width:auto; min-height:48px; }
+:root .il-page .il-note { margin:-4px 0 12px; color:var(--muted); font-size:14px; }
+:root .il-page .il-banner { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding:14px 18px; border-radius:16px; background:rgba(var(--gl),.14); border:1px solid rgba(var(--ln),.3); }
+:root .il-page .il-banner div { display:flex; flex-direction:column; } :root .il-page .il-banner span { color:var(--muted); font-size:14px; }
+
+/* Instant card (layout from the approved prototype) */
+:root .il-page .xp-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+:root .il-page .ic-card { padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0; }
+:root .il-page .ic-top { display:flex; gap:12px; align-items:flex-start; }
+:root .il-page .ic-ph { position:relative; flex:none; width:56px; height:56px; display:block; }
+:root .il-page .ic-dot { position:absolute; right:0; bottom:0; width:13px; height:13px; border-radius:50%; background:#2ec27e; border:2px solid var(--surf); }
+:root .il-page .ic-dot.busy { background:#f0a030; }
+:root .il-page .ic-id { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+:root .il-page .ic-line { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+:root .il-page .ic-line h3 { margin:0; font:600 19px var(--font-head); font-variant-numeric:lining-nums; }
+:root .il-page .ic-st { font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; background:rgba(var(--gn),.16); color:var(--green); white-space:nowrap; }
+:root .il-page .ic-st.busy { background:rgba(var(--gd),.18); color:var(--gold); }
+:root .il-page .ic-spec { font-size:13.5px; color:var(--muted); }
+:root .il-page .ic-stats { display:flex; gap:12px; font-size:13px; color:var(--muted); flex-wrap:wrap; } :root .il-page .ic-stats b { color:var(--ink); display:inline-flex; align-items:center; gap:3px; } :root .il-page .ic-stats b svg { color:var(--gold); }
+:root .il-page .ic-badges { display:flex; gap:6px; flex-wrap:wrap; min-height:0; }
+:root .il-page .ic-badge { font-size:12px; font-weight:600; padding:2px 10px; border-radius:8px; background:rgba(var(--gn),.14); color:var(--green); }
+:root .il-page .ic-badge.plan { background:rgba(var(--gd),.14); color:var(--gold); border:1px solid rgba(var(--gd),.3); } :root .il-page .ic-badge.new { background:rgba(var(--gd),.2); color:var(--gold); }
+:root .il-page .ic-tags { display:flex; gap:6px; flex-wrap:wrap; } :root .il-page .ic-tags span { font-size:12.5px; padding:2px 10px; border-radius:999px; background:rgba(var(--gl),.12); border:1px solid rgba(var(--ln),.25); color:var(--em); }
+:root .il-page .ic-lang, :root .il-page .ic-note { font-size:13px; color:var(--muted); }
+:root .il-page .ic-price { margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; padding-top:10px; border-top:1px solid rgba(var(--ln),.18); } :root .il-page .ic-price b { font:600 22px var(--font-head); } :root .il-page .ic-price small { color:var(--subtle); font-size:13px; }
+:root .il-page .ic-cta { width:100%; min-height:46px; }
+@media (max-width:1024px) { :root .il-page .xp-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:640px) { :root .il-page .xp-grid { grid-template-columns:minmax(0,1fr); } }
