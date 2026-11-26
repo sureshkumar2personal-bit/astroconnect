@@ -51,57 +51,42 @@ export const nSel = (f) => Object.keys(f).reduce((n, k) => n + f[k].length, 0);
 
 export function ExCard({ a, onFollow, mode }) {
   const tags = a.expertise.slice(0, 3);
-  const more = a.expertise.length - tags.length;
+  const busy = a.avail === "Busy", off = !a.online;
+  const state = off ? "off" : busy ? "busy" : "";
   return (
-    <article className="card xp-card">
-      <div className="xp-top">
-        <button className="xp-who" onClick={a.open} aria-label={"Open " + a.name + " profile"}>
-          <span className="xp-ph"><AstroAvatar id={a.id} size={56} name={a.name} />{a.online ? <i className="xp-on" /> : null}</span>
-          <span className="xp-id">
-            <span className="xp-name">{a.name}{a.isNew ? <em className="xp-new">New</em> : null}</span>
+    <article className="card ic-card" aria-label={a.name}>
+      <div className="ic-top">
+        <button className="ic-who" onClick={a.open} aria-label={"Open " + a.name + " profile"}>
+          <span className="ic-ph"><AstroAvatar id={a.id} size={56} name={a.name} /><i className={"ic-dot" + (state ? " " + state : "")} /></span>
+          <span className="ic-id">
+            <span className="ic-line"><h3>{a.name}</h3><span className={"ic-st" + (state ? " " + state : "")}>{off ? "Offline" : busy ? "Busy" : "Available"}</span></span>
+            <span className="ic-spec">{a.specLabel}</span>
+            <span className="ic-stats"><span><b><Icon d={IC.star} size={14} fill />{a.ratingAvg}</b>{" (" + a.ratingN + ")"}</span><span>{a.yearsN + " yrs"}</span><span>{a.followers.replace(" Followers", "")}</span></span>
           </span>
         </button>
-        <div className="xp-side">
-          {a.sub ? (
-            <span className="xp-subbadge"><Icon d={IC.check} size={13} />Subscribed</span>
-          ) : mode ? null : (
-            <button className={"xp-follow" + (a.fol ? " on" : "")} aria-pressed={a.fol} aria-label={(a.fol ? "Unfollow " : "Follow ") + a.name} onClick={() => onFollow(a)}>
-              <Icon d={a.fol ? IC.check : IC.plus} size={14} />{a.fol ? "Following" : "Follow"}
-            </button>
-          )}
-
+      </div>
+      <div className="ic-badges">
+        {a.sub ? <span className="ic-badge plan">{a.planText ? a.planText.replace(" plan · until", ", till").replace(" (IST)", "") : "Subscribed"}</span> : null}
+        {a.isNew ? <span className="ic-badge new">New</span> : null}
+        {!a.sub && !mode ? (
+          <button className={"ic-follow" + (a.fol ? " on" : "")} aria-pressed={a.fol} aria-label={(a.fol ? "Unfollow " : "Follow ") + a.name} onClick={() => onFollow(a)}>
+            <Icon d={a.fol ? IC.check : IC.plus} size={13} />{a.fol ? "Following" : "Follow"}
+          </button>
+        ) : null}
+      </div>
+      <div className="ic-tags">{tags.map((t, i) => (<span key={i}>{t}</span>))}</div>
+      <div className="ic-lang">{a.langList.join(", ")}</div>
+      <div className="ic-note">Prepaid minimum 5 min</div>
+      <div className="ic-price">
+        <span><b>{"₹" + (mode === "chat" ? a.chatFrom : a.callFrom)}</b><small>{mode === "chat" ? " / 5 min chat" : mode === "call" ? " / 5 min call" : " / 5 min call · ₹" + a.chatFrom + " chat"}</small></span>
+        <button className="ic-link" onClick={a.open}>View Profile</button>
+      </div>
+      {a.canContact ? (
+        <div className="ic-ctas">
+          {mode !== "chat" ? <button className="btn-p ic-cta" onClick={a.call} aria-label={"Call " + a.name}>Call Now</button> : null}
+          {mode !== "call" ? <button className="btn-p ic-cta" onClick={a.chat} aria-label={"Chat with " + a.name}>Chat Now</button> : null}
         </div>
-      </div>
-      <div className="xp-meta">
-        {a.planText ? <span className="xp-plan">{a.planText}</span> : null}
-        <span className={"xp-avail" + (a.online ? " on" : "")}><i />{a.online ? "Online now" : "Offline"}</span>
-      </div>
-      <div className="xp-stats">
-        <div><b><Icon d={IC.star} size={14} fill />{a.ratingAvg}</b><span>{a.ratingN + (a.ratingN === 1 ? " review" : " reviews")}</span></div>
-        <div><b>{a.yearsN + (a.yearsN === 1 ? " yr" : " yrs")}</b><span>Experience</span></div>
-        <div><b>{a.followers.replace(" Followers", "")}</b><span>Followers</span></div>
-      </div>
-      <div className="xp-tags">
-        {tags.map((t, i) => (<span key={i} className="xp-tag">{t}</span>))}
-        {more > 0 ? <span className="xp-tag xp-more">{"+" + more + " more"}</span> : null}
-      </div>
-      <p className="xp-langs"><Icon d={IC.globe} size={14} />{a.langList.join(", ")}</p>
-      <p className="xp-price" title={a.priceText}>{"Call from ₹" + a.callFrom + " · Chat from ₹" + a.chatFrom}<span>Prepaid, 5 min minimum</span></p>
-      <div className="xp-actions">
-        {a.canContact ? (
-          <>
-            {mode !== "chat" ? (
-              <button className="xp-btn xp-call" onClick={a.call} aria-label={"Call " + a.name}><Icon d={IC.phone} />Call</button>
-            ) : null}
-            {mode !== "call" ? (
-              <button className="xp-btn xp-chat" onClick={a.chat} aria-label={"Chat with " + a.name}><Icon d={IC.chat} />Chat</button>
-            ) : null}
-          </>
-        ) : (
-          <span className="xp-off">{a.avail}</span>
-        )}
-        <button className="xp-btn xp-view" onClick={a.open}>Profile</button>
-      </div>
+      ) : null}
     </article>
   );
 }

@@ -3,23 +3,61 @@
   border:0;
   color:var(--acc);
   text-decoration:underline;
+  text-underline-offset:4px;
   font-size:17px;
-  padding:0;
+  font-weight:600;
+  padding:0 6px;
   min-height:44px;
 }
 
-:root .services-page .services-2 {
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+/* Tints: dark theme tints the glass; light theme uses soft pastel fills */
+:root .services-page {
+  --sv-1: #8fd0a0; --sv-2: #f0b060; --sv-3: #6fd4c8; --sv-4: #c9a8f0;
 }
+:root .services-page .sv-t1 { --ic:var(--sv-1); --bg:color-mix(in srgb, var(--sv-1) 13%, var(--glass-base)); --bd:color-mix(in srgb, var(--sv-1) 32%, transparent); }
+:root .services-page .sv-t2 { --ic:var(--sv-2); --bg:color-mix(in srgb, var(--sv-2) 13%, var(--glass-base)); --bd:color-mix(in srgb, var(--sv-2) 32%, transparent); }
+:root .services-page .sv-t3 { --ic:var(--sv-3); --bg:color-mix(in srgb, var(--sv-3) 13%, var(--glass-base)); --bd:color-mix(in srgb, var(--sv-3) 32%, transparent); }
+:root .services-page .sv-t4 { --ic:var(--sv-4); --bg:color-mix(in srgb, var(--sv-4) 13%, var(--glass-base)); --bd:color-mix(in srgb, var(--sv-4) 32%, transparent); }
+:root[data-theme="light"] .services-page .sv-t1 { --bg:#E6EEE3; --bd:#CCDBC8; --ic:#456B53; }
+:root[data-theme="light"] .services-page .sv-t2 { --bg:#F7E9D8; --bd:#EBD5B9; --ic:#9A5B24; }
+:root[data-theme="light"] .services-page .sv-t3 { --bg:#DDEFEC; --bd:#BFDDD8; --ic:#23706E; }
+:root[data-theme="light"] .services-page .sv-t4 { --bg:#ECE7F3; --bd:#D8CFE6; --ic:#62528F; }
 
-:root .services-page .services-3 {
-  font:600 26px/1.2 var(--font-head); font-variant-numeric:lining-nums;
+:root .services-page .sv-sec { margin:0 0 28px; font-family:var(--font-head); font-weight:700; font-size:36px; line-height:1.1; }
+
+:root .services-page .sv-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; }
+:root .services-page .sv-card {
+  display:flex; flex-direction:column; align-items:flex-start; text-align:left; gap:10px;
+  min-height:220px; padding:18px; border-radius:20px; cursor:pointer;
+  background-color:var(--bg); border:1px solid var(--bd); color:var(--ink);
+  font-family:inherit; transition:transform .15s, border-color .2s;
 }
+:root .services-page .sv-card:hover { transform:translateY(-2px); border-color:var(--ic); }
+:root .services-page .sv-card:active { transform:scale(.985); }
+:root .services-page .sv-card:focus-visible { outline:2px solid var(--ic); outline-offset:2px; }
+:root .services-page .sv-ib { width:46px; height:46px; border-radius:14px; flex:none; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.12); border:1px solid var(--bd); }
+:root[data-theme="light"] .services-page .sv-ib { background:rgba(255,255,255,.75); }
+:root .services-page .sv-ib svg { stroke:var(--ic); }
+:root .services-page .sv-card h3 { margin:0; font-family:var(--font-head); font-weight:700; font-size:25px; line-height:1.1; }
+:root .services-page .sv-card p { margin:0; font-size:17px; line-height:1.3; color:var(--muted); }
+:root .services-page .sv-ex {
+  margin-top:auto; display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:6px 14px;
+  border-radius:999px; background:rgba(255,255,255,.1); border:1px solid var(--bd); font-weight:600; font-size:16px; color:var(--ink);
+}
+:root[data-theme="light"] .services-page .sv-ex { background:rgba(255,255,255,.85); }
+:root .services-page .sv-ex svg { transition:transform .15s; }
+:root .services-page .sv-card:hover .sv-ex svg { transform:translateX(2px); }
 
-:root .services-page .services-4 {
-  color:var(--muted);
-  line-height:1.4;
+:root .services-page .sv-prev {
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px;
+  padding:14px 18px; border-radius:16px; border:1.5px dashed rgba(var(--ln), .4);
+}
+:root .services-page .sv-prev h2 { margin:0; font-family:var(--font-head); font-weight:700; font-size:21px; }
+
+@media (max-width:640px) {
+  :root .services-page .sv-sec { font-size:30px; margin-bottom:20px; }
+  :root .services-page .sv-grid { gap:12px; }
+  :root .services-page .sv-card { min-height:200px; padding:14px; }
+  :root .services-page .sv-card h3 { font-size:22px; }
+  :root .services-page .sv-card p { font-size:16px; }
 }
