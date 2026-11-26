@@ -4,8 +4,8 @@
 
 export const astrologerProfile = { name: 'Ananya R.', role: 'Astrologer', initial: 'A' };
 
-// Monthly quota 1,000 and minimum answer target 800 (AD-24, AD-52). `answeredMonth` is sample progress.
-export const quotaSeed = { quota: 1000, target: 800, answeredMonth: 512, goal: 10 };
+// Monthly quota and minimum answer target 800 (AD-24, AD-52). Sample seed: the quota is 1,300 so the 14 sample campaigns fit with slots to spare; `answeredMonth` is sample progress.
+export const quotaSeed = { quota: 1300, target: 800, answeredMonth: 512, goal: 10 };
 
 // Open Questions: submitted without choosing a campaign (AD-54). Discounts: { on, pct } (AD-56).
 export const openSeed = { gSlots: 120, pSlots: 80, gSold: 70, pSold: 35, pg: 149, pp: 349, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 } };
@@ -15,6 +15,19 @@ export const campaigns = [
   { id: 'c1', name: 'Marriage', special: false, label: '', G: true, P: true, start: '2026-11-01', end: '2026-11-30', gSlots: 180, pSlots: 120, gSold: 140, pSold: 90, pg: 199, pp: 399, gDisc: { on: true, pct: 10 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
   { id: 'c2', name: 'Career', special: false, label: '', G: true, P: true, start: '2026-11-01', end: '2026-12-15', gSlots: 150, pSlots: 100, gSold: 90, pSold: 60, pg: 249, pp: 449, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
   { id: 'c3', name: 'Navaratri Blessings', special: true, label: 'Navaratri Special', G: true, P: true, start: '2026-11-12', end: '2026-11-22', gSlots: 100, pSlots: 50, gSold: 40, pSold: 20, pg: 299, pp: 599, gDisc: { on: false, pct: 0 }, pDisc: { on: true, pct: 20 }, status: 'Active' },
+  { id: 'c4', name: 'Diwali Blessings', special: true, label: 'Diwali', G: true, P: true, start: '2026-11-01', end: '2026-11-10', gSlots: 60, pSlots: 25, gSold: 48, pSold: 20, pg: 199, pp: 499, gDisc: { on: true, pct: 20 }, pDisc: { on: true, pct: 10 }, status: 'Active' },
+  { id: 'c5', name: 'Health & Wellness', special: false, label: '', G: true, P: false, start: '2026-11-05', end: '2026-11-30', gSlots: 40, pSlots: 0, gSold: 22, pSold: 0, pg: 149, pp: 0, gDisc: { on: true, pct: 5 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c6', name: 'Karthigai Deepam Special', special: true, label: 'Karthigai Deepam', G: true, P: true, start: '2026-11-28', end: '2026-12-05', gSlots: 30, pSlots: 20, gSold: 0, pSold: 0, pg: 199, pp: 499, gDisc: { on: true, pct: 20 }, pDisc: { on: true, pct: 10 }, status: 'Active' },
+  { id: 'c7', name: 'Finance & Wealth', special: false, label: '', G: false, P: true, start: '2026-11-08', end: '2026-12-07', gSlots: 0, pSlots: 30, gSold: 0, pSold: 12, pg: 0, pp: 499, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c8', name: 'Education & Exams', special: false, label: '', G: true, P: false, start: '2026-11-02', end: '2026-11-30', gSlots: 40, pSlots: 0, gSold: 8, pSold: 0, pg: 129, pp: 0, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Cancelled' },
+  { id: 'c9', name: 'Property Matters', special: false, label: '', G: true, P: false, start: '2026-11-01', end: '2026-11-20', gSlots: 20, pSlots: 0, gSold: 15, pSold: 0, pg: 169, pp: 0, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c10', name: 'Love & Relationships', special: false, label: '', G: true, P: true, start: '2026-11-10', end: '2026-12-09', gSlots: 50, pSlots: 30, gSold: 30, pSold: 18, pg: 179, pp: 399, gDisc: { on: true, pct: 10 }, pDisc: { on: true, pct: 10 }, status: 'Active' },
+  { id: 'c11', name: 'Children & Family', special: false, label: '', G: true, P: false, start: '2026-11-29', end: '2026-12-10', gSlots: 20, pSlots: 0, gSold: 0, pSold: 0, pg: 159, pp: 0, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c12', name: 'Travel & Relocation', special: false, label: '', G: false, P: true, start: '2026-11-12', end: '2026-12-11', gSlots: 0, pSlots: 15, gSold: 0, pSold: 5, pg: 0, pp: 449, gDisc: { on: false, pct: 0 }, pDisc: { on: true, pct: 5 }, status: 'Active' },
+  { id: 'c13', name: 'Business Partnerships', special: false, label: '', G: true, P: true, start: '2026-11-15', end: '2026-12-14', gSlots: 25, pSlots: 10, gSold: 10, pSold: 4, pg: 199, pp: 549, gDisc: { on: false, pct: 0 }, pDisc: { on: true, pct: 15 }, status: 'Active' },
+  { id: 'c14', name: 'Gemstone Guidance', special: false, label: '', G: true, P: false, start: '2026-11-01', end: '2026-11-15', gSlots: 10, pSlots: 0, gSold: 6, pSold: 0, pg: 149, pp: 0, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active' },
+  { id: 'c15', name: 'Vastu Guidance', special: false, label: '', G: true, P: false, start: '2026-12-05', end: '2026-12-31', gSlots: 40, pSlots: 0, gSold: 0, pSold: 0, pg: 149, pp: 0, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Draft' },
+  { id: 'c16', name: 'Year-End Forecast', special: true, label: 'Year-End Special', G: true, P: true, start: '2026-11-28', end: '2026-12-31', gSlots: 3, pSlots: 2, gSold: 0, pSold: 0, pg: 199, pp: 449, gDisc: { on: false, pct: 0 }, pDisc: { on: false, pct: 0 }, status: 'Active', publishAt: '2026-11-28T10:00' },
 ];
 
 export const templates = [

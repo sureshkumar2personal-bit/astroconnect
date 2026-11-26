@@ -600,6 +600,10 @@ Resolved (kept in the review list): AP-02-25 — Special Campaign label/type man
 |----|-------|--------|
 | AP-02-24 | Does the cancellation refund also apply to campaign deletion? | Open |
 | AP-02-26 | Question details pane without User profile / Campaign & payment: amend AD-34? | Open |
+| AP-02-27 | Campaign Draft status: confirm the rules | Open |
+| AP-02-28 | Scheduled publish date and time for a campaign: confirm the rules | Open |
+| AP-02-29 | Campaign editor locks (type, question types, start date, price note, slot minimum vs AD-57) | Open |
+| AP-02-30 | Campaign offer selector: AD-56 stepper (to 99%) or a dropdown to 30% | Open |
 
 **Cross-app conflicts referenced** (full detail in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §5](00_ASTROLOGER_APP_REVIEW_LIST.md#5-cross-app-conflicts-register-x-01-to-x-24))
 
@@ -686,3 +690,4 @@ Confirmed rules only.
 | 2026-11-24 | AD-167 added (Text Questions list and details layout, inline answer editor, first question shown by default). No existing rule changed. |
 | 2026-11-24 | AD-167 amended: details pane tabs are Question and Previous questions; user attachments show below the expanded question. AP-02-26 added (effect on AD-34). |
 | 2026-11-24 | AD-167 amended: on phones the details card is stacked under the question list instead of opening on its own screen. |
+| 2026-11-26 | AP-02-27 – AP-02-30 added (campaign Draft status, scheduled publish time, editor locks, offer selector). No rule decided; see the review list. |

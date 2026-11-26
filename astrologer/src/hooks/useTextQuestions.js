@@ -63,7 +63,7 @@ export default function useTextQuestions() {
       saveCampaign: (values) => {
         if (values.id) { updateCamp(values.id, values); return values.id; }
         const id = `c${Date.now()}`;
-        setCampaigns((list) => [...list, { ...values, id, gSold: 0, pSold: 0, status: 'Active' }]);
+        setCampaigns((list) => [...list, { ...values, id, gSold: 0, pSold: 0, status: values.status === 'Draft' ? 'Draft' : 'Active' }]);
         return id;
       },
       setSlots: (id, g, p) => updateCamp(id, (c) => ({ ...(c.G ? { gSlots: g } : {}), ...(c.P ? { pSlots: p } : {}) })),

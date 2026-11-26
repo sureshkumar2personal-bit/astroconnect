@@ -6,6 +6,7 @@ import { finalPrice, inr } from '@/lib/textQuestions.js';
 export const stepDisc = (d, delta) => ({ ...d, pct: Math.max(1, Math.min(99, (d.pct || 0) + delta)) });
 
 export default function Discount({ kind, disc, price, onChange }) {
+  const fin = finalPrice(price || 0, disc);
   const name = kind === 'G' ? 'General' : 'Personal';
   return (
     <div className="disc">
@@ -19,12 +20,21 @@ export default function Discount({ kind, disc, price, onChange }) {
             <button type="button" className="btn btn-o sm" aria-label={`Decrease ${name} discount`} onClick={() => onChange(stepDisc(disc, -1))}>−</button>
             <b className="disc-pct" aria-live="polite">{disc.pct ? `${disc.pct}%` : 'Select'}</b>
             <button type="button" className="btn btn-o sm" aria-label={`Increase ${name} discount`} onClick={() => onChange(stepDisc(disc, 1))}>+</button>
-            <span className="sm">Original {inr(price || 0)} · {disc.pct || 0}% · Final <b className="ok-t">{inr(finalPrice(price || 0, disc))}</b></span>
+          </div>
+          <div className="disc-break" aria-live="polite">
+            <div><span>Original price</span><span>{inr(price || 0)}</span></div>
+            <div><span>Discount ({disc.pct || 0}%)</span><span>− {inr((price || 0) - fin)}</span></div>
+            <div className="fin"><span>Final price</span><b>{inr(fin)}</b></div>
           </div>
           <span className="muted sm">Maximum 99%. No default percentage.</span>
         </>
       ) : (
-        <span className="muted sm">No Offer</span>
+        <>
+          <span className="muted sm">No Offer</span>
+          {price > 0
+            ? <div className="disc-break only"><div className="fin"><span>Final price</span><b>{inr(price)}</b></div></div>
+            : <div className="disc-break hint">Enter a price to see the final amount</div>}
+        </>
       )}
     </div>
   );

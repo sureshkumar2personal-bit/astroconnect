@@ -5,15 +5,15 @@ import { astrologerProfile } from '@/data/mockTextQuestions.js';
 import WorkHeader from '@/layout/WorkHeader.jsx';
 import TextQuestionsPage from './TextQuestionsPage.jsx';
 import WorkOverview from '@/components/work/WorkOverview.jsx';
-import CampaignsPage from '@/components/work/CampaignsPage.jsx';
-import CampaignEditor from '@/components/work/CampaignEditor.jsx';
-import OpenSettings from '@/components/work/OpenSettings.jsx';
+import CampaignsPage, { STATUS_LABEL, campStatus } from '@/components/work/CampaignsPage.jsx';
+import CampaignEditor, { isScheduledStart } from '@/components/work/CampaignEditor.jsx';
+import OpenSettings, { OpenSettingsBody } from '@/components/work/OpenSettings.jsx';
 import { CancelBody, DeleteBody, ExtendBody, ReallocBody, SlotsBody } from '@/components/work/CampaignDialogs.jsx';
 import TemplatesPage, { DeleteTemplateBody, TemplateFormBody } from '@/components/work/TemplatesPage.jsx';
 import HistoryPage from '@/components/work/HistoryPage.jsx';
 import { BackBtn, PageActions } from '@/components/work/bits.jsx';
 import { Dialog, Toast } from '@/components/ui/primitives.jsx';
-import { fmtDate, isOpen } from '@/lib/textQuestions.js';
+import { fmtDate, fmtDateTime, isOpen } from '@/lib/textQuestions.js';
 import AppointmentsPage, { appointmentsSubtitle, appointmentsTitle } from './AppointmentsPage.jsx';
 import { CancelAppointment, CloseDate, EditDay } from '@/components/appointments/AppointmentDialogs.jsx';
 
@@ -59,12 +59,6 @@ function screenMeta(route, tq, mobile) {
       crumb: null,
       parent: routes.hub, // Back goes straight to My Work
       back: true,
-      actions: (
-        <>
-          <a className="btn btn-o" href={`#${routes.openSettings}`}>Open Questions settings</a>
-          <a className="btn btn-p" href={`#${routes.campNew}`}>+ Create Campaign</a>
-        </>
-      ),
     };
   }
   if (v === 'templates') return { title: 'Answer Templates', crumb: null, parent: routes.hub, back: true, tplAction: true };
@@ -113,6 +107,21 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
     };
     setDialog({ title: map[kind][0], body: map[kind][1] });
   };
+  // Create / Edit Campaign popup (same editor as the page route, shown in the shared Dialog).
+  const campaignForm = (id) => {
+    const c = id ? camp(id) : null;
+    setDialog({
+      title: c ? 'Edit campaign' : 'Create campaign',
+      body: (cl) => (
+        <CampaignEditor dialog campaign={c} statusLabel={c ? STATUS_LABEL[campStatus(c)] : ''} free={tq.free} onCancel={cl}
+          onSave={(v) => { tq.saveCampaign(v); cl(); toast(v.status === 'Draft' ? 'Draft saved' : (!c || c.status === 'Draft') && (v.publishAt || isScheduledStart(v.start)) ? `Campaign scheduled for ${v.publishAt ? fmtDateTime(v.publishAt) : fmtDate(v.start)}` : c && c.status !== 'Draft' ? 'Campaign updated' : 'Campaign created'); }} />
+      ),
+    });
+  };
+  const openSettings = () => setDialog({
+    title: 'Open questions settings',
+    body: (cl) => <OpenSettingsBody tq={tq} onCancel={cl} onSave={(v) => { tq.setOpen(v); cl(); toast('Open questions settings updated'); }} />,
+  });
   const editTemplate = (id) => {
     const t = id ? tq.templates.find((x) => x.id === id) : null;
     setDialog({
@@ -167,9 +176,9 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
       ? <div className="empty"><b>Campaign not found</b></div>
       : (
         <CampaignEditor key={route.camp} campaign={c} free={tq.free} onCancel={() => navigate(routes.campaigns)}
-          onSave={(v) => { tq.saveCampaign(v); toast(c ? 'Campaign updated' : 'Campaign created'); navigate(routes.campaigns); }} />
+          onSave={(v) => { tq.saveCampaign(v); toast(v.status === 'Draft' ? 'Draft saved' : isScheduledStart(v.start) ? `Campaign scheduled for ${fmtDate(v.start)}` : c && c.status !== 'Draft' ? 'Campaign updated' : 'Campaign created'); navigate(routes.campaigns); }} />
       );
-  } else if (view === 'campaigns') content = <CampaignsPage tq={tq} onAction={campaignAction} />;
+  } else if (view === 'campaigns') content = <CampaignsPage tq={tq} onAction={campaignAction} onEditOpen={openSettings} onCreate={() => campaignForm()} onEditCampaign={campaignForm} />;
   else if (view === 'templates') content = <TemplatesPage templates={tq.templates} onEdit={editTemplate} onDelete={deleteTemplate} />;
   else content = <HistoryPage tq={tq} cat={route.cat} toast={toast} />;
 
