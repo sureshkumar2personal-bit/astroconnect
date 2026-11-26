@@ -218,6 +218,11 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | AP-08-01 | Definition of Pending Balance | Open — missing source information |
 | AP-08-02 | Text Questions commission rate | Open — missing source information |
 | AP-08-03 | Instant Call / Chat settlement eligibility period | Open — missing source information |
+| AP-08-04 | Services shown (Subscriptions?) and placeholder commission / settlement values in the reference | Open |
+| AP-08-05 | Reference omits Held Balance, Total Withdrawn and the withdrawals list (AD-120, AD-125) | Open |
+| AP-08-06 | Payout details verification states and edit flow | Open |
+| AP-08-07 | PDF statement for any filter combination vs monthly statement (AD-123) | Open |
+| AP-08-08 | Multiple saved bank accounts and up to three UPI IDs, one selected per list | Open |
 
 **Related**
 
@@ -240,3 +245,7 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | Date | Change |
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document: AD-120 – AD-126. AP-08-01 – AP-08-03 added. |
+| 2026-11-26 | AP-08-04 – AP-08-07 added (Earnings & Wallet reference design). No rule decided; see the review list. |
+| 2026-11-26 | AP-08-08 added (multiple saved payout accounts in the Withdraw popup). No rule decided; see the review list. |
+| 2026-11-26 | AP-08-09 added, then retired the same day (the full bank details forms were restored). See the review list. |
+| 2026-11-26 | AP-08-09 added (bank accounts saved by bank name only). No rule decided; see the review list. |
