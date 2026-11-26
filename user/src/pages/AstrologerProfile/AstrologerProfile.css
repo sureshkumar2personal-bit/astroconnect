@@ -68,9 +68,9 @@
 :root .astrologer-profile-page .ap-buttons { display:flex; gap:8px; flex-wrap:wrap; }
 :root .astrologer-profile-page .ap-live { padding:16px 20px; display:flex; flex-direction:column; gap:10px; }
 :root .astrologer-profile-page .ap-live-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-:root .astrologer-profile-page .ap-live-pill { background:rgba(var(--gn),.15); color:var(--green); }
+:root .astrologer-profile-page .ap-live-pill { background:color-mix(in srgb, rgb(var(--gn)) 15%, var(--glass-base)); color:var(--green); }
 :root .astrologer-profile-page .ap-live-box { display:flex; flex-direction:column; gap:8px; }
 :root .astrologer-profile-page .ap-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-:root .astrologer-profile-page .ap-cm { background:rgba(var(--gl),.12); border-radius:12px; padding:6px 12px; align-self:flex-start; }
+:root .astrologer-profile-page .ap-cm { background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); border-radius:12px; padding:6px 12px; align-self:flex-start; }
 :root .astrologer-profile-page .ap-post { gap:8px; }
 :root .astrologer-profile-page .ap-lock { margin:0; color:var(--gold); }

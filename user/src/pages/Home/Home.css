@@ -43,24 +43,24 @@
 
 /* Theme tokens: dark (default) adapts the palette; light uses the design's own colours. */
 :root .home-page .home-dash {
-  --sv-text-bg: rgba(240,176,96,.13); --sv-text-ink: #f0b060; --sv-text-btn: #e9a24a;
-  --sv-appt-bg: rgba(120,170,240,.14); --sv-appt-ink: #8fb8ec; --sv-appt-btn: #7fb0ea;
-  --sv-call-bg: rgba(var(--gn),.14); --sv-call-ink: var(--green); --sv-call-btn: #5fd699;
-  --sv-chat-bg: rgba(200,150,236,.14); --sv-chat-ink: #d0a8ec; --sv-chat-btn: #c898ea;
-  --h-w75: rgba(var(--gl),.12); --h-w50: rgba(var(--gl),.08);
-  --at-bg-0: rgba(var(--gl),.10); --at-bg-1: rgba(var(--gl),.10); --at-bg-2: rgba(var(--gl),.10);
-  --at-av-0: rgba(var(--gl),.22); --at-av-1: rgba(var(--gl),.22); --at-av-2: rgba(var(--gl),.22);
-  --h-b-FFFFFF: rgba(var(--gl),.10);
+  --sv-text-bg: color-mix(in srgb, rgb(240,176,96) 13%, var(--glass-base)); --sv-text-ink: #f0b060; --sv-text-btn: #e9a24a;
+  --sv-appt-bg: color-mix(in srgb, rgb(120,170,240) 14%, var(--glass-base)); --sv-appt-ink: #8fb8ec; --sv-appt-btn: #7fb0ea;
+  --sv-call-bg: color-mix(in srgb, rgb(var(--gn)) 14%, var(--glass-base)); --sv-call-ink: var(--green); --sv-call-btn: #5fd699;
+  --sv-chat-bg: color-mix(in srgb, rgb(200,150,236) 14%, var(--glass-base)); --sv-chat-ink: #d0a8ec; --sv-chat-btn: #c898ea;
+  --h-w75: color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); --h-w50: color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base));
+  --at-bg-0: color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base)); --at-bg-1: color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base)); --at-bg-2: color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base));
+  --at-av-0: color-mix(in srgb, rgb(var(--gl)) 22%, var(--glass-base)); --at-av-1: color-mix(in srgb, rgb(var(--gl)) 22%, var(--glass-base)); --at-av-2: color-mix(in srgb, rgb(var(--gl)) 22%, var(--glass-base));
+  --h-b-FFFFFF: color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base));
   --h-o-EFE7D8: rgba(var(--ln),.22);
-  --h-b-E5F0E8: rgba(var(--gl),.14);
+  --h-b-E5F0E8: color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base));
   --h-t-2F6B47: var(--green);
   --h-o-E5F0E8: rgba(var(--ln),.22);
   --h-t-5E6866: var(--muted);
-  --h-b-E3EFEC: rgba(var(--gl),.16);
+  --h-b-E3EFEC: color-mix(in srgb, rgb(var(--gl)) 16%, var(--glass-base));
   --h-t-0E4D4A: var(--acc);
-  --h-b-FBF1DE: rgba(var(--gd),.10);
+  --h-b-FBF1DE: color-mix(in srgb, rgb(var(--gd)) 10%, var(--glass-base));
   --h-o-F0DFBC: rgba(var(--ln),.22);
-  --h-b-FFF8EA: rgba(var(--gd),.08);
+  --h-b-FFF8EA: color-mix(in srgb, rgb(var(--gd)) 8%, var(--glass-base));
   --h-o-EBD5A6: rgba(var(--ln),.22);
   --h-t-7D5E1E: var(--gold);
   --h-t-5E5440: var(--muted);
@@ -68,7 +68,7 @@
   --h-t-FFFFFF: var(--ctaink);
   --h-o-E0C78F: rgba(var(--ln),.22);
   --h-t-6E5218: var(--gold);
-  --h-b-EEF4F1: rgba(var(--gl),.07);
+  --h-b-EEF4F1: color-mix(in srgb, rgb(var(--gl)) 7%, var(--glass-base));
   --h-o-D9E7E1: rgba(var(--ln),.22);
   --h-t-1F3B38: var(--ink);
   --h-t-B8903F: var(--gold);
@@ -80,24 +80,24 @@
   --h-o-0E4D4A: var(--acc);
   --h-o-A9B1AE: rgba(var(--ln),.22);
   --h-t-6B7472: var(--muted);
-  --h-b-E4EFEA: rgba(var(--gl),.12);
+  --h-b-E4EFEA: color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base));
   --h-o-D3E4DC: rgba(var(--ln),.22);
-  --h-b-F4F8F6: rgba(var(--gl),.07);
+  --h-b-F4F8F6: color-mix(in srgb, rgb(var(--gl)) 7%, var(--glass-base));
   --h-t-8A4208: var(--gold);
-  --h-b-FCE7CC: rgba(var(--gd),.16);
-  --h-b-F3EBDD: rgba(var(--ln),.25);
+  --h-b-FCE7CC: color-mix(in srgb, rgb(var(--gd)) 16%, var(--glass-base));
+  --h-b-F3EBDD: color-mix(in srgb, rgb(var(--ln)) 25%, var(--glass-base));
   --h-t-1D4E89: #8fb8ec;
-  --h-b-E1ECFA: rgba(120,170,255,.16);
-  --h-b-F6EEDF: rgba(var(--gd),.08);
+  --h-b-E1ECFA: color-mix(in srgb, rgb(120,170,255) 16%, var(--glass-base));
+  --h-b-F6EEDF: color-mix(in srgb, rgb(var(--gd)) 8%, var(--glass-base));
   --h-o-ECDFC6: rgba(var(--ln),.22);
-  --h-b-FFFCF6: rgba(var(--gl),.06);
+  --h-b-FFFCF6: color-mix(in srgb, rgb(var(--gl)) 6%, var(--glass-base));
   --h-o-EFE4CF: rgba(var(--ln),.22);
   --h-t-8A6A26: var(--gold);
   --h-t-4A5452: var(--muted);
-  --h-b-EEE7D9: rgba(var(--ln),.25);
+  --h-b-EEE7D9: color-mix(in srgb, rgb(var(--ln)) 25%, var(--glass-base));
   --h-o-FFFFFF: rgba(var(--ln),.35);
   --h-t-135E4B: var(--green);
-  --h-b-DDF0E7: rgba(var(--gn),.16);
+  --h-b-DDF0E7: color-mix(in srgb, rgb(var(--gn)) 16%, var(--glass-base));
 }
 :root[data-theme="light"] .home-page .home-dash {
   --sv-text-bg: #FDF0E1; --sv-text-ink: #9A5B13; --sv-text-btn: #8A4E0E;

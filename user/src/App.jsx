@@ -44,7 +44,7 @@ function Shell() {
   }, [pathname]);
 
   return (
-    <div className="sky app-shell">
+    <div className={"sky app-shell" + (pathname === "/login" || pathname === "/" ? "" : " has-art")}>
       <Navbar />
       <main className="scr app-main" ref={mainRef}>
         <div className="app-content">
