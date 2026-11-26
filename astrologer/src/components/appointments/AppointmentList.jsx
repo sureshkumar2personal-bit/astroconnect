@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import { Badge } from '@/components/ui/primitives.jsx';
-import { navigate, routes } from '@/lib/router.js';
+import { routes } from '@/lib/router.js';
+import ExpandTable from '@/components/ui/ExpandTable.jsx';
+import AppointmentDetails from './AppointmentDetails.jsx';
 import { dt, fmtDateTime } from '@/lib/textQuestions.js';
 import { STATUS_KIND, SUBTITLES, inr } from '@/hooks/useAppointments.js';
 
-const TABS = [['upcoming', 'Upcoming'], ['today', 'Today'], ['history', 'History']];
+// Past appointments are under My Work → History → Appointment History.
+const TABS = [['upcoming', 'Upcoming'], ['today', 'Today']];
 const COLS = ['Appointment', 'User', 'Date & time', 'Duration', 'Status', 'Payment'];
 
 export const Kpi = ({ label, value, children }) => (
@@ -21,10 +25,32 @@ export function Seg({ label, options, value, onChange }) {
   );
 }
 
+/** Appointments table: a row expands in place to show the Appointment Details (AD-78); one row open at a time.
+ *  Used by the Appointments list and by My Work → History → Appointment History. */
+export function AppointmentTable({ list, apt, mobile, openDialog, toast }) {
+  return (
+    <ExpandTable className="card" cols={COLS}
+      rows={list.map((a) => ({
+        key: a.id,
+        cells: [
+          <span key="i"><b>{a.id}</b>{a.pendingAtt && <> <Badge kind="accent">Attachment pending</Badge></>}</span>,
+          <span key="u">{a.user}<div className="muted sm">{a.uid}</div></span>,
+          fmtDateTime(dt(a.at)),
+          `${a.dur} min`,
+          <Badge key="s" kind={STATUS_KIND[a.status]}>{a.status}</Badge>,
+          `${inr(a.amt)} · ${a.pay}`,
+        ],
+        detail: () => <AppointmentDetails inline apt={apt} id={a.id} mobile={mobile} openDialog={openDialog} toast={toast} />,
+      }))}
+    />
+  );
+}
+
 // Appointments list (reference "05 Appointments" → list view).
-export default function AppointmentList({ apt, mobile }) {
+export default function AppointmentList({ apt, mobile, openDialog, toast }) {
   const { visible, counts, settings, tab, setTab, query, setQuery } = apt;
-  const go = (id) => navigate(routes.aptDetail(id));
+  // The list no longer has a History tab; fall back to Upcoming if it was still selected.
+  useEffect(() => { if (tab === 'history') setTab('upcoming'); }, [tab, setTab]);
   return (
     <>
       <div className="row wrap apt-ph">
@@ -44,26 +70,7 @@ export default function AppointmentList({ apt, mobile }) {
           <input type="search" placeholder="Search name, User ID, Appointment ID" value={query} onChange={(e) => setQuery(e.target.value)} />
         </label>
       </div>
-      <div className="card tw">
-        <table className="tbl">
-          <thead><tr>{COLS.map((c) => <th key={c}>{c}</th>)}</tr></thead>
-          <tbody>
-            {visible.length ? visible.map((a) => (
-              <tr key={a.id} tabIndex={0} onClick={() => go(a.id)} onKeyDown={(e) => { if (e.key === 'Enter') go(a.id); }}>
-                <td data-label={COLS[0]}><span><b>{a.id}</b>{a.pendingAtt && <> <Badge kind="accent">Attachment pending</Badge></>}</span></td>
-                <td data-label={COLS[1]}><span>{a.user}<div className="muted sm">{a.uid}</div></span></td>
-                <td data-label={COLS[2]}>{fmtDateTime(dt(a.at))}</td>
-                <td data-label={COLS[3]}>{a.dur} min</td>
-                <td data-label={COLS[4]}><Badge kind={STATUS_KIND[a.status]}>{a.status}</Badge></td>
-                <td data-label={COLS[5]}>{inr(a.amt)} · {a.pay}</td>
-              </tr>
-            )) : (
-              <tr><td colSpan={COLS.length} className="muted">No records for this filter.</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
+      <AppointmentTable list={visible} apt={apt} mobile={mobile} openDialog={openDialog} toast={toast} />
     </>
   );
 }

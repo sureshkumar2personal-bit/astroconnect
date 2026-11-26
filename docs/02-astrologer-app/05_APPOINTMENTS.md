@@ -84,7 +84,7 @@ post-consultation attachments.
 | AD-45 | Astrologer answer attachment rules (used for appointment attachments) | [02](02_TEXT_BASED_QUESTIONS.md) |
 | AD-46 | My Work main page includes Appointments | [02](02_TEXT_BASED_QUESTIONS.md) |
 | AD-74 | DND: no new bookings; profile invisible | [01](01_HOME_SCREEN.md) |
-| AD-78 | Appointment history row → Appointment Details | [03](03_GLOBAL_NAVIGATION.md) |
+| AD-78 | Appointment list/history row → Appointment Details, expanded in place on the Appointments page | [03](03_GLOBAL_NAVIGATION.md) |
 | AD-124 | Appointment commission 3% | [08](08_WALLET_AND_EARNINGS.md) |
 | AD-126 | Appointment settlement eligibility 3 days after completion | [08](08_WALLET_AND_EARNINGS.md) |
 | AD-129 | Mandatory rating after an Appointment | [10](10_RATINGS_AND_REVIEWS.md) |
@@ -164,7 +164,7 @@ information: `PENDING DISCUSSION` (AP-05-01).
 
 ### 6.3 Appointment list and history
 - Reached from My Work (AD-46) and Home (AD-17).
-- Each row opens that Appointment's Details (AD-78).
+- Each row expands in place to show that Appointment's Details, with an expand/collapse arrow; selecting it again collapses it, and one row is open at a time (AD-78). Expanding a row counts as opening the details (AD-89).
 - Pending attachment/action indicator on the row (AD-102).
 - Filters and search persist on Back (AD-77 → [03](03_GLOBAL_NAVIGATION.md)).
 

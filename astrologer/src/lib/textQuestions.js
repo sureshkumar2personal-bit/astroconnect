@@ -27,8 +27,15 @@ export const inr = (n) => '₹' + Number(n).toLocaleString('en-IN', Number(n) % 
 export const OPEN_STATUSES = ['New', 'Pending', 'Correction Requested'];
 export const isOpen = (q) => OPEN_STATUSES.includes(q.status);
 export const pendingDay = (q) => Math.round((dayStart(TODAY) - dayStart(q.recv)) / DAY) + 1;
-export const dueDate = (q) => new Date(+dayStart(q.recv) + DEADLINE_DAYS * DAY);
-export const daysLeft = (q) => DEADLINE_DAYS - pendingDay(q);
+/** Answer deadline: the received date + 30 calendar days (e.g. received 25 Nov → 25 Dec), IST (AD-30, AD-71).
+ *  The astrologer can answer until the end of that day. Shown as "Answer by". */
+export const answerBy = (q) => new Date(+dayStart(q.recv) + DEADLINE_DAYS * DAY);
+/** Moment the deadline has passed: the start of the day after `answerBy` (auto-cancel and refund, AD-30). */
+export const dueDate = (q) => new Date(+answerBy(q) + DAY);
+/** An open question whose 30-day deadline has passed is auto-cancelled and refunded → Expired (AD-30, AD-47). */
+export const applyDeadline = (q) => (OPEN_STATUSES.includes(q.status) && TODAY >= dueDate(q) ? { ...q, status: 'Expired' } : q);
+/** Whole days left until the end of the deadline day (0 on the deadline day itself). */
+export const daysLeft = (q) => Math.round((dayStart(answerBy(q)) - dayStart(TODAY)) / DAY);
 /** 1 = Priority 1 (day 20–30), 2 = Priority 2 (day 1–19), 0 = not open. */
 export const priority = (q) => (isOpen(q) ? (pendingDay(q) >= 20 ? 1 : 2) : 0);
 /** Dispute answer deadline: 3 days after the dispute was raised (AD-41). */
@@ -96,12 +103,12 @@ export const openDisputes = (questions) =>
 
 /** Fill in the derived and per-session fields of a sample question (reference `Q`). */
 export function buildQuestion(raw) {
-  return {
+  return applyDeadline({
     age: 28, gender: 'Female', loc: 'Chennai, TN', paid: 0, slots: 1, prev: [], draft: '', att: [], links: [], remedy: '', events: [],
     ...raw,
     ini: raw.name.split(' ').map((w) => w[0]).join('').slice(0, 2),
     purchased: new Date(dt(raw.recv) - DAY * 1.2).toISOString(),
-  };
+  });
 }
 
 /** Timeline entries: [title, detail, kind]. kind: done | bad | accent | now | '' (AD-50). */
@@ -117,8 +124,8 @@ export function timelineEvents(q) {
   if (q.status === 'Settled') ev.push(['Settled', 'No dispute within 7 days; amount eligible for settlement', 'done']);
   if (q.status === 'Expired') ev.push(['Expired', `${fmtDate(dueDate(q))} · auto-cancelled and refunded`, 'bad']);
   if (isOpen(q)) {
-    ev.push([`Answer pending · Day ${pendingDay(q)} of ${DEADLINE_DAYS}`, `Answer by ${fmtDate(dueDate(q))}`, 'now']);
-    ev.push(['Auto-cancel and refund if unanswered', `After ${fmtDate(dueDate(q))}`, '']);
+    ev.push([`Answer pending · Day ${pendingDay(q)}`, `Answer by ${fmtDate(answerBy(q))} · ${daysLeft(q)} ${daysLeft(q) === 1 ? 'day' : 'days'} left`, 'now']);
+    ev.push(['Auto-cancel and refund if unanswered', `After ${fmtDate(answerBy(q))}`, '']);
   }
   return ev;
 }

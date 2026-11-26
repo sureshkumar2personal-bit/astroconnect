@@ -78,7 +78,6 @@ export default function TodaysWorkSection({ tq, apt, a }) {
         <div className="ac-tw__card ac-tw__card--sub">
           <div className="ac-tw__head"><b>Subscription Questions · today</b><ViewAll href="#/work/subscriptions">Open</ViewAll></div>
           <Counts items={[['Received', receivedToday(qs, 'sub')], ['Answered', answeredToday(qs, 'sub'), 'ac-up'], ['Pending', pendingToday(qs, 'sub'), 'ac-heading']]} />
-          <span className="ac-tw__sub">Shown separately from Text-Based Questions · Silver 1 · Gold 3 · Platinum 4 benefit questions</span>
         </div>
 
         <div className="ac-tw__card ac-tw__card--camp">
@@ -93,7 +92,7 @@ export default function TodaysWorkSection({ tq, apt, a }) {
         </div>
 
         <div className="ac-tw__card ac-tw__card--bad ac-tw__card--disp">
-          <div className="ac-tw__head"><b>Disputes · {disputes.length} open</b><span className="tq"><Badge kind="bad">Shown separately</Badge></span></div>
+          <div className="ac-tw__head"><b>Disputes · {disputes.length} open</b></div>
           {disputes.length ? disputes.map((q) => (
             <a key={q.id} href={`#/work/questions/${q.id}`} className="ac-tw__row">
               <span className="ac-tw__time ac-tw__time--bad">!</span>

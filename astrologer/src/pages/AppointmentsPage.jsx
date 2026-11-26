@@ -10,7 +10,7 @@ import { SUBTITLES } from '@/hooks/useAppointments.js';
 export default function AppointmentsPage({ apt, route, mobile, openDialog, toast }) {
   if (route.calendar) return <AppointmentCalendar apt={apt} mobile={mobile} openDialog={openDialog} toast={toast} />;
   if (route.id) return <AppointmentDetails apt={apt} id={route.id} mobile={mobile} openDialog={openDialog} toast={toast} />;
-  return <AppointmentList apt={apt} mobile={mobile} />;
+  return <AppointmentList apt={apt} mobile={mobile} openDialog={openDialog} toast={toast} />;
 }
 
 /** Header titles: desktop shows the page or appointment; mobile names the screen. */

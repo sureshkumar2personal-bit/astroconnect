@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/Icon.jsx';
+import RowChevron from '@/components/ui/RowChevron.jsx';
 import useCalls, { callsActions, sessionClock, svcName } from '@/hooks/useCalls.js';
 import { inr } from '@/lib/format.js';
 import { profileFor, RASI_CELLS } from '@/data/mockSessionProfiles.js';
@@ -129,7 +130,7 @@ function Sec({ id, icon, title, meta, open, onToggle, link, children }) {
     <section className={`sw-sec${open ? ' open' : ''}`}>
       <button type="button" className="sw-sec__head" aria-expanded={link ? undefined : open} onClick={() => onToggle(id)}>
         <Icon name={icon} size={16} /><b>{title}</b>{meta && <small>{meta}</small>}
-        <Icon name={open ? 'chevronDown' : 'chevronRight'} size={16} className="sw-sec__chev" />
+        {link ? <Icon name="chevronRight" size={16} className="sw-sec__chev" /> : <RowChevron open={open} className="sw-sec__chev" />}
       </button>
       {open && <div className="sw-sec__body">{children}</div>}
     </section>

@@ -66,13 +66,17 @@ export default function RequestRail({ a, home = false, onToast }) {
   const svcs = ['call', 'chat'].filter(has);
   if (svcs.length) return <Requests queue={queue} svcs={svcs} busy={!!session} now={t} onToast={onToast} a={a} />;
   const live = a.mode === 'online' && (a.call || a.chat);
-  let icon; let text;
+  let icon; let text; let off = false;
   if (live) { icon = 'clock'; text = 'Waiting for requests. New ones appear here on every screen.'; }
   else if (!home) return null;
   else if (a.mode !== 'online') { icon = 'info'; text = "You're Offline. Instant Call and Instant Chat requests can't arrive until you go Online."; }
-  else { icon = 'info'; text = 'Instant Call and Instant Chat are off. Turn one on in the header to receive live requests.'; }
+  else {
+    // Both services off: highlighted hint with the key words emphasised (wording unchanged).
+    icon = 'info'; off = true;
+    text = <><strong>Instant Call</strong> and <strong>Instant Chat</strong> are off. <strong>Turn one on</strong> in the header to receive live requests.</>;
+  }
   return (
-    <div className="ac-rail" role="status">
+    <div className={`ac-rail${off ? ' ac-rail--off' : ''}`} role="status">
       <Icon name={icon} size={17} />
       <span className="ac-rail__txt">{text}</span>
     </div>

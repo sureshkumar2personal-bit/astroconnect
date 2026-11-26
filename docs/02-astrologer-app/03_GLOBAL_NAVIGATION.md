@@ -50,7 +50,7 @@ navigation, deep links, and Back behaviour.
 | AD-75 | **My Work and notification access:** My Work is the main work-management page. The notification bell must be available. (Five primary tabs: AD-03; app opens on Home: AD-63.) |
 | AD-76 | **Record navigation:** every card, button, list row, history record, and action must open its corresponding detail page or record, using the correct record ID and deep link. No dead-end, broken, generic, or incorrect-record navigation is allowed. This applies throughout the entire app. |
 | AD-77 | **Back navigation:** Back returns to the exact previous page and preserves the applicable filters, search, sorting, and selected tabs. |
-| AD-78 | **Required record targets:** Text Question dispute → that exact question's Dispute Details; Appointment history row → that Appointment's Details; Call/Chat history row → that Consultation's Details; Wallet transaction → that Transaction's Details; Audience user → that exact User Profile; Review → that Review's Details; Content post → that post's Content Details/Edit page. |
+| AD-78 | **Required record targets:** Text Question dispute → that exact question's Dispute Details; Appointment list/history row → expands in place on the Appointments page to show that Appointment's Details (inline dropdown with an expand/collapse arrow; one row open at a time; expanding counts as opening the details, AD-89); the Appointment Details page remains for other links to that appointment (e.g. Calendar, Home); Call/Chat history row → that Consultation's Details; Wallet transaction → that Transaction's Details; Audience user → that exact User Profile; Review → that Review's Details; Content post → that post's Content Details/Edit page. |
 
 **Referenced decisions**
 
@@ -121,7 +121,7 @@ Available as required by AD-75; it opens the Activity & Notification Centre (AD-
 | Source | Target | Target owner |
 |--------|--------|--------------|
 | Text Question dispute | That exact question's Dispute Details | [02](02_TEXT_BASED_QUESTIONS.md) |
-| Appointment history row | That Appointment's Details | [05](05_APPOINTMENTS.md) |
+| Appointment list/history row | That Appointment's Details, expanded in place under the row on the Appointments page (no separate page; one row open at a time) | [05](05_APPOINTMENTS.md) |
 | Call/Chat history row | That Consultation's Details | [06](06_INSTANT_CALL_AND_CHAT.md) |
 | Wallet transaction | That Transaction's Details | [08](08_WALLET_AND_EARNINGS.md) |
 | Audience user | That exact User Profile | [11](11_AUDIENCE.md) |

@@ -85,7 +85,7 @@ IST calendar days (AD-71).
 | AD-27 | Campaign Management is located at **My Work → Text Questions → Campaign Management** and includes: Create Campaign, Edit Campaign, Increase/Decrease Slots, Reallocate Slots, Cancel Campaign, **Delete Campaign**. *(Amended 2026-11-19.)* |
 | AD-28 | **Question submission deadline:** two deadlines apply — (1) seven days from slot purchase; (2) the campaign expiry date. The **earlier** of these two dates is the final question submission deadline. Example 1: purchased November 1; seven-day deadline November 8; campaign expires November 10 → deadline November 8. Example 2: purchased November 1; seven-day deadline November 8; campaign expires November 5 → deadline November 5. Days are IST calendar days (AD-71). *(Amended 2026-11-19.)* |
 | AD-29 | Campaign expiry does not affect questions already submitted. |
-| AD-30 | The answer deadline starts from **question submission**, not purchase. The astrologer must answer within **30 days** (IST calendar days, AD-71). If unanswered after 30 days, the question is **auto-cancelled** and the User receives a **refund**. *(Amended 2026-11-19.)* |
+| AD-30 | The answer deadline starts from **question submission**, not purchase. The astrologer must answer within **30 days** (IST calendar days, AD-71). The deadline date is the **received date + 30 calendar days** (e.g. received 25 November → deadline 25 December), calculated from each question's own received date; the astrologer can answer until the end of the deadline day. If unanswered after the deadline day, the question is **auto-cancelled** and the User receives a **refund**. *(Amended 2026-11-26.) (Amended 2026-11-19.)* |
 | AD-31 | Campaign **cancellation** and campaign **deletion** are allowed. Cancelling, deleting, or expiring a campaign does **not** cancel already purchased/submitted User Questions; the astrologer must still answer them, and the original 30-day deadline continues. **When a campaign is cancelled, Users receive a refund for purchased unused slots.** For campaign **deletion**, the earlier rule is unchanged pending AP-02-24: no refund is issued merely because a campaign was deleted, and a purchased, unused slot remains usable until its **original deadline** — the earlier of purchase + 7 days and the campaign's original expiry date; deletion neither expires it immediately nor extends or resets that deadline. Unsold allocations can be reused/reallocated according to the quota rules. *(Amended 2026-11-19. Amended 2026-11-20: refund of purchased unused slots on cancellation; supersedes "no refund merely because a campaign was cancelled" and slot usability after cancellation.)* |
 | AD-32 | **Priority 2:** 1–19 pending days. **Priority 1:** 20–30 pending days. Day 20 belongs only to Priority 1. At the end of day 30, the deadline expires and auto-cancellation/refund applies. There is no third/normal priority list. Pending days are IST calendar days (AD-71). *(Amended 2026-11-19.)* |
 | AD-33 | Priority 1 and Priority 2 are **priority classifications (views)**, not question statuses; a question in a Priority classification keeps its own status. A question stays **New / Received** until the astrologer opens it (AD-51). *(Amended 2026-11-19.)* |
@@ -231,7 +231,7 @@ IST calendar days (AD-71).
 3. A Platform Complaint does not hold or block settlement; if inappropriate conduct is established, the Platform decides recovery/refund separately under its own process (AD-42).
 
 ### 5.12 Unanswered question reaches the deadline
-1. At the end of day 30 from submission (IST calendar days), an unanswered question is automatically cancelled by the system and the User is refunded (AD-30, AD-32, AD-62, AD-71).
+1. At the end of the deadline day (received date + 30 IST calendar days, e.g. received 25 November → deadline 25 December), an unanswered question is automatically cancelled by the system and the User is refunded (AD-30, AD-32, AD-62, AD-71).
 2. Expired records remain available in History (AD-47).
 
 ### 5.13 Manage Answer Templates
@@ -433,7 +433,7 @@ Answered* → Completed/Expired. (*if applicable)
 |---|------|--------|
 | BR-02-08 | Submission deadline = the earlier of purchase + 7 days and campaign expiry. | AD-28 |
 | BR-02-09 | Campaign expiry does not affect submitted questions. | AD-29 |
-| BR-02-10 | Answer deadline: 30 days from submission; unanswered questions are auto-cancelled and refunded. | AD-30 |
+| BR-02-10 | Answer deadline: received date + 30 calendar days (e.g. 25 November → 25 December), answerable until the end of that day; unanswered questions are auto-cancelled and refunded. | AD-30 |
 | BR-02-11 | Campaign cancellation, deletion, or expiry does not cancel already purchased/submitted questions; the original deadline continues. | AD-31 |
 | BR-02-49 | Campaign cancellation and deletion are allowed; the astrologer must still answer purchased/submitted questions; on cancellation, purchased unused slots are refunded; on deletion, no refund is issued merely because of the deletion (AP-02-24); unsold allocations can be reused/reallocated. | AD-31 |
 | BR-02-59 | After deletion, a purchased unused slot remains usable until its original deadline (earlier of purchase + 7 days and the campaign's original expiry date); the deadline is not shortened, extended, or reset. After cancellation, purchased unused slots are refunded. | AD-31 |
