@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Icon from './Icon.jsx';
+import RowChevron from './RowChevron.jsx';
 
 // Header profile button (avatar initial). Opens a small menu centred under it:
 // View Profile → Profile page, Logout → onLogout. Closes on outside click, Esc, or a choice.
@@ -48,7 +49,7 @@ export default function ProfileMenu({ initial, onLogout }) {
         onClick={() => setOpen((o) => !o)}
         onKeyDown={(e) => { if (e.key === 'ArrowDown' && !open) { e.preventDefault(); setOpen(true); } }}>
         <span className="ac-profile__avatar" aria-hidden="true">{initial}</span>
-        <Icon name="chevronDown" size={16} className="ac-profile__chev" />
+        <RowChevron open={open} className="ac-profile__chev" />
       </button>
       {open && (
         <div id="ac-profile-menu" ref={menu} role="menu" aria-label="Profile" className="ac-profile__menu"

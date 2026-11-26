@@ -48,12 +48,7 @@ export default function QHeader({ tq, cat, toolbar }) {
 
   return (
     <>
-      <Seg
-        label="Question category"
-        value={cat}
-        onChange={switchCat}
-        options={[['text', `Text-Based Questions (${openCount(q, 'text')})`], ['sub', `Subscription Questions (${openCount(q, 'sub')})`]]}
-      />
+
       <div className="tq-sum">
         <div className="tq-sum__grid">
           <SumCard title="Priority" icon="check" tone="prio" lead>
@@ -67,11 +62,6 @@ export default function QHeader({ tq, cat, toolbar }) {
             <Part icon="scales" label="Disputes" value={countTab(q, cat, 'dispute')} on={is('dispute')} onClick={() => show('dispute')} />
           </SumCard>
 
-          <SumCard title="History" icon="clock" tone="info"
-            foot={<a className="go sm tq-sum__more" href={`#${routes.historyFor(cat)}`}>View Full History →</a>}>
-            <Part icon="checkCircle" label="Completed" value={countTab(q, cat, 'answered')} on={is('answered')} onClick={() => show('answered')} />
-            <Part icon="headset" label="Resolved" value={countTab(q, cat, 'solved')} on={is('solved')} onClick={() => show('solved')} />
-          </SumCard>
         </div>
 
         <div className={`tq-sum__row2${isText ? '' : ' tq-sum__row2--2'}`}>

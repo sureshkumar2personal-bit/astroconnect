@@ -64,6 +64,10 @@
   .tq .tbl td::before { content: attr(data-label); color: var(--mut); font-size: 12px; text-align: left; flex: none; max-width: 45%; overflow-wrap: normal; }
   .tq .tbl td { overflow-wrap: anywhere; }
   .tq .tbl td[colspan]::before { content: none; }
+  /* Row expand chevron at the top-right of each record card. */
+  .tq .xtbl tr:not(.xtbl-d) { position: relative; padding-right: 44px; }
+  .tq .tbl td.xtbl-chevcell { position: absolute; top: 8px; right: 8px; width: auto; padding: 0; }
+  .tq .tbl td.xtbl-chevcell::before { content: none; }
 }
 
 /* ---------- Section pages: phone ---------- */

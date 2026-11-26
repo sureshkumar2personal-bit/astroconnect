@@ -1,5 +1,5 @@
 import { Sec } from '@/components/ui/sectionKit.jsx';
-import { daysLeft, dueDate, fmtDate } from '@/lib/textQuestions.js';
+import { answerBy, daysLeft, fmtDate } from '@/lib/textQuestions.js';
 import { Avatar, TypeBadge } from './bits.jsx';
 import { AnswerPreviewCard } from './QDialogs.jsx';
 import AnswerEditor from './AnswerEditor.jsx';
@@ -11,7 +11,7 @@ export default function AnswerPage({ q, tq, onPreview, onAddLink, toast }) {
       <Sec>
         <div className="row">
           <Avatar q={q} />
-          <div className="grow"><b>{q.name}</b><div className="muted sm">Due {fmtDate(dueDate(q))} · {daysLeft(q)} days left</div></div>
+          <div className="grow"><b>{q.name}</b><div className="muted sm">Answer by {fmtDate(answerBy(q))} · {daysLeft(q)} days left</div></div>
           <TypeBadge type={q.type} />
         </div>
         <div className="note">{q.text}</div>

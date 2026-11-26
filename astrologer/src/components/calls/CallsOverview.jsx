@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/Icon.jsx';
 import Toggle from '@/components/ui/Toggle.jsx';
+import RowChevron from '@/components/ui/RowChevron.jsx';
 import { Badge } from '@/components/ui/sectionKit.jsx';
 import { TODAY, dt, fmtDateTime, inr, inr2 } from '@/lib/format.js';
 import {
@@ -36,13 +37,13 @@ const Head = ({ title, note, children }) => (
   <div className="icc-head"><h3>{title}</h3>{note && <span className="icc-head__note">{note}</span>}{children}</div>
 );
 
-/** A row that expands in place (▸ / ▾), as in the reference dropdowns. */
+/** A row that expands in place, with the shared row chevron at its right end. */
 function Exp({ id, open, onToggle, cells, children, className = '' }) {
   return (
     <div className={`icc-exp${open ? ' open' : ''} ${className}`}>
       <button type="button" className="icc-exp__row" aria-expanded={open} aria-controls={`${id}-d`} onClick={onToggle}>
-        <span className="icc-exp__caret" aria-hidden="true">{open ? '▾' : '▸'}</span>
         {cells}
+        <RowChevron open={open} className="icc-exp__chev" />
       </button>
       {open && <div className="icc-exp__body" id={`${id}-d`}>{children}</div>}
     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { dueDate, fmtDate, fmtDateTime, inr, isOpen, pendingDay, priority } from '@/lib/textQuestions.js';
+import { answerBy, fmtDate, fmtDateTime, inr, isOpen, pendingDay, priority } from '@/lib/textQuestions.js';
 import { routes } from '@/lib/router.js';
-import Icon from '@/components/ui/Icon.jsx';
+import RowChevron from '@/components/ui/RowChevron.jsx';
 import { Avatar, QStatus } from './bits.jsx';
 
 // Question row (AD-48): a compact row with the user, IDs, campaign, received time, priority and pending
@@ -34,7 +34,7 @@ export default function QCard({ q, campaignName, selected, onSelect, mobile }) {
   const attach = q.type === 'General' ? 'None (General)' : n ? `${n} incl. horoscope` : 'None';
   const cells = [
     [isOpen_ ? 'Pending' : 'Status', isOpen_ ? days(pendingDay(q)) : q.status],
-    ['Answer by', fmtDate(dueDate(q))],
+    ['Answer by', fmtDate(answerBy(q))],
     ['Type', q.type],
     ['Source', campaignName],
     ['Attachments', attach],
@@ -60,10 +60,10 @@ export default function QCard({ q, campaignName, selected, onSelect, mobile }) {
         {mobile ? (
           <span className="qcard__chev" role="button" tabIndex={0} aria-label={expanded ? 'Hide details' : 'Show details'} aria-expanded={expanded}
             onClick={toggle} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle(e)}>
-            <Icon name="chevronDown" size={18} className={expanded ? 'is-up' : ''} />
+            <RowChevron open={expanded} />
           </span>
         ) : (
-          <span className="qcard__chev" aria-hidden="true"><Icon name="chevronDown" size={18} className={expanded ? 'is-up' : ''} /></span>
+          <span className="qcard__chev" aria-hidden="true"><RowChevron open={expanded} /></span>
         )}
       </div>
       {expanded && (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  DEADLINE_DAYS, MAX_CHARS, MAX_QUESTION, daysLeft, disputeDaysLeft, disputeDue, dueDate, fmtDate, fmtDateTime, inr, isOpen, pendingDay,
+  DEADLINE_DAYS, MAX_CHARS, MAX_QUESTION, answerBy, daysLeft, disputeDaysLeft, disputeDue, dueDate, fmtDate, fmtDateTime, inr, isOpen, pendingDay,
 } from '@/lib/textQuestions.js';
 import { routes } from '@/lib/router.js';
 import { Avatar, QStatus, TypeBadge } from './bits.jsx';
@@ -59,7 +59,7 @@ export default function QDetail({ q, campaignName, onCorrection, onDisputeSubmit
           </div>
         </div>
         <div className="qd-head__due">
-          <b>{open ? `Answer by ${fmtDate(dueDate(q))}` : `Deadline ${fmtDate(dueDate(q))}`}</b>
+          <b>{open ? `Answer by ${fmtDate(answerBy(q))}` : `Deadline ${fmtDate(answerBy(q))}`}</b>
           {open && <span className="muted sm">{pendingDay(q)} {pendingDay(q) === 1 ? 'day' : 'days'} pending</span>}
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function QDetail({ q, campaignName, onCorrection, onDisputeSubmit
           <h3>Your answer <span className="muted sm">· {fmtDateTime(q.answeredAt)}</span></h3>
           <p>{q.answer}</p>
           {q.remedy && <div className="remedy"><b>Remedy prescribed</b>{q.remedy}</div>}
-          <p className="muted sm">Submitted answers can't be edited. {q.status === 'Completed' ? 'Becomes Settled if no dispute is raised within 7 days.' : ''}</p>
+
         </section>
       )}
       {q.dispute && (
@@ -136,7 +136,7 @@ export default function QDetail({ q, campaignName, onCorrection, onDisputeSubmit
       {q.status === 'Correction Requested' && (
         <section className="card note">
           <h3>Correction requested</h3>
-          <p>Waiting for the user to replace it with a General question (same slot, no extra payment). The original deadline ({fmtDate(dueDate(q))}) still applies.</p>
+          <p>Waiting for the user to replace it with a General question (same slot, no extra payment). The original deadline ({fmtDate(answerBy(q))}) still applies.</p>
         </section>
       )}
 
