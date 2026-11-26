@@ -116,3 +116,33 @@
 
 :root .xp-page .xp-meta { display:flex; align-items:center; justify-content:flex-end; gap:6px 14px; flex-wrap:wrap; margin-top:-4px; }
 :root .xp-page .xp-meta .xp-plan { white-space:nowrap; }
+
+/* ===== Astrologer card (shared by Explore and the Instant Call & Chat list) ===== */
+:root .ic-card { padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0; }
+:root .ic-top { display:flex; gap:12px; align-items:flex-start; }
+:root .ic-ph { position:relative; flex:none; width:56px; height:56px; display:block; }
+:root .ic-dot { position:absolute; right:0; bottom:0; width:13px; height:13px; border-radius:50%; background:#2ec27e; border:2px solid var(--surf); }
+:root .ic-dot.busy { background:#f0a030; }
+:root .ic-id { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+:root .ic-line { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+:root .ic-line h3 { margin:0; font:600 19px var(--font-head); font-variant-numeric:lining-nums; }
+:root .ic-st { font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gn)) 16%, var(--glass-base)); color:var(--green); white-space:nowrap; }
+:root .ic-st.busy { background:color-mix(in srgb, rgb(var(--gd)) 18%, var(--glass-base)); color:var(--gold); }
+:root .ic-spec { font-size:13.5px; color:var(--muted); }
+:root .ic-stats { display:flex; gap:12px; font-size:13px; color:var(--muted); flex-wrap:wrap; } :root .ic-stats b { color:var(--ink); display:inline-flex; align-items:center; gap:3px; } :root .ic-stats b svg { color:var(--gold); }
+:root .ic-badges { display:flex; gap:6px; flex-wrap:wrap; min-height:0; }
+:root .ic-badge { font-size:12px; font-weight:600; padding:2px 10px; border-radius:8px; background:color-mix(in srgb, rgb(var(--gn)) 14%, var(--glass-base)); color:var(--green); }
+:root .ic-badge.plan { background:color-mix(in srgb, rgb(var(--gd)) 14%, var(--glass-base)); color:var(--gold); border:1px solid rgba(var(--gd),.3); } :root .ic-badge.new { background:color-mix(in srgb, rgb(var(--gd)) 20%, var(--glass-base)); color:var(--gold); }
+:root .ic-tags { display:flex; gap:6px; flex-wrap:wrap; } :root .ic-tags span { font-size:12.5px; padding:2px 10px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); border:1px solid rgba(var(--ln),.25); color:var(--em); }
+:root .ic-lang, :root .ic-note { font-size:13px; color:var(--muted); }
+:root .ic-price { margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; padding-top:10px; border-top:1px solid rgba(var(--ln),.18); } :root .ic-price b { font:600 22px var(--font-head); } :root .ic-price small { color:var(--subtle); font-size:13px; }
+:root .ic-cta { width:100%; min-height:46px; border-radius:12px; }
+:root .ic-who { flex:1; min-width:0; display:flex; gap:12px; align-items:flex-start; background:none; border:0; padding:0; color:inherit; text-align:left; font:inherit; cursor:pointer; }
+:root .ic-follow { margin-left:auto; display:inline-flex; align-items:center; gap:6px; min-height:28px; padding:2px 12px; border-radius:999px; font-size:12.5px; font-weight:600; color:var(--em); background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base)); border:1px solid rgba(var(--ln),.3); cursor:pointer; }
+:root .ic-follow.on { border-color:var(--acc2); }
+:root .ic-ctas { display:flex; gap:8px; }
+:root .ic-ctas .ic-cta { flex:1 1 0; min-width:0; }
+:root .ic-st.off { background:color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base)); color:var(--subtle); }
+:root .ic-dot.off { background:#7b7a90; }
+:root .ic-link { background:none; border:0; padding:0; color:var(--acc); font-weight:600; font-size:14px; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+
