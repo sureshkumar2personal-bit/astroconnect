@@ -2,6 +2,7 @@ import { createStore, useStore } from '@/lib/store.js';
 import { TODAY } from '@/lib/format.js';
 import { callsSeed } from '@/data/mockCalls.js';
 import { audienceSeed } from '@/data/mockAudience.js';
+import { profileFor } from '@/data/mockSessionProfiles.js';
 
 // Instant Call & Chat state and rules (spec 06_INSTANT_CALL_AND_CHAT.md, AD-103 – AD-111).
 // Prototype only: no call, audio, chat connection, payment or notification is involved;
@@ -15,6 +16,7 @@ export const ACCEPT_SECONDS = 30; // AD-104
 export const MIN_PACKAGE_MINUTES = 5; // AD-106
 export const COMMISSION = 0.02; // AD-124
 export const CHAT_VISIBLE_HOURS = 24; // AD-111
+export const WAITING_MAX = 3; // Call and Chat share one waiting list of at most 3 users (product decision 2026-11-26)
 
 export const callsStore = createStore(structuredClone(callsSeed));
 if (!callsStore.get().queue) callsStore.patch({ queue: { call: [], chat: [] } });
@@ -59,6 +61,7 @@ function startClock() {
       const call = tick(s.queue.call), chat = tick(s.queue.chat);
       const expired = [...call, ...chat].filter((r) => r.left <= 0);
       callsStore.patch({ queue: { call: call.filter((r) => r.left > 0), chat: chat.filter((r) => r.left > 0) }, now: Date.now() });
+      expired.forEach((r) => logRequest(r, 'Missed', 'Not accepted within 30 s; the request expired.'));
       expired.forEach((r) => notify(`${r.user}'s ${svcName(r.s)} request expired. The user sees Try Again / Try Some Other Astrologer.`));
     }
     const c = callsStore.get().session;
@@ -69,6 +72,19 @@ function startClock() {
       else callsStore.patch({ now });
     }
   }, 1000);
+}
+
+/** Add a request's outcome to Request History (newest first). */
+function logRequest(r, status, outcome) {
+  const at = new Date(r.at);
+  const iso = `${at.getFullYear()}-${String(at.getMonth() + 1).padStart(2, '0')}-${String(at.getDate()).padStart(2, '0')}T${at.toTimeString().slice(0, 8)}`;
+  callsStore.patch((st) => ({ reqLog: [{ id: r.id, s: r.s, user: r.user, uid: r.uid, at: iso, status, topic: profileFor(r.uid).topic, outcome }, ...(st.reqLog || [])] }));
+}
+
+/** The shared waiting list, oldest first. `av` (optional) keeps only services whose switch is ON. */
+export function waitingList(st, av) {
+  const q = st.queue || { call: [], chat: [] };
+  return ['call', 'chat'].filter((s) => !av || av[s]).flatMap((s) => q[s] || []).sort((a, b) => a.at - b.at);
 }
 
 /** Remove one request from its queue (Declined / Accepted); the next one moves up. */
@@ -84,7 +100,7 @@ function removeRequest(id) {
  *  already waiting in that queue or in the running session. No new users are invented. */
 let nextCustomer = 0;
 function pickCustomer(s, svc) {
-  const busy = new Set([...s.queue[svc].map((r) => r.uid), s.session?.uid]);
+  const busy = new Set([...s.queue.call, ...s.queue.chat].map((r) => r.uid).concat(s.session?.uid)); // one place per user in the shared list
   const people = audienceSeed.list.filter((u) => !u.blocked);
   for (let i = 0; i < people.length; i++) {
     const u = people[(nextCustomer + i) % people.length];
@@ -103,7 +119,10 @@ function endSession(auto = false) {
   const record = {
     id: `CON-${7800 + s.hist.length}`, svc: svcName(c.s), user: c.user, uid: c.uid,
     at: TODAY.toISOString(), dur: `${Math.floor(elapsed / 60)}m ${String(elapsed % 60).padStart(2, '0')}s`,
-    pk: `${c.pk.m} min`, amt: c.pk.p, pay: 'Paid · prepaid', att: '',
+    pk: `${c.pk.m} min`, amt: c.pk.p, pay: 'Paid · prepaid', att: '', status: 'Completed', review: null, notes: '',
+    // Remedies and files shared in the chat (Attach remedy / file / PDF).
+    remedies: (c.msgs || []).filter((m) => m.kind === 'remedy').map((m) => m.text),
+    files: (c.msgs || []).filter((m) => m.kind === 'file').map((m) => m.text),
     // The conversation that actually took place (astrologer messages; no user replies are simulated).
     msgs: c.s === 'chat' ? (c.msgs || []).filter((m) => m.from !== 'sys').map((m) => [m.from === 'astro' ? 'me' : 'u', m.text]) : undefined,
   };
@@ -126,6 +145,31 @@ export const callsActions = {
     callsStore.patch((st) => ({ pk: { ...st.pk, [s]: [...st.pk[s], { m, p }] } }));
     return '';
   },
+  /** Edit a package's duration / price in place. Returns an error message, or '' when saved. */
+  updatePackage(s, i, minutes, price) {
+    const m = Number(minutes); const p = Number(price);
+    if (!(m >= MIN_PACKAGE_MINUTES)) return 'Minimum package duration is 5 minutes.';
+    if (!(p > 0)) return 'Enter a price above ₹0.';
+    callsStore.patch((st) => ({ pk: { ...st.pk, [s]: st.pk[s].map((x, j) => (j === i ? { m, p } : x)) } }));
+    return '';
+  },
+  /** Create or edit an offer (prototype; Call/Chat offers are pending product-owner confirmation). */
+  saveOffer(o) {
+    const name = String(o.name || '').trim(); const value = Number(o.value);
+    if (!name) return 'Give the offer a name.';
+    if (!(value > 0)) return 'Enter a discount above 0.';
+    if (o.kind === 'pct' && value > 99) return 'A percentage discount can be at most 99%.';
+    if (!o.from || !o.to) return 'Choose the start and end dates.';
+    if (o.to < o.from) return 'The end date must be on or after the start date.';
+    callsStore.patch((st) => {
+      const list = st.offers || [];
+      const clean = { ...o, name, value };
+      return { offers: o.id ? list.map((x) => (x.id === o.id ? { ...x, ...clean } : x)) : [{ ...clean, id: `OF-${Date.now()}`, used: 0, paused: false }, ...list] };
+    });
+    return '';
+  },
+  /** Pause or resume an offer. */
+  toggleOffer: (id) => callsStore.patch((st) => ({ offers: (st.offers || []).map((x) => (x.id === id ? { ...x, paused: !x.paused } : x)) })),
   removePackage: (s, i) => callsStore.patch((st) => ({ pk: { ...st.pk, [s]: st.pk[s].filter((_, j) => j !== i) } })),
 
   /** An incoming request arrives for service `s` (from lib/requestSource.js, or the test buttons):
@@ -134,8 +178,9 @@ export const callsActions = {
     const st = callsStore.get();
     if (!availableFor(av, s)) return `${tabLabel(s)} requests can't arrive: the service is off, you're Offline, or DND is on.`;
     if (!st.pk[s].length) return `Add an ${svcName(s)} package first.`;
+    if (queued(st) >= WAITING_MAX) return `The waiting list is full (${WAITING_MAX} users). New requests can join when a place frees up.`;
     const u = pickCustomer(st, s);
-    if (!u) return `Every customer already has a ${tabLabel(s)} request waiting.`;
+    if (!u) return 'Every customer already has a request waiting.';
     const pk = st.pk[s][st.queue[s].length % st.pk[s].length];
     seq += 1;
     const req = { id: `RQ-${seq}`, s, user: u.name, uid: u.uid, sub: u.sub, pk, at: Date.now(), left: ACCEPT_SECONDS };
@@ -146,20 +191,24 @@ export const callsActions = {
   /** Test button on the Instant Call & Chat page: same as an arriving request. */
   simulate(s, av) { return callsActions.receive(s, av); },
   /** Decline any waiting request; the rest keep their order. */
-  decline: (id) => { const r = removeRequest(id); if (r) notify(`${r.user}'s ${svcName(r.s)} request declined. The user sees Try Again / Try Some Other Astrologer.`); },
+  decline: (id) => { const r = removeRequest(id); if (r) logRequest(r, 'Declined', 'Declined by you. The user was offered Try Again / Try Some Other Astrologer.'); if (r) notify(`${r.user}'s ${svcName(r.s)} request declined. The user sees Try Again / Try Some Other Astrologer.`); },
   /** Accept the first request in a queue (first in, first served) → the session starts (AD-104, AD-105). */
-  accept(id) {
+  accept(id, av) {
     const st = callsStore.get();
     if (st.session) return 'Finish your current session first.';
     const r = [...st.queue.call, ...st.queue.chat].find((x) => x.id === id);
     if (!r) return '';
-    if (st.queue[r.s][0].id !== id) return 'Accept the first request in line first.';
+    // One shared list: only the oldest waiting user (among the services that are ON) can be accepted.
+    if (waitingList(st, av)[0]?.id !== id) return 'Accept the first request in the waiting list first.';
     removeRequest(id);
+    logRequest(r, 'Accepted', `Joined after ${Math.max(1, Math.round((Date.now() - r.at) / 1000))} s`);
     const now = Date.now();
     const started = `${r.s === 'call' ? 'Call' : 'Chat'} started. ${r.pk.m} min booked.`;
     callsStore.patch({ session: {
       s: r.s, user: r.user, uid: r.uid, sub: r.sub, pk: r.pk, at: r.at, start: now, state: 'Active', pausedMs: 0, dropAt: null,
-      msgs: [{ from: 'sys', text: started, t: now }], muted: false, speaker: false,
+      // A chat opens with the User's question as their first message (sample data, mockSessionProfiles).
+      msgs: [{ from: 'sys', text: started, t: now }, ...(r.s === 'chat' ? [{ from: 'user', text: profileFor(r.uid).question, t: now }] : [])],
+      muted: false, speaker: false,
       // Session window (prototype): 'compact' window → 'expanded' workspace → 'minimized' pill.
       // Phones open it full screen and minimize it to a bar above the bottom navigation.
       mode: typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches ? 'expanded' : 'compact',
@@ -169,11 +218,13 @@ export const callsActions = {
   },
   /** Change the session window: 'compact' | 'expanded' | 'minimized'. Same session, messages and timer. */
   setMode: (mode) => { const c = callsStore.get().session; if (c) callsStore.patch({ session: { ...c, mode } }); },
-  /** Astrologer sends a chat message in the active consultation (kept with the session). */
-  send(text) {
+  /** Astrologer sends a chat message in the active consultation (kept with the session).
+   *  kind: undefined (text) | 'file' (meta: { size }) | 'link' | 'remedy'. Prototype: nothing is uploaded. */
+  send(text, kind, meta) {
     const c = callsStore.get().session; const t = String(text || '').trim();
     if (!c || c.s !== 'chat' || !t) return;
-    callsStore.patch({ session: { ...c, msgs: [...c.msgs, { from: 'astro', text: t, t: Date.now() }] } });
+    const m = { from: 'astro', text: t, t: Date.now(), ...(kind ? { kind } : {}), ...(meta ? { meta } : {}) };
+    callsStore.patch({ session: { ...c, msgs: [...c.msgs, m] } });
   },
   /** Call controls for the active call (prototype: no audio is connected). */
   toggleMute: () => { const c = callsStore.get().session; if (c) callsStore.patch({ session: { ...c, muted: !c.muted } }); },

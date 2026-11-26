@@ -5,7 +5,7 @@ import ConsultationDetails from '@/components/calls/ConsultationDetails.jsx';
 import { navigate } from '@/lib/router.js';
 
 // Instant Call & Chat (spec 06_INSTANT_CALL_AND_CHAT.md, AD-103 – AD-111). Routes:
-//   #/calls           availability, live status, packages, Call / Chat History
+//   #/calls           Service Settings (availability & pricing, offers, waiting list, request history) · History
 //   #/calls/c/:id     Consultation Details
 //   #/calls/live      opens the active session's workspace (the session window lives in App)
 // Availability (Online / Offline / DND, Call / Chat switches) is Home's state, shared via ctx.availability.
