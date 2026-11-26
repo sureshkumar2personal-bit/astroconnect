@@ -1,0 +1,84 @@
+/* Earnings & Wallet page (reference design). Rules are scoped under .ew; responsive behaviour uses
+   container queries on .ew exactly as in the reference, so the layout follows the page width. */
+.ew a { color:var(--ew-accent) }
+.ew a:hover { color:color-mix(in srgb, var(--ew-accent) 80%, black) }
+.ew *:focus-visible { outline:2px solid var(--ew-accent);outline-offset:2px }
+/* The container is the page body (not the root) so the fixed withdraw overlay covers the whole viewport. */
+.ew .ew-main { container-type:inline-size;container-name:ew }
+.ew .ew-wallet { display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:0 }
+.ew .wcell { padding:18px 22px;display:flex;flex-direction:column;gap:4px;min-width:0 }
+.ew .wcell+.wcell { border-left:1px solid rgba(255,255,255,.14) }
+.ew .svc-grid { display:grid;grid-template-columns:220px minmax(210px,.9fr) minmax(260px,1.1fr);gap:22px;align-items:center }
+.ew .lg-btn { all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;min-height:40px }
+.ew .lg-btn:hover { background:var(--ew-soft) }
+.ew .trow, .ew .thead { box-sizing:border-box;display:grid;grid-template-columns:112px minmax(0,1.6fr) 128px minmax(0,1.05fr) 112px 92px 108px;gap:12px;align-items:center;padding:0 16px }
+.ew .thead { padding-top:8px;padding-bottom:8px;background:var(--ew-chip2);border-bottom:1px solid var(--ew-line);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ew-mut) }
+.ew .trow { min-height:44px;padding-top:7px;padding-bottom:7px;font-size:13px;color:var(--ew-ink);border-bottom:1px solid var(--ew-line) }
+.ew .trow:hover { background:var(--ew-soft0) }
+.ew .ew-num { text-align:right;font-variant-numeric:tabular-nums }
+.ew .m-only { display:none }
+.ew .pbtn:disabled { opacity:.45;cursor:not-allowed }
+.ew .btn-sec:hover { background:var(--ew-soft) }
+.ew .ew-seg:hover { color:var(--ew-ink) }
+.ew .ew-overlay { position:fixed;inset:0;background:rgba(17,26,46,.48);display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;z-index:50 }
+@container ew (max-width: 900px) {
+.ew .svc-grid { grid-template-columns:220px minmax(0,1fr);gap:16px 20px }
+.ew .svc-detail { grid-column:1 / -1 }
+}
+@container ew (max-width: 900px) {
+.ew .flt { flex:1 1 120px !important }
+.ew .thead { display:none }
+.ew .trow { grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"for amt" "ids cd" "date stat";gap:3px 12px;padding:10px 14px }
+.ew .c-id, .ew .c-pay { display:none !important }
+.ew .m-only { display:block }
+.ew .c-for { grid-area:for }
+.ew .c-amt { grid-area:amt }
+.ew .c-ids { grid-area:ids }
+.ew .c-cd { grid-area:cd;justify-self:end }
+.ew .c-date { grid-area:date;font-size:11.5px !important;color:var(--ew-mut) !important }
+.ew .c-stat { grid-area:stat;justify-self:end }
+}
+@container ew (max-width: 560px) {
+/* phones: transaction names wrap instead of being cut off */
+.ew .c-for, .ew .c-for * { white-space:normal !important; text-overflow:clip !important; overflow:visible !important }
+.ew .svc-grid { grid-template-columns:minmax(0,1fr) }
+.ew .svc-pie { justify-self:center }
+}
+@container ew (max-width: 640px) {
+.ew .ew-wallet { grid-template-columns:minmax(0,1fr) minmax(0,1fr) }
+.ew .w-main { grid-column:1 / -1;border-bottom:1px solid rgba(255,255,255,.14) }
+.ew .wcell+.wcell { border-left:0 }
+.ew .w-tot { border-left:1px solid rgba(255,255,255,.14) !important }
+.ew .wcell { padding:14px 16px }
+.ew .pg-nums { display:none !important }
+}
+@container ew (max-width: 460px) {
+.ew .hide-xs { display:none }
+}
+/* The app's global heading font must not override the reference's sans headings (h1 sets its own font inline). */
+.ew h2, .ew h3 { font-family: inherit; }
+
+/* Theme: the reference palette is mapped onto the project's Royal Burgundy + Champagne Gold tokens
+   (tokens.css), so the page follows the light and dark themes. Burgundy (#7a1f3a) is the one burgundy in
+   the project (home.css); everything else comes from the project tokens. */
+.ew {
+  --ew-navy: #7a1f3a; --ew-accent: #7a1f3a;
+  --ew-ink: var(--text); --ew-ink2: var(--text-soft); --ew-mut: var(--muted);
+  --ew-surface: var(--card); --ew-white: #ffffff; --ew-line: var(--border);
+  --ew-soft: var(--chip-alt); --ew-soft0: var(--chip); --ew-chip: var(--chip); --ew-chip2: var(--chip-alt);
+  --ew-gold: var(--heading); --ew-icon: var(--icon); --ew-avatar: var(--avatar);
+  --ew-ok: var(--positive); --ew-okT: var(--tq-okT); --ew-okS: var(--tq-okS);
+  --ew-bad: var(--danger); --ew-badS: var(--tq-badS);
+  --ew-warnT: var(--tq-warnT); --ew-warnS: var(--tq-warnS);
+  --ew-infoT: var(--tq-infoT); --ew-infoS: var(--tq-infoS);
+  --ew-genT: var(--tq-genT); --ew-genS: var(--tq-genS);
+  --ew-online: var(--online-border); --ew-refund: #8a3a1c;
+  --ew-onNavyMut: rgba(255, 255, 255, 0.78); --ew-onNavyGold: #f0d9a6;
+  --ew-disabled: color-mix(in srgb, var(--ew-navy) 35%, #b8b0a8);
+}
+:root[data-theme='dark'] .ew { --ew-navy: #8f2646; --ew-accent: var(--accent); }
+/* Plain circular radio: no box, track or extra outline. Selected = burgundy fill with a white dot. */
+.ew .ew-radio { appearance: none; -webkit-appearance: none; flex: none; box-sizing: border-box; width: 18px; height: 18px; margin: 0; padding: 0; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--ew-mut) 60%, transparent); background: var(--ew-surface); display: inline-grid; place-content: center; cursor: pointer; }
+.ew .ew-radio::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ew-white); transform: scale(0); }
+.ew .ew-radio:checked { background: var(--ew-navy); border-color: var(--ew-navy); }
+.ew .ew-radio:checked::before { transform: scale(1); }
