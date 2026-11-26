@@ -32,24 +32,5 @@
 
 /* Instant card (layout from the approved prototype) */
 :root .il-page .xp-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
-:root .il-page .ic-card { padding:16px; display:flex; flex-direction:column; gap:10px; min-width:0; }
-:root .il-page .ic-top { display:flex; gap:12px; align-items:flex-start; }
-:root .il-page .ic-ph { position:relative; flex:none; width:56px; height:56px; display:block; }
-:root .il-page .ic-dot { position:absolute; right:0; bottom:0; width:13px; height:13px; border-radius:50%; background:#2ec27e; border:2px solid var(--surf); }
-:root .il-page .ic-dot.busy { background:#f0a030; }
-:root .il-page .ic-id { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
-:root .il-page .ic-line { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-:root .il-page .ic-line h3 { margin:0; font:600 19px var(--font-head); font-variant-numeric:lining-nums; }
-:root .il-page .ic-st { font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gn)) 16%, var(--glass-base)); color:var(--green); white-space:nowrap; }
-:root .il-page .ic-st.busy { background:color-mix(in srgb, rgb(var(--gd)) 18%, var(--glass-base)); color:var(--gold); }
-:root .il-page .ic-spec { font-size:13.5px; color:var(--muted); }
-:root .il-page .ic-stats { display:flex; gap:12px; font-size:13px; color:var(--muted); flex-wrap:wrap; } :root .il-page .ic-stats b { color:var(--ink); display:inline-flex; align-items:center; gap:3px; } :root .il-page .ic-stats b svg { color:var(--gold); }
-:root .il-page .ic-badges { display:flex; gap:6px; flex-wrap:wrap; min-height:0; }
-:root .il-page .ic-badge { font-size:12px; font-weight:600; padding:2px 10px; border-radius:8px; background:color-mix(in srgb, rgb(var(--gn)) 14%, var(--glass-base)); color:var(--green); }
-:root .il-page .ic-badge.plan { background:color-mix(in srgb, rgb(var(--gd)) 14%, var(--glass-base)); color:var(--gold); border:1px solid rgba(var(--gd),.3); } :root .il-page .ic-badge.new { background:color-mix(in srgb, rgb(var(--gd)) 20%, var(--glass-base)); color:var(--gold); }
-:root .il-page .ic-tags { display:flex; gap:6px; flex-wrap:wrap; } :root .il-page .ic-tags span { font-size:12.5px; padding:2px 10px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); border:1px solid rgba(var(--ln),.25); color:var(--em); }
-:root .il-page .ic-lang, :root .il-page .ic-note { font-size:13px; color:var(--muted); }
-:root .il-page .ic-price { margin-top:auto; display:flex; justify-content:space-between; align-items:baseline; padding-top:10px; border-top:1px solid rgba(var(--ln),.18); } :root .il-page .ic-price b { font:600 22px var(--font-head); } :root .il-page .ic-price small { color:var(--subtle); font-size:13px; }
-:root .il-page .ic-cta { width:100%; min-height:46px; }
 @media (max-width:1024px) { :root .il-page .xp-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:640px) { :root .il-page .xp-grid { grid-template-columns:minmax(0,1fr); } }
