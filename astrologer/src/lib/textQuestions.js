@@ -133,9 +133,9 @@ export function timelineEvents(q) {
 // ---- Campaigns, Open Questions and quota (AD-24 – AD-27, AD-54 – AD-57) ----
 export const campTotal = (c) => (c.G ? +c.gSlots || 0 : 0) + (c.P ? +c.pSlots || 0 : 0);
 export const campSold = (c) => (c.G ? c.gSold : 0) + (c.P ? c.pSold : 0);
-/** Allocated slots: every campaign that is not cancelled/deleted, plus Open Questions. */
+/** Allocated slots: every campaign that is not cancelled/deleted/draft, plus Open Questions. */
 export const allocated = (campaigns, open) =>
-  campaigns.filter((c) => !['Cancelled', 'Deleted'].includes(c.status)).reduce((s, c) => s + campTotal(c), 0) + open.gSlots + open.pSlots;
+  campaigns.filter((c) => !['Cancelled', 'Deleted', 'Draft'].includes(c.status)).reduce((s, c) => s + campTotal(c), 0) + open.gSlots + open.pSlots;
 /** Final payable price after an optional discount (AD-56). */
 export const finalPrice = (p, d) => (d && d.on && d.pct ? Math.round(p * (100 - d.pct)) / 100 : p);
 /** Name for a question's campaign id: a campaign, 'open' (Open Questions) or 'tier:<Tier>' (subscription). */

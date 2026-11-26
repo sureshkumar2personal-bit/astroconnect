@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Intertwined gold wedding rings with a flower garland">
+  <defs>
+    <linearGradient id="r-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#FFD6DC"/></linearGradient>
+    <radialGradient id="r-glow" cx="50%" cy="46%" r="45%"><stop offset="0" stop-color="#FFF1C8" stop-opacity=".9"/><stop offset="1" stop-color="#FFF1C8" stop-opacity="0"/></radialGradient>
+    <linearGradient id="r-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBE08A"/><stop offset=".5" stop-color="#D9A21F"/><stop offset="1" stop-color="#A86A0C"/></linearGradient>
+    <path id="r-spark" d="M0-8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2Z"/>
+    <g id="r-rose"><circle r="9" fill="#F28DA6"/><circle r="5.5" fill="#E9708E"/><circle r="2.5" fill="#F7B0C2"/></g>
+    <g id="r-jas"><g fill="#FFFFFF" stroke="#EBDCC8" stroke-width=".8"><ellipse rx="3" ry="6" transform="rotate(0)"/><ellipse rx="3" ry="6" transform="rotate(72)"/><ellipse rx="3" ry="6" transform="rotate(144)"/><ellipse rx="3" ry="6" transform="rotate(216)"/><ellipse rx="3" ry="6" transform="rotate(288)"/></g><circle r="2" fill="#F6C453"/></g>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#r-bg)"/>
+  <rect width="256" height="256" rx="56" fill="url(#r-glow)"/>
+  <!-- rings: left ring, right ring, then re-draw one arc of the left ring on top so they interlock -->
+  <circle cx="104" cy="112" r="48" fill="none" stroke="url(#r-gold)" stroke-width="14"/>
+  <circle cx="152" cy="112" r="48" fill="none" stroke="url(#r-gold)" stroke-width="14"/>
+  <path d="M116.4 65.6 A48 48 0 0 1 137.9 78.1" fill="none" stroke="url(#r-gold)" stroke-width="14"/>
+  <circle cx="104" cy="112" r="55" fill="none" stroke="#FFF3C4" stroke-opacity=".55" stroke-width="2"/>
+  <circle cx="152" cy="112" r="55" fill="none" stroke="#FFF3C4" stroke-opacity=".55" stroke-width="2"/>
+  <!-- garland -->
+  <path d="M40 188 Q128 232 216 188" fill="none" stroke="#7BA05B" stroke-width="5" stroke-linecap="round"/>
+  <g>
+    <use href="#r-rose" x="62" y="199"/><use href="#r-jas" x="84" y="209"/><use href="#r-rose" x="106" y="216"/>
+    <use href="#r-jas" x="128" y="219"/><use href="#r-rose" x="150" y="216"/><use href="#r-jas" x="172" y="209"/><use href="#r-rose" x="194" y="199"/>
+    <use href="#r-jas" x="44" y="190"/><use href="#r-jas" x="212" y="190"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".95">
+    <use href="#r-spark" transform="translate(40 52) scale(.9)"/>
+    <use href="#r-spark" transform="translate(216 60) scale(.7)"/>
+    <use href="#r-spark" transform="translate(128 30) scale(.5)"/>
+    <use href="#r-spark" transform="translate(206 138) scale(.5)"/>
+  </g>
+</svg>

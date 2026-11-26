@@ -17,6 +17,8 @@ export function SlotsBody({ c, free, onCancel, onSave }) {
   const [g, setG] = useState(String(c.gSlots));
   const [p, setP] = useState(String(c.pSlots));
   const [err, setErr] = useState('');
+  const change = (c.G ? +g || 0 : 0) + (c.P ? +p || 0 : 0) - campTotal(c);
+  const left = free - change;
   const save = () => {
     const gv = c.G ? +g : 0;
     const pv = c.P ? +p : 0;
@@ -25,16 +27,21 @@ export function SlotsBody({ c, free, onCancel, onSave }) {
     onSave(gv, pv);
   };
   return (
-    <>
-      <p><b>{c.name}</b> · {free} free in quota</p>
+    <div className="cm-dlg">
+      <p className="cm-sub"><b>{c.name}</b></p>
       <div className="form">
         {c.G && <Field label={`General slots (sold ${c.gSold})`}><input type="number" value={g} onChange={(e) => { setG(e.target.value); setErr(''); }} /></Field>}
         {c.P && <Field label={`Personal slots (sold ${c.pSold})`}><input type="number" value={p} onChange={(e) => { setP(e.target.value); setErr(''); }} /></Field>}
+        <div className="cm-alloc" aria-live="polite">
+          <div><div className="l">Current total</div><div className="v">{campTotal(c)}</div></div>
+          <div><div className="l">Change</div><div className="v">{change > 0 ? '+' : change < 0 ? '−' : ''}{Math.abs(change)}</div></div>
+          <div><div className="l">Quota left after</div><div className={`v ${left < 0 ? 'neg' : 'pos'}`}>{left}</div></div>
+        </div>
         <p className="muted sm">You may go below the number sold; purchased questions are not cancelled and must still be answered.</p>
-        <p className="warn-t sm" role="alert">{err}</p>
+        <p className="warn-t sm cm-form-err" role="alert">{err}</p>
       </div>
-      <Actions onCancel={onCancel}><button type="button" className="btn btn-p" onClick={save}>Save</button></Actions>
-    </>
+      <Actions onCancel={onCancel}><button type="button" className="btn btn-p" onClick={save}>Update slots</button></Actions>
+    </div>
   );
 }
 
@@ -59,16 +66,16 @@ export function ReallocBody({ c, campaigns, onCancel, onMove }) {
     onMove(fk, tid, tk, +n);
   };
   return (
-    <>
-      <p>Move unsold slots from <b>{c.name}</b> ({unsold('G') * (c.G ? 1 : 0) + unsold('P') * (c.P ? 1 : 0)} unsold) to another campaign, question type, or Open Questions.</p>
+    <div className="cm-dlg">
+      <p className="cm-sub">Move unsold slots from <b>{c.name}</b> ({unsold('G') * (c.G ? 1 : 0) + unsold('P') * (c.P ? 1 : 0)} unsold) to another campaign, question type, or Open Questions.</p>
       <div className="form">
         <Field label="From"><select value={fk} onChange={(e) => { setFk(e.target.value); setErr(''); }}>{from.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></Field>
         <Field label="Move to"><select value={dest} onChange={(e) => { setDest(e.target.value); setErr(''); }}>{to.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></Field>
         <Field label="Number of slots"><input type="number" value={n} onChange={(e) => { setN(e.target.value); setErr(''); }} /></Field>
-        <p className="warn-t sm" role="alert">{err}</p>
+        <p className="warn-t sm cm-form-err" role="alert">{err}</p>
       </div>
       <Actions onCancel={onCancel}><button type="button" className="btn btn-p" onClick={move}>Move Slots</button></Actions>
-    </>
+    </div>
   );
 }
 
@@ -76,14 +83,14 @@ export function ReallocBody({ c, campaigns, onCancel, onMove }) {
 export function ExtendBody({ c, onCancel, onExtend, toast }) {
   const [v, setV] = useState(c.end);
   return (
-    <>
-      <p><b>{c.name}</b> currently expires {fmtDate(c.end)}.</p>
+    <div className="cm-dlg">
+      <p className="cm-sub"><b>{c.name}</b>, currently ends {fmtDate(c.end)}.</p>
       <div className="form"><Field label="New expiry date"><input type="date" value={v} onChange={(e) => setV(e.target.value)} /></Field></div>
       <Note>The extension also applies to unused purchased slots of this campaign. Reactivating a campaign doesn't restore slots that already expired.</Note>
       <Actions onCancel={onCancel}>
-        <button type="button" className="btn btn-p" onClick={() => (v <= c.end ? toast('Choose a later date.') : onExtend(v))}>Extend</button>
+        <button type="button" className="btn btn-p" onClick={() => (v <= c.end ? toast('Choose a later date.') : onExtend(v))}>Extend campaign</button>
       </Actions>
-    </>
+    </div>
   );
 }
 
@@ -91,24 +98,24 @@ export function ExtendBody({ c, onCancel, onExtend, toast }) {
 export function CancelBody({ c, questions, onKeep, onConfirm }) {
   const n = questions.filter((q) => q.camp === c.id && isOpen(q)).length;
   return (
-    <>
-      <p><b>{c.name}</b></p>
-      <ul className="cons">
+    <div className="cm-dlg">
+      <p className="cm-sub"><b>{c.name}</b></p>
+      <ul className="cons cm-confirm">
         <li><b>{n}</b> submitted questions stay in My Work and must still be answered within their 30-day deadlines.</li>
         <li>Users get a <b>refund for purchased unused slots</b>.</li>
         <li>Unsold allocation returns to your monthly quota.</li>
       </ul>
       <Actions onCancel={onKeep} cancelLabel="Keep Campaign"><button type="button" className="btn danger-f" onClick={onConfirm}>Cancel Campaign</button></Actions>
-    </>
+    </div>
   );
 }
 
 /** Delete Campaign (AD-31): earlier no-refund rule kept while AP-02-24 is pending. */
 export function DeleteBody({ c, onKeep, onConfirm }) {
   return (
-    <>
-      <p><b>{c.name}</b></p>
-      <ul className="cons">
+    <div className="cm-dlg">
+      <p className="cm-sub"><b>{c.name}</b></p>
+      <ul className="cons cm-confirm">
         <li>Submitted questions are not cancelled and must still be answered.</li>
         <li>
           No refund is issued just because a campaign is deleted; a purchased unused slot stays usable until its original deadline
@@ -117,6 +124,6 @@ export function DeleteBody({ c, onKeep, onConfirm }) {
         <li>Unsold allocation can be reused in your quota.</li>
       </ul>
       <Actions onCancel={onKeep} cancelLabel="Keep Campaign"><button type="button" className="btn danger-f" onClick={onConfirm}>Delete Campaign</button></Actions>
-    </>
+    </div>
   );
 }
