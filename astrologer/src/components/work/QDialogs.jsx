@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Field } from '@/components/ui/sectionKit.jsx';
-import { STATUS_KIND, dueDate, fmtDate } from '@/lib/textQuestions.js';
+import { STATUS_KIND, answerBy, fmtDate } from '@/lib/textQuestions.js';
 import { astrologerProfile } from '@/data/mockTextQuestions.js';
 
 // Dialog bodies for Text Questions (reference A.corr, A.tqFilters, A.previewAns) and the
@@ -32,7 +32,6 @@ export function PreviewBody({ q, text, onBack, onSubmit }) {
     <>
       <p className="muted sm">This is how {q.name} will see your answer.</p>
       <div className="preview"><AnswerPreviewCard q={q} text={text} /></div>
-      <p className="warn-t sm">Once submitted, the user sees it immediately and it can't be edited.</p>
       <div className="actions">
         <button type="button" className="btn btn-o" onClick={onBack}>Back to Edit</button>
         <button type="button" className="btn btn-p" disabled={!text} onClick={onSubmit}>Submit Answer</button>
@@ -48,7 +47,7 @@ export function CorrectionBody({ q, onCancel, onSend }) {
       <div className="note">{q.id} · sent with a General slot<br />{q.text}</div>
       <p>The user will be asked to <b>replace it with another General question</b>, using the same slot, with no extra payment. Upgrading to Personal isn't available.</p>
       <p className="sm">
-        Original deadline stays <b className="dl">{fmtDate(dueDate(q))}</b>. If the user doesn't respond by then, the question is auto-cancelled and refunded.
+        Original deadline stays <b className="dl">{fmtDate(answerBy(q))}</b>. If the user doesn't respond by then, the question is auto-cancelled and refunded.
         You can request correction again if the resubmitted question is still wrong.
       </p>
       <div className="actions">

@@ -21,7 +21,7 @@
 .ac-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
+  gap: 20px;
 }
 
 /* ---------- Sidebar ---------- */
@@ -197,9 +197,13 @@
   display: flex; align-items: center; justify-content: center;
   font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #2b1e0f;
 }
-.ac-profile__chev { transition: transform 0.15s; }
 .ac-profile__btn[aria-expanded='true'] { border-color: var(--accent-border); }
-.ac-profile__btn[aria-expanded='true'] .ac-profile__chev { transform: rotate(180deg); }
+/* Row expand / collapse button (components/ui/RowChevron.jsx), shared by every expandable row:
+   rounded-square champagne button with a dark triangle — ▶ collapsed, turns to ▼ when expanded. */
+.row-chev { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 7px; background: color-mix(in srgb, var(--accent) 16%, var(--card)); color: var(--text); transition: background-color 0.2s; }
+.row-chev svg { display: block; transition: transform 0.2s ease; }
+.row-chev.is-open svg { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .row-chev svg { transition: none; } }
 /* Menu: centred under the profile button; --shift (set in JS) keeps it inside the viewport. */
 .ac-profile__menu {
   position: absolute; top: calc(100% + 8px); left: 50%; z-index: 20;
@@ -398,7 +402,7 @@
 .ac-card__caption a { color: var(--heading); font-weight: 600; }
 
 /* Today's Work: full-width section with five cards (AD-17 – AD-19). */
-.ac-tw { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
+.ac-tw { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
 .ac-tw__card { min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border: 1px solid var(--divider-strong); border-radius: 16px; background: var(--chip); }
 .ac-tw__card--bad { border: 2px solid var(--danger); }
 .ac-tw__head { display: flex; align-items: center; gap: 10px; }
@@ -577,6 +581,21 @@
 .ac-rail--req:hover { color: var(--text); border-color: var(--accent); }
 .ac-rail--req:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .ac-rail__go { flex: none; display: inline-flex; align-items: center; gap: 2px; font-weight: 600; color: var(--heading); }
+/* "Instant Call and Instant Chat are off" hint: soft champagne-gold highlight, key words in burgundy. */
+.ac-rail--off {
+  color: var(--text); border-color: var(--accent-border); border-left: 3px solid var(--accent-border);
+  background: color-mix(in srgb, var(--accent) 18%, var(--card));
+}
+.ac-rail--off > svg {
+  box-sizing: content-box; padding: 5px; border-radius: 50%; color: #7a1f3a;
+  background: color-mix(in srgb, var(--accent) 38%, var(--card));
+}
+.ac-rail--off strong { font-weight: 650; color: #7a1f3a; }
+:root[data-theme='dark'] .ac-rail--off > svg,
+:root[data-theme='dark'] .ac-rail--off strong { color: var(--heading); }
+@media (max-width: 760px) {
+  .ac-rail--off { align-items: flex-start; padding: 8px 12px; }
+}
 /* Incoming request queues in the strip: Incoming calls / Incoming chats, each FIFO, first 3 shown. */
 .ac-rails { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1100px) { .ac-rails:has(> :nth-child(2)) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -755,7 +774,8 @@
 .sw-sec__head:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
 .sw-sec__head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .sw-sec__head small { color: var(--muted); font-size: 12px; }
-.sw-sec__chev { margin-left: auto; color: var(--muted); transition: transform 0.15s; }
+.sw-sec__chev { margin-left: auto; color: var(--muted); }
+.sw-sec__head .row-chev.sw-sec__chev { width: 22px; height: 22px; color: var(--text); }
 .sw-sec__body { padding: 0 16px 14px; display: flex; flex-direction: column; gap: 8px; }
 .sw-q { margin: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--card); font-size: 13px; line-height: 1.5; }
 /* Shared horoscope file card. */

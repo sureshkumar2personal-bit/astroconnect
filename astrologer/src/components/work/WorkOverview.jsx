@@ -1,4 +1,5 @@
 import { Grid } from '@/components/ui/sectionKit.jsx';
+import WorkHistory from './WorkHistory.jsx';
 import { critical, inCat, isOpen, openCount } from '@/lib/textQuestions.js';
 import { isUpcoming } from '@/hooks/useAppointments.js';
 import { routes } from '@/lib/router.js';
@@ -8,16 +9,18 @@ import Icon from '@/components/ui/Icon.jsx';
 // Top row: Total Work (open Text-Based Questions + upcoming appointments), Text Questions and
 // Appointments. Subscription Questions are not counted here (removed on request; AD-72 flagged).
 /** One summary card: icon tile, title + description, big number. Links when `href` is given. */
-function Stat({ icon, title, sub, value, href, hero }) {
+function Stat({ icon, title, sub, value, href, hero, onClick, toggle, on }) {
   const body = (
     <>
       <span className="wk-stat__ic" aria-hidden="true"><Icon name={icon} size={22} stroke={1.8} /></span>
-      <span className="wk-stat__txt"><b>{title}</b><span>{sub}</span></span>
+      <span className="wk-stat__txt"><b>{title}</b>{sub && <span>{sub}</span>}</span>
       <span className="wk-stat__n">{value}</span>
     </>
   );
   const cls = `wk-stat${hero ? ' wk-stat--hero' : ''}`;
-  return href ? <a className={`${cls} wk-stat--link`} href={`#${href}`}>{body}</a> : <div className={cls}>{body}</div>;
+  // A toggle card (History) shows or hides its panel on this page instead of navigating.
+  if (toggle) return <button type="button" className={`${cls} wk-stat--link wk-stat--toggle${on ? ' on' : ''}`} aria-expanded={on} onClick={onClick}>{body}</button>;
+  return href ? <a className={`${cls} wk-stat--link`} href={`#${href}`} onClick={onClick}>{body}</a> : <div className={cls}>{body}</div>;
 }
 
 /** Card header: icon tile, serif title and a count pill. */
@@ -53,7 +56,8 @@ const APT_STATUSES = [
   { st: 'Under Review', sub: 'Being reviewed', tone: 'gold' },
 ];
 
-export default function WorkOverview({ questions, appointments }) {
+export default function WorkOverview({ questions, appointments, onAptTab, tq, apt, mobile, openDialog, toast, historyOpen, onToggleHistory }) {
+  const showHistory = !!historyOpen; // owned by WorkPage so its Back button can close the panel
   const tOpen = openCount(questions, 'text');
   const upcoming = appointments.filter(isUpcoming).sort((a, b) => new Date(a.at) - new Date(b.at));
   const disputes = questions.filter((q) => q.status === 'Disputed').length;
@@ -67,8 +71,11 @@ export default function WorkOverview({ questions, appointments }) {
         <Stat hero icon="briefcase" title="Total Work" value={tOpen + upcoming.length}
           sub={`${tOpen} question${tOpen === 1 ? '' : 's'} + ${upcoming.length} appointment${upcoming.length === 1 ? '' : 's'}`} />
         <Stat icon="chatQuestion" title="Text Questions" sub="Pending, all question types" value={tOpen} href={routes.list} />
-        <Stat icon="calendar" title="Appointments" sub="Upcoming" value={upcoming.length} href={routes.appointments} />
+        <Stat icon="calendar" title="Appointments" sub="Upcoming" value={upcoming.length} href={routes.appointments} onClick={() => onAptTab?.('upcoming')} />
+        <Stat icon="history" title="History" value={appointments.filter((a) => !isUpcoming(a)).length} toggle on={showHistory} onClick={onToggleHistory} />
       </div>
+      {/* History active: only the History panel below the summary row; the cards below are hidden (not removed). */}
+      {showHistory ? <WorkHistory tq={tq} apt={apt} mobile={mobile} openDialog={openDialog} toast={toast} /> : (
       <Grid size="lg">
         <section className="card sec wk-card">
           <CardHead icon="chatQuestion" title="Text Questions" count={tOpen} unit="pending" />
@@ -86,7 +93,6 @@ export default function WorkOverview({ questions, appointments }) {
             <a className="wk-cta" href={`#${routes.list}`}>Open Text Questions<Icon name="chevronRight" size={18} stroke={2.2} /></a>
             <LinkIc href={routes.campaigns} icon="megaphone">Campaign Management</LinkIc>
             <LinkIc href={routes.view('templates')} icon="book">Answer Templates</LinkIc>
-            <LinkIc href={routes.view('history')} icon="history">History</LinkIc>
           </div>
         </section>
         <section className="card sec wk-card">
@@ -109,11 +115,12 @@ export default function WorkOverview({ questions, appointments }) {
             Breakdown of the {upcoming.length} upcoming appointment{upcoming.length === 1 ? '' : 's'}. Completed and settled appointments move to history.
           </p>
           <div className="wk-actions">
-            <a className="wk-cta" href={`#${routes.appointments}`}>Open Appointments<Icon name="chevronRight" size={18} stroke={2.2} /></a>
+            <a className="wk-cta" href={`#${routes.appointments}`} onClick={() => onAptTab?.('upcoming')}>Open Appointments<Icon name="chevronRight" size={18} stroke={2.2} /></a>
             <LinkIc href={routes.aptCalendar} icon="calendarPlus">Calendar &amp; Availability</LinkIc>
           </div>
         </section>
       </Grid>
+      )}
     </>
   );
 }

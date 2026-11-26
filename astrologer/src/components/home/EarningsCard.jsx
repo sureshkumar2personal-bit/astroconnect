@@ -62,7 +62,6 @@ export default function EarningsCard({ data, peak }) {
           <Tile p={data.month} />
           {data.lastMonth && <Tile p={data.lastMonth} />}
         </div>
-        <p className="ac-card__caption">Net earnings after platform commission. Refunds appear only in <a href="#/earnings">Wallet</a>. Sample figures.</p>
       </Card>
       <PeakDemandCard data={peak} />
       <Card id="h-instant" icon="phone" title="Instant Calls & Chats" headClass="ac-card__head--tile" extra={<span className="ac-ic__pill">Today</span>}>

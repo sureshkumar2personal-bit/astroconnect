@@ -19,6 +19,15 @@ export const appointments = [
   apt('APT-5007', 'U-37710', 'Kavya M.', '2026-11-18T09:30', 15, 300, 'Completed', 'Promotion', { att: [{ type: 'Remedy', text: 'Recite Hanuman Chalisa on Saturdays.' }] }),
   apt('APT-5005', 'U-42118', 'Lakshmi N.', '2026-11-16T12:00', 30, 550, 'Cancelled', 'Transfer question', { pay: 'Refunded to User Wallet', cancelBy: 'User (more than 12 hours before)' }),
   apt('APT-5003', 'U-43007', 'Karthik M.', '2026-11-15T19:00', 15, 300, 'Missed / No-show', 'Travel', { noShow: 'User did not join within the 5-minute grace period' }),
+  // Further past appointments (illustrative sample history, so Appointment History has several pages).
+  apt('APT-5011', 'U-41502', 'Sowmya R.', '2026-11-19T11:30', 15, 300, 'Completed', 'Business partnership', { att: [{ type: 'Recommendation', text: 'Sign agreements after 5 December.' }] }),
+  apt('APT-5010', 'U-40239', 'Rahul S.', '2026-11-18T19:15', 30, 550, 'Completed', 'Career growth'),
+  apt('APT-5008', 'U-44017', 'Bhavani K.', '2026-11-17T10:00', 30, 550, 'Completed', 'Child education', { birth: '21 Jun 1990, 08:05 AM, Trichy' }),
+  apt('APT-5006', 'U-42960', 'Ganesh V.', '2026-11-16T17:45', 15, 300, 'Cancelled', 'Loan approval', { pay: 'Refunded to User Wallet', cancelBy: 'User (more than 12 hours before)' }),
+  apt('APT-5004', 'U-39841', 'Divya P.', '2026-11-14T11:00', 15, 300, 'Completed', 'Health check-in', { att: [{ type: 'Remedy', text: 'Light a lamp on Fridays.' }] }),
+  apt('APT-5002', 'U-41725', 'Murali T.', '2026-11-13T15:30', 30, 550, 'Completed', 'Property dispute'),
+  apt('APT-5001', 'U-43384', 'Keerthi S.', '2026-11-12T09:00', 15, 300, 'Missed / No-show', 'Marriage compatibility', { noShow: 'User did not join within the 5-minute grace period' }),
+  apt('APT-4999', 'U-40815', 'Hemant J.', '2026-11-11T18:00', 30, 550, 'Completed', 'Foreign travel'),
 ];
 
 // Calendar & Availability settings (AD-90, AD-92, AD-93).
