@@ -1,7 +1,7 @@
 :root .sky .navbar {
   flex:none;
   border-bottom:1px solid rgba(var(--ln),.22);
-  background:rgba(var(--bg0),.7);
+  background:color-mix(in srgb, rgb(var(--bg0)) 70%, var(--glass-base));
 }
 
 :root .navbar .navbar-1 {
@@ -68,4 +68,4 @@
   font-size:17px;
   color:var(--ink);
 }
-:root .navbar .navbar-item:hover { background:rgba(var(--gl),.15); }
+:root .navbar .navbar-item:hover { background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base)); }

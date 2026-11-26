@@ -5,18 +5,18 @@
 :root .xp-page .xp-intro h1, :root .xp-page .xp-h1 { font-size:44px; font-weight:600; line-height:1.1; }
 :root .xp-page .xp-intro > p { margin:6px 0 0; color:var(--muted); font-size:16px; }
 :root .xp-page .xp-searchrow { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
-:root .xp-page .xp-search { flex:1; min-width:260px; display:flex; align-items:center; gap:10px; min-height:48px; padding:0 14px; border-radius:14px; background:rgba(var(--bg0),.6); border:1px solid rgba(var(--ln),.35); color:var(--acc); }
+:root .xp-page .xp-search { flex:1; min-width:260px; display:flex; align-items:center; gap:10px; min-height:48px; padding:0 14px; border-radius:14px; background:color-mix(in srgb, rgb(var(--bg0)) 60%, var(--glass-base)); border:1px solid rgba(var(--ln),.35); color:var(--acc); }
 :root .xp-page .xp-search:focus-within { border-color:var(--acc2); box-shadow:0 0 0 3px rgba(154,124,255,.18); }
 :root .xp-page .xp-search input { flex:1; min-width:0; background:transparent; border:0; outline:0; color:var(--ink); font:inherit; font-size:16px; }
 :root .xp-page .xp-search input::placeholder { color:var(--subtle); }
 :root .xp-page .xp-search button { background:transparent; border:0; color:var(--subtle); display:flex; padding:4px; }
-:root .xp-page .xp-filterbtn { display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 18px; border-radius:14px; font-size:16px; font-weight:600; background:rgba(var(--gl),.12); border:1px solid rgba(var(--ln),.35); color:var(--em); }
-:root .xp-page .xp-filterbtn:hover { background:rgba(var(--gl),.2); }
+:root .xp-page .xp-filterbtn { display:inline-flex; align-items:center; gap:8px; min-height:48px; padding:0 18px; border-radius:14px; font-size:16px; font-weight:600; background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); border:1px solid rgba(var(--ln),.35); color:var(--em); }
+:root .xp-page .xp-filterbtn:hover { background:color-mix(in srgb, rgb(var(--gl)) 20%, var(--glass-base)); }
 :root .xp-page .xp-badge { min-width:22px; height:22px; padding:0 6px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-size:13px; background:var(--acc2); color:#fff; }
 :root .xp-page .xp-try { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:12px; }
 :root .xp-page .xp-try > span { color:var(--subtle); font-size:14px; }
-:root .xp-page .xp-try button { padding:4px 12px; min-height:32px; border-radius:999px; font-size:14px; background:rgba(var(--gl),.1); border:1px solid rgba(var(--ln),.28); color:var(--em); }
-:root .xp-page .xp-try button:hover { background:rgba(var(--gl),.2); }
+:root .xp-page .xp-try button { padding:4px 12px; min-height:32px; border-radius:999px; font-size:14px; background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base)); border:1px solid rgba(var(--ln),.28); color:var(--em); }
+:root .xp-page .xp-try button:hover { background:color-mix(in srgb, rgb(var(--gl)) 20%, var(--glass-base)); }
 
 :root .xp-page .xp-bhead { display:flex; justify-content:space-between; align-items:flex-end; gap:12px 20px; flex-wrap:wrap; margin-bottom:14px; }
 :root .xp-page .xp-bhead h2 { font-size:30px; font-weight:600; }
@@ -24,18 +24,18 @@
 :root .xp-page .xp-count { color:var(--subtle); font-size:14px; }
 :root .xp-page .xp-bdesc { margin:2px 0 0; color:var(--muted); font-size:15px; }
 :root .xp-page .xp-more-btn { display:inline-flex; align-items:center; gap:4px; min-height:40px; padding:0 14px; border-radius:999px; background:transparent; border:1px solid rgba(var(--ln2),.45); color:var(--em); font-size:15px; font-weight:600; }
-:root .xp-page .xp-more-btn:hover { background:rgba(var(--gl),.15); }
+:root .xp-page .xp-more-btn:hover { background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base)); }
 :root .xp-page .xp-back { display:inline-flex; align-items:center; gap:6px; margin-bottom:12px; min-height:40px; padding:0 14px; border-radius:999px; background:transparent; border:1px solid rgba(var(--ln2),.45); color:var(--em); font-size:15px; }
 :root .xp-page .xp-tools { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 :root .xp-page .xp-sort { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:15px; }
 :root .xp-page .xp-sort select { width:auto; min-height:44px; }
 
 :root .xp-page .xp-tiles { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:10px; }
-:root .xp-page .xp-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:12px 6px; min-height:92px; border-radius:16px; font-size:13.5px; font-weight:600; text-align:center; line-height:1.2; color:var(--ink); background:rgba(var(--gl),.08); border:1px solid rgba(var(--ln),.22); }
-:root .xp-page .xp-tile:hover { background:rgba(var(--gl),.16); }
-:root .xp-page .xp-tile > span { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:rgba(var(--gl),.16); color:var(--acc); }
-:root .xp-page .xp-tile.t1 > span { background:rgba(var(--gn),.16); color:var(--green); }
-:root .xp-page .xp-tile.t2 > span { background:rgba(var(--gd),.16); color:var(--gold); }
+:root .xp-page .xp-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:12px 6px; min-height:92px; border-radius:16px; font-size:13.5px; font-weight:600; text-align:center; line-height:1.2; color:var(--ink); background:color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base)); border:1px solid rgba(var(--ln),.22); }
+:root .xp-page .xp-tile:hover { background:color-mix(in srgb, rgb(var(--gl)) 16%, var(--glass-base)); }
+:root .xp-page .xp-tile > span { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, rgb(var(--gl)) 16%, var(--glass-base)); color:var(--acc); }
+:root .xp-page .xp-tile.t1 > span { background:color-mix(in srgb, rgb(var(--gn)) 16%, var(--glass-base)); color:var(--green); }
+:root .xp-page .xp-tile.t2 > span { background:color-mix(in srgb, rgb(var(--gd)) 16%, var(--glass-base)); color:var(--gold); }
 :root .xp-page .xp-tile.t3 > span { background:rgba(120,170,255,.16); color:#8fb8ec; }
 :root .xp-page .xp-tile.t4 > span { background:rgba(240,120,150,.16); color:#f09ab4; }
 :root .xp-page .xp-tile.t5 > span { background:rgba(200,150,236,.16); color:#d0a8ec; }
@@ -43,7 +43,7 @@
 :root .xp-page .xp-tile.on > span { background:rgba(255,255,255,.2); color:#fff; }
 
 :root .xp-page .xp-chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
-:root .xp-page .xp-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; min-height:34px; border-radius:999px; font-size:14px; background:rgba(var(--gl),.14); border:1px solid rgba(var(--ln),.3); color:var(--em); }
+:root .xp-page .xp-chip { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; min-height:34px; border-radius:999px; font-size:14px; background:color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base)); border:1px solid rgba(var(--ln),.3); color:var(--em); }
 :root .xp-page .xp-clear { background:transparent; border:0; color:var(--acc); font-size:14px; font-weight:600; text-decoration:underline; }
 :root .xp-page .xp-empty { padding:28px 20px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px; }
 :root .xp-page .xp-empty p { margin:0; color:var(--muted); }
@@ -60,34 +60,34 @@
 :root .xp-page .xp-on { position:absolute; right:0; bottom:0; width:13px; height:13px; border-radius:50%; background:#2ec27e; border:2px solid var(--surf); }
 :root .xp-page .xp-id { display:flex; flex-direction:column; gap:1px; min-width:0; }
 :root .xp-page .xp-name { font:600 21px var(--font-head); font-variant-numeric:lining-nums; line-height:1.15; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-:root .xp-page .xp-new { font:700 11px var(--font-body); font-style:normal; letter-spacing:.04em; padding:2px 8px; border-radius:999px; background:rgba(var(--gd),.2); color:var(--gold); }
+:root .xp-page .xp-new { font:700 11px var(--font-body); font-style:normal; letter-spacing:.04em; padding:2px 8px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gd)) 20%, var(--glass-base)); color:var(--gold); }
 :root .xp-page .xp-spec { font-size:14px; color:var(--muted); }
 :root .xp-page .xp-avail { display:flex; align-items:center; gap:5px; font-size:12.5px; font-weight:600; color:var(--subtle); }
 :root .xp-page .xp-avail i { width:7px; height:7px; border-radius:50%; background:var(--subtle); }
 :root .xp-page .xp-avail.on { color:var(--green); }
 :root .xp-page .xp-avail.on i { background:#2ec27e; }
 :root .xp-page .xp-follow { flex:none; display:inline-flex; align-items:center; gap:5px; min-height:34px; padding:0 12px; border-radius:999px; font-size:13.5px; font-weight:600; background:transparent; border:1px solid rgba(var(--ln2),.5); color:var(--em); }
-:root .xp-page .xp-follow:hover { background:rgba(var(--gl),.16); }
-:root .xp-page .xp-follow.on { background:rgba(var(--gl),.2); border-color:var(--acc2); }
-:root .xp-page .xp-subbadge { flex:none; display:inline-flex; align-items:center; gap:4px; padding:5px 11px; border-radius:999px; font-size:12.5px; font-weight:700; background:rgba(var(--gn),.16); color:var(--green); }
-:root .xp-page .xp-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:10px 6px; border-radius:14px; background:rgba(var(--gl),.08); }
+:root .xp-page .xp-follow:hover { background:color-mix(in srgb, rgb(var(--gl)) 16%, var(--glass-base)); }
+:root .xp-page .xp-follow.on { background:color-mix(in srgb, rgb(var(--gl)) 20%, var(--glass-base)); border-color:var(--acc2); }
+:root .xp-page .xp-subbadge { flex:none; display:inline-flex; align-items:center; gap:4px; padding:5px 11px; border-radius:999px; font-size:12.5px; font-weight:700; background:color-mix(in srgb, rgb(var(--gn)) 16%, var(--glass-base)); color:var(--green); }
+:root .xp-page .xp-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:10px 6px; border-radius:14px; background:color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base)); }
 :root .xp-page .xp-stats div { display:flex; flex-direction:column; align-items:center; gap:1px; }
 :root .xp-page .xp-stats b { display:inline-flex; align-items:center; gap:4px; font-size:16px; }
 :root .xp-page .xp-stats b svg { color:var(--gold); }
 :root .xp-page .xp-stats span { font-size:12px; color:var(--subtle); }
 :root .xp-page .xp-tags { display:flex; gap:6px; flex-wrap:wrap; }
-:root .xp-page .xp-tag { font-size:13px; padding:2px 10px; border-radius:8px; background:rgba(var(--gd),.14); color:var(--gold); border:1px solid rgba(var(--gd),.28); }
-:root .xp-page .xp-tag.xp-more { background:rgba(var(--gl),.12); color:var(--subtle); border-color:rgba(var(--ln),.25); }
+:root .xp-page .xp-tag { font-size:13px; padding:2px 10px; border-radius:8px; background:color-mix(in srgb, rgb(var(--gd)) 14%, var(--glass-base)); color:var(--gold); border:1px solid rgba(var(--gd),.28); }
+:root .xp-page .xp-tag.xp-more { background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base)); color:var(--subtle); border-color:rgba(var(--ln),.25); }
 :root .xp-page .xp-langs { margin:0; display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--muted); }
-:root .xp-page .xp-price { margin:0; display:flex; flex-direction:column; gap:1px; padding:8px 12px; border-radius:12px; background:rgba(var(--gl),.08); font-size:14px; font-weight:600; }
+:root .xp-page .xp-price { margin:0; display:flex; flex-direction:column; gap:1px; padding:8px 12px; border-radius:12px; background:color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base)); font-size:14px; font-weight:600; }
 :root .xp-page .xp-price span { font-size:12px; font-weight:400; color:var(--subtle); }
 :root .xp-page .xp-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:auto; }
 :root .xp-page .xp-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:40px; padding:0 14px; border-radius:12px; font-size:15px; font-weight:600; background:transparent; border:1px solid rgba(var(--ln),.3); color:var(--em); }
-:root .xp-page .xp-call { color:var(--green); border-color:rgba(var(--gn),.4); background:rgba(var(--gn),.1); }
-:root .xp-page .xp-btn:hover { background:rgba(var(--gl),.18); }
+:root .xp-page .xp-call { color:var(--green); border-color:rgba(var(--gn),.4); background:color-mix(in srgb, rgb(var(--gn)) 10%, var(--glass-base)); }
+:root .xp-page .xp-btn:hover { background:color-mix(in srgb, rgb(var(--gl)) 18%, var(--glass-base)); }
 :root .xp-page .xp-view { margin-left:auto; border:0; color:var(--ctaink); background-image:linear-gradient(90deg,var(--cta1),var(--cta2)); }
 :root .xp-page .xp-view:hover { filter:brightness(1.07); background-color:transparent; }
-:root .xp-page .xp-off { font-size:14px; font-weight:600; padding:8px 12px; border-radius:12px; background:rgba(var(--gl),.15); color:var(--subtle); }
+:root .xp-page .xp-off { font-size:14px; font-weight:600; padding:8px 12px; border-radius:12px; background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base)); color:var(--subtle); }
 
 :root .xp-page .xp-scrim { position:fixed; inset:0; z-index:40; background:rgba(8,5,26,.6); border:0; }
 :root .xp-page .xp-drawer { position:fixed; top:0; right:0; bottom:0; z-index:41; width:min(440px,100%); display:flex; flex-direction:column; background:var(--surf); border-left:1px solid rgba(var(--ln),.3); box-shadow:-20px 0 50px rgba(0,0,0,.35); color:var(--ink); }
@@ -99,7 +99,7 @@
 :root .xp-page .xp-ghead h3 { font-size:20px; font-weight:600; }
 :root .xp-page .xp-ghead span { font-size:13px; color:var(--acc); }
 :root .xp-page .xp-opts { display:flex; flex-wrap:wrap; gap:8px; }
-:root .xp-page .xp-opt { display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:0 12px; border-radius:999px; font-size:14px; background:rgba(var(--gl),.1); border:1px solid rgba(var(--ln),.3); color:var(--em); }
+:root .xp-page .xp-opt { display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:0 12px; border-radius:999px; font-size:14px; background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base)); border:1px solid rgba(var(--ln),.3); color:var(--em); }
 :root .xp-page .xp-opt span { font-size:12px; color:var(--subtle); }
 :root .xp-page .xp-opt.on { background:#5a3cc0; border-color:var(--acc2); color:#fff; }
 :root .xp-page .xp-opt.on span { color:rgba(255,255,255,.8); }

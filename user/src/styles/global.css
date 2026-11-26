@@ -13,25 +13,25 @@ button{font-family:inherit;color:inherit;cursor:pointer}
 :root[data-theme="light"] .mphone{box-shadow:0 30px 80px rgba(60,40,140,.25),0 0 0 8px rgba(90,60,192,.08)}
 .sky,.card,.btn-g,.chip,.ico,.inp{transition:background-color .25s,border-color .25s,color .25s}
 .sky{background-color:var(--sky);background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,.7) 50%,transparent 51%),radial-gradient(1.5px 1.5px at 37% 7%,rgba(255,255,255,.8) 50%,transparent 51%),radial-gradient(1px 1px at 66% 14%,rgba(255,255,255,.65) 50%,transparent 51%),radial-gradient(1px 1px at 14% 61%,rgba(255,255,255,.45) 50%,transparent 51%),radial-gradient(1.5px 1.5px at 71% 58%,rgba(255,255,255,.5) 50%,transparent 51%),radial-gradient(1px 1px at 29% 89%,rgba(255,255,255,.45) 50%,transparent 51%),radial-gradient(900px 600px at 78% 0%,rgba(122,84,230,.35),transparent 70%),radial-gradient(800px 700px at 0% 60%,rgba(90,60,192,.25),transparent 70%);background-size:380px 380px,380px 380px,380px 380px,380px 380px,380px 380px,380px 380px,100% 100%,100% 100%}
-.card{background:rgba(var(--gl),.08);border:1px solid rgba(var(--ln),.22);border-radius:20px;color:var(--ink)}
+.card{background:color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base));border:1px solid rgba(var(--ln),.22);border-radius:20px;color:var(--ink)}
 .hov{transition:background-color .2s,border-color .2s,transform .15s}
-.hov:hover{background-color:rgba(var(--gl),.15);border-color:rgba(var(--ln2),.5)}
+.hov:hover{background-color:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base));border-color:rgba(var(--ln2),.5)}
 .hov:active{transform:scale(.985)}
 .btn-p{background-image:linear-gradient(90deg,var(--cta1),var(--cta2));color:var(--ctaink);border:0;border-radius:999px;padding:11px 24px;min-height:44px;font-size:16px;font-weight:600;transition:filter .2s,transform .15s}
 .btn-p:hover{filter:brightness(1.07)}.btn-p:active{transform:scale(.97)}
-.btn-g{background:transparent;border:1px solid rgba(var(--ln2),.45);color:var(--ink);border-radius:999px;padding:10px 22px;min-height:44px;font-size:16px;transition:background-color .2s}
-.btn-g:hover{background-color:rgba(var(--gl),.15)}
+.btn-g{background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base));border:1px solid rgba(var(--ln2),.45);color:var(--ink);border-radius:999px;padding:10px 22px;min-height:44px;font-size:16px;transition:background-color .2s}
+.btn-g:hover{background-color:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base))}
 .nv{background:transparent;border:0;color:var(--muted);padding:9px 18px;border-radius:999px;font-size:16px;min-height:44px}
-.nv:hover{color:#fff;background:rgba(var(--gl),.12)}
+.nv:hover{color:#fff;background:color-mix(in srgb, rgb(var(--gl)) 12%, var(--glass-base))}
 .nv.on{background:#5a3cc0;color:#fff}
-.chip{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.3);color:var(--em);border-radius:999px;padding:7px 16px;min-height:40px;font-size:16px;white-space:nowrap}
-.chip:hover{background:rgba(var(--gl),.2)}
+.chip{background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base));border:1px solid rgba(var(--ln),.3);color:var(--em);border-radius:999px;padding:7px 16px;min-height:40px;font-size:16px;white-space:nowrap}
+.chip:hover{background:color-mix(in srgb, rgb(var(--gl)) 20%, var(--glass-base))}
 .chip.on{background:#5a3cc0;border-color:var(--acc2);color:#fff}
-.ico{background:rgba(var(--gl),.1);border:1px solid rgba(var(--ln),.25);border-radius:999px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 12px;gap:8px;color:var(--ink)}
-.ico:hover{background:rgba(var(--gl),.2)}
+.ico{background:color-mix(in srgb, rgb(var(--gl)) 10%, var(--glass-base));border:1px solid rgba(var(--ln),.25);border-radius:999px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;padding:0 12px;gap:8px;color:var(--ink)}
+.ico:hover{background:color-mix(in srgb, rgb(var(--gl)) 20%, var(--glass-base))}
 .tag{display:inline-block;font-size:13px;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1px solid rgba(var(--gd),.6);color:var(--gold)}
 .pill{display:inline-block;font-size:15px;padding:3px 11px;border-radius:999px;font-weight:500}
-.inp{width:100%;box-sizing:border-box;background:rgba(var(--bg0),.6);border:1px solid rgba(var(--ln),.35);border-radius:14px;color:var(--ink);padding:12px 16px;font-family:inherit;font-size:16px;min-height:44px}
+.inp{width:100%;box-sizing:border-box;background:color-mix(in srgb, rgb(var(--bg0)) 60%, var(--glass-base));border:1px solid rgba(var(--ln),.35);border-radius:14px;color:var(--ink);padding:12px 16px;font-family:inherit;font-size:16px;min-height:44px}
 .inp::placeholder{color:var(--subtle)}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
 .tb{background:#5a3cc0;border:0;border-radius:999px;width:48px;height:28px;padding:3px;display:flex;align-items:center}
@@ -74,6 +74,69 @@ html,body{margin:0;background:var(--page)}
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+/* ===== Page artwork: top and bottom images behind every page except Login (works in dark and light) ===== */
+.app-shell.has-art { isolation: isolate; }
+.app-shell.has-art::before,
+.app-shell.has-art::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: min(calc(100vw * 533 / 1600), 70vh);
+  background-repeat: no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  z-index: -1;
+}
+.app-shell.has-art::before {
+  top: 0;
+  background-image: url("../assets/images/bg-top.webp");
+  background-position: top center;
+  -webkit-mask-image: linear-gradient(#000 70%, transparent);
+  mask-image: linear-gradient(#000 70%, transparent);
+}
+.app-shell.has-art::after {
+  bottom: 0;
+  background-image: url("../assets/images/bg-bottom.webp");
+  background-position: bottom center;
+  -webkit-mask-image: linear-gradient(transparent, #000 40%);
+  mask-image: linear-gradient(transparent, #000 40%);
+}
+/* Light theme: the same artwork as a faint lavender tint so text and cards keep their contrast */
+:root[data-theme="light"] .app-shell.has-art::before,
+:root[data-theme="light"] .app-shell.has-art::after { opacity: 0.2; }
+
+/* ===== Glass surfaces: one knob for how see-through cards and buttons are (lower % = more see-through) ===== */
+:root { --glass-base: color-mix(in srgb, var(--sky) 60%, transparent); }
+:root[data-theme="light"] { --glass-base: color-mix(in srgb, var(--sky) 72%, transparent); }
+:root .card,
+:root .d-panel,
+:root .ac-card,
+:root .btn-g,
+:root .chip,
+:root .ico,
+:root .inp,
+:root .navbar,
+:root .xp-search,
+:root .xp-filterbtn,
+:root .xp-tile {
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  backdrop-filter: blur(12px) saturate(1.15);
+}
+
+/* ===== Card corner light: a soft glow in the top-right of every card, painted in the background (no shadow) ===== */
+:root .card,
+:root .d-panel,
+:root .ac-card {
+  background-image: radial-gradient(circle 260px at 100% 0%, rgba(195, 169, 255, 0.3), rgba(195, 169, 255, 0.1) 45%, transparent 100%) !important;
+  background-repeat: no-repeat;
+}
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .d-panel,
+:root[data-theme="light"] .ac-card {
+  background-image: radial-gradient(circle 260px at 100% 0%, rgba(154, 124, 255, 0.2), rgba(154, 124, 255, 0.07) 45%, transparent 100%) !important;
 }
 
 /* ===== Style rules shared by two or more pages/components ===== */
@@ -252,7 +315,7 @@ html,body{margin:0;background:var(--page)}
 }
 
 :root .sky .u-34 {
-  background:rgba(var(--gd),.18);
+  background:color-mix(in srgb, rgb(var(--gd)) 18%, var(--glass-base));
   color:var(--gold);
 }
 

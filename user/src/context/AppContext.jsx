@@ -301,7 +301,7 @@ const dndBlock=()=>{if(s.dnd[cur.id]){showToast(cur.name+' is unavailable (Do No
 const av=(i,z)=>'width:'+z+'px;height:'+z+'px;border-radius:99px;flex:none;display:flex;align-items:center;justify-content:center;font:700 '+Math.round(z*0.42)+'px var(--font-head);color:#fff;background-image:linear-gradient(135deg,'+GR[i%GR.length]+')';
 const ini=a=>a.name.split(' ').map(w=>w[0]).slice(0,2).join('');
 const card=a=>({...a,ratingText:ratingText(a.id),ini:ini(a),av:av(a.id,52),sub:isSub(a.id),open:()=>navTo('astro',{astro:a.id,notifOpen:false})});
-const chipSt=t=>t==='Answered'||t==='Completed'||t==='Review submitted'?'background:rgba(var(--gn),.15);color:var(--green)':t==='Dispute raised'?'background:rgba(195,169,255,.2);color:var(--em)':'background:rgba(var(--gd),.16);color:var(--gold)';
+const chipSt=t=>t==='Answered'||t==='Completed'||t==='Review submitted'?'background:color-mix(in srgb, rgb(var(--gn)) 15%, var(--glass-base));color:var(--green)':t==='Dispute raised'?'background:rgba(195,169,255,.2);color:var(--em)':'background:color-mix(in srgb, rgb(var(--gd)) 16%, var(--glass-base));color:var(--gold)';
 const top={Home:'home',Explore:'explore',astro:'explore',Services:'services',text:'services',Activity:'activity',Profile:'profile',wallet:'profile'};
 const keyOf={home:'Home',explore:'Explore',astro:'Explore',services:'Services',text:'Services',appt:'Services',session:'Services',activity:'Activity',profile:'Profile',wallet:'Profile',kundli:'Profile',follow:'Profile',notifs:'Profile',remedy:'Profile',help:'Profile',answer:'Activity',edit:'Profile'};
 const nav=['Home','Explore','Services','Activity','Profile'].map(l=>{const on=keyOf[st]===l;return{label:l,d:ICON[l],cls:'nv'+(on?' on':''),mcls:'mt'+(on?' on':''),go:go(l.toLowerCase())};});
@@ -351,7 +351,7 @@ const rtItem=dk==='qrate'?s.acts.find(x=>x.id===s.dlg.id):null;
 const rateIsQ=!rtItem||rtItem.type==='Question';
 const clItem=dk==='chatlog'?s.acts.find(x=>x.id===s.dlg.id):null;
 const clLeftH=clItem&&clItem.endedAt?24-(nowT-clItem.endedAt)/3600000:0;
-const cl=clItem&&clItem.msgs&&clLeftH>0?{open:true,hours:Math.max(1,Math.ceil(clLeftH)),msgs:clItem.msgs.map(m=>({t:m.t,st:'max-width:80%;padding:10px 14px;border-radius:16px;line-height:1.35;'+(m.me?'align-self:flex-end;background:#5a3cc0':'align-self:flex-start;background:rgba(var(--gl),.15)')}))}:{open:false,hours:0,msgs:[]};
+const cl=clItem&&clItem.msgs&&clLeftH>0?{open:true,hours:Math.max(1,Math.ceil(clLeftH)),msgs:clItem.msgs.map(m=>({t:m.t,st:'max-width:80%;padding:10px 14px;border-radius:16px;line-height:1.35;'+(m.me?'align-self:flex-end;background:#5a3cc0':'align-self:flex-start;background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base))')}))}:{open:false,hours:0,msgs:[]};
 const rsItem=dk==='resched'?s.acts.find(x=>x.id===s.dlg.id):null;
 const rsHours=rsItem?(rsItem.start-nowT)/3600000:0;
 const rs=rsItem?{title:rsItem.title+' · '+rsItem.who,when:fmtDT(rsItem.start)+' IST · '+rsItem.dur+' min',price:rsItem.price,early:rsHours>=12,hours:Math.max(0,Math.floor(rsHours)),canR:(rsItem.reschedCount||0)<1,
@@ -381,7 +381,7 @@ const busy=(REQ_BEHAVIOR[cur.id]||'')==='busy';setState({req:{astro:cur.id,kind:
 const remMs=live?Math.max(0,sx.endsAt-(sx.discAt?sx.discNow:nowT)):0;
 const rm=Math.floor(remMs/60000),rsec=Math.floor(remMs/1000)%60;
 const act=ended?s.acts.find(x=>x.id===sx.actId):null;
-const msgsView=live&&sx.msgs?sx.msgs.map(m=>({t:m.t,st:'max-width:80%;padding:10px 14px;border-radius:16px;line-height:1.35;'+(m.me?'align-self:flex-end;background:#5a3cc0':'align-self:flex-start;background:rgba(var(--gl),.15)')})):[];
+const msgsView=live&&sx.msgs?sx.msgs.map(m=>({t:m.t,st:'max-width:80%;padding:10px 14px;border-radius:16px;line-height:1.35;'+(m.me?'align-self:flex-end;background:#5a3cc0':'align-self:flex-start;background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base))')})):[];
 const reqName=rq?ASTRO[rq.astro].name:'';
 return{
 sesTitle:'Instant '+kk,isCall:isC,isChat:!isC,
@@ -609,7 +609,7 @@ return{
 ...ap,...ss,...pf,campCtl,mySlots,hasSlots:mySlots.length>0,mySlotsPaid:mySlots.filter(x=>!x.benefit),mySlotsBen:mySlots.filter(x=>x.benefit),benefitN:liveSlots.filter(x=>x.astro===s.astro&&x.benefit).length,nav,sHome:st==='home',sExplore:st==='explore',sAstro:st==='astro',sServices:st==='services',sText:st==='text',sActivity:st==='activity',sWallet:st==='wallet',sProfile:st==='profile',sAppt:st==='appt',sSession:st==='session',sKundli:st==='kundli',sFollow:st==='follow',sNotifs:st==='notifs',sRemedy:st==='remedy',sHelp:st==='help',sLogin:st==='login',goNotifs:go('notifs'),goRemedy:go('remedy'),
 goHome:go('home'),goExplore:go('explore'),goServices:go('services'),goActivity:go('activity'),goWallet:go('wallet'),goProfile:go('profile'),goText:go('text'),
 toggleNotif:()=>setState({notifOpen:!s.notifOpen,profMenu:false}),profMenu:!!s.profMenu,toggleProf:()=>setState({profMenu:!s.profMenu,notifOpen:false}),closeProf:()=>setState({profMenu:false}),viewProfile:go('profile'),logout:go('login',{loginStep:1}),notifOpen:s.notifOpen,wallet:s.wallet,services,
-onlineList:ASTRO.filter(a=>a.online&&vis(a)).slice(0,3).map(xcard),lastAct:s.acts.length?{...s.acts[0],st:chipSt(s.acts[0].status)+';'}:{type:'New',title:'No activity yet — start with a Text Question.',status:'Start',st:'background:rgba(var(--gd),.16);color:var(--gold);'},lastGo:s.acts.length?go('activity'):go('services'),
+onlineList:ASTRO.filter(a=>a.online&&vis(a)).slice(0,3).map(xcard),lastAct:s.acts.length?{...s.acts[0],st:chipSt(s.acts[0].status)+';'}:{type:'New',title:'No activity yet — start with a Text Question.',status:'Start',st:'background:color-mix(in srgb, rgb(var(--gd)) 16%, var(--glass-base));color:var(--gold);'},lastGo:s.acts.length?go('activity'):go('services'),
 q:s.q,onQ:e=>setState({q:e.target.value}),onlineCls:'chip'+(s.online?' on':''),toggleOnline:()=>setState({online:!s.online}),
 cats:CATS.map(c=>({label:c,cls:'chip'+(s.cat===c?' on':''),go:()=>setState({cat:c})})),exploreList:list,noResults:list.length===0,
 cur:{...cur,ini:ini(cur),avL:av(cur.id,96)},subCls:isSub(cur.id)?'btn-g':'btn-p',subLabel:isSub(cur.id)?'Subscribed ✓':'Subscribe',
@@ -620,7 +620,7 @@ notSub:!isSub(cur.id),isSub:isSub(cur.id),subscribeNow:openSub(cur.id),
 camps:campsAll.filter(campActive).map(c=>{const ce=campExp(c),left=ce==null?null:Math.ceil((ce-nowT)/DAY);
 const types=['general','personal'].filter(k=>c[k]).map(k=>{const p=c[k],fin=Math.round(p.price*(100-p.disc)/100);return{label:k==='general'?'General':'Personal',price:p.price,disc:p.disc,hasDisc:p.disc>0,final:fin,total:fin*s.qty,saves:(p.price-fin)*s.qty,buy:buy(c,k)};});
 return{...c,types,special:c.special||'',expired:left!=null&&left<=0,hasWarn:left!=null&&left>0&&left<=3,warn:'Expires in '+left+' day(s) on '+(ce?fmtIST(ce):'')+' (IST). Slots bought now expire with the campaign (D-07, D-26).',expText:ce==null?'No campaign expiry':'Campaign ends '+fmtIST(ce)+' (IST)'};}).filter(c=>!c.expired),qty:s.qty,qtyUp:()=>setState({qty:Math.min(5,s.qty+1)}),qtyDown:()=>setState({qty:Math.max(1,s.qty-1)}),
-slotsN,slotStyle:slotsN?'background:rgba(var(--gn),.15);color:var(--green)':'background:rgba(var(--gd),.16);color:var(--gold)',
+slotsN,slotStyle:slotsN?'background:color-mix(in srgb, rgb(var(--gn)) 15%, var(--glass-base));color:var(--green)':'background:color-mix(in srgb, rgb(var(--gd)) 16%, var(--glass-base));color:var(--gold)',
 draft:s.draft,onDraft:e=>setState({draft:e.target.value}),
 askType:s.askType,isGen:s.askType==='General',isPers:s.askType==='Personal',
 typeOpts:['General','Personal'].map(t=>({label:t+' ('+slotsOf(s.astro,t)+')',cls:'chip'+(s.askType===t?' on':''),go:()=>setState({askType:t,qFiles:[]})})),
