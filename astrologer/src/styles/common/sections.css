@@ -1088,3 +1088,28 @@
   .tq .icc-num { gap: 4px; font-size: 12px; }
   .tq .icc-num input { padding: 0 6px; }
 }
+
+/* Compact expanded dropdowns (Request History, Call History, Chat History): less padding and empty space,
+   content arranged in rows. The collapsed rows are unchanged. */
+.tq .icc-exp__body { padding: 8px 12px 10px 34px; gap: 6px; }
+.tq .icc-facts { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 4px 14px; }
+.tq .icc-fact { line-height: 1.3; }
+.tq .icc-fact span { font-size: 11px; }
+.tq .icc-fact b { font-size: 13px; }
+/* History: review, notes and remedies side by side; the chat transcript spans the full width below. */
+.tq .icc-exp--hist .icc-exp__body { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 16px; }
+.tq .icc-exp--hist .icc-exp__body > .icc-facts,
+.tq .icc-exp--hist .icc-exp__body > .icc-dsec:nth-child(n + 5) { grid-column: 1 / -1; }
+.tq .icc-dsec { min-width: 0; padding-top: 6px; border-top: 1px solid var(--line); }
+.tq .icc-dsec h5 { margin: 0 0 2px; font-size: 12.5px; line-height: 1.4; }
+.tq .icc-dsec p { margin: 0; font-size: 12.5px; line-height: 1.45; }
+.tq .icc-files { margin-top: 2px; }
+.tq .icc-file { padding: 2px 7px; font-size: 11.5px; }
+.tq .icc-transcript-note { padding: 5px 8px 5px 10px; font-size: 12px; margin-bottom: 6px; gap: 6px 10px; }
+.tq .icc-transcript { padding: 6px 10px; max-height: 132px; overflow-y: auto; }
+@media (max-width: 760px) {
+  .tq .icc-exp__body { padding: 8px 10px 10px; }
+  .tq .icc-facts { grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+  .tq .icc-exp--hist .icc-exp__body { grid-template-columns: 1fr; gap: 6px; }
+  .tq .icc-transcript-note .icc-btn { width: 100%; }
+}
