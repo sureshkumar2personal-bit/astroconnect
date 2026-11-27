@@ -1,22 +1,69 @@
-import { BtnRow, Facts, Sec } from '@/components/ui/sectionKit.jsx';
-import { ACCOUNT_FACTS, SECURITY_ACTIVITY } from '@/data/mockSettings.js';
-import { ChangePassword } from './SettingsDialogs.jsx';
+import { navigate } from '@/lib/router.js';
+import { ACCOUNT, ACTIVITY_KIND } from '@/data/mockSettings.js';
+import { fmtDate } from '@/hooks/useSettings.js';
+import Ic from './stIcons.jsx';
 
 // Account Settings (AD-152): account details, registered mobile/email, Change Password,
 // Login/Security Activity.
-export default function AccountSettings({ ui }) {
-  const changePassword = () => ui.dialog({
-    title: 'Change Password',
-    body: (close) => <ChangePassword onCancel={close} onDone={() => { close(); ui.toast('Password changed · security notification sent'); }} />,
-  });
+export default function AccountSettings({ s, ui, openModal, go }) {
+  const copyId = () => {
+    try { navigator.clipboard?.writeText(ACCOUNT.id); } catch { /* clipboard unavailable */ }
+    ui.toast(`Account ID ${ACCOUNT.id} copied`);
+  };
   return (
-    <Sec title="Account Settings">
-      <Facts items={ACCOUNT_FACTS} />
-      <BtnRow><button type="button" className="btn btn-o" onClick={changePassword}>Change Password</button></BtnRow>
-      <b className="sm">Login / security activity</b>
-      <ul className="st-plain">
-        {SECURITY_ACTIVITY.map((x) => <li key={x} className="sm">{x}</li>)}
-      </ul>
-    </Sec>
+    <>
+      <div className="st-grp">
+        <div className="st-gt">Account identity</div>
+        <div className="st-panel st-clip">
+          <div className="st-ident">
+            <span className="st-avatar">{ACCOUNT.initials}</span>
+            <div className="st-ident__main">
+              <div className="st-ident__name">{ACCOUNT.name}</div>
+              <div className="st-ident__id">
+                <span>Account ID</span><b>{ACCOUNT.id}</b>
+                <button type="button" className="st-iconbtn st-iconbtn--sm" aria-label="Copy account ID" onClick={copyId}><Ic n="copy" size={15} /></button>
+              </div>
+            </div>
+            <button type="button" className="st-btn st-btn--sec st-btn--sm" onClick={() => navigate('/profile')}>View My Profile</button>
+          </div>
+          <div>
+            <div className="st-dl"><span className="st-dl__k">Account type</span><span className="st-dl__v"><span className="st-chip st-tone-gold"><Ic n="user" size={12} />{ACCOUNT.type}</span></span></div>
+            <div className="st-dl"><span className="st-dl__k">Registered mobile</span><span className="st-dl__v">{ACCOUNT.mobile}</span></div>
+            <div className="st-dl"><span className="st-dl__k">Registered email</span><span className="st-dl__v">{ACCOUNT.email}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="st-grp">
+        <div className="st-gt">Password</div>
+        <div className="st-panel">
+          <div className="st-row st-row--wrap">
+            <span className="st-tile st-tone-gold"><Ic n="key" /></span>
+            <div className="st-rt"><div className="st-rt-t">Password</div><div className="st-rt-d">Last changed {fmtDate(s.pwChanged, s.fmt)}</div></div>
+            <button type="button" className="st-btn st-btn--sec st-btn--sm" onClick={() => openModal({ type: 'password' })}>Change password</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="st-grp">
+        <div className="st-gt-row"><div className="st-gt">Sign-in &amp; security activity</div><span className="st-aside">Most recent first</span></div>
+        <div className="st-panel st-acts">
+          {s.activity.map((a) => {
+            const k = ACTIVITY_KIND[a.kind];
+            return (
+              <div className="st-act" key={`${a.kind}-${a.date.join('')}-${a.time}`}>
+                <span className={`st-tile st-tile--sm st-tone-${k.tone}`}><Ic n={k.icon} size={17} /></span>
+                <div className="st-rt">
+                  <div className="st-rt-line"><span className="st-rt-t">{k.title}</span><span className={`st-chip st-tone-${k.tone}`}>{k.tag}</span></div>
+                  <div className="st-rt-d">{a.detail}</div>
+                </div>
+                <div className="st-act__when"><b>{fmtDate(a.date, s.fmt)}</b><span>{a.time}</span></div>
+              </div>
+            );
+          })}
+        </div>
+        <p className="st-foot">Don't recognise an activity? <button type="button" className="st-link" onClick={() => go('privacy')}>Review active sessions</button></p>
+      </div>
+    </>
   );
 }

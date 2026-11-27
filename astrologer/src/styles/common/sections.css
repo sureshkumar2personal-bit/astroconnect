@@ -523,19 +523,6 @@
 .tq .pg--activity .act-time { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
 
 
-/* ---------- Settings (shared) ---------- */
-/* ---------- Settings (spec 15) ---------- */
-.tq .pg--settings .pgrid { align-items: stretch; }
-.tq .pg--settings .st-sw { min-height: 32px; }
-.tq .pg--settings .st-plain { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.tq .pg--settings .st-appearance { gap: 8px 12px; }
-.tq .pg--settings .st-appearance .tabs { margin: 0; }
-.tq .pg--settings .st-link { all: unset; box-sizing: border-box; align-self: flex-start; color: var(--link); text-decoration: underline; cursor: pointer; font-size: 15px; }
-.tq .pg--settings .st-link:hover { color: var(--pri); }
-.tq .pg--settings .st-link:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; border-radius: 4px; }
-.tq .pg--settings .card > .btn { align-self: stretch; }
-.tq .pg--settings .fact b { overflow-wrap: anywhere; }
-.tq .pg--settings .ac-switch:disabled { opacity: 0.5; cursor: not-allowed; }
 
 
 /* ---------- Help & Support (shared) ---------- */

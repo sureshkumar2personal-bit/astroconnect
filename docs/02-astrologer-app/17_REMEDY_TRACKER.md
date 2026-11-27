@@ -45,7 +45,7 @@ record.
 
 | ID | Decision |
 |----|----------|
-| AD-163 | **Remedy Tracker — appointment records:** notes, remedies, recommendations, and reports attached after an Appointment (immediately or later through Appointment History, AD-102) are also available in the Remedy Tracker. The relationship between each remedy/report, the relevant User, and the originating Appointment/Consultation is preserved, with correct navigation to the original record. No additional remedy subscription, payment, or delivery workflows are added. |
+| AD-163 | **Remedy Tracker — appointment records:** notes, remedies, recommendations, and reports sent after the call ends (AD-102) are also available in the Remedy Tracker. The relationship between each remedy/report, the relevant User, and the originating Appointment/Consultation is preserved, with correct navigation to the original record. No additional remedy subscription, payment, or delivery workflows are added. |
 
 **Referenced decisions**
 
@@ -61,7 +61,7 @@ record.
 ## 5. User flows
 
 ### 5.1 Appointment record reaches the Remedy Tracker
-1. After an Appointment, the astrologer attaches notes, remedies, recommendations, or reports — immediately or later from Appointment History (AD-102).
+1. After End Call, the astrologer sends the consultation attachment and, where required, the remedy details; the appointment is then Completed (AD-102).
 2. The record also appears in the Remedy Tracker, linked to the User and the originating Appointment (AD-163).
 
 ### 5.2 Open the original record
@@ -99,7 +99,7 @@ Remedy fields beyond these are not defined (User App P-16-01).
 
 ## 9. Notifications triggered
 
-Pending attachment/action reminders → AD-102 ([05](05_APPOINTMENTS.md)).
+No pending-attachment reminders are sent (AD-102, amended 2026-11-27).
 
 ## 10. Dependencies on other modules
 
@@ -129,3 +129,4 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | Date | Change |
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document: AD-163. AD-22 and AD-39 ownership unchanged. |
+| 2026-11-27 | AD-163 and §5.1 reworded for the amended AD-102: records are sent after End Call, no longer "immediately or later". AD-22 and AD-39 unchanged. |

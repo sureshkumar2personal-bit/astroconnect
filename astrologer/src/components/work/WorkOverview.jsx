@@ -18,7 +18,7 @@ function Stat({ icon, title, sub, value, href, hero, onClick, toggle, on }) {
     </>
   );
   const cls = `wk-stat${hero ? ' wk-stat--hero' : ''}`;
-  // A toggle card (History) shows or hides its panel on this page instead of navigating.
+  // The History card opens the History route; `on` highlights it while that page is shown.
   if (toggle) return <button type="button" className={`${cls} wk-stat--link wk-stat--toggle${on ? ' on' : ''}`} aria-expanded={on} onClick={onClick}>{body}</button>;
   return href ? <a className={`${cls} wk-stat--link`} href={`#${href}`} onClick={onClick}>{body}</a> : <div className={cls}>{body}</div>;
 }
@@ -56,8 +56,8 @@ const APT_STATUSES = [
   { st: 'Under Review', sub: 'Being reviewed', tone: 'gold' },
 ];
 
-export default function WorkOverview({ questions, appointments, onAptTab, tq, apt, mobile, openDialog, toast, historyOpen, onToggleHistory }) {
-  const showHistory = !!historyOpen; // owned by WorkPage so its Back button can close the panel
+export default function WorkOverview({ questions, appointments, onAptTab, tq, apt, mobile, openDialog, toast, historyOpen, onOpenHistory }) {
+  const showHistory = !!historyOpen; // true on the History route (#/work/history)
   const tOpen = openCount(questions, 'text');
   const upcoming = appointments.filter(isUpcoming).sort((a, b) => new Date(a.at) - new Date(b.at));
   const disputes = questions.filter((q) => q.status === 'Disputed').length;
@@ -72,7 +72,7 @@ export default function WorkOverview({ questions, appointments, onAptTab, tq, ap
           sub={`${tOpen} question${tOpen === 1 ? '' : 's'} + ${upcoming.length} appointment${upcoming.length === 1 ? '' : 's'}`} />
         <Stat icon="chatQuestion" title="Text Questions" sub="Pending, all question types" value={tOpen} href={routes.list} />
         <Stat icon="calendar" title="Appointments" sub="Upcoming" value={upcoming.length} href={routes.appointments} onClick={() => onAptTab?.('upcoming')} />
-        <Stat icon="history" title="History" value={appointments.filter((a) => !isUpcoming(a)).length} toggle on={showHistory} onClick={onToggleHistory} />
+        <Stat icon="history" title="History" value={appointments.filter((a) => !isUpcoming(a)).length} toggle on={showHistory} onClick={onOpenHistory} />
       </div>
       {/* History active: only the History panel below the summary row; the cards below are hidden (not removed). */}
       {showHistory ? <WorkHistory tq={tq} apt={apt} mobile={mobile} openDialog={openDialog} toast={toast} /> : (

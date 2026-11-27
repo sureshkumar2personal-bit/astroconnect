@@ -5,7 +5,7 @@
 const apt = (id, uid, user, at, dur, amt, status, purpose, extra = {}) => ({
   id, uid, user, at, dur, amt, status, purpose,
   pay: 'Paid', horo: 'Birth-chart.pdf', saved: 'Main horoscope', birth: null,
-  unotes: '', pnotes: '', att: [], pendingAtt: false, opened: false,
+  unotes: '', pnotes: '', att: [], opened: false,
   ...extra,
 });
 
@@ -15,7 +15,7 @@ export const appointments = [
   apt('APT-5014', 'U-43120', 'Nila V.', '2026-11-20T19:30', 30, 550, 'Confirmed', 'Health and family', { birth: '02 Jan 1995, 11:15 PM, Madurai' }),
   apt('APT-5015', 'U-41233', 'Arjun V.', '2026-11-21T10:00', 30, 550, 'Confirmed', 'Property purchase timing'),
   apt('APT-5016', 'U-40562', 'Meera P.', '2026-11-27T11:00', 15, 300, 'Confirmed', 'Job offer decision'),
-  apt('APT-5009', 'U-38877', 'Arun R.', '2026-11-19T17:00', 30, 550, 'Completed', 'Exam preparation', { pendingAtt: true }),
+  apt('APT-5009', 'U-38877', 'Arun R.', '2026-11-19T17:00', 30, 550, 'Completed', 'Exam preparation'),
   apt('APT-5007', 'U-37710', 'Kavya M.', '2026-11-18T09:30', 15, 300, 'Completed', 'Promotion', { att: [{ type: 'Remedy', text: 'Recite Hanuman Chalisa on Saturdays.' }] }),
   apt('APT-5005', 'U-42118', 'Lakshmi N.', '2026-11-16T12:00', 30, 550, 'Cancelled', 'Transfer question', { pay: 'Refunded to User Wallet', cancelBy: 'User (more than 12 hours before)' }),
   apt('APT-5003', 'U-43007', 'Karthik M.', '2026-11-15T19:00', 15, 300, 'Missed / No-show', 'Travel', { noShow: 'User did not join within the 5-minute grace period' }),

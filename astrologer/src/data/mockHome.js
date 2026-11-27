@@ -75,4 +75,6 @@ export const secondaryNav = [
   { key: 'notifications', label: 'Notifications', icon: 'bell', href: '#/notifications' },
   { key: 'settings', label: 'Settings', icon: 'settings', href: '#/settings' },
   { key: 'support', label: 'Help & Support', icon: 'headset', href: '#/support' },
+  { key: 'services', label: 'Service Management', icon: 'grid', href: '#/services' },
+  { key: 'assistants', label: 'Assistant', icon: 'userplus', href: '#/assistants' },
 ];

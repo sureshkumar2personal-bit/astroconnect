@@ -90,6 +90,42 @@ Language and Regional Settings (AD-154). The effect of changing the time zone on
 The list of "other supported languages" and the available date formats are
 not defined and are not invented.
 
+### 6.1 Prototype layout (frontend UI phase)
+
+Settings is shown from the reference design "AstroConnect Settings", with the
+six groups above as its sections. This describes presentation only; it adds no
+business rule.
+
+- **Desktop:** a vertical list of the six sections on the left; the selected
+  section on the right. Each section has its own address, so it can be opened
+  directly.
+- **Phone:** a list of the six sections; opening one shows it with a back
+  button to the list.
+- **No descriptive subtitles** are shown under the Settings page or section
+  headings (product owner's instruction, 2026-11-27).
+- **Account Settings:** account identity with a link to My Profile ([04](04_PROFILE_AND_VERIFICATION.md)),
+  Change Password, and Login/Security Activity. The password checks shown in
+  the prototype (at least 8 characters, a number, a different new password,
+  matching confirmation) are illustrative and are not a confirmed password policy.
+- **Notification Preferences:** push, sound and vibration; the nine categories
+  A–I (AD-148) with expandable events where the prototype lists them; important
+  security alerts shown as mandatory (SET-01). The events listed are illustrative.
+- **Language and Regional:** English and Tamil only; two date formats with a
+  live preview; time zone shown as Asia/Kolkata (IST) with no way to change it,
+  because the effect of a change is undecided (AP-15-01).
+- **App Preferences:** Light and Dark appearance (the app's own theme) and
+  the camera, microphone and Photos/Files permissions, each opening a details
+  view. The app cannot change a device permission; the statuses shown are
+  illustrative.
+- **Privacy and Security:** the three documents (their text is provided by the
+  Platform), active sessions with Log out per session and Log out from other
+  devices, each after a confirmation (SET-05).
+- **About and Account Actions:** app version, About AstroConnect, Logout, and the
+  deactivation and deletion requests. Each request is confirmed, then shows a
+  submitted screen with a reference number and the status "Pending admin review"
+  (SET-04); deletion additionally requires acknowledging that it cannot be undone.
+  Request statuses beyond "pending" are not defined (see §8).
+
 ## 7. Business rules and validations
 
 | # | Rule | Source |
@@ -149,3 +185,4 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | Date | Change |
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document: AD-152 – AD-157. AP-15-01 added. |
+| 2026-11-27 | §6.1 added: Settings rebuilt from the "AstroConnect Settings" reference (vertical section navigation on desktop, list → detail on phones, no descriptive subtitles). No decision added or changed; AP-15-01 stays open. |

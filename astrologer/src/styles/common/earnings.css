@@ -62,7 +62,7 @@
    (tokens.css), so the page follows the light and dark themes. Burgundy (#7a1f3a) is the one burgundy in
    the project (home.css); everything else comes from the project tokens. */
 .ew {
-  --ew-navy: #7a1f3a; --ew-accent: #7a1f3a;
+  --ew-navy: #7a1f3a; --ew-accent: #7a1f3a; --ew-navyText: #7a1f3a; --ew-onNavy: var(--card);
   --ew-ink: var(--text); --ew-ink2: var(--text-soft); --ew-mut: var(--muted);
   --ew-surface: var(--card); --ew-white: #ffffff; --ew-line: var(--border);
   --ew-soft: var(--chip-alt); --ew-soft0: var(--chip); --ew-chip: var(--chip); --ew-chip2: var(--chip-alt);
@@ -76,7 +76,7 @@
   --ew-onNavyMut: rgba(255, 255, 255, 0.78); --ew-onNavyGold: #f0d9a6;
   --ew-disabled: color-mix(in srgb, var(--ew-navy) 35%, #b8b0a8);
 }
-:root[data-theme='dark'] .ew { --ew-navy: #8f2646; --ew-accent: var(--accent); }
+:root[data-theme='dark'] .ew { --ew-navy: #8f2646; --ew-accent: var(--accent); --ew-navyText: var(--accent); --ew-onNavy: #ffffff; }
 /* Plain circular radio: no box, track or extra outline. Selected = burgundy fill with a white dot. */
 .ew .ew-radio { appearance: none; -webkit-appearance: none; flex: none; box-sizing: border-box; width: 18px; height: 18px; margin: 0; padding: 0; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--ew-mut) 60%, transparent); background: var(--ew-surface); display: inline-grid; place-content: center; cursor: pointer; }
 .ew .ew-radio::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ew-white); transform: scale(0); }

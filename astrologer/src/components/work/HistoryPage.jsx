@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ExpandTable from '@/components/ui/ExpandTable.jsx';
 import Icon from '@/components/ui/Icon.jsx';
-import { HISTORY_FILTERS, answerBy, fmtDate } from '@/lib/textQuestions.js';
+import { HISTORY_FILTERS, TODAY, answerBy, fmtDate } from '@/lib/textQuestions.js';
 import { QStatus } from './bits.jsx';
 import { SearchIcon } from './QuestionToolbar.jsx';
 
@@ -11,12 +11,35 @@ const COLS = ['User', 'Question ID', 'Category', 'Received', 'Amount', 'Status']
 /** "25 Nov 2026 · 6:42 PM" (no leading zero on the hour). */
 export const when = (d) => `${fmtDate(d)} · ${new Date(d).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
 
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+/** "2026-11" for a date or ISO string (local time). */
+export const monthKey = (d) => { const x = new Date(d); return `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}`; };
+export const monthLabel = (k) => `${MONTH_NAMES[Number(k.slice(5)) - 1]} ${k.slice(0, 4)}`;
+/** Month choices, newest first: the last 12 months up to the current month, plus any older month that has records. */
+export function monthOptions(dates) {
+  const keys = new Set(dates.map(monthKey));
+  for (let i = 0; i < 12; i += 1) keys.add(monthKey(new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1)));
+  return [...keys].sort().reverse();
+}
+/** Month + year filter shared by Appointment History and Text-Based History. "" = All months. */
+export function MonthSelect({ value, onChange, dates }) {
+  return (
+    <label className="hx-sel hx-sel--month"><span>Month</span>
+      <select value={value} onChange={(e) => onChange(e.target.value)}>
+        <option value="">All months</option>
+        {monthOptions(dates).map((k) => <option key={k} value={k}>{monthLabel(k)}</option>)}
+      </select>
+    </label>
+  );
+}
+
 // History (reference TQSUB.history; AD-47, AD-50): the records that are no longer open, for Text-Based
 // Questions (#/work/history) or Subscription Questions (#/work/history/sub); the two categories are never
 // merged (AD-72). Search, Status and Category filters, expandable rows and 10 rows per page.
 export default function HistoryPage({ tq, cat = 'text', toast }) {
   const { status, q: search } = tq.history;
   const [category, setCategory] = useState('');
+  const [month, setMonth] = useState(''); // Text-Based questions only (AD-49, AD-50)
   const [page, setPage] = useState(1);
   const term = search.trim().toLowerCase();
   const done = tq.questions.filter((q) => q.cat === cat).filter(HISTORY_FILTERS.all);
@@ -24,10 +47,11 @@ export default function HistoryPage({ tq, cat = 'text', toast }) {
   const list = done
     .filter(HISTORY_FILTERS[status])
     .filter((q) => !category || tq.campaignName(q.camp) === category)
+    .filter((q) => !month || monthKey(q.recv) === month)
     .filter((q) => !term || [q.name, q.uid, q.id].some((v) => String(v).toLowerCase().includes(term)))
     .sort((a, b) => new Date(b.recv) - new Date(a.recv));
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  useEffect(() => { setPage(1); }, [status, category, search]);
+  useEffect(() => { setPage(1); }, [status, category, month, search]);
   const cur = Math.min(page, pages);
   const shown = list.slice((cur - 1) * PAGE_SIZE, cur * PAGE_SIZE);
   const from = list.length ? (cur - 1) * PAGE_SIZE + 1 : 0;
@@ -52,9 +76,10 @@ export default function HistoryPage({ tq, cat = 'text', toast }) {
             {categories.map((c) => <option key={c}>{c}</option>)}
           </select>
         </label>
+        {cat === 'text' && <MonthSelect value={month} onChange={setMonth} dates={done.map((q) => q.recv)} />}
       </div>
       <div className="hx-card">
-        <ExpandTable animate cols={COLS} empty="No history matches your filters."
+        <ExpandTable animate cols={COLS} empty={month ? `No questions in ${monthLabel(month)} match your filters.` : 'No history matches your filters.'}
           rows={shown.map((q) => ({
             key: q.id,
             cells: [

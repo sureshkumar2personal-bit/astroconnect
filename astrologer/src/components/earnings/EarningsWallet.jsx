@@ -129,7 +129,7 @@ export default class EarningsWallet extends Component {
     };
     const scopes = [['this', 'This Month'], ['all', 'All Time']].map(function (x) {
       const on = s.scope === x[0];
-      return { label: x[1], aria: on ? 'true' : 'false', bg: on ? 'var(--ew-surface)' : 'transparent', shadow: on ? '0 1px 2px rgba(27,42,74,.14)' : 'none', fg: on ? 'var(--ew-navy)' : 'var(--ew-mut)',
+      return { label: x[1], aria: on ? 'true' : 'false', bg: on ? 'var(--ew-surface)' : 'transparent', shadow: on ? '0 1px 2px rgba(27,42,74,.14)' : 'none', fg: on ? 'var(--ew-navyText)' : 'var(--ew-mut)',
         go: function () { self.setState({ scope: x[0], hover: null, pop: null }); } };
     });
 
@@ -170,7 +170,7 @@ export default class EarningsWallet extends Component {
     }
     const pages = nums.map(function (n) {
       const c = n === page;
-      return { n: n, isGap: n === 0, isNum: n !== 0, aria: c ? 'page' : 'false', bg: c ? 'var(--ew-navy)' : 'var(--ew-surface)', fg: c ? 'var(--ew-surface)' : 'var(--ew-navy)', border: c ? 'var(--ew-navy)' : 'var(--ew-line)',
+      return { n: n, isGap: n === 0, isNum: n !== 0, aria: c ? 'page' : 'false', bg: c ? 'var(--ew-navy)' : 'var(--ew-surface)', fg: c ? 'var(--ew-onNavy)' : 'var(--ew-navyText)', border: c ? 'var(--ew-navy)' : 'var(--ew-line)',
         go: function () { self.setState({ page: n }); } };
     });
 
@@ -328,7 +328,7 @@ export default class EarningsWallet extends Component {
       // method selector
       bankOn: s.wdMethod === 'Bank', upiOn: s.wdMethod === 'UPI',
       bankTabBg: s.wdMethod === 'Bank' ? 'var(--ew-surface)' : 'transparent', upiTabBg: s.wdMethod === 'UPI' ? 'var(--ew-surface)' : 'transparent',
-      bankTabFg: s.wdMethod === 'Bank' ? 'var(--ew-navy)' : 'var(--ew-mut)', upiTabFg: s.wdMethod === 'UPI' ? 'var(--ew-navy)' : 'var(--ew-mut)',
+      bankTabFg: s.wdMethod === 'Bank' ? 'var(--ew-navyText)' : 'var(--ew-mut)', upiTabFg: s.wdMethod === 'UPI' ? 'var(--ew-navyText)' : 'var(--ew-mut)',
       bankTabSh: s.wdMethod === 'Bank' ? '0 1px 2px rgba(27,42,74,.14)' : 'none', upiTabSh: s.wdMethod === 'UPI' ? '0 1px 2px rgba(27,42,74,.14)' : 'none',
       pickBank: function () { self.setState({ wdMethod: 'Bank', wdError: '', saved: '' }); }, pickUpi: function () { self.setState({ wdMethod: 'UPI', wdError: '', saved: '' }); },
       // saved details (masked)
