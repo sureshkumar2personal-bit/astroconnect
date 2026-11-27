@@ -17,6 +17,8 @@ import Activity from "./pages/Activity/Activity";
 import Wallet from "./pages/Wallet/Wallet";
 import Profile from "./pages/Profile/Profile";
 import Appointment from "./pages/Appointment/Appointment";
+import Live from "./pages/Live/Live";
+import LiveWatch from "./pages/Live/LiveWatch";
 import Session from "./pages/Session/Session";
 import Kundli from "./pages/Kundli/Kundli";
 import Following from "./pages/Following/Following";
@@ -59,6 +61,8 @@ function Shell() {
             <Route path="/services/instant/pay" element={<InstantPay />} />
             <Route path="/services/instant/waiting" element={<InstantWaiting />} />
             <Route path="/services/instant/refund" element={<InstantRefund />} />
+            <Route path="/services/live" element={<Live />} />
+            <Route path="/services/live/watch" element={<LiveWatch />} />
             <Route path="/services/:kind" element={<InstantList />} />
             <Route path="/text" element={<TextQuestion />} />
             <Route path="/text/:tab" element={<TextQuestion />} />

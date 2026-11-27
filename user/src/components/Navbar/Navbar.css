@@ -1,4 +1,6 @@
 :root .sky .navbar {
+  position:relative;
+  z-index:40; /* keep the More and Profile dropdowns above the page content (header blur makes its own stacking layer) */
   flex:none;
   border-bottom:1px solid rgba(var(--ln),.22);
   background:color-mix(in srgb, rgb(var(--bg0)) 70%, var(--glass-base));
@@ -69,3 +71,16 @@
   color:var(--ink);
 }
 :root .navbar .navbar-item:hover { background:color-mix(in srgb, rgb(var(--gl)) 15%, var(--glass-base)); }
+
+:root .navbar .navbar-more { position:relative; }
+:root .navbar .navbar-more-menu { right:auto; left:0; }
+
+:root .navbar .navbar-morebtn { display:inline-flex; align-items:center; gap:8px; padding:0 8px 0 16px; }
+:root .navbar .navbar-morebtn:not(.on) { color:var(--em); }
+:root .navbar .navbar-caretbox { width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; flex:none; color:var(--acc); background:color-mix(in srgb, rgb(var(--gl)) 22%, var(--glass-base)); border:1px solid rgba(var(--ln2), .45); box-shadow:0 1px 6px rgba(var(--gl), .25); transition:background-color .2s, color .2s, border-color .2s, box-shadow .2s, transform .25s cubic-bezier(.4,.2,.2,1); }
+:root .navbar .navbar-morebtn:hover .navbar-caretbox { border-color:var(--acc2); box-shadow:0 2px 10px rgba(var(--gl), .45); }
+:root .navbar .navbar-caretbox.open { transform:rotate(180deg); background-image:linear-gradient(135deg, var(--cta1), var(--cta2)); color:var(--ctaink); border-color:transparent; }
+:root .navbar .navbar-morebtn.on .navbar-caretbox { background:rgba(255,255,255,.22); color:#fff; border-color:rgba(255,255,255,.5); box-shadow:none; }
+:root .navbar .navbar-morebtn.on .navbar-caretbox.open { background-image:none; color:#fff; }
+:root .navbar .navbar-more-menu { min-width:280px; }
+:root .navbar .navbar-more-menu .navbar-item.on { background:#5a3cc0; color:#fff; }

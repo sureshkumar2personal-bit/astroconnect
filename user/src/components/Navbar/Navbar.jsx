@@ -1,10 +1,36 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "../../context/AppContext";
 import "./Navbar.css";
 
 function Navbar() {
   const app = useApp();
   const profRef = useRef(null);
+  const moreRef = useRef(null);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const { pathname } = useLocation();
+  const byLabel = (l) => app.nav.find((n) => n.label === l);
+  const onWallet = pathname.startsWith("/wallet");
+  const navigate = useNavigate();
+  const activity = byLabel("Activity");
+  const moreItems = [
+    { label: "Activity", paths: ["/activity", "/answer"], go: app.goActivity },
+    { label: "Remedy Tracker", paths: ["/remedy"], go: app.goRemedy },
+    { label: "Following and Subscriptions", paths: ["/follow"], go: () => navigate("/follow") },
+    { label: "Birth Profiles and Kundli", paths: ["/kundli"], go: app.goKundli },
+    { label: "Notifications", paths: ["/notifs"], go: app.goNotifs },
+  ];
+  const itemOn = (it) => it.paths.some((p) => pathname === p || pathname.startsWith(p + "/"));
+  const moreOn = moreItems.some(itemOn) || (!!activity && / on\b/.test(activity.cls));
+  // "More…" menu: close on an outside click or the Escape key.
+  useEffect(() => {
+    if (!moreOpen) return undefined;
+    const onDown = (e) => { if (moreRef.current && !moreRef.current.contains(e.target)) setMoreOpen(false); };
+    const onKey = (e) => { if (e.key === "Escape") setMoreOpen(false); };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [moreOpen]);
   // Close the profile menu on an outside click or the Escape key.
   useEffect(() => {
     if (!app.profMenu) return undefined;
@@ -30,11 +56,28 @@ function Navbar() {
           <span className="navbar-3">ASTRUM</span>
         </button>
         <div className="navbar-4">
-          {app.nav.map((n, i1) => (
-            <Fragment key={i1}>
-              <button className={`${n.cls}`} onClick={n.go}>{n.label}</button>
-            </Fragment>
+          {["Home", "Explore", "Services"].map((l) => byLabel(l) && (
+            <button key={l} className={byLabel(l).cls} onClick={byLabel(l).go}>{l}</button>
           ))}
+          <button className={"nv" + (onWallet ? " on" : "")} onClick={app.goWallet}>Wallet</button>
+          {byLabel("Profile") && (
+            <button className={byLabel("Profile").cls.replace(" on", "") + (!onWallet && !moreOn && / on\b/.test(byLabel("Profile").cls) ? " on" : "")} onClick={byLabel("Profile").go}>Profile</button>
+          )}
+          <div className="navbar-more" ref={moreRef}>
+            <button className={"nv navbar-morebtn" + (moreOn ? " on" : "")} onClick={() => setMoreOpen(!moreOpen)} aria-haspopup="menu" aria-expanded={moreOpen}>
+              <span className="navbar-moretxt">More</span>
+              <span className={"navbar-caretbox" + (moreOpen ? " open" : "")} aria-hidden="true">
+                <svg className="navbar-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M6.5 9.5 12 15l5.5-5.5" /></svg>
+              </span>
+            </button>
+            {moreOpen ? (
+              <div className="card navbar-menu navbar-more-menu" role="menu" aria-label="More">
+                {moreItems.map((it) => (
+                  <button key={it.label} className={"navbar-item" + (itemOn(it) ? " on" : "")} role="menuitem" aria-current={itemOn(it) ? "page" : undefined} onClick={() => { setMoreOpen(false); it.go(); }}>{it.label}</button>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
         <button className="ico" onClick={app.toggleTheme} aria-label={app.themeLabel} title={app.themeLabel}>
           {app.isDark ? (
@@ -66,7 +109,7 @@ function Navbar() {
             </svg>
           ) : null}
         </button>
-        <button className="ico" onClick={app.goWallet} aria-label="Wallet">
+        <button className="ico" onClick={app.goWallet} aria-label={"Wallet balance ₹" + app.wallet}>
           <svg
             width="20"
             height="20"
