@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import { useApp, cssToStyle } from "../../context/AppContext";
 import heroImg from "../../assets/images/hero.jpg";
 import AstroAvatar from "../../components/AstroAvatar/AstroAvatar";
@@ -52,6 +53,7 @@ function Home() {
   const goExplore = app.goExplore, goServices = app.goServices, goActivity = app.goActivity;
   const tickerCount = app.homeTicker.length;
   const tickerLoop = app.homeTicker.concat(app.homeTicker).map((t) => ({ text: t.text, go: t.go }));
+  const navigate = useNavigate();
   const svcs = app.services.map((v) => { const d = SVC[v.name] || SVC.Appointment; return { ...d, title: v.name, go: v.go, isText: d.k === "text", isAppt: d.k === "appt", isCall: d.k === "call", isChat: d.k === "chat" }; });
   const astros = app.onlineList.map((a, i) => ({
     id: a.id, name: a.name, spec: a.spec, online: true, offline: false, status: "Online", statusInk: "var(--green)", dot: "#2E9E6E",
@@ -66,6 +68,13 @@ function Home() {
       ? { key: x.key, icon: "q", title: x.label, status: x.badge, rows: [["Service", "Text Question"], ["Astrologer", who(x.sub)], ["Expires", x.exp.replace(/^Expires\s*/, "")]], desc: x.text + " " + x.left + ".", go: x.go }
       : { key: x.key, icon: "q", title: x.label, status: x.badge, rows: [["Service", "Text Question"], ["Astrologer", who(x.sub)], ["Answered on", x.rows[0][1]]], desc: x.rows[1][1], go: x.go });
   // Each dashboard column always shows 3 cards: real items first, then muted default suggestions.
+  // Get Guidance Your Way: Text Question, Appointment, Instant Call / Chat (one card), Live.
+  const guide = [
+    svcs.find((v) => v.title === "Text Question"),
+    svcs.find((v) => v.title === "Appointment"),
+    { ...SVC["Instant Call"], title: "Instant Call / Chat", desc: "Talk or chat with an astrologer and get guidance right away.", label: "Call / Chat Now", go: () => navigate("/services/call"), isCall: true },
+    { ...SVC["Instant Chat"], title: "Live", desc: "Join free live sessions from astrologers.", label: "Watch Live", go: () => navigate("/services/live"), isLive: true },
+  ].filter(Boolean);
   const svcGo = (name) => (svcs.find((v) => v.title === name) || {}).go || goServices;
   const hasKey = (k) => actionCards.some((c) => c.key === k);
   const defaultActions = [
@@ -175,13 +184,14 @@ function Home() {
       <h2 className="d-h2" style={S("margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 700")}>Get Guidance Your Way</h2>
     </div>
     <div className="d-g2">
-      {svcs.map((c, i_c) => (<Fragment key={i_c}>
+      {guide.map((c, i_c) => (<Fragment key={i_c}>
         <button onClick={c.go} className="g-card ac-card" style={S(`text-align: left; border: 1px solid rgba(28,43,42,0.05); border-radius: 22px; background: ${c.bg}; padding: 18px; color: var(--h-t-1C2B2A)`)}>
           <span style={S(`width: 52px; height: 52px; flex-shrink: 0; border-radius: 16px; background: var(--h-b-FFFFFF); color: ${c.ink}; display: flex; align-items: center; justify-content: center`)}>
             {c.isText ? (<><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path><path d="M8 9h8M8 12h5"></path></svg></>) : null}
             {c.isAppt ? (<><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path><circle cx="12" cy="15" r="1.4"></circle></svg></>) : null}
             {c.isCall ? (<><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg></>) : null}
             {c.isChat ? (<><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H8l-4 3V6z"></path><path d="M17 9h2a2 2 0 0 1 2 2v9l-3-2h-6a2 2 0 0 1-2-2v-1"></path></svg></>) : null}
+            {c.isLive ? (<><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 7h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4z"></path><path d="M17 10.5 21.5 8v8L17 13.5"></path></svg></>) : null}
           </span>
           <span style={S("display: flex; flex-direction: column; gap: 3px; min-width: 0")}>
             <span style={S("font-weight: 700; font-size: 16.5px")}>{c.title}</span>

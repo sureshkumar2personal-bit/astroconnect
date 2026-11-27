@@ -1,0 +1,129 @@
+/* Astrologer Live: themed with the app's tokens (dark and light). */
+:root .live-page { --lv-glass: color-mix(in srgb, rgb(var(--gl)) 8%, var(--glass-base)); --lv-line: rgba(var(--ln), .25); --lv-live: #e5484d; }
+:root[data-theme="dark"] .live-page { --lv-live: #ff7a7a; }
+:root .live-page { display:flex; flex-direction:column; gap:28px; }
+:root .live-page .lv-ic { flex:none; }
+:root .live-page .lv-head { display:flex; flex-direction:column; gap:2px; }
+:root .live-page .lv-h1 { margin:0; font-family:var(--font-head); font-weight:700; font-size:36px; line-height:1.1; }
+:root .live-page .lv-sub { margin:0; font-size:14px; color:var(--muted); }
+:root .live-page .lv-sec { display:flex; flex-direction:column; gap:18px; }
+:root .live-page .lv-sechead { display:flex; flex-direction:column; gap:4px; }
+:root .live-page .lv-sectitle { display:flex; align-items:center; gap:10px; }
+:root .live-page .lv-sectitle h2 { margin:0; font-size:15px; font-weight:700; letter-spacing:.14em; }
+:root .live-page .lv-dot { width:8px; height:8px; border-radius:999px; background:var(--subtle); }
+:root .live-page .lv-dot.live { background:var(--lv-live); animation:lvPulse 1.8s infinite; }
+@keyframes lvPulse { 0%{box-shadow:0 0 0 0 rgba(229,72,77,.55)} 70%{box-shadow:0 0 0 6px rgba(229,72,77,0)} 100%{box-shadow:0 0 0 0 rgba(229,72,77,0)} }
+@media (prefers-reduced-motion: reduce) { :root .live-page .lv-dot.live { animation:none; } }
+:root .live-page .lv-count { display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:999px; font-size:12px; font-weight:700; background:color-mix(in srgb, rgb(var(--gl)) 16%, var(--glass-base)); color:var(--muted); }
+:root .live-page .lv-count.live { background:rgba(240,120,120,.2); color:var(--red); }
+
+/* Chips */
+:root .live-page .lv-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+:root .live-page .lv-chips.mt { margin-top:8px; }
+:root .live-page .lv-chip { display:inline-flex; align-items:center; gap:4px; height:24px; padding:0 8px; border-radius:999px; font-size:12px; font-weight:500; background:color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base)); color:var(--muted); }
+:root .live-page .lv-chip.ok { background:rgba(var(--gn),.2); color:var(--green); font-weight:600; }
+:root .live-page .lv-chip.lock { background:rgba(var(--gd),.2); color:var(--gold); font-weight:600; }
+:root .live-page .lv-chip.lg { height:28px; padding:0 11px; font-size:13px; gap:5px; }
+:root .live-page .lv-viewers { display:inline-flex; align-items:center; gap:4px; font-size:12px; color:var(--muted); }
+
+/* Featured */
+:root .live-page .lv-featured { display:flex; flex-wrap:wrap; background:var(--lv-glass); border:1px solid var(--lv-line); border-radius:18px; overflow:hidden; box-shadow:0 8px 24px rgba(8,4,30,.25); }
+:root .live-page .lv-media { position:relative; flex:1 1 420px; min-height:300px; background:#13294B; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+:root .live-page .lv-stars { position:absolute; inset:0; width:100%; height:100%; }
+:root .live-page .lv-portrait { position:relative; border-radius:999px; background:#0F4C5C; border:3px solid #D4AF63; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:600; color:#fffdf8; }
+:root .live-page .lv-portrait.xl { width:136px; height:136px; font-size:46px; box-shadow:0 0 0 6px rgba(229,72,77,.55); }
+:root .live-page .lv-badge { position:absolute; top:16px; left:16px; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 10px; border-radius:6px; background:#c8312b; color:#fff; font-size:12px; font-weight:700; letter-spacing:.1em; }
+:root .live-page .lv-badge i { width:6px; height:6px; border-radius:999px; background:#fff; }
+:root .live-page .lv-pill { position:absolute; display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 10px; border-radius:999px; background:rgba(6,14,30,.62); color:#fff; font-size:13px; font-weight:600; }
+:root .live-page .lv-featured-body { flex:1 1 360px; padding:28px; display:flex; flex-direction:column; gap:14px; justify-content:center; min-width:0; }
+:root .live-page .lv-eyebrow { font-size:11px; font-weight:700; letter-spacing:.14em; color:var(--gold); }
+:root .live-page .lv-featured-body h3 { margin:0; font-family:var(--font-head); font-size:28px; font-weight:700; }
+:root .live-page .lv-featured-topic { margin:0; font-size:20px; font-weight:600; line-height:1.3; }
+:root .live-page .lv-join { display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+:root .live-page .lv-join.lg { height:52px; padding:0 28px; font-size:16px; gap:10px; align-self:flex-start; margin-top:6px; }
+:root .live-page .lv-play { width:24px; height:24px; border-radius:999px; background:#D4AF63; color:#13294B; display:inline-flex; align-items:center; justify-content:center; }
+:root .live-page .lv-btn-outline { display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 14px; border-radius:10px; border:1.5px solid rgba(var(--ln2),.55); background:var(--lv-glass); color:var(--ink); font-size:13px; font-weight:600; cursor:pointer; }
+:root .live-page .lv-btn-outline.gold { border-color:rgba(var(--gd),.7); color:var(--gold); }
+:root .live-page .lv-btn-outline.done { border-color:rgba(var(--gn),.5); background:rgba(var(--gn),.18); color:var(--green); }
+
+/* Cards */
+:root .live-page .lv-more { display:flex; flex-direction:column; gap:12px; }
+:root .live-page .lv-more-head { display:flex; align-items:baseline; gap:10px; }
+:root .live-page .lv-more-head h3 { margin:0; font-size:16px; font-weight:600; }
+:root .live-page .lv-more-head span { font-size:13px; color:var(--muted); }
+:root .live-page .lv-grid { display:grid; gap:16px; align-items:stretch; }
+:root .live-page .lv-grid.live { grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+:root .live-page .lv-grid.up { grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+:root .live-page .lv-card { background:var(--lv-glass); border:1px solid var(--lv-line); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:12px; min-width:0; color:var(--ink); }
+:root .live-page .lv-card-top { display:flex; gap:14px; align-items:flex-start; }
+:root .live-page .lv-main { flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+:root .live-page .lv-name { margin:0; font-size:15px; font-weight:600; }
+:root .live-page .lv-name.sm { font-size:14px; }
+:root .live-page .lv-spec { margin:0; font-size:12.5px; color:var(--muted); }
+:root .live-page .lv-topic { margin:4px 0 0; font-size:15px; font-weight:500; line-height:1.35; color:var(--ink); }
+:root .live-page .lv-topic.strong { font-weight:600; }
+:root .live-page .lv-avwrap { position:relative; flex-shrink:0; width:60px; height:66px; }
+:root .live-page .lv-avatar { border-radius:999px; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:600; color:#fff; flex-shrink:0; }
+:root .live-page .lv-avatar.md { width:56px; height:56px; margin:2px; font-size:19px; box-shadow:0 0 0 2px var(--surf), 0 0 0 4px var(--lv-live); }
+:root .live-page .lv-avatar.sm { width:28px; height:28px; font-size:11px; }
+:root .live-page .lv-avatar.modal { width:48px; height:48px; font-size:17px; }
+:root .live-page .lv-mini { position:absolute; left:50%; bottom:0; transform:translateX(-50%); padding:1px 5px; border-radius:4px; background:#c8312b; color:#fff; font-size:9px; font-weight:700; letter-spacing:.08em; }
+:root .live-page .lv-foot { display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:12px; border-top:1px solid rgba(var(--ln), .18); flex-wrap:wrap; }
+:root .live-page .lv-footnote { font-size:12.5px; line-height:1.35; color:var(--muted); }
+:root .live-page .lv-locked { display:flex; align-items:center; gap:10px; padding:8px 8px 8px 12px; border-radius:10px; background:rgba(var(--gd),.12); border:1px solid rgba(var(--gd),.3); color:var(--gold); flex-wrap:nowrap; }
+:root .live-page .lv-locked span { flex:1; min-width:0; font-size:13px; line-height:1.35; color:var(--ink); }
+:root .live-page .lv-date { box-sizing:border-box; flex-shrink:0; width:56px; height:64px; text-align:center; border-radius:10px; background:color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base)); border:1px solid var(--lv-line); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+:root .live-page .lv-date .lv-mon { font-size:11px; font-weight:700; letter-spacing:.12em; color:var(--gold); }
+:root .live-page .lv-date .lv-day { font-family:var(--font-head); font-size:24px; font-weight:700; line-height:1; }
+:root .live-page .lv-who { display:flex; align-items:center; gap:8px; }
+:root .live-page .lv-who-t { min-width:0; display:flex; flex-direction:column; }
+:root .live-page .lv-when { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:500; color:var(--muted); }
+
+/* Empty states */
+:root .live-page .lv-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; padding:40px 32px; background:var(--lv-glass); border:1px solid var(--lv-line); border-radius:18px; }
+:root .live-page .lv-emptyico { width:56px; height:56px; border-radius:999px; background:color-mix(in srgb, rgb(var(--gl)) 14%, var(--glass-base)); color:var(--gold); display:flex; align-items:center; justify-content:center; }
+:root .live-page .lv-empty .t { margin:4px 0 0; font-size:17px; font-weight:600; }
+:root .live-page .lv-empty .d { margin:0; max-width:380px; font-size:14px; line-height:1.5; color:var(--muted); }
+:root .live-page .lv-footnote-c { margin:0; text-align:center; font-size:12px; color:var(--subtle); }
+
+/* Modal */
+:root .live-page .lv-backdrop { position:fixed; inset:0; z-index:60; padding:16px; background:rgba(10,6,30,.6); display:flex; align-items:center; justify-content:center; }
+:root .live-page .lv-modal { width:100%; max-width:440px; max-height:90vh; overflow:auto; padding:24px; border-radius:18px; background:var(--surf); color:var(--ink); border:1px solid rgba(var(--ln),.3); box-shadow:0 24px 60px rgba(8,4,30,.5); display:flex; flex-direction:column; gap:16px; }
+:root .live-page .lv-modal-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+:root .live-page .lv-modal-tag { display:inline-flex; align-items:center; height:24px; padding:0 9px; border-radius:6px; background:rgba(var(--gd),.2); color:var(--gold); font-size:11px; font-weight:700; letter-spacing:.1em; }
+:root .live-page .lv-x { width:44px; height:44px; border:0; background:transparent; color:var(--muted); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+:root .live-page .lv-modal-who { display:flex; align-items:center; gap:12px; }
+:root .live-page .lv-modal h2 { margin:0; font-family:var(--font-head); font-size:26px; font-weight:700; }
+:root .live-page .lv-modal p { margin:0; font-size:14px; line-height:1.5; color:var(--muted); }
+:root .live-page .lv-modal .lv-small { font-size:12.5px; color:var(--subtle); }
+:root .live-page .lv-plan { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-radius:12px; border:1.5px solid rgba(var(--gd),.6); background:rgba(var(--gd),.1); }
+:root .live-page .lv-plan-t { display:flex; flex-direction:column; gap:2px; }
+:root .live-page .lv-plan-t span { font-size:15px; font-weight:600; color:var(--ink); }
+:root .live-page .lv-plan-t small { font-size:12.5px; color:var(--muted); }
+:root .live-page .lv-plan b { font-size:15px; color:var(--gold); white-space:nowrap; }
+:root .live-page .lv-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px; }
+:root .live-page .lv-done { display:flex; align-items:center; gap:10px; }
+:root .live-page .lv-donemark { width:36px; height:36px; border-radius:999px; background:rgba(var(--gn),.2); color:var(--green); display:flex; align-items:center; justify-content:center; }
+:root .live-page .lv-done h2 { font-size:22px; }
+
+@media (max-width:640px) { :root .live-page .lv-h1 { font-size:30px; } :root .live-page .lv-featured-body { padding:20px; } }
+
+:root .live-page .lv-modal-head.end { justify-content:flex-end; }
+
+:root .live-page .lv-card .lv-foot, :root .live-page .lv-card .lv-locked { margin-top:auto; }
+:root .live-page .lv-card .lv-foot, :root .live-page .lv-card .lv-locked { min-height:76px; box-sizing:border-box; }
+
+/* Reminder box */
+:root .live-page .lv-remwhen { display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:12px; background:var(--lv-glass); border:1px solid var(--lv-line); color:var(--gold); }
+:root .live-page .lv-remwhen span { display:flex; flex-direction:column; gap:2px; }
+:root .live-page .lv-remwhen b { font-size:16px; color:var(--ink); }
+:root .live-page .lv-remwhen small { font-size:13px; color:var(--muted); }
+:root .live-page .lv-opts { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+:root .live-page .lv-opt { display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-height:56px; padding:8px 14px; border-radius:12px; border:1.5px solid rgba(var(--ln),.4); background:var(--lv-glass); color:var(--ink); text-align:left; cursor:pointer; }
+:root .live-page .lv-opt b { font-size:14px; font-weight:600; }
+:root .live-page .lv-opt span { font-size:12.5px; color:var(--muted); }
+:root .live-page .lv-opt.on { background:#5a3cc0; border-color:var(--acc2); color:#fff; }
+:root .live-page .lv-opt.on span { color:#e8dcff; }
+:root .live-page .lv-opt:disabled { opacity:.55; cursor:not-allowed; }
+:root .live-page .lv-join:disabled { opacity:.5; cursor:not-allowed; }
+@media (max-width:480px) { :root .live-page .lv-opts { grid-template-columns:minmax(0,1fr); } }
