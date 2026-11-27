@@ -30,7 +30,7 @@ const WORK_VIEWS = ['questions', 'subscriptions', 'campaigns', 'templates', 'his
 
 export const SECTION_KEYS = [
   'live', 'earnings', 'profile', 'calls', 'audience', 'reviews', 'content',
-  'analytics', 'remedies', 'notifications', 'activity', 'settings', 'support',
+  'analytics', 'remedies', 'notifications', 'activity', 'settings', 'support', 'services', 'assistants',
 ];
 
 export function parseRoute(path) {

@@ -70,10 +70,6 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
   const [dialog, setDialog] = useState(null); // { title, body } or appointments { kind, id }
   const [toastMsg, setToastMsg] = useState('');
   const timer = useRef();
-  // My Work → History panel open (shown in place of the overview cards). Back closes it first; it closes
-  // whenever you leave the My Work overview.
-  const [historyOpen, setHistoryOpen] = useState(false);
-  useEffect(() => { if (route.view !== 'hub') setHistoryOpen(false); }, [route.view]);
 
   const toast = useCallback((m) => {
     clearTimeout(timer.current);
@@ -166,8 +162,10 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
 
   const m = screenMeta(route, tq, mobile);
   let content;
-  if (view === 'hub') content = <WorkOverview questions={tq.questions} appointments={apt.list} onAptTab={apt.setTab} tq={tq} apt={apt} mobile={mobile} openDialog={openDialog} toast={toast}
-    historyOpen={historyOpen} onToggleHistory={() => setHistoryOpen((v) => !v)} />;
+  // History is its own route (#/work/history): the My Work layout with the History panel open. Subscription
+  // history (#/work/history/sub) keeps its own page below.
+  if (view === 'hub' || (view === 'history' && route.cat === 'text')) content = <WorkOverview questions={tq.questions} appointments={apt.list} onAptTab={apt.setTab} tq={tq} apt={apt} mobile={mobile} openDialog={openDialog} toast={toast}
+    historyOpen={view === 'history'} onOpenHistory={() => navigate(routes.view('history'))} />;
   else if (view === 'questions' || view === 'subscriptions') content = <TextQuestionsPage tq={tq} route={route} mobile={mobile} ui={ui} />;
   else if (view === 'campaigns' && route.camp === 'open') content = <OpenSettings tq={tq} toast={toast} />;
   else if (view === 'campaigns' && route.camp) {
@@ -182,8 +180,8 @@ export default function WorkPage({ route, path, mobile, tq, apt, theme, onToggle
   else if (view === 'templates') content = <TemplatesPage templates={tq.templates} onEdit={editTemplate} onDelete={deleteTemplate} />;
   else content = <HistoryPage tq={tq} cat={route.cat} toast={toast} />;
 
-  // With the History panel open, Back returns to the My Work overview (not Home).
-  const goBack = () => (view === 'hub' && historyOpen ? setHistoryOpen(false) : navigate(m.parent));
+  // Back always goes to the screen's parent (History → My Work, My Work → Home).
+  const goBack = () => navigate(m.parent);
   const actions = m.tplAction
     ? <button type="button" className="btn btn-p" onClick={() => editTemplate(null)}>+ Create Template</button>
     : m.actions;

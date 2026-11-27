@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-88 – AD-102 |
+| Owned decisions | AD-88 – AD-102, AD-168 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -57,7 +57,7 @@ post-consultation attachments.
 | ID | Decision |
 |----|----------|
 | AD-88 | **Appointment type and booking:** Appointments are **voice-only** consultations; there are no video appointments. The User chooses an astrologer, views available slots and prices, books, and pays. Successful payment **immediately confirms** the appointment; there is no astrologer approval or Pending stage after successful payment. |
-| AD-89 | **Appointment statuses:** **Confirmed**; **Under Review** (when the astrologer opens the booking details / reviews the purpose); **Completed** (when the call ends); **Cancelled**; **Missed / No-show**. Payment settlement status is kept separate from appointment status. |
+| AD-89 | **Appointment statuses:** **Confirmed**; **Under Review** (when the astrologer opens the booking details / reviews the purpose); **Completed** (after the call ends and the astrologer has sent the post-call attachment, and the remedy where one is required — AD-102); **Cancelled**; **Missed / No-show**. Payment settlement status is kept separate from appointment status. |
 | AD-90 | **Duration and pricing:** appointment durations are **15 minutes** or **30 minutes**. The astrologer sets a separate price for each duration. One selected duration applies consistently across the selected schedule period. Price changes apply only to future bookings; existing confirmed bookings keep their original booked price. |
 | AD-91 | **Astrologer-cancelled appointments:** the astrologer receives **no earnings** for an appointment cancelled by the astrologer. |
 | AD-92 | **Calendar and recurring availability:** calendar views are Daily, Weekly, and Monthly. Recurring weekly availability applies automatically within a **rolling 90-day booking horizon**. Weekly overrides and single-date overrides do not modify the recurring schedule. Controls are simple click/edit controls. |
@@ -70,7 +70,8 @@ post-consultation attachments.
 | AD-99 | **User cancellation and User no-show:** the User cancellation policy is **12 hours before the appointment**. Late cancellation follows the late-cancellation percentage deduction policy of the User App. A User no-show follows the same late-cancellation policy. The percentage is not invented or changed here (its value is tracked in AP-05-01). |
 | AD-100 | **Appointment reminders:** notifications are sent to **both parties** immediately after booking confirmation; 3 days before; 2 days before; 1 day before; on the appointment day 1 hour before; on the appointment day 15 minutes before; and immediately after a cancellation or rescheduling. Only one reminder is sent for each specified interval. |
 | AD-101 | **Appointment Details:** shows Appointment ID; User name and User ID; booking date/time; duration; voice-only type; payment amount and payment status; consultation purpose; uploaded horoscope; saved horoscope selection; birth details only where User consent permits sharing; the User's private notes, if shared. The astrologer may create **private preparation notes** visible only to the astrologer. |
-| AD-102 | **Post-consultation attachments:** the astrologer may attach notes, remedies, recommendations, or reports immediately after the call or later through Appointment History. A pending attachment/action has a visible indicator, and reminders are sent until the required attachment/action is completed. Attachments are saved in Appointment History and the Remedy Tracker. Appointment completion and settlement do not depend on attachment submission. Attachments follow the finalized astrologer answer attachment rules (AD-45); User question limits do not apply. |
+| AD-102 | **Post-call attachment and remedy:** when the astrologer clicks End Call, the call session ends and a post-call section opens in which the astrologer attaches and sends the consultation attachment (notes, recommendations, or reports) and, only where a remedy (Pariharam) is required, adds and sends the remedy details; no remedy is forced when none is required. The appointment is marked **Completed** once the attachment (and the remedy, where required) has been submitted. There is no separate pending-attachment stage, no pending-attachment indicator in Appointment History, and no reminder asking the astrologer to send an attachment later. Attachments and remedy details are saved against the Appointment ID, in Appointment History and the Remedy Tracker. Attachments follow the finalized astrologer answer attachment rules (AD-45); User question limits do not apply. *(Amended 2026-11-27 at the product owner's request.)* |
+| AD-168 | **Appointment History month filter:** Appointment History (My Work → History) offers a Month filter that lists the last 12 months up to the current month, newest first, plus any older month that has records, with "All months" as the default. Selecting a month and year shows only the appointments whose appointment date falls in that month, across every past status (Completed, Cancelled, Missed / No-show), and works together with Search, Status, Type and the Previous / Next paging. A month with no appointments shows an empty-state message. No new status is introduced; a reschedule is not a separate history status. *(Added 2026-11-27 at the product owner's request.)* |
 
 **Referenced decisions**
 
@@ -119,13 +120,13 @@ post-consultation attachments.
 3. If a participant has not joined by the end of the grace period, no-show handling applies (§5.7).
 4. On technical disconnection, automatic reconnection is attempted for 5 minutes and the remaining time is preserved (AD-97).
 5. If the appointment cannot continue because of technical failure, the Platform reviews it and the User receives a reschedule option; neither participant is blamed automatically (AD-97).
-6. When the call ends, the status becomes **Completed** (AD-89).
+6. When the astrologer clicks End Call, the call session ends and the post-call section opens (AD-102); the status becomes **Completed** only after the attachment (and the remedy, where required) has been sent (AD-89, AD-102).
 
 ### 5.5 After the appointment
-1. The astrologer may attach notes, remedies, recommendations, or reports immediately or later from Appointment History (AD-102).
-2. While an attachment/action is pending, a visible indicator is shown and reminders are sent until it is completed (AD-102).
-3. Attachments are saved in Appointment History and the Remedy Tracker (AD-102, AD-163).
-4. Completion and settlement do not wait for attachments (AD-102).
+1. After End Call, the astrologer attaches and sends the consultation attachment and, only where required, the remedy (Pariharam) details (AD-102).
+2. Once they are sent, the appointment is marked **Completed**; there is no separate pending-attachment stage, indicator, or reminder (AD-102).
+3. Attachments and remedy details are saved against the Appointment ID, in Appointment History and the Remedy Tracker (AD-102, AD-163).
+4. Settlement eligibility follows completion (AD-126 → [08](08_WALLET_AND_EARNINGS.md)).
 5. The User gives a mandatory rating (AD-129 → [10](10_RATINGS_AND_REVIEWS.md)).
 
 ### 5.6 Close a date
@@ -165,7 +166,7 @@ information: `PENDING DISCUSSION` (AP-05-01).
 ### 6.3 Appointment list and history
 - Reached from My Work (AD-46) and Home (AD-17).
 - Each row expands in place to show that Appointment's Details, with an expand/collapse arrow; selecting it again collapses it, and one row is open at a time (AD-78). Expanding a row counts as opening the details (AD-89).
-- Pending attachment/action indicator on the row (AD-102).
+- Appointment History also has a Month filter (last 12 months and any older month with records; "All months" by default) that works with Search, Status and Type, with an empty-state message for a month with no appointments (AD-168).
 - Filters and search persist on Back (AD-77 → [03](03_GLOBAL_NAVIGATION.md)).
 
 ### 6.4 Appointment Details (AD-101)
@@ -184,7 +185,7 @@ information: `PENDING DISCUSSION` (AP-05-01).
 | Birth details | Only where the User's consent permits (User App D-37) |
 | User's private notes | Only if shared by the User |
 | Private preparation notes | Written by the astrologer; visible only to the astrologer |
-| Post-consultation attachments | Notes, remedies, recommendations, reports (AD-102) |
+| Post-call attachment and remedy | Notes, recommendations, reports; remedy (Pariharam) where required (AD-102) |
 
 ## 7. Business rules and validations
 
@@ -212,7 +213,7 @@ information: `PENDING DISCUSSION` (AP-05-01).
 | APT-20 | Birth details are shown only where the User's consent permits. | AD-101 |
 | APT-21 | Private preparation notes are visible only to the astrologer. | AD-101 |
 | APT-22 | Post-consultation attachments follow the astrologer answer attachment rules (AD-45 → [02](02_TEXT_BASED_QUESTIONS.md)); User question limits do not apply. | AD-102, AD-45 |
-| APT-23 | Completion and settlement never depend on attachment submission. | AD-102 |
+| APT-23 | An appointment is Completed after End Call and the submission of the post-call attachment (and the remedy, where required); there is no pending-attachment stage, indicator, or reminder. | AD-89, AD-102 |
 | APT-24 | New bookings are not possible while DND is active; confirmed appointments remain valid. | AD-74, AD-09 |
 | APT-25 | Appointments can still be booked while the astrologer is Offline. | AD-05, AD-164 |
 
@@ -224,7 +225,7 @@ information: `PENDING DISCUSSION` (AP-05-01).
 |------|-------|----|
 | — | Payment succeeds within the 10-minute lock | Confirmed |
 | Confirmed | Astrologer opens booking details / reviews the purpose | Under Review |
-| Confirmed / Under Review | Call ends | Completed |
+| Confirmed / Under Review | Call ends and the post-call attachment (and remedy, where required) is sent | Completed |
 | Confirmed / Under Review | Cancellation by astrologer or User, or automatic cancellation on date closure without advance notice | Cancelled |
 | Confirmed / Under Review | Participant has not joined by the end of the 5-minute grace period | Missed / No-show |
 
@@ -243,7 +244,7 @@ review, is not specified beyond AD-89 and AD-97; no extra status is invented.
 | Date closed with confirmed appointments | Reschedule or full Wallet refund per User; automatic cancellation and refund if Users cannot be informed in advance (AD-94) |
 | User already rescheduled once | No further reschedule (AD-94, AD-98) |
 | Disconnection during the call | 5-minute reconnection; remaining time preserved (AD-97) |
-| Attachment not yet added | Indicator and reminders; completion/settlement unaffected (AD-102) |
+| Call ended, attachment not yet sent | The post-call section stays open; the appointment is not Completed until it is sent (AD-102) |
 | Astrologer repeatedly no-shows | Incidents recorded; warnings at the configurable threshold (AD-98; PA-06) |
 | Late-cancellation percentage | `PENDING DISCUSSION` (AP-05-01) |
 
@@ -255,7 +256,6 @@ review, is not specified beyond AD-89 and AD-97; no extra status is invented.
 | Reminder 3 days, 2 days, 1 day before | Both parties | AD-100 |
 | Reminder 1 hour and 15 minutes before (appointment day) | Both parties | AD-100 |
 | Cancelled or rescheduled | Both parties, immediately | AD-100 |
-| Pending attachment/action reminder | Astrologer, until completed | AD-102 |
 | Category C events (New Booking, Confirmed, Upcoming Reminder, Cancelled/Rescheduled, Completed, Missed) | Astrologer | AD-148 → [14](14_NOTIFICATIONS_AND_REMINDERS.md) |
 
 Only one reminder is sent per interval (AD-100); duplicates are avoided (AD-149).
@@ -313,3 +313,5 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document and ruling C2: AD-88 – AD-102. AP-05-01 added. |
 | 2026-11-20 | AP-01-14 Resolved (AD-07 amended); User App aligned (X-17, X-19: User App D-30, D-40 – D-43). |
+| 2026-11-27 | AD-89 and AD-102 amended (product owner): Completed after End Call and the post-call attachment (and remedy, where required); pending-attachment stage, indicator and reminders removed; APT-23 reworded. Superseded wording: "Completed (when the call ends)"; "immediately after the call or later through Appointment History … pending indicator and reminders … completion and settlement do not depend on attachment submission". |
+| 2026-11-27 | AD-168 added: Appointment History Month filter (product owner). |

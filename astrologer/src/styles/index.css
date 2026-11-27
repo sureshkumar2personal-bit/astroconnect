@@ -9,6 +9,10 @@
 @import './common/home.css' layer(components);
 @import './common/sections.css' layer(components);
 @import './common/earnings.css' layer(components);
+@import './common/live.css' layer(components);
+@import './common/services.css' layer(components);
+@import './common/assistants.css' layer(components);
+@import './common/settings.css' layer(components);
 
 @import './desktop/home.css' layer(components);
 @import './desktop/sections.css' layer(components);

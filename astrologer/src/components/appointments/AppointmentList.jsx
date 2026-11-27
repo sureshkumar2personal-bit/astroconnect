@@ -33,7 +33,7 @@ export function AppointmentTable({ list, apt, mobile, openDialog, toast }) {
       rows={list.map((a) => ({
         key: a.id,
         cells: [
-          <span key="i"><b>{a.id}</b>{a.pendingAtt && <> <Badge kind="accent">Attachment pending</Badge></>}</span>,
+          <span key="i"><b>{a.id}</b></span>,
           <span key="u">{a.user}<div className="muted sm">{a.uid}</div></span>,
           fmtDateTime(dt(a.at)),
           `${a.dur} min`,
@@ -60,7 +60,6 @@ export default function AppointmentList({ apt, mobile, openDialog, toast }) {
       <div className="kpis">
         <Kpi label="Today" value={counts.today} />
         <Kpi label="Upcoming" value={counts.upcoming} />
-        <Kpi label="Attachment pending" value={counts.pendingAtt} />
         <Kpi label="Durations" value="15 / 30 min"><span className="sm">{inr(settings.p15)} · {inr(settings.p30)}</span></Kpi>
       </div>
       <div className="row wrap">

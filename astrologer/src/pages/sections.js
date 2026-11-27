@@ -14,4 +14,6 @@ export const SECTIONS = {
   activity: { title: 'Recent Activity', load: () => import('./ActivityPage.jsx') },
   settings: { title: 'Settings', load: () => import('./SettingsPage.jsx') },
   support: { title: 'Help & Support', load: () => import('./SupportPage.jsx') },
+  services: { title: 'Service Management', load: () => import('./ServiceManagementPage.jsx') },
+  assistants: { title: 'My Assistants', load: () => import('./AssistantPage.jsx') },
 };

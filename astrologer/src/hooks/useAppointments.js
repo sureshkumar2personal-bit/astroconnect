@@ -69,7 +69,6 @@ export default function useAppointments() {
   const counts = useMemo(() => ({
     today: list.filter(TAB_TEST.today).length,
     upcoming: list.filter(isUpcoming).length,
-    pendingAtt: list.filter((a) => a.pendingAtt).length,
   }), [list]);
 
   // Opening the booking details puts a Confirmed appointment Under Review (AD-89).
@@ -84,7 +83,21 @@ export default function useAppointments() {
     pay: 'Refund / reschedule offered',
   })), [patch]);
 
-  const addAttachment = useCallback((id, type, text) => patch(id, (a) => ({ att: [...a.att, { type, text }], pendingAtt: false })), [patch]);
+  const addAttachment = useCallback((id, type, text) => patch(id, (a) => ({ att: [...a.att, { type, text }] })), [patch]);
+
+  // Call workflow (prototype, in memory): Join → consultation → End Call → send attachment (+ remedy if needed) → Completed.
+  // The call is a local session only; nothing is placed or sent to a server.
+  const startCall = useCallback((id) => patch(id, () => ({ callStart: Date.now(), callEnd: null, callSecs: null })), [patch]);
+  const endCall = useCallback((id) => patch(id, (a) => {
+    const end = Date.now();
+    return { callEnd: end, callSecs: Math.max(1, Math.round((end - (a.callStart || end)) / 1000)) };
+  }), [patch]);
+  /** After End Call: saves the attachment(s) and the optional remedy against this appointment, then marks it Completed. */
+  const completeAppointment = useCallback((id, { attachments = [], remedy = '' }) => {
+    attachments.forEach((x) => addAttachment(id, x.type, x.text));
+    if (remedy.trim()) addAttachment(id, 'Remedy', remedy.trim());
+    patch(id, () => ({ status: 'Completed' }));
+  }, [addAttachment, patch]);
 
   const confirmedOn = useCallback((day) => list.filter((a) => isoDay(a.at) === day && isUpcoming(a)), [list]);
 
@@ -98,7 +111,7 @@ export default function useAppointments() {
 
   return {
     list, visible, counts, settings, tab, setTab, query, setQuery, calView, setCalView,
-    byId, open, setNote, cancel, addAttachment, confirmedOn, closeDate,
+    byId, open, setNote, cancel, addAttachment, startCall, endCall, completeAppointment, confirmedOn, closeDate,
     setDuration: (dur) => set({ dur }),
     setPrice: (key, value) => set({ [key]: value }),
     setBuffer: (buffer) => set({ buffer }),

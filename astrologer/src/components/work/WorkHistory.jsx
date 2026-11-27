@@ -4,7 +4,7 @@ import { dt } from '@/lib/textQuestions.js';
 import { Badge } from '@/components/ui/primitives.jsx';
 import ExpandTable from '@/components/ui/ExpandTable.jsx';
 import AppointmentDetails from '@/components/appointments/AppointmentDetails.jsx';
-import HistoryPage, { Pager, when } from './HistoryPage.jsx';
+import HistoryPage, { MonthSelect, Pager, monthKey, monthLabel, when } from './HistoryPage.jsx';
 import { SearchIcon } from './QuestionToolbar.jsx';
 
 const APT_PAGE = 5;
@@ -43,15 +43,17 @@ function AppointmentHistory({ apt, mobile, openDialog, toast }) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
   const [type, setType] = useState('');
+  const [month, setMonth] = useState('');
   const [page, setPage] = useState(1);
   const term = query.trim().toLowerCase();
-  const list = apt.list
-    .filter((a) => !isUpcoming(a))
+  const past = apt.list.filter((a) => !isUpcoming(a));
+  const list = past
     .filter((a) => !status || a.status === status)
     .filter(() => !type || type === 'Voice-only') // every appointment is voice-only
+    .filter((a) => !month || monthKey(a.at) === month)
     .filter((a) => !term || [a.user, a.uid, a.id].some((v) => String(v).toLowerCase().includes(term)))
     .sort((a, b) => dt(b.at) - dt(a.at));
-  useEffect(() => { setPage(1); }, [query, status, type]);
+  useEffect(() => { setPage(1); }, [query, status, type, month]);
   const pages = Math.max(1, Math.ceil(list.length / APT_PAGE));
   const cur = Math.min(page, pages);
   const shown = list.slice((cur - 1) * APT_PAGE, cur * APT_PAGE);
@@ -76,14 +78,15 @@ function AppointmentHistory({ apt, mobile, openDialog, toast }) {
             <option>Voice-only</option>
           </select>
         </label>
+        <MonthSelect value={month} onChange={setMonth} dates={past.map((a) => a.at)} />
       </div>
       <div className="hx-card hx-card--apt">
-        <ExpandTable animate cols={APT_COLS} empty="No appointments match your filters."
+        <ExpandTable animate cols={APT_COLS} empty={month ? `No appointments in ${monthLabel(month)} match your filters.` : 'No appointments match your filters.'}
           rows={shown.map((a) => ({
             key: a.id,
             cells: [
               <span key="u" className="hx-user"><b>{a.user}</b><small>{a.uid}</small></span>,
-              <span key="i" className="hx-aptid"><span className="hx-id">{a.id}</span>{a.pendingAtt && <Badge kind="accent">Attachment pending</Badge>}</span>,
+              <span key="i" className="hx-aptid"><span className="hx-id">{a.id}</span></span>,
               'Voice-only',
               when(a.at),
               `${a.dur} min`,

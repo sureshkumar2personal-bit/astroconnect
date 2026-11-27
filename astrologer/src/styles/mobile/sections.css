@@ -176,10 +176,6 @@
 }
 
 
-/* ---------- Settings (mobile) ---------- */
-@media (max-width: 760px) {
-  .tq .pg--settings .facts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-}
 
 
 /* ---------- Help & Support (mobile) ---------- */
@@ -278,4 +274,9 @@
   .tq .ce-schedrow .field, .tq .ce-schedrow label { flex: none; width: 100%; }
   .tq .ce-schedbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .tq .ce-schedbtns .btn { width: 100%; }
+}
+
+/* ---------- History month filter on phones: the Month dropdown takes its own full-width row ---------- */
+@media (max-width: 760px) {
+  .tq .hx-sel--month { flex: 1 1 100%; }
 }

@@ -14,7 +14,17 @@ export default function AppointmentDetails({ apt, id, mobile, openDialog, toast,
   const [note, setNote] = useState(a?.pnotes || '');
   const [attType, setAttType] = useState(ATTACHMENT_TYPES[0]);
   const [attText, setAttText] = useState('');
-  useEffect(() => { setNote(a?.pnotes || ''); setAttText(''); }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [files, setFiles] = useState([]);
+  const [needRemedy, setNeedRemedy] = useState(false);
+  const [remedyText, setRemedyText] = useState('');
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => { setNote(a?.pnotes || ''); setAttText(''); setFiles([]); setNeedRemedy(false); setRemedyText(''); }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const onCall = !!a?.callStart && !a?.callEnd;
+  useEffect(() => {
+    if (!onCall) return undefined;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [onCall]);
 
   if (!a) return <div className="empty">Appointment not found</div>;
 
@@ -32,12 +42,74 @@ export default function AppointmentDetails({ apt, id, mobile, openDialog, toast,
   ];
 
   const saveNote = () => { if (note !== a.pnotes) { apt.setNote(a.id, note); toast('Private note saved'); } };
-  const saveAttachment = () => {
-    if (!attText.trim()) return toast('Write something to attach.');
-    apt.addAttachment(a.id, attType, attText.trim());
-    setAttText('');
-    toast('Attachment saved to Appointment History');
+  const mmss = (secs) => `${Math.floor(secs / 60)} min ${String(secs % 60).padStart(2, '0')} s`;
+  const postCall = !!a.callEnd && a.status !== 'Completed'; // call ended, attachment (and remedy if needed) not sent yet
+  const connect = () => { apt.startCall(a.id); toast('Call connected (prototype — no real call is placed)'); };
+  const endCall = () => { apt.endCall(a.id); toast('Call ended. Send the attachment to complete the appointment.'); };
+  const sendAll = () => {
+    const text = attText.trim();
+    if (!text && !files.length) return toast('Add a note or choose a file to send.');
+    if (needRemedy && !remedyText.trim()) return toast('Write the remedy (Pariharam) or switch off "Remedy needed".');
+    const body = [text, files.length ? `Files: ${files.join(', ')}` : ''].filter(Boolean).join(' — ');
+    apt.completeAppointment(a.id, { attachments: [{ type: attType, text: body }], remedy: needRemedy ? remedyText : '' });
+    setAttText(''); setFiles([]); setNeedRemedy(false); setRemedyText('');
+    toast('Sent. Appointment completed.');
   };
+  if (a.callSecs != null) facts.splice(3, 0, ['Call duration', `${mmss(a.callSecs)} (booked ${a.dur} min)`]);
+
+  // Join / on-call card, and the after-call card (attachment + optional remedy), shared by both layouts.
+  // A plain function (not a component) so the forms inside keep focus while typing.
+  const card = (title, children) => (inline
+    ? <section className="card apx-card"><h3 className="apx-h">{title}</h3>{children}</section>
+    : <section className="card"><h2 className="h">{title}</h2>{children}</section>);
+  const joinCard = isUpcoming(a) && !postCall && (
+    card(onCall ? 'Call in progress' : 'Join call', (
+      onCall ? (
+        <>
+          <p className="sm" aria-live="polite">Connected · {mmss(Math.max(0, Math.round((now - a.callStart) / 1000)))}</p>
+          <button type="button" className="btn danger-f" onClick={endCall}>End call</button>
+        </>
+      ) : (
+        <>
+          <p className="sm">Joining opens 5 minutes before the scheduled time, with a 5-minute grace period after it. If the call drops, reconnection is tried for 5 minutes and remaining time is kept.</p>
+          <button type="button" className="btn btn-p" disabled={!canJoin} onClick={connect}>
+            {canJoin ? 'Join voice call' : `Join opens ${fmtDateTime(opens)}`}
+          </button>
+          <button type="button" className="btn btn-o danger" onClick={() => openDialog('aptCancel', a.id)}>Cancel appointment</button>
+        </>
+      )
+    ))
+  );
+  const afterCallCard = postCall && (
+    card('After the call', (
+      <>
+      <p className="sm">The call has ended ({mmss(a.callSecs || 0)}). Send the consultation attachment{needRemedy ? ' and the remedy' : ''} to complete this appointment.</p>
+      <div className="form">
+        <label>Attachment type
+          <select value={attType} onChange={(e) => setAttType(e.target.value)}>
+            {ATTACHMENT_TYPES.filter((t) => t !== 'Remedy').map((t) => <option key={t}>{t}</option>)}
+          </select>
+        </label>
+        <label className="sr" htmlFor={`apt-att-${a.id}`}>Attachment text</label>
+        <textarea id={`apt-att-${a.id}`} className="short" placeholder="Write notes, recommendations or a report" value={attText} onChange={(e) => setAttText(e.target.value)} />
+        <label className="sm">Files (up to 3 · JPEG, PDF, TXT · 10 MB each)
+          <input type="file" accept=".jpg,.jpeg,.pdf,.txt" multiple onChange={(e) => setFiles([...e.target.files].slice(0, 3).map((f) => f.name))} />
+        </label>
+        <label className="sm" style={{ flexDirection: "row", alignItems: "center", gap: "8px" }}><input type="checkbox" checked={needRemedy} onChange={(e) => setNeedRemedy(e.target.checked)} /> Remedy (Pariharam) needed</label>
+        {needRemedy && (
+          <>
+            <label className="sr" htmlFor={`apt-rem-${a.id}`}>Remedy details</label>
+            <textarea id={`apt-rem-${a.id}`} className="short" placeholder="Write the remedy details" value={remedyText} onChange={(e) => setRemedyText(e.target.value)} />
+          </>
+        )}
+        <button type="button" className="btn btn-p" onClick={sendAll}>Send and complete</button>
+      </div>
+      </>
+    ))
+  );
+  const attachmentsCard = card('Post-consultation attachments', (
+    a.att.length ? a.att.map((x, i) => <div key={i} className="remedy"><b>{x.type}</b>{x.text}</div>) : <span className="muted sm">None yet</span>
+  ));
 
   // Inline (inside an expanded list / history row): compact two-card layout.
   if (inline) {
@@ -49,6 +121,7 @@ export default function AppointmentDetails({ apt, id, mobile, openDialog, toast,
       ['Uploaded horoscope', a.horo || '—'],
       ['Saved horoscope', a.saved || '—'],
     ];
+    if (a.callSecs != null) box.splice(2, 0, ['Call duration', `${mmss(a.callSecs)} (booked ${a.dur} min)`]);
     return (
       <div className="apt-inline apx">
         <section className="card apx-card">
@@ -66,43 +139,9 @@ export default function AppointmentDetails({ apt, id, mobile, openDialog, toast,
           <a className="go" href="#" aria-disabled="true" onClick={(e) => e.preventDefault()}>View user profile ›</a>
         </section>
         <div className="apx-col">
-          {isUpcoming(a) && (
-            <section className="card apx-card">
-              <h3 className="apx-h">Join call</h3>
-              <p className="sm">Joining opens 5 minutes before the scheduled time, with a 5-minute grace period after it. If the call drops, reconnection is tried for 5 minutes and remaining time is kept.</p>
-              <button type="button" className="btn btn-p" disabled={!canJoin} onClick={() => toast('Connecting voice call… (prototype — no real call is placed)')}>
-                {canJoin ? 'Join voice call' : `Join opens ${fmtDateTime(opens)}`}
-              </button>
-              <button type="button" className="btn btn-o danger" onClick={() => openDialog('aptCancel', a.id)}>Cancel appointment</button>
-            </section>
-          )}
-          <section className="card apx-card">
-            <h3 className="apx-h">Post-consultation attachments</h3>
-            {a.pendingAtt && <div className="note note--bad">Attachment pending — reminders continue until you add it. Completion and settlement are not affected.</div>}
-            {a.att.map((x, i) => <div key={i} className="remedy"><b>{x.type}</b>{x.text}</div>)}
-            {a.status === 'Completed' ? (
-              <>
-                <div className="apx-row">
-                  <label className="sr" htmlFor={`apt-att-type-${a.id}`}>Attachment type</label>
-                  <select id={`apt-att-type-${a.id}`} value={attType} onChange={(e) => setAttType(e.target.value)}>
-                    {ATTACHMENT_TYPES.map((t) => <option key={t}>{t}</option>)}
-                  </select>
-                  <label className="sr" htmlFor={`apt-att-${a.id}`}>Attachment text</label>
-                  <input id={`apt-att-${a.id}`} type="text" placeholder="Write notes, remedies, recommendations or reports" value={attText} onChange={(e) => setAttText(e.target.value)} />
-                </div>
-                <div className="apx-row">
-                  <label className="apx-file">
-                    <span>⬆ Choose files · up to 3 · JPEG, PDF, TXT · 10 MB each</span>
-                    <input type="file" accept=".jpg,.jpeg,.pdf,.txt" multiple />
-                  </label>
-                  <button type="button" className="btn apx-save" onClick={saveAttachment}>Save attachment</button>
-                </div>
-                <span className="muted sm">Saved in Appointment History and the Remedy Tracker.</span>
-              </>
-            ) : (
-              !a.att.length && <span className="muted sm">Available after the call is completed.</span>
-            )}
-          </section>
+          {joinCard}
+          {afterCallCard}
+          {attachmentsCard}
         </div>
       </div>
     );
@@ -141,37 +180,9 @@ export default function AppointmentDetails({ apt, id, mobile, openDialog, toast,
           </section>
         </div>
         <div className="stack">
-          {isUpcoming(a) && (
-            <section className="card">
-              <h2 className="h">Join call</h2>
-              <p className="sm">Joining opens 5 minutes before the scheduled time, with a 5-minute grace period after it. If the call drops, reconnection is tried for 5 minutes and remaining time is kept.</p>
-              <button type="button" className="btn btn-p" disabled={!canJoin} onClick={() => toast('Connecting voice call… (prototype — no real call is placed)')}>
-                {canJoin ? 'Join voice call' : `Join opens ${fmtDateTime(opens)}`}
-              </button>
-              <button type="button" className="btn btn-o danger" onClick={() => openDialog('aptCancel', a.id)}>Cancel appointment</button>
-            </section>
-          )}
-          <section className="card">
-            <h2 className="h">Post-consultation attachments</h2>
-            {a.pendingAtt && <div className="note note--bad">Attachment pending — reminders continue until you add it. Completion and settlement are not affected.</div>}
-            {a.att.length ? a.att.map((x, i) => <div key={i} className="remedy"><b>{x.type}</b>{x.text}</div>) : <span className="muted sm">None yet</span>}
-            {a.status === 'Completed' ? (
-              <div className="form">
-                <label>Type
-                  <select value={attType} onChange={(e) => setAttType(e.target.value)}>
-                    {ATTACHMENT_TYPES.map((t) => <option key={t}>{t}</option>)}
-                  </select>
-                </label>
-                <label className="sr" htmlFor="apt-att">Attachment text</label>
-                <textarea id="apt-att" className="short" placeholder="Write notes, remedies, recommendations or reports" value={attText} onChange={(e) => setAttText(e.target.value)} />
-                <label className="sm">Files (up to 3 · JPEG, PDF, TXT · 10 MB each)<input type="file" accept=".jpg,.jpeg,.pdf,.txt" multiple /></label>
-                <button type="button" className="btn btn-p" onClick={saveAttachment}>Save attachment</button>
-                <span className="muted sm">Saved in Appointment History and the Remedy Tracker.</span>
-              </div>
-            ) : (
-              <span className="muted sm">Available after the call is completed.</span>
-            )}
-          </section>
+          {joinCard}
+          {afterCallCard}
+          {attachmentsCard}
         </div>
       </div>
     </Wrap>

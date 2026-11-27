@@ -691,3 +691,4 @@ Confirmed rules only.
 | 2026-11-24 | AD-167 amended: details pane tabs are Question and Previous questions; user attachments show below the expanded question. AP-02-26 added (effect on AD-34). |
 | 2026-11-24 | AD-167 amended: on phones the details card is stacked under the question list instead of opening on its own screen. |
 | 2026-11-26 | AP-02-27 – AP-02-30 added (campaign Draft status, scheduled publish time, editor locks, offer selector). No rule decided; see the review list. |
+| 2026-11-27 | The Month filter of AD-49 / AD-50 is now available in Text-Based History (same month list as AD-168). No rule changed. |
