@@ -67,22 +67,21 @@ Every task follows these four stages, in order. Never skip or merge stages.
 
 ## 4. Technology stack
 
-**Not yet decided.** The stack (framework, language, styling, routing, state,
-testing, backend/API approach, authentication, hosting) must be proposed in a
-Stage 2 plan and approved by the user before any setup work begins.
-
-Once approved, record the decisions here:
+The core stack below was approved for the Login Screen task. Items still marked
+TBD must be proposed in a Stage 2 plan and approved by the user before any setup
+work for them begins.
 
 | Area            | Decision | Approved on |
 |-----------------|----------|-------------|
-| Framework       | TBD      |             |
-| Language        | TBD      |             |
-| Styling         | TBD      |             |
-| Routing         | TBD      |             |
-| State/data      | TBD      |             |
+| Framework       | React 19 with Vite 8 (dev server port 5175, `strictPort`) | 2026-11-28 |
+| Language        | JavaScript only (no TypeScript) | 2026-11-28 |
+| Styling         | Plain CSS files; Ivory + Gold light theme (no dark mode, no theme toggle) | 2026-11-28 |
+| Routing         | Minimal hash routing (`src/router/`), no router dependency | 2026-11-28 |
+| Charts          | Hand-built SVG chart components (`src/components/charts/`), no chart dependency | 2026-11-28 |
+| State/data      | React component state; mock data only (`src/data/`) | 2026-11-28 |
 | Testing         | TBD      |             |
-| Auth            | TBD      |             |
-| Package manager | TBD      |             |
+| Auth            | Frontend demo only (`src/auth/demoAuth.js`, browser `localStorage`); no real authentication, API, OAuth or OTP | 2026-11-28 |
+| Package manager | npm (`package-lock.json`) | 2026-11-28 |
 
 ## 5. Engineering principles
 
@@ -94,8 +93,9 @@ Once approved, record the decisions here:
   contrast, works at mobile widths).
 - Admin actions that change data must be deliberate (confirmation for
   destructive actions) and, once a backend exists, auditable.
-- Use mock/placeholder data only, clearly labelled, until a real data source
-  is approved.
+- Use local data only until a real data source is approved. Do not show
+  demo/mock/sample/test/prototype labels in the UI (approved 2026-11-28), and
+  never claim that an external or live service is connected.
 - Add or update tests alongside features once a testing setup is approved.
 
 ## 6. Feature scope

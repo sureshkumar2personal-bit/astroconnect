@@ -1,0 +1,72 @@
+/* People Management → Assistants (builds on UsersPage.css / AstrologersPage.css). */
+
+.as-table {
+  min-width: 1180px;
+}
+
+.as-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.as-status__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.as-status.is-active { background: var(--success-soft); color: var(--success); }
+.as-status.is-pending { background: var(--gold-soft); color: #87601a; }
+.as-status.is-suspended { background: #fbefdc; color: #94590f; }
+.as-status.is-expired { background: var(--ivory-deep); color: var(--text-faint); }
+.as-status.is-removed { background: var(--danger-soft); color: var(--danger); }
+
+.as-type,
+.as-role {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: #fff;
+  color: var(--text-soft);
+}
+
+.as-type.is-admin { border-color: #cfdde4; background: #f2f7f9; color: #36586b; }
+.as-type.is-astro { border-color: #e2d4e8; background: #f8f3fa; color: #6a4a7a; }
+.as-role.is-editor { border-color: #e7d3a5; background: #fffaf0; color: #87601a; font-weight: 600; }
+
+.as-invite { width: min(640px, calc(100vw - 32px)); }
+
+.as-invite__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.as-invite__grid .u-input { width: 100%; }
+
+.as-depts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.as-depts legend { margin-bottom: 6px; }
+
+@media (max-width: 720px) {
+  .as-invite__grid { grid-template-columns: minmax(0, 1fr); }
+  .assistants .u-head__row { flex-wrap: wrap; }
+}

@@ -1,0 +1,125 @@
+/* Shared chart styles. */
+
+.chart {
+  position: relative;
+  width: 100%;
+}
+
+.chart svg {
+  display: block;
+  overflow: visible;
+}
+
+.chart__grid {
+  stroke: #efe6d4;
+  stroke-width: 1;
+}
+
+.chart__axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.chart__tick {
+  font-size: 11px;
+  fill: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__tick.is-strong {
+  fill: var(--text);
+  font-weight: 600;
+}
+
+.chart__hover {
+  fill: rgba(201, 150, 46, 0.09);
+}
+
+.chart__guide {
+  stroke: var(--line-strong);
+  stroke-dasharray: 3 3;
+}
+
+.chart__hit {
+  fill: transparent;
+  cursor: default;
+  outline: none;
+}
+
+.chart__hit:focus-visible {
+  stroke: var(--gold);
+  stroke-width: 1.5;
+}
+
+.chart-tooltip {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  min-width: 150px;
+  padding: 8px 10px;
+  background: var(--text);
+  color: #fbf6ec;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(43, 33, 24, 0.22);
+  font-size: 12.5px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.chart-tooltip__title {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.chart-tooltip__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.chart-tooltip__label {
+  flex: 1;
+  opacity: 0.85;
+}
+
+.chart-tooltip__value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-tooltip__total {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(251, 246, 236, 0.2);
+}
+
+.chart-swatch {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 3px;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-legend strong {
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

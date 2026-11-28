@@ -1,0 +1,181 @@
+/* Service Management pages (build on UsersPage.css / UserProfilePage.css). */
+
+.services {
+  --surface: #fffdf8;
+  --card-radius: 14px;
+  --row-line: #f0e7d6;
+}
+
+.services .p-stats .p-stat {
+  flex: 1 1 120px;
+}
+
+.sv-unavailable {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 280px;
+}
+
+.sv-toggle {
+  display: inline-flex;
+}
+
+.sv-toggle .u-btn {
+  border-radius: 0;
+}
+
+.sv-toggle .u-btn:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.sv-toggle .u-btn:last-child {
+  border-radius: 0 10px 10px 0;
+  margin-left: -1px;
+}
+
+.sv-toggle .u-btn.is-on {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.sv-flag {
+  padding: 1px 7px;
+  border-radius: 5px;
+  background: #f2f7f9;
+  color: #36586b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sv-calendar__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.sv-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.sv-day {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 140px;
+  padding: 8px;
+  border: 1px solid var(--row-line);
+  border-radius: 10px;
+  background: #fff;
+  min-width: 0;
+}
+
+.sv-day.is-today {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+.sv-day__head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.sv-appt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 0;
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: #fffaf0;
+  text-align: left;
+  font-size: 11.5px;
+}
+
+.sv-appt.is-completed { border-left-color: #3f8a4c; background: #f4faf5; }
+.sv-appt.is-cancelled { border-left-color: var(--danger); background: var(--danger-soft); }
+
+.sv-appt:hover { filter: brightness(0.97); }
+.sv-appt:focus-visible { outline: none; box-shadow: var(--focus); }
+
+.sv-appt__time { font-weight: 600; }
+
+.sv-appt__who {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-soft);
+}
+
+@media (max-width: 1023px) {
+  .sv-week {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .sv-week {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Instant Chat conversation (Admin view) */
+.is-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 420px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ivory);
+}
+
+.is-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 82%;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--row-line, #f0e7d6);
+  font-size: 13px;
+}
+
+.is-msg.is-astrologer {
+  align-self: flex-end;
+  background: #fffaf0;
+  border-color: #ecdcb8;
+}
+
+.is-msg.is-system {
+  align-self: center;
+  max-width: 100%;
+  padding: 3px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 11.5px;
+  text-align: center;
+}
+
+.is-msg__meta {
+  font-size: 11px;
+  color: var(--text-faint);
+}
