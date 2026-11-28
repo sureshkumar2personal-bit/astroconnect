@@ -114,7 +114,7 @@ application being changed:
 | Application    | Folders                                      | Working branch     |
 | -------------- | -------------------------------------------- | ------------------ |
 | Astrologer App | `astrologer/`, `docs/02-astrologer-app/`     | `astrologer-side`  |
-| User App       | `user/`, `docs/01-user-app/`                 | `feature/user-app` |
+| User App       | `user/`, `docs/01-user-app/`                 | `user-side` |
 | Platform Admin | `platform-admin/`, its `docs/` folder (TBD)  | `platform-admin`   |
 
 - **First, find out whose branch this is.** At the start of every session,
@@ -203,7 +203,7 @@ approves exactly these steps, all from the working branch:
   not owned by any application and are not assigned to an application
   branch by default.
 - Application documentation stays with its application (6.1):
-  `docs/01-user-app/` → `feature/user-app`, `docs/02-astrologer-app/` →
+  `docs/01-user-app/` → `user-side`, `docs/02-astrologer-app/` →
   `astrologer-side`, Platform Admin documentation → `platform-admin` once its
   path is finalized. Do not move application documentation into a shared
   branch.
