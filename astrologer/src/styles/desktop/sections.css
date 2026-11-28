@@ -70,7 +70,6 @@
 }
 /* Tablet: the table becomes stacked rows and the week calendar uses four columns. */
 @media (min-width: 761px) and (max-width: 1000px) {
-  .tq .wcal { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .tq .tbl thead { display: none; }
   .tq .tbl, .tq .tbl tbody, .tq .tbl tr, .tq .tbl td { display: block; width: 100%; }
   .tq .apt .tw { padding: 0; background: none; box-shadow: none; backdrop-filter: none; border: 0; }
@@ -99,13 +98,6 @@
   .tq .pg--earnings .ern-filters label { flex: 1 1 140px; }
   .tq .pg--earnings .ern-filters select { flex: 1; }
   .tq .pg--earnings .ern-filters .grow { display: none; }
-}
-
-
-/* ---------- Profile (desktop) ---------- */
-/* Profile: tablet (narrow content column) — completion bar takes its own line. */
-@media (min-width: 761px) and (max-width: 1000px) {
-  .tq .pg--profile .pf-comp { flex: 1 1 100%; min-width: 0; }
 }
 
 
@@ -140,13 +132,6 @@
 
 /* ---------- Settings (desktop) ---------- */
 /* Settings — desktop/tablet: no extra rules needed beyond shared. */
-
-
-/* ---------- Help & Support (desktop) ---------- */
-/* Help & Support — desktop/tablet: categories grid keeps 2+ columns on the narrow tablet column. */
-@media (min-width: 761px) and (max-width: 1000px) {
-  .tq .pg--support .sp-cats .pgrid--sm { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
-}
 
 
 /* ---------- Instant Call & Chat (desktop) ---------- */

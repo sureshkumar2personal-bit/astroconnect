@@ -1,8 +1,62 @@
 import { useState } from 'react';
 
-// Dialog bodies for Appointments (rendered inside WorkPage's shared <Dialog>).
+// Appointments dialogs: CancelModal / ProfileModal (Appointments screen, own modals) and the dialog bodies rendered
+// inside WorkPage's shared <Dialog>: CancelAppointment (My Work → History) and EditDay / CloseDate (Calendar & Availability).
 
-/** Astrologer cancellation (AD-91, AD-98). */
+const REASONS = ['Personal emergency', 'Unwell', 'Unavoidable schedule conflict', 'Technical issue', 'Other'];
+
+/**
+ * Cancel an appointment (reference dialog; rules AD-91, AD-98): a reason is required, a message is optional. The client
+ * chooses a reschedule or a full Wallet refund; the astrologer receives no earnings. Rendered inside .apx (own modal).
+ */
+export function CancelModal({ a, summary, onKeep, onConfirm }) {
+  const [reason, setReason] = useState('');
+  const [note, setNote] = useState('');
+  const [err, setErr] = useState('');
+  return (
+    <div className="scrim" onClick={(e) => e.target === e.currentTarget && onKeep()}>
+      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="cx-t">
+        <h3 id="cx-t">Cancel {a.id}?</h3>
+        <p>{summary}</p>
+        <div className="warn">The client chooses a reschedule or a full refund to their Wallet, and you receive no earnings for it. The client is notified, and the appointment stays in your history and calendar, marked Cancelled.</div>
+        <label className="fld">Reason (required)
+          <select className="inp" value={reason} onChange={(e) => { setReason(e.target.value); setErr(''); }}>
+            <option value="">Select a reason</option>
+            {REASONS.map((r) => <option key={r} value={r}>{r}</option>)}
+          </select>
+        </label>
+        <label className="fld">Message to client (optional)<textarea className="inp ta" value={note} placeholder="A short note the client will see" onChange={(e) => setNote(e.target.value)} /></label>
+        {err && <div className="err">{err}</div>}
+        <div className="m-act">
+          <button type="button" className="btn btn-ghost" onClick={onKeep}>Keep appointment</button>
+          <button type="button" className="btn btn-danger" onClick={() => (reason ? onConfirm({ reason, note: note.trim() }) : setErr('Choose a reason so the client understands the change.'))}>Cancel appointment</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Client profile (reference): only what the app knows about the client; contact details stay hidden. */
+export function ProfileModal({ a, since, lang, count, onClose }) {
+  const ini = a.user.split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  return (
+    <div className="scrim" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="pf-t">
+        <div className="row" style={{ gap: 14 }}><span className="avatar" style={{ width: 52, height: 52, fontSize: 17 }}>{ini}</span><div><h3 id="pf-t">{a.user}</h3><div className="muted">{a.uid} · AstroConnect member since {since}</div></div></div>
+        <dl className="dl">
+          <dt>Birth details</dt><dd>{a.birth || '—'}</dd>
+          <dt>Saved chart</dt><dd>{a.saved || '—'}</dd>
+          <dt>Language</dt><dd>{lang}</dd>
+          <dt>With you</dt><dd>{count}</dd>
+        </dl>
+        <div className="muted" style={{ fontSize: 12.5 }}>Contact details stay hidden. All communication happens through AstroConnect.</div>
+        <div className="m-act"><button type="button" className="btn btn-primary" onClick={onClose}>Done</button></div>
+      </div>
+    </div>
+  );
+}
+
+/** Astrologer cancellation (AD-91, AD-98) — dialog body used by My Work → History's appointment details. */
 export function CancelAppointment({ onKeep, onConfirm }) {
   return (
     <>
