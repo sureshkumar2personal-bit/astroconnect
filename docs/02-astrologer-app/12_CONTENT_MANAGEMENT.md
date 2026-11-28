@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-138 – AD-144 |
+| Owned decisions | AD-138 – AD-144, AD-179 – AD-184 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -57,6 +57,12 @@ preview, scheduling, and delivery history.
 | AD-142 | **Special astrology templates:** ten optional prebuilt templates: Guru Peyarchi, Sani Peyarchi, Rahu Peyarchi, Ketu Peyarchi, Sevvai Peyarchi, Surya Peyarchi, Sukra Peyarchi, Budha Peyarchi, Surya Grahanam, Chandra Grahanam. Annual or recurring use is not forced. All astrologers can access and use all available templates. For every template the astrologer selects the audience: Public, Followers, Subscribers, or specific tiers. |
 | AD-143 | **Custom content:** the astrologer can create original content without a template. The custom editor includes Custom Title, Text/Description, Image Upload, Audience Selection, Publish Now, Schedule, and Save Draft. |
 | AD-144 | **Editor and preview:** before submission a split-screen layout is used — left: full content editor, content fields, formatting, template fields, image upload, audience selection, scheduling controls; right: live User App preview that updates immediately as the astrologer edits. Preview works before Publish Now, Schedule, and Save Draft. On mobile, Editor/Preview tabs are used when split-screen is not practical. |
+| AD-179 | **Benefits & Content structure:** the page has two tabs, Content Studio and Benefits & Offers; on a phone the user can also swipe between them. It replaces the earlier four-tab layout (General Posts, Subscriber Benefit Content, Templates, Delivery History): all content, including the Daily, Weekly, Monthly and Special Predictions of AD-140, is now created and managed in Content Studio. No descriptive subtitle is shown under the page or section headings. *(Added 2026-11-28 at the product owner's request; extends AD-138.)* |
+| AD-180 | **Content Studio:** a Create a post card with start options (Text post, Image post, Daily prediction, Weekly, Monthly, Special, Use a template), then three views: Your content, Templates and Delivery history. Your content has a search box and All / Drafts / Scheduled / Published filters, and each post row shows its image, title, type, format, audience, status with date, and actions: Preview and Edit for every post; Duplicate and Unpublish for a Published post; Publish now for a Scheduled post. Templates are the four prediction templates (AD-141) and six astrology event templates (AD-142), each opening the same editor pre-filled. Delivery history lists every send with its status and details, and a Failed or Missed delivery can be retried. *(Added 2026-11-28 at the product owner's request; extends AD-139 – AD-142.)* |
+| AD-181 | **Post editor:** content types are General Post, Daily, Weekly, Monthly and Special Prediction, and Astrology Event. A post needs a title to Publish or Schedule. Predictions use Rasi & Nakshatra sections or one general prediction; a General Post can add the 12 Rasi sections. Text can be bold, italic or underlined, with text and background colours and emoji, and a post can be Text, Image or Text + Image with an image from the device or a sample artwork. The audience is one of Public, Followers, Silver, Gold or Platinum. Publishing is Publish now or Schedule with a date and time, plus an optional date and time shown on the post. Save draft keeps the post as a Draft; a live User App preview updates while editing and a full User App preview is available (AD-144). *(Added 2026-11-28 at the product owner's request; amends the audience choice of AD-139, which allowed several audiences.)* |
+| AD-182 | **Subscriber benefits:** for each audience (Followers, Silver, Gold, Platinum) the astrologer sees nine service benefits (Text Questions, Appointments, Instant Call, Instant Chat, Live Sessions and the Daily, Weekly, Monthly and Special Predictions), switches each on or off, and edits its benefit type (Free benefit, Discount, Exclusive access, Subscriber access, Special benefit) and its details. This is a visual configuration only; existing service and eligibility rules are unchanged. *(Added 2026-11-28 at the product owner's request.)* |
+| AD-183 | **Offer performance and transactions:** Offer performance can be viewed for Today, the last 7 days, the last 30 days or a custom date range, with new subscribers via offers, unique offer users, total redemptions, offer income and free benefits used, an offer-wise redemptions chart, the definitions of how these numbers are counted, and an offer calculation table (original amount, offer amount, amount paid, platform fee, the astrologer's net, with totals). Offer transactions list only transactions where an offer or benefit was applied, with search, date, offer, service and status filters and pagination. View Earnings opens the Earnings page, where balance, withdrawals and payouts stay. The figures are illustrative samples; final commission and payouts follow the Earnings rules. *(Added 2026-11-28 at the product owner's request.)* *(Amended 2026-11-28 at the product owner's request: the date-range label beside the Offer performance heading and the two notes on the offer calculation table ("Sample figures…" and the Users-column note) are not shown; the counting definitions card stays, and the figures remain samples that follow the Earnings rules.)* |
+| AD-184 | **Post editor layout and Back navigation:** Edit post and the User App preview each have a single Back button (no separate Content Studio or Back to editing button). Back from the preview returns to the same post's editor, with its unsaved changes and image, when the preview was opened from the editor, and to Content Studio when it was opened from the post list; Back from the editor returns to Content Studio. The editor follows the Benefits & Content reference layout: a main column with the content type and title, Post content (with the image upload box and sample artwork) and the Rasi & Nakshatra sections, beside a sidebar with audience, publishing and the Live preview; each column, the Live preview and each Rasi card is as tall as its content (no inner scroll areas), the Rasi cards are listed in one full-width column, and on a phone the columns stack. *(Added 2026-11-28 at the product owner's request.)* |
 
 **Referenced decisions**
 
@@ -184,13 +190,28 @@ Success/Missed; New Likes/Comments; Subscriber Content Updates) → AD-148
 
 Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIEW_LIST.md#4-open-questions-register).
 
-**Owned by this module:** none.
+**Owned by this module**
+
+| ID | Topic | Status |
+|----|-------|--------|
+| AP-12-01 | Real offer and benefit rules and the platform fee behind the Benefits & Offers figures | Open |
+| AP-12-02 | One audience per post versus several audiences (AD-139) | Open |
 
 **Related**
 
 | ID | Topic | Status |
 |----|-------|--------|
 | AP-GL-02 | Placement of Content Management within the tabs | Open — missing source information |
+
+## 6.1 Prototype layout (frontend UI phase)
+
+Presentation of AD-179 – AD-183, from the "Benefits & Content" reference. It adds no rule beyond those decisions.
+
+- **Tabs:** Content Studio and Benefits & Offers; swipe left or right on a phone switches between them. No descriptive subtitles under headings.
+- **Content Studio:** Create a post card, then Your content (toolbar with search and Draft / Scheduled / Published filters; aligned columns for image, title, audience, status and actions), Templates, and Delivery history (Retry for failed or missed sends).
+- **Post editor and preview:** one editor for every content type; a live phone preview while editing and a full User App preview. Images chosen from the device are kept only in the session.
+- **Benefits & Offers:** audience cards, nine service benefits per audience, offer performance with a date range, offer transactions with filters, and View Earnings (opens Earnings).
+- The posts, delivery records, subscriber counts, benefits, offers and transactions shown are illustrative samples.
 
 ## 12. Acceptance criteria
 
@@ -207,3 +228,7 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | Date | Change |
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document and ruling C6: AD-138 – AD-144. |
+| 2026-11-28 | Rebuilt from the Benefits & Content reference: AD-179 – AD-183 added (two tabs, Content Studio, post editor, subscriber benefits, offer performance and transactions); §6.1 added; AP-12-01 and AP-12-02 added. AD-138 – AD-144 otherwise unchanged. |
+| 2026-11-28 | AD-183 amended (date-range label and two offer calculation notes not shown); AD-184 added (single Back button, Back from the preview returns to the editor, balanced editor layout). |
+| 2026-11-28 | AD-184 amended: editor layout follows the Benefits & Content reference (main column beside a sidebar with audience, publishing and Live preview). |
+| 2026-11-28 | AD-184 amended: Rasi cards in one full-width column; Live preview, Rasi cards and editor columns take their content's height with no inner scroll areas. |

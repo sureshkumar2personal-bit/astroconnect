@@ -6,22 +6,24 @@ export default function PrivacySecurity({ s, openModal }) {
   const others = s.sessions.filter((x) => !x.current);
   return (
     <>
-      <div className="st-grp">
-        <div className="st-gt">Policies &amp; documents</div>
-        <div className="st-panel st-clip">
-          {LEGAL_DOCS.map((d) => (
-            <button type="button" className="st-linkrow" key={d.name} onClick={() => openModal({ type: 'doc', name: d.name })}>
-              <span className="st-tile st-tone-gold"><Ic n="file" /></span>
-              <span className="st-rt"><span className="st-rt-t">{d.name}</span><span className="st-rt-d">{d.desc}</span></span>
-              <Ic n="chevronRight" size={16} />
-            </button>
-          ))}
-        </div>
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Policies &amp; documents</span></div>
+          <div className="st-docs">
+            {LEGAL_DOCS.map((d) => (
+              <button type="button" className="st-linkrow" key={d.name} onClick={() => openModal({ type: 'doc', name: d.name })}>
+                <span className="st-tile st-tone-gold"><Ic n="file" /></span>
+                <span className="st-rt"><span className="st-rt-t">{d.name}</span><span className="st-rt-d">{d.desc}</span></span>
+                <Ic n="chevronRight" size={16} />
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
 
-      <div className="st-grp">
-        <div className="st-gt-row"><div className="st-gt">Active sessions</div><span className="st-aside">{s.sessions.length} active {s.sessions.length > 1 ? 'sessions' : 'session'}</span></div>
-        <div className="st-panel st-clip">
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Active sessions</span><span className="st-aside">{s.sessions.length} active {s.sessions.length > 1 ? 'sessions' : 'session'}</span></div>
           {s.sessions.map((x) => (
             <div className={`st-row${x.current ? ' st-row--cur' : ''}`} key={x.id}>
               <span className={`st-tile ${x.current ? 'st-tone-ok' : 'st-tone-neutral'}`}><Ic n={x.icon} /></span>
@@ -45,7 +47,7 @@ export default function PrivacySecurity({ s, openModal }) {
             </div>
             <button type="button" className="st-btn st-btn--dangerline st-btn--sm" disabled={others.length === 0} onClick={() => openModal({ type: 'others' })}>Log out from other devices</button>
           </div>
-        </div>
+        </section>
       </div>
     </>
   );

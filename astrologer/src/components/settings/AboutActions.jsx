@@ -9,9 +9,9 @@ export default function AboutActions({ s, openModal }) {
   );
   return (
     <>
-      <div className="st-grp">
-        <div className="st-gt">App information</div>
-        <div className="st-panel st-clip">
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">App information</span></div>
           <div className="st-ident">
             <span className="st-tile st-tile--app"><Ic n="radio" size={22} /></span>
             <div className="st-ident__main"><div className="st-ident__name">AstroConnect</div><div className="st-rt-d">Astrologer Portal</div></div>
@@ -20,24 +20,21 @@ export default function AboutActions({ s, openModal }) {
             <div className="st-dl"><span className="st-dl__k">App version</span><span className="st-dl__v">{APP_VERSION}</span></div>
             <div className="st-dl st-dl--top"><span className="st-dl__k">About AstroConnect</span><span className="st-dl__v st-dl__v--text">{ABOUT_TEXT}</span></div>
           </div>
-        </div>
-      </div>
-
-      <div className="st-grp">
-        <div className="st-gt">Session</div>
-        <div className="st-panel">
+        </section>
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Session</span></div>
           <div className="st-row st-row--wrap">
             <span className="st-tile st-tone-neutral"><Ic n="logout" /></span>
             <div className="st-rt"><div className="st-rt-t">Log out</div><div className="st-rt-d">Sign out of AstroConnect on this device.</div></div>
             <button type="button" className="st-btn st-btn--sec st-btn--sm" onClick={() => openModal({ type: 'logout' })}>Log out</button>
           </div>
-        </div>
+        </section>
       </div>
 
-      <div className="st-grp">
-        <div className="st-sep"><span className="st-gt st-gt--bad">Account requests</span></div>
-        <p className="st-foot">These are requests to Platform Admin. Your account isn't deactivated or deleted immediately. It stays active until Platform Admin approves the request.</p>
-        <div className="st-panel st-panel--bad st-clip">
+      <div className="st-card st-card--bad">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt st-gt--bad">Account requests</span></div>
+          <p className="st-foot st-foot--in">These are requests to Platform Admin. Your account isn't deactivated or deleted immediately. It stays active until Platform Admin approves the request.</p>
           <div className="st-row st-row--wrap">
             <span className="st-tile st-tone-neutral"><Ic n="pause" /></span>
             <div className="st-rt"><div className="st-rt-t">Request account deactivation</div><div className="st-rt-d">Ask Platform Admin to temporarily deactivate your account.</div></div>
@@ -48,7 +45,7 @@ export default function AboutActions({ s, openModal }) {
             <div className="st-rt"><div className="st-rt-t st-bad-t">Request account deletion</div><div className="st-rt-d">Ask Platform Admin to permanently delete your account and its data.</div></div>
             {s.delReq ? pending : <button type="button" className="st-btn st-btn--dangerline st-btn--sm" onClick={() => openModal({ type: 'delete' })}>Request deletion</button>}
           </div>
-        </div>
+        </section>
       </div>
     </>
   );

@@ -4,7 +4,7 @@
 |-------|-------|
 | Application | Astrologer App |
 | Status | Draft |
-| Owned decisions | AD-135 – AD-137 |
+| Owned decisions | AD-135 – AD-137, AD-185 |
 | Review list | [`00_ASTROLOGER_APP_REVIEW_LIST.md`](00_ASTROLOGER_APP_REVIEW_LIST.md) |
 | Shared context | [`CONTEXT.md`](../../CONTEXT.md) |
 
@@ -45,6 +45,7 @@ users, filtered by All Users, Followers, and Subscribers.
 | AD-135 | **One Audience page:** Audience is one page with one customer list, filtered by **All Users**, **Followers**, and **Subscribers**. There are no duplicate separate pages or lists for Followers and Subscribers. |
 | AD-136 | **Customer card:** each customer card may show User Name, User ID, Follow status, Subscription status, relevant dates, and a View Profile action. |
 | AD-137 | **Audience features:** search; sort; date filters where relevant; customer details; interactions; subscription status; blocked-user context; correct User Profile navigation; previous filters/search preserved when returning. Illustrative counts are never presented as real data. |
+| AD-185 | **Audience page layout (reference "AstroConnect – Audience"):** a summary of total users, current followers, active subscribers (by tier) and expired subscribers; the All Users / Followers / Subscribers tabs with counts and no descriptive text under them or under the page heading; search by name or User ID; Subscription (All / Active / Expired / No subscription) and Follow (All / Following / Not following) filters, a Customer since date range with presets (Last 30 days, Last 90 days, This year, Before this year), and sort by recent activity, name or customer since; a customer table (a card per customer on phones) with relationship, customer since, last activity and View profile; 10 customers per page. **Subscribers** lists active and expired subscribers, with All / Active / Expired chips. View profile opens the customer's profile in a side panel (a full-screen sheet on phones); closing it returns to the list with the same tab, search, filters and page. The profile shows customer information, subscription details, subscription history, activity history for the last 12 months (7 shown, then Show all), the consent note for birth details and blocked-user context (block request status, or a request to block through Help & Support). The figures are illustrative samples. *(Added 2026-11-28 at the product owner's request.)* |
 
 **Referenced decisions**
 
@@ -144,3 +145,4 @@ Full wording in [`00_ASTROLOGER_APP_REVIEW_LIST.md` §4](00_ASTROLOGER_APP_REVIE
 | Date | Change |
 |------|--------|
 | 2026-11-20 | Initial draft created from the Master Decision Document: AD-135 – AD-137. |
+| 2026-11-28 | Rebuilt from the "AstroConnect – Audience" reference: AD-185 added (layout, filters, paging, Subscribers including expired, profile side panel with subscription and activity history). AD-135 – AD-137 unchanged. |

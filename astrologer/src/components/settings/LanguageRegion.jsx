@@ -25,52 +25,33 @@ export default function LanguageRegion({ s, ui }) {
   };
   return (
     <>
-      <div className="st-grp">
-        <div className="st-gt">App language</div>
-        <div className="st-panel st-pad">
-          <div><div className="st-rt-t" id="st-lang-label">Display language</div><div className="st-rt-d">Used for menus, labels and notifications in the app.</div></div>
-          <div className="st-selwrap" ref={wrap}>
-            <button type="button" className="st-select" aria-haspopup="listbox" aria-expanded={open} aria-labelledby="st-lang-label" data-open={open} onClick={() => setOpen(!open)}>
-              <Ic n="globe" size={18} />
-              <span className="st-select__v"><b>{lang.label}</b>{lang.native && <span>{lang.native}</span>}</span>
-              <Ic n="chevronDown" size={16} />
-            </button>
-            {open && (
-              <div className="st-menu" role="listbox" aria-labelledby="st-lang-label">
-                {LANGUAGES.map((l) => (
-                  <button type="button" key={l.id} className="st-opt" role="option" aria-selected={l.id === s.lang} data-sel={l.id === s.lang} onClick={() => pick(l)}>
-                    <span className="st-opt__v"><b>{l.label}</b>{l.native && <span>{l.native}</span>}</span>
-                    {l.id === s.lang && <Ic n="check" size={16} />}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="st-rt-d">English and Tamil are the languages available.</div>
-        </div>
-      </div>
-
-      <div className="st-grp">
-        <div className="st-gt">Date format</div>
-        <div className="st-panel st-pad st-pad--lg">
-          <div className="st-grid2" role="radiogroup" aria-label="Date format">
-            {DATE_FORMATS.map((d) => (
-              <button type="button" key={d.id} className="st-choice" role="radio" aria-checked={s.fmt === d.id} data-on={s.fmt === d.id} onClick={() => settingsActions.setValue('fmt', d.id)}>
-                <span className="st-radio" data-on={s.fmt === d.id} />
-                <span className="st-choice__t"><b>{d.label}</b><small>e.g. {fmtDate(TODAY, d.id)}</small></span>
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">App language</span></div>
+          <div className="st-card__body">
+            <div><div className="st-rt-t" id="st-lang-label">Display language</div><div className="st-rt-d">Used for menus, labels and notifications in the app.</div></div>
+            <div className="st-selwrap" ref={wrap}>
+              <button type="button" className="st-select" aria-haspopup="listbox" aria-expanded={open} aria-labelledby="st-lang-label" data-open={open} onClick={() => setOpen(!open)}>
+                <Ic n="globe" size={18} />
+                <span className="st-select__v"><b>{lang.label}</b>{lang.native && <span>{lang.native}</span>}</span>
+                <Ic n="chevronDown" size={16} />
               </button>
-            ))}
+              {open && (
+                <div className="st-menu" role="listbox" aria-labelledby="st-lang-label">
+                  {LANGUAGES.map((l) => (
+                    <button type="button" key={l.id} className="st-opt" role="option" aria-selected={l.id === s.lang} data-sel={l.id === s.lang} onClick={() => pick(l)}>
+                      <span className="st-opt__v"><b>{l.label}</b>{l.native && <span>{l.native}</span>}</span>
+                      {l.id === s.lang && <Ic n="check" size={16} />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="st-rt-d">English and Tamil are the languages available.</div>
           </div>
-          <div className="st-preview" aria-live="polite">
-            <div className="st-gt">Live preview</div>
-            {DATE_SAMPLES.map((p) => <div className="st-pv" key={p.label}><span>{p.label}</span><b>{fmtDate(p.d, s.fmt)}</b></div>)}
-          </div>
-        </div>
-      </div>
-
-      <div className="st-grp">
-        <div className="st-gt">Time zone</div>
-        <div className="st-panel st-clip">
+        </section>
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Time zone</span></div>
           <div className="st-row st-row--wrap">
             <span className="st-tile st-tone-neutral"><Ic n="clock" /></span>
             <div className="st-rt">
@@ -78,7 +59,27 @@ export default function LanguageRegion({ s, ui }) {
               <div className="st-rt-d">India Standard Time · UTC+05:30</div>
             </div>
           </div>
-        </div>
+        </section>
+      </div>
+
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Date format</span></div>
+          <div className="st-card__body">
+            <div className="st-grid2" role="radiogroup" aria-label="Date format">
+              {DATE_FORMATS.map((d) => (
+                <button type="button" key={d.id} className="st-choice" role="radio" aria-checked={s.fmt === d.id} data-on={s.fmt === d.id} onClick={() => settingsActions.setValue('fmt', d.id)}>
+                  <span className="st-radio" data-on={s.fmt === d.id} />
+                  <span className="st-choice__t"><b>{d.label}</b><small>e.g. {fmtDate(TODAY, d.id)}</small></span>
+                </button>
+              ))}
+            </div>
+            <div className="st-preview" aria-live="polite">
+              <div className="st-gt">Live preview</div>
+              {DATE_SAMPLES.map((p) => <div className="st-pv" key={p.label}><span>{p.label}</span><b>{fmtDate(p.d, s.fmt)}</b></div>)}
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
