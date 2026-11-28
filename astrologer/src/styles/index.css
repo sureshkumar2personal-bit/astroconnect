@@ -13,6 +13,8 @@
 @import './common/services.css' layer(components);
 @import './common/assistants.css' layer(components);
 @import './common/settings.css' layer(components);
+@import './common/remedies.css' layer(components);
+@import './common/content.css' layer(components);
 
 @import './desktop/home.css' layer(components);
 @import './desktop/sections.css' layer(components);

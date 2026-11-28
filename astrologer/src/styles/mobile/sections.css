@@ -118,13 +118,7 @@
 
 
 /* ---------- Audience (mobile) ---------- */
-@media (max-width: 760px) {
-  .tq .pg--audience .au-filters { gap: 8px; }
-  .tq .pg--audience .au-filters .search { flex-basis: 100%; }
-  .tq .pg--audience .au-ctl { flex: 1 1 100%; }
-  .tq .pg--audience .au-ctl span { flex: 0 0 44px; }
-  .tq .pg--audience .au-ctl select, .tq .pg--audience .au-ctl input { flex: 1; min-width: 0; }
-}
+/* Audience phone layout: container queries on .au in common/sections.css. */
 
 
 /* ---------- Ratings & Reviews (mobile) ---------- */
@@ -279,4 +273,57 @@
 /* ---------- History month filter on phones: the Month dropdown takes its own full-width row ---------- */
 @media (max-width: 760px) {
   .tq .hx-sel--month { flex: 1 1 100%; }
+}
+
+/* Ratings & Reviews on phones: stacked review cards, collapsible filters, compact expanded details. */
+@media (max-width: 760px) {
+  .tq .rr-rating { padding: 14px; }
+  .tq .rr-head { flex-direction: column; align-items: stretch; }
+  .tq .rr-tabs { flex-wrap: wrap; }
+  .tq .rr-tab { padding: 10px 8px; font-size: 13.5px; white-space: nowrap; }
+  .tq .rr-search { max-width: none; flex: 1 1 140px; }
+  .tq .rr-filters-btn { display: inline-flex; }
+  .tq .rr-filters { display: none; }
+  .tq .rr-filters.is-open { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
+  .tq .rr-filters .rr-sel, .tq .rr-filters .rr-sel select { width: 100%; box-sizing: border-box; }
+  .tq .rr-filters .rr-range { grid-column: 1 / -1; flex-wrap: wrap; }
+  .tq .rr-filters .rr-range label { flex: 1 1 120px; }
+  .tq .rr-filters .rr-range input { width: 100%; box-sizing: border-box; }
+  .tq .rr-reset { grid-column: 1 / -1; justify-content: center; }
+  .tq .rr-thead { display: none; }
+  .tq .rr-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 12px 14px; }
+  .tq .rr-who { grid-column: 1; grid-row: 1; }
+  .tq .rr-c-act { grid-column: 2; grid-row: 1; }
+  .tq .rr-c-svc, .tq .rr-c-rate, .tq .rr-c-fb, .tq .rr-c-st, .tq .rr-c-rep { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+  .tq .rr-c-fb { align-items: flex-start; }
+  .tq .rr-c-svc::before, .tq .rr-c-rate::before, .tq .rr-c-st::before, .tq .rr-c-rep::before { content: attr(data-label); flex: 0 0 62px; color: var(--mut); font-size: 12px; }
+  .tq .rr-view { min-height: 40px; }
+  .tq .rr-detail { padding: 0 10px 10px; }
+  .tq .rr-x { grid-template-columns: minmax(0, 1fr); padding: 10px 12px; gap: 12px; }
+  .tq .rr-x__acts .btn, .tq .rr-reply__btns .btn { flex: 1; }
+  .tq .rr-pager { padding: 10px 14px; }
+}
+
+/* Notification & Activity on phones: full-width tabs, stacked toolbar, two-line descriptions. */
+@media (max-width: 760px) {
+  .tq .nc-tabs { gap: 0; }
+  .tq .nc-tab { flex: 1; justify-content: center; font-size: 15px; }
+  .tq .nc-desk-only { display: none; }
+  .tq .nc-mob-only { display: inline-flex; margin-left: auto; padding: 0 6px; }
+  .tq .nc-tools { gap: 8px; }
+  .tq .nc-search { flex-basis: 100%; max-width: none; }
+  .tq .nc-sel { flex: 1 1 calc(50% - 4px); min-width: 0; }
+  .tq .nc-sel select { width: 100%; }
+  .tq .nc-spacer { display: none; }
+  .tq .nc-seg { flex: 1 1 auto; }
+  .tq .nc-seg button { flex: 1; }
+  .tq .nc-row__main { padding: 12px 0 12px 2px; gap: 0 10px; grid-template-columns: 8px 36px minmax(0, 1fr); }
+  .tq .nc-ic { width: 36px; height: 36px; }
+  .tq .nc-dot { margin-left: 1px; }
+  .tq .nc-desc { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .tq .nc-side { padding: 12px 4px 0 0; }
+  .tq .nc-icon-btn { opacity: 0.85; }
+  .tq .nc-grp__h { padding-left: 4px; }
+  .tq .nc-pager { justify-content: center; }
+  .tq .nc-pager__info { width: 100%; text-align: center; }
 }
