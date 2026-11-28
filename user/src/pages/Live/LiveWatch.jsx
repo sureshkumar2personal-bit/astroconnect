@@ -31,7 +31,7 @@ function LiveWatch() {
           </div>
           <p className="lw-topic">{x.topic}</p>
           <div className="lw-chips"><span className="lw-chip"><Ic name={x.aud || "public"} size={14} />{x.audience || "Public"}</span><span className="lw-chip"><Ic name="clock" size={14} />{x.duration || "Live for 18 min"}</span></div>
-          <div className="lw-dashed">Streaming, comments, reactions and gifting are not designed or built in this prototype. This screen only confirms where Join Live leads.</div>
+          <div className="lw-dashed">Live streaming, comments and reactions will be available here soon.</div>
         </aside>
       </div>
     </div>
