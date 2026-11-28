@@ -1,0 +1,54 @@
+/* Assistant Profile — extends UserProfilePage.css. */
+
+.sp-matrix th.is-center,
+.sp-matrix td.is-center {
+  text-align: center;
+}
+
+.sp-matrix .sp-module {
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  background: transparent;
+  border-bottom: 1px solid var(--row-line);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.sp-matrix input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold-deep);
+}
+
+.sp-na {
+  color: var(--line-strong);
+}
+
+.sp-save {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 10px;
+}
+
+.sp-save .u-field__error {
+  margin-right: auto;
+}
+
+.sp-history li {
+  line-height: 1.5;
+}
+
+.sp-priority {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sp-priority.is-high { background: var(--danger-soft); color: var(--danger); }
+.sp-priority.is-medium { background: var(--gold-soft); color: #87601a; }
+.sp-priority.is-low { background: var(--ivory-deep); color: var(--text-soft); }
