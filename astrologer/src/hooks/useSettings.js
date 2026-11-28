@@ -31,7 +31,7 @@ export const settingsActions = {
   /** Change Password succeeded (AD-152); a Password Changed notification follows (AD-148). */
   passwordChanged: () => settingsStore.patch((s) => ({
     pwChanged: TODAY,
-    activity: [{ kind: 'password', detail: 'Changed from account settings', date: TODAY, time: 'Just now' }, ...s.activity],
+    activity: [{ id: `pw-${Date.now()}`, kind: 'password', detail: 'Changed from account settings', date: TODAY, time: 'Just now' }, ...s.activity],
   })),
   /** Ends one listed session (SET-05). */
   logoutSession: (id) => settingsStore.patch((s) => ({ sessions: s.sessions.filter((x) => x.id !== id) })),

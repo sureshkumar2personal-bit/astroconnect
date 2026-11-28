@@ -16,35 +16,39 @@ export default function AppPreferences({ ctx, ui, openModal }) {
   ];
   return (
     <>
-      <div className="st-grp">
-        <div className="st-gt">Appearance</div>
-        <div className="st-grid2" role="radiogroup" aria-label="Appearance">
-          {themes.map(([id, label, icon]) => {
-            const on = ctx.theme === id;
-            return (
-              <button type="button" key={id} className="st-theme" role="radio" aria-checked={on} data-on={on} onClick={() => pick(id)}>
-                <div className={`st-thprev st-thprev--${id}`} aria-hidden="true">
-                  <div className="st-thprev__side"><span /><span /><span /></div>
-                  <div className="st-thprev__main"><span /><span /><span /></div>
-                </div>
-                <span className="st-thfoot">
-                  <span className="st-radio" data-on={on} />
-                  <Ic n={icon} size={17} />
-                  <span>{label}</span>
-                  {on && <span className="st-thcur">Selected</span>}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="st-foot" aria-live="polite">
-          {ctx.theme === 'light' ? 'Light mode is on. Warm cream surfaces with deep burgundy accents.' : 'Dark mode is on and applies across the app.'}
-        </p>
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Appearance</span></div>
+          <div className="st-card__body">
+            <div className="st-grid2" role="radiogroup" aria-label="Appearance">
+              {themes.map(([id, label, icon]) => {
+                const on = ctx.theme === id;
+                return (
+                  <button type="button" key={id} className="st-theme" role="radio" aria-checked={on} data-on={on} onClick={() => pick(id)}>
+                    <div className={`st-thprev st-thprev--${id}`} aria-hidden="true">
+                      <div className="st-thprev__side"><span /><span /><span /></div>
+                      <div className="st-thprev__main"><span /><span /><span /></div>
+                    </div>
+                    <span className="st-thfoot">
+                      <span className="st-radio" data-on={on} />
+                      <Ic n={icon} size={17} />
+                      <span>{label}</span>
+                      {on && <span className="st-thcur">Selected</span>}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="st-foot st-foot--in" aria-live="polite">
+              {ctx.theme === 'light' ? 'Light mode is on. Warm cream surfaces with deep burgundy accents.' : 'Dark mode is on and applies across the app.'}
+            </p>
+          </div>
+        </section>
       </div>
 
-      <div className="st-grp">
-        <div className="st-gt">Device permissions</div>
-        <div className="st-panel">
+      <div className="st-card">
+        <section className="st-card__sec">
+          <div className="st-card__h"><span className="st-gt">Device permissions</span></div>
           {PERMISSIONS.map((p) => {
             const ps = PERM_STATUS[p.status];
             return (
@@ -60,8 +64,8 @@ export default function AppPreferences({ ctx, ui, openModal }) {
               </div>
             );
           })}
-        </div>
-        <p className="st-foot">Permissions are managed in your device settings.</p>
+        </section>
+        <p className="st-foot st-card__foot">Permissions are managed in your device settings.</p>
       </div>
     </>
   );

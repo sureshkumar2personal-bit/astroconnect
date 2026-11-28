@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { reviewsActions } from '@/hooks/useReviews.js';
-import { Sec } from '@/components/ui/sectionKit.jsx';
 
 // The astrologer's single optional reply to a review: add, edit or delete (AD-130, REV-03).
 export default function ReviewReply({ r, ui }) {
@@ -22,19 +21,19 @@ export default function ReviewReply({ r, ui }) {
   };
 
   return (
-    <Sec title="Your reply (optional · one reply per review)">
-      <label className="rv-reply">
-        <span className="sr">Your reply</span>
-        <textarea className="short" placeholder="Write a reply…" value={text}
-          onChange={(e) => { setText(e.target.value); if (err) setErr(''); }}
-          aria-invalid={!!err} aria-describedby={err ? `rv-reply-err-${r.id}` : undefined} />
-      </label>
+    <div className="rr-x__sec rr-reply">
+      <label className="rr-x__lbl" htmlFor={`rv-reply-${r.id}`}>Your reply (optional · one reply per review)</label>
+      <textarea id={`rv-reply-${r.id}`} className="rr-reply__ta" rows={2} placeholder="Write a reply…" value={text}
+        onChange={(e) => { setText(e.target.value); if (err) setErr(''); }}
+        aria-invalid={!!err} aria-describedby={err ? `rv-reply-err-${r.id}` : undefined} />
       {err && <span id={`rv-reply-err-${r.id}`} className="rv-err sm" role="alert">{err}</span>}
-      <div className="btn-row">
-        <button type="button" className="btn btn-p" onClick={save}>{r.reply ? 'Update reply' : 'Post reply'}</button>
-        {r.reply && <button type="button" className="btn btn-o danger" onClick={remove}>Delete reply</button>}
+      <div className="rr-reply__foot">
+        <div className="rr-reply__btns">
+          <button type="button" className="btn btn-p sm" onClick={save}>{r.reply ? 'Update reply' : 'Post reply'}</button>
+          {r.reply && <button type="button" className="btn btn-o sm danger" onClick={remove}>Delete reply</button>}
+        </div>
+        <span className="muted sm">No penalty for not replying.</span>
       </div>
-      <span className="muted sm">No penalty for not replying.</span>
-    </Sec>
+    </div>
   );
 }
