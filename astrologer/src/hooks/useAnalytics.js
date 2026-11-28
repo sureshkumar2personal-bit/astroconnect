@@ -1,15 +1,14 @@
 import { createStore, useStore } from '@/lib/store.js';
 import { analyticsSeed } from '@/data/mockAnalytics.js';
 
-// Analytics period filter (spec 13, AD-146): Daily / Weekly / Monthly / Custom date range.
-// Module-level so the choice is kept when the astrologer navigates away and back.
-// Prototype: the sample figures do not change with the period.
-
+// Analytics page choices (spec 13, AD-146): period (Daily / Weekly / Monthly / Custom date range),
+// the custom dates, and the per-section pickers (profile metric, call/chat service, hidden growth
+// series, content filter and sort). Module-level so they are kept when navigating away and back.
 export const analyticsStore = createStore(analyticsSeed);
 
 export const analyticsActions = {
-  setPeriod: (per) => analyticsStore.patch({ per }),
-  setRange: (part) => analyticsStore.patch(part),
+  set: (part) => analyticsStore.patch(part),
+  toggleSeries: (id) => analyticsStore.patch((s) => ({ hidden: { ...s.hidden, [id]: !s.hidden[id] } })),
 };
 
 export default function useAnalytics() {
