@@ -55,7 +55,6 @@
   .tq .apt-ph > .btn-p { flex: 1; }
   .tq .apt .search { flex-basis: 100%; }
   .tq .apt .kpi b { font-size: 22px; }
-  .tq .wcal { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tq .tbl thead { display: none; }
   .tq .tbl, .tq .tbl tbody, .tq .tbl tr, .tq .tbl td { display: block; width: 100%; }
   .tq .apt .tw { padding: 0; background: none; box-shadow: none; backdrop-filter: none; border: 0; }
@@ -108,15 +107,6 @@
 }
 
 
-/* ---------- Profile (mobile) ---------- */
-/* Profile: phone */
-@media (max-width: 760px) {
-  .tq .pg--profile .pf-comp { flex: 1 1 100%; min-width: 0; }
-  .tq .pg--profile .pf-top { margin-top: -4px; }
-  .tq .pg--profile .pf-preview { max-width: none; }
-}
-
-
 /* ---------- Audience (mobile) ---------- */
 /* Audience phone layout: container queries on .au in common/sections.css. */
 
@@ -136,15 +126,6 @@
   .tq .pg--content .rasi { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .tq .pg--content .rasi b { padding-top: 0; }
   .tq .pg--content .cm-top .btn { flex: 1; }
-}
-
-
-/* ---------- Analytics (mobile) ---------- */
-@media (max-width: 760px) {
-  .tq .pg--analytics .an-range { width: 100%; }
-  .tq .pg--analytics .an-range input[type='date'] { flex: 1 1 130px; }
-  .tq .pg--analytics .hbars { gap: 6px; }
-  .tq .pg--analytics .hlab { gap: 6px; }
 }
 
 
@@ -170,14 +151,6 @@
 }
 
 
-
-
-/* ---------- Help & Support (mobile) ---------- */
-@media (max-width: 760px) {
-  .tq .pg--support .sp-cats .pgrid--sm { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  .tq .pg--support .sp-cats .kpi--link { min-height: 0; padding: 12px 14px; }
-  .tq .pg--support .form textarea:not(.short) { min-height: 140px; }
-}
 
 
 /* ---------- Instant Call & Chat (mobile) ---------- */

@@ -15,6 +15,10 @@
 @import './common/settings.css' layer(components);
 @import './common/remedies.css' layer(components);
 @import './common/content.css' layer(components);
+@import './common/profile.css' layer(components);
+@import './common/analytics.css' layer(components);
+@import './common/support.css' layer(components);
+@import './common/appointments.css' layer(components);
 
 @import './desktop/home.css' layer(components);
 @import './desktop/sections.css' layer(components);

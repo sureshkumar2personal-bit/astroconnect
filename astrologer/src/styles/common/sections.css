@@ -281,11 +281,8 @@
 .tq .apt .note--bad { border: 1.5px solid var(--bad); }
 .tq .apt .go[aria-disabled='true'] { cursor: default; }
 .tq .apt .stack { display: flex; flex-direction: column; gap: 10px; }
-.tq .apt .stack-sm { display: flex; flex-direction: column; gap: 8px; }
 .tq .apt .split2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-.tq .apt .grid-lg { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); align-items: start; }
 .tq .apt .fact b { overflow-wrap: anywhere; }
-.tq .apt-day { width: 44px; }
 .tq .apt input[type='time'], .tq .apt input[type='date'] { height: 40px; padding: 0 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--sf2); min-width: 0; }
 .tq .apt input[type='file'] { font-size: 12px; }
 .tq .apt textarea.short { min-height: 90px; }
@@ -307,12 +304,6 @@
 .tq .apt .ic { width: 56px; min-height: 40px; border-radius: 12px; background: var(--sf3); color: var(--link); display: inline-flex; align-items: center; justify-content: center; flex: none; font-weight: 700; font-size: 11.5px; text-align: center; white-space: pre-line; line-height: 1.2; }
 
 /* Weekly / monthly calendar. */
-.tq .wcal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-.tq .wcal > div { background: var(--card-surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px; min-height: 90px; font-size: 11px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.tq .wcal > .mday { min-height: 56px; }
-.tq .wcal .slot { background: var(--sf3); border-radius: 6px; padding: 3px 5px; }
-.tq .wcal .bk { background: var(--pri); color: var(--on-pri); border-radius: 6px; padding: 3px 5px; text-decoration: none; overflow-wrap: anywhere; }
-.tq .wcal .cl { opacity: 0.5; text-decoration: line-through; }
 
 /* ======================================================================
    Section pages (Live, Earnings, Profile and the "More" pages).
@@ -430,24 +421,6 @@
 .tq .pg--earnings .tbl td .pend { white-space: nowrap; }
 .tq .pg--earnings .form label.radio { height: auto; min-height: 44px; padding: 8px 12px; }
 .tq .pg--earnings .form label.radio .grow { font-weight: 500; }
-
-
-/* ---------- Profile (shared) ---------- */
-/* ---------- Profile & Verification (spec 04, AD-79 – AD-87) ---------- */
-.tq .pg--profile .pf-top { justify-content: flex-end; }
-.tq .pg--profile .pf-av { background: var(--avatar); border: 2px solid var(--gold); color: var(--heading); font-family: 'Playfair Display', serif; }
-.tq .pg--profile .pf-id { gap: 14px; }
-.tq .pg--profile .pf-comp { min-width: 220px; display: flex; flex-direction: column; gap: 6px; }
-.tq .pg--profile .pf-comp .prog { flex: none; }
-.tq .pg--profile .pf-kv b { text-align: right; overflow-wrap: anywhere; }
-.tq .pg--profile .pf-link { color: var(--link); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; align-self: flex-start; }
-.tq .pg--profile .pf-link:hover { color: var(--ink); }
-.tq .pg--profile .pf-upload { cursor: pointer; width: 100%; }
-.tq .pg--profile .pf-upload:focus-within { outline: 3px solid var(--pri); outline-offset: 2px; }
-.tq .pg--profile .pf-file { flex-wrap: wrap; align-items: center; }
-.tq .pg--profile .pf-file input[type='file'] { flex: 1 1 200px; min-width: 0; padding-top: 10px; }
-.tq .pg--profile .form input:disabled { opacity: 0.6; cursor: not-allowed; }
-.tq .pg--profile .pf-preview { max-width: 420px; width: 100%; }
 
 
 /* ---------- Audience ---------- */
@@ -666,14 +639,6 @@
 .tq .pg--content .preview .av { background: var(--avatar); color: var(--heading); }
 
 
-/* ---------- Analytics (shared) ---------- */
-/* ---------- Analytics (spec 13) ---------- */
-.tq .pg--analytics .an-filters { gap: 10px 12px; }
-.tq .pg--analytics .an-range { gap: 8px; flex-wrap: wrap; }
-.tq .pg--analytics .hbars + .hlab { margin-top: -4px; }
-.tq .pg--analytics .pgrid { align-items: stretch; }
-
-
 /* ---------- Remedy Tracker (shared) ---------- */
 /* ---------- Remedy Tracker (spec 17) ---------- */
 .tq .pg--remedies .pgrid { align-items: stretch; }
@@ -703,18 +668,6 @@
 .tq .pg--activity .act-time { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
 
 
-
-
-/* ---------- Help & Support (shared) ---------- */
-/* ---------- Help & Support (spec 16) ---------- */
-.tq .pg--support .sp-top { justify-content: flex-end; }
-.tq .pg--support .sp-cats .kpi--link { min-height: 56px; justify-content: flex-start; }
-.tq .pg--support .sp-cats .kpi--link b { font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
-.tq .pg--support .tbl td a { color: var(--link); }
-.tq .pg--support .form textarea:not(.short) { min-height: 200px; }
-.tq .pg--support .fact b, .tq .pg--support .tbl td { overflow-wrap: anywhere; }
-.tq .pg--support .tbl td a { text-decoration: underline; }
-.tq .pg--support .tbl td > * { min-width: 0; }
 
 
 /* ---------- Instant Call & Chat (shared) ---------- */
@@ -819,8 +772,6 @@
 .tq .xtbl-d__body .rv-info__head { align-self: stretch; gap: 10px; }
 .tq .xtbl-d__body .rv-info__text { margin: 0; font-size: 14px; line-height: 1.5; }
 .tq .xtbl-d__body > .card { align-self: stretch; }
-.tq .xtbl-d__body .sp-hist { display: flex; flex-direction: column; gap: 8px; align-self: stretch; padding: 12px; border-radius: 12px; background: var(--sf); border: 1px solid var(--line); }
-.tq .xtbl-d__body .sp-hist__h { color: var(--link); }
 .tq .xtbl-d__body > textarea { align-self: stretch; }
 /* Appointment Details inside an expanded Appointments-list row: compact, full width, no page chrome. */
 .tq .xtbl-d__body > .apt-inline { align-self: stretch; }
